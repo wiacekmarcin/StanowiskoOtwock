@@ -21,7 +21,6 @@ MessageSerial::MessageSerial()
     posX = 0;
 
     wasWelcomeMsg = false;
-    timeSendRadioVal = 0;
 }
 
 void MessageSerial::init() {
