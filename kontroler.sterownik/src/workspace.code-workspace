@@ -3,10 +3,6 @@
 		{
 			"path": ".."
 		},
-		{
-			"name": "TestFreq",
-			"path": "../../../Documents/PlatformIO/Projects/TestFreq"
-		}
 	],
 	"settings": {}
 }

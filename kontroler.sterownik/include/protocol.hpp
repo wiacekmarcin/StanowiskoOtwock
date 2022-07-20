@@ -53,9 +53,9 @@ public:
         POS_X,
         POS_Y,
         POS_DONE,
-        GET_RADIOVAL,
         RETURN_HOME,
         RETURN_DONE,
+
     } Work;
 
     typedef enum _cmd {
@@ -65,10 +65,10 @@ public:
         SET_PARAM_REP = 4,
         POSITION_REQ = 5,
         POSITION_REP = 6,
-        MEASVALUE_REQ = 7,
-        MEASVALUE_REP = 8,
-        MEASUNIT_REQ = 9,
-        MEASUNIT_REP = 10,
+        //MEASVALUE_REQ = 7,
+        //MEASVALUE_REP = 8,
+        //MEASUNIT_REQ = 9,
+        //MEASUNIT_REP = 10,
         MOVEHOME_REQ = 11,
         MOVEHOME_REP = 12,
         
@@ -92,10 +92,6 @@ public:
     void sendPositionDoneY(uint32_t step, uint32_t pos);
     
     void sendPositionDone();
-
-    void sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, uint16_t val4); 
-    void sendRadioError();
-    void sendRadioDebug(uint16_t val1);   
 
     void sendRetHomeStart();
     void sendRetHomeYDone(uint32_t step);
@@ -142,7 +138,6 @@ protected:
     uint32_t posX;
 
     bool wasWelcomeMsg;
-    unsigned long timeSendRadioVal;
 };
 
 #endif // !_PROTOCOL_H_
