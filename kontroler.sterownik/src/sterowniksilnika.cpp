@@ -37,13 +37,18 @@ volatile int32_t gActPosImpY = 0;
 volatile int32_t gActPosStepX = 0;
 volatile int32_t gActPosStepY = 0;
 
+/* Aktualna pozycja silnika rolety */
+volatile int32_t gActPosStepRol  = 0;
+
+
 /* ilosc impulsow do przesuniecia */
 volatile int32_t gMoveImpX = 0;
 volatile int32_t gMoveImpY = 0;
 
-static volatile bool homePosX = false;
+static volatile bool homePosX   = false;
 static volatile bool homePosY   = false;
 
+static volatile bool homePosRol = false;
 
 volatile bool canMoveX = false;
 volatile bool canMoveY = false;
@@ -107,11 +112,11 @@ void stepX(uint16_t delay1, uint16_t delay2)
     delayMicroseconds(delay1);
     //digitalWrite(PULSE_X, HIGH);
     //digitalWrite(PULSE_Y, HIGH);
-    PORTF.OUTSET = 0x0d;
+    PORTF.OUTSET = 0x0c;
     delayMicroseconds(delay2);
     //digitalWrite(PULSE_X, LOW);
     //digitalWrite(PULSE_Y, LOW);
-    PORTF.OUTCLR = 0x0d;
+    PORTF.OUTCLR = 0x0c;
 }
 
 void stepY(uint16_t delay1, uint16_t delay2)
@@ -120,7 +125,7 @@ void stepY(uint16_t delay1, uint16_t delay2)
     digitalWrite(PULSE_Y, HIGH);
     delayMicroseconds(delay2);
     digitalWrite(PULSE_Y, LOW);
-    PORTF.OUTCLR = 0x0d;
+    //PORTF.OUTCLR = 0x0d;
 }
 
 bool returnBaseX()
