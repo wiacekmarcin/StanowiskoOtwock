@@ -91,8 +91,9 @@ bool work()
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_START:
-            msg.sendRoletaStart();
-            if ()
+            
+            setPosR(msg.getRol());
+
         return true;
         case MessageSerial::ROL_HOME:
         return true;

@@ -25,7 +25,7 @@ public :
     void sendPositionDone();
 
     void sendRoletaStart();
-    void sendRoletaDone(uint32_t step, uint32_t stepPos));
+    void sendRoletaDone(uint32_t step, uint32_t stepPos);
 
     void sendRetHomeStart();
     void sendRetHomeYDone(uint32_t step);
@@ -34,6 +34,7 @@ public :
     void sendRetHomeXStart();
     void sendRetHomeDone();
 
+    void sendRetHomeRStart();
     void sendRetHomeRDone();
 
     void sendAckSettings(uint8_t nr);

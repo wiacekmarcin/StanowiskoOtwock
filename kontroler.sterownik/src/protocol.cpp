@@ -298,6 +298,12 @@ void MessageSerial::sendRetHomeXStart()
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
+void MessageSerial::sendRetHomeRStart()
+{
+    uint8_t sendData[1] = {'R'};
+    sendMessage(MOVEHOME_REP, sendData, 1);
+}
+
 void MessageSerial::sendRetHomeDone()
 {
     uint8_t sendData[1] = {'K'};
@@ -307,6 +313,12 @@ void MessageSerial::sendRetHomeDone()
 void MessageSerial::sendRetHomeStart()
 {
     uint8_t sendData[1] = {'s'};
+    sendMessage(MOVEHOME_REP, sendData, 1);
+}
+
+void MessageSerial::sendRetHomeRDone()
+{
+    uint8_t sendData[1] = {'r'};
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
@@ -403,3 +415,5 @@ void MessageSerial::sendRoletaDone(uint32_t step, uint32_t stepPos)
     sendData[8] = stepPos & 0xff;
     sendMessage(POSITION_REP, sendData, 9);
 }
+
+

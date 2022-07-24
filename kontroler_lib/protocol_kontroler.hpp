@@ -52,11 +52,9 @@
 //71 52 0e - req home roleta
 //q  R 
 
-//81 50 14 - rep home position
-//   P
-
-//81 52 1a - rep home position
-//   R
+//81 S/l/d/G/K/R/r/ CRC8 - rep home position
+//                                S=start, l=start lewoprawo, P=end lewoprawo, 
+//                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
 
 //set parameters
 //3a 01 STATUSBYTE IMPX4 IMPX3 IMPX2 IMPX1 IMPY4 IMPY3 IMPY2 IMPY1 CRC8- ustawianie parametrow 

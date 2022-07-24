@@ -244,9 +244,9 @@ bool returnBaseY()
 
 bool returnBaseR()
 {
-    msg.sendRetHomeYStart();
+    msg.sendRetHomeRStart();
     setHomePosR();
-    setDirY(R_UP);
+    setDirR(R_UP);
 
     uint32_t step = 0;
 
@@ -269,7 +269,7 @@ bool returnBaseR()
             stepR(1000,1000);
         }
     }
-    msg.sendRetHomeRDone(step);
+    msg.sendRetHomeRDone();
     gActPosStepRol = 0;
 
     return true;
@@ -284,7 +284,7 @@ void setDirY(bool gora) {
     digitalWrite(DIR_Y, (gora ^ reverseY ? LOW : HIGH));
 }
 
-void setDirY(bool gora) {
+void setDirR(bool gora) {
     digitalWrite(DIR_R, (gora ^ reverseR ? LOW : HIGH));
 }
 
@@ -414,9 +414,9 @@ uint32_t delayPulse(uint32_t step, uint32_t steps) {
 
 void setPosY(uint32_t pos)
 {
-#ifdef DEBUG_SERIAL
-    Serial1.print("gActPosImpY=");
-    Serial1.println(gActPosImpY, DEC);
+#ifdef DEBUG
+    Serial.print("gActPosImpY=");
+    Serial.println(gActPosImpY, DEC);
 #endif    
     msg.sendPositionStartY();
     
@@ -428,8 +428,8 @@ void setPosY(uint32_t pos)
     
     if (gActPosImpY == pos) {
         msg.sendPositionDoneY(0, gActPosStepY);
-#ifdef DEBUG_SERIAL        
-        Serial1.println("gPos == pos");
+#ifdef DEBUG        
+        Serial.println("gPos == pos");
 #endif        
         return;
     }
@@ -445,10 +445,10 @@ void setPosY(uint32_t pos)
     } else {
         gMoveImpY = gActPosImpY - pos;
     }
-#ifdef DEBUG_SERIAL    
-    Serial1.print(goraK ? "Ruch w dol " : "Ruch w gore ");
-    Serial1.print(gMoveImpY, DEC);
-    Serial1.println(" impulsow\n---");
+#ifdef DEBUG    
+    Serial.print(goraK ? "Ruch w dol " : "Ruch w gore ");
+    Serial.print(gMoveImpY, DEC);
+    Serial.println(" impulsow\n---");
 #endif
 
     uint32_t imps = gMoveImpY;
@@ -465,15 +465,15 @@ void setPosY(uint32_t pos)
             stepY(20,delayPulse(imps - gMoveImpY, imps));
         }
     }
-#ifdef DEBUG_SERIAL    
-    Serial1.print("gActPosImpY=");
-    Serial1.println(gActPosImpY, DEC);
-    Serial1.print("step=");
-    Serial1.println(step, DEC);
-    Serial1.print("canMoveY=");
-    Serial1.println(canMoveY,DEC);
-    Serial1.print("gStepMaxY=");
-    Serial1.println(gStepMaxY, DEC);
+#ifdef DEBUG    
+    Serial.print("gActPosImpY=");
+    Serial.println(gActPosImpY, DEC);
+    Serial.print("step=");
+    Serial.println(step, DEC);
+    Serial.print("canMoveY=");
+    Serial.println(canMoveY,DEC);
+    Serial.print("gStepMaxY=");
+    Serial.println(gStepMaxY, DEC);
 #endif    
     attachEnkoderY(false);
     gActPosStepY += goraK ? step : -step;
@@ -483,9 +483,9 @@ void setPosY(uint32_t pos)
 void setPosX(uint32_t pos)
 {
     msg.sendPositionStartX();
-#ifdef DEBUG_SERIAL    
-    Serial1.print("gActPosImpX=");
-    Serial1.print(gActPosImpX, DEC);
+#ifdef DEBUG    
+    Serial.print("gActPosImpX=");
+    Serial.print(gActPosImpX, DEC);
 #endif
 
 #ifdef TEST_SILNIKA
@@ -496,8 +496,8 @@ void setPosX(uint32_t pos)
 
     if (gActPosImpX == pos) {
         msg.sendPositionDoneX(0, gActPosStepX);
-#ifdef DEBUG_SERIAL        
-        Serial1.println("gActPosImpX == pos");
+#ifdef DEBUG        
+        Serial.println("gActPosImpX == pos");
 #endif        
         return;
     }
@@ -510,10 +510,10 @@ void setPosX(uint32_t pos)
         gMoveImpX = gActPosImpX - pos;
     }
     uint32_t imps = gMoveImpX;
-#ifdef DEBUG_SERIAL
-    Serial1.println(lewoK ? "Ruch w Lewo " : "Ruch w prawo ");
-    Serial1.print(gMoveImpX, DEC);
-    Serial1.println(" impulsow\n---");
+#ifdef DEBUG
+    Serial.println(lewoK ? "Ruch w Lewo " : "Ruch w prawo ");
+    Serial.print(gMoveImpX, DEC);
+    Serial.println(" impulsow\n---");
 #endif
     setDirX(lewoK);
     int32_t step = 0;
@@ -529,15 +529,15 @@ void setPosX(uint32_t pos)
         }
     }
 
-#ifdef DEBUG_SERIAL    
-    Serial1.print("gActPosImpX=");
-    Serial1.print(gActPosImpX, DEC);
-    Serial1.print("step=");
-    Serial1.println(step, DEC);
-    Serial1.print("canMoveX=");
-    Serial1.println(canMoveX,DEC);
-    Serial1.print("gStepMaxX=");
-    Serial1.println(gStepMaxX, DEC);
+#ifdef DEBUG    
+    Serial.print("gActPosImpX=");
+    Serial.print(gActPosImpX, DEC);
+    Serial.print("step=");
+    Serial.println(step, DEC);
+    Serial.print("canMoveX=");
+    Serial.println(canMoveX,DEC);
+    Serial.print("gStepMaxX=");
+    Serial.println(gStepMaxX, DEC);
 #endif
 
     attachEnkoderX(false);
@@ -560,7 +560,7 @@ void setPosR(uint32_t pos)
 #endif
     
     if (gActPosStepRol == pos) {
-        msg.sendRoletaDone(pos, gActPosStepRol);
+        msg.sendRoletaDone(0, gActPosStepRol);
 #ifdef DEBUG        
         Serial.println("gPos == pos");
 #endif        
@@ -572,9 +572,9 @@ void setPosR(uint32_t pos)
 
     bool goraK = gActPosStepRol < pos;
     if (goraK) {
-        gMoveStepR = pos - gActPosImpY;
+        gMoveStepR = pos - gActPosStepRol;
     } else {
-        gMoveStepR = gActPosImpY - pos;
+        gMoveStepR = gActPosStepRol - pos;
     }
 #ifdef DEBUG
     Serial.print(goraK ? "Ruch w dol " : "Ruch w gore ");
@@ -587,28 +587,28 @@ void setPosR(uint32_t pos)
     int32_t step = 0;
     //canMoveY = true;
 
-    if (gMoveImpY < 2*sizeImpuls + 10) {
-        while(gMoveImpY >= 0 && ++step < gStepMaxY) {
-            stepY(20,500);
+    if (gMoveStepR < 2*sizeImpuls + 10) {
+        while(gMoveStepR >= 0 && ++step < gStepMaxR) {
+            stepR(20,500);
+            --gMoveStepR;
         }
     } else {
-        while(gMoveImpY >= 0 && ++step < gStepMaxY) {
-            stepY(20,delayPulse(imps - gMoveImpY, imps));
+        while(gMoveStepR >= 0 && ++step < gMoveStepR) {
+            stepR(20,delayPulse(imps - gMoveStepR, imps));
+            --gMoveStepR;
         }
     }
 #ifdef DEBUG   
-    Serial.print("gActPosImpY=");
-    Serial.println(gActPosImpY, DEC);
+    Serial.print("gActPosStepRol=");
+    Serial.println(gActPosStepRol, DEC);
     Serial.print("step=");
     Serial.println(step, DEC);
-    Serial.print("canMoveY=");
-    Serial.println(canMoveY,DEC);
-    Serial.print("gStepMaxY=");
-    Serial.println(gStepMaxY, DEC);
+    Serial.print("gMoveStepR=");
+    Serial.println(gMoveStepR, DEC);
 #endif    
 
-    gActPosStepY += goraK ? step : -step;
-    msg.sendPositionDoneY(step, gActPosStepY);
+    gActPosStepRol += goraK ? step : -step;
+    msg.sendPositionDoneY(step, gActPosStepRol);
 }
 
 
