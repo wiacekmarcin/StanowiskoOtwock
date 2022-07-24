@@ -1,6 +1,6 @@
 #include "protocol.hpp"
 
-#include "../../kontroler.lib/protocol_kontroler.cpp"
+#include "../../kontroler_lib/protocol_kontroler.cpp"
 
 //10 imp silnika na 1 mm
 #include "platform.h"
@@ -310,8 +310,6 @@ void MessageSerial::sendRetHomeStart()
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
-
-
 void MessageSerial::setErrorHomeBack()
 {
     actWork = NOP;
@@ -319,9 +317,18 @@ void MessageSerial::setErrorHomeBack()
     sendMessage(MOVEHOME_REP, sendData, 2);
 }
 
+void MessageSerial::setErrorRoletaHomeBack()
+{
+    actWork = NOP;
+    uint8_t sendData[2] = {'E', 'R'};
+    sendMessage(MOVEHOME_REP, sendData, 2);
+}
+
+
+
 void MessageSerial::sendPositionStart()
 {
-    uint8_t sendData[1] = {'s'};
+    uint8_t sendData[1] = {'S'};
     sendMessage(POSITION_REP, sendData, 1);
 }
 
@@ -377,8 +384,22 @@ void MessageSerial::sendAckSettings(uint8_t nr)
     sendMessage(SET_PARAM_REP, sendData, 1);
 }
 
-void MessageSerial::sendRoletaDone() 
+void MessageSerial::sendRoletaStart()
 {
-    uint8_t sendData[1] = {'r'};
+    uint8_t sendData[1] = {'R'};
     sendMessage(POSITION_REP, sendData, 1);
+}
+
+void MessageSerial::sendRoletaDone(uint32_t step, uint32_t stepPos)
+{
+    uint8_t sendData[9] = {'r', 0, 0, 0, 0, 0, 0, 0, 0};
+    sendData[1] = (step >> 24) & 0xff;
+    sendData[2] = (step >> 16) & 0xff;
+    sendData[3] = (step >> 8) & 0xff;
+    sendData[4] = step & 0xff;
+    sendData[5] = (stepPos >> 24) & 0xff;
+    sendData[6] = (stepPos >> 16) & 0xff;
+    sendData[7] = (stepPos >> 8) & 0xff;
+    sendData[8] = stepPos & 0xff;
+    sendMessage(POSITION_REP, sendData, 9);
 }

@@ -2,10 +2,10 @@
 #define _PROTOCOL_H_
 
 #include <Arduino.h>
-#include "../../kontroler.lib/crc8.h"
+#include "../../kontroler_lib/crc8.h"
 
 #define SILNIK 1
-#include "../../kontroler.lib/protocol_kontroler.hpp"
+#include "../../kontroler_lib/protocol_kontroler.hpp"
 
 class MessageSerial : public MessageSerialBase
 {
@@ -25,7 +25,7 @@ public :
     void sendPositionDone();
 
     void sendRoletaStart();
-    void sendRoletaDone();
+    void sendRoletaDone(uint32_t step, uint32_t stepPos));
 
     void sendRetHomeStart();
     void sendRetHomeYDone(uint32_t step);
@@ -38,6 +38,7 @@ public :
 
     void sendAckSettings(uint8_t nr);
     void setErrorHomeBack();
+    void setErrorRoletaHomeBack();
 
     uint32_t getPosX() const { return posX; }
     uint32_t getPosY() const { return posY; }

@@ -7,6 +7,8 @@
 
 #define Y_DOWN false
 #define Y_UP true
+#define R_DOWN false
+#define R_UP true
 
 #include "platform.h"
 #include <Arduino.h>
@@ -15,18 +17,23 @@ void initCzujnikiKrancowe();
 
 void setHomePosX();
 void setHomePosY();
+void setHomePosR();
 
 inline bool getHomePosX();
 inline bool getHomePosY();
+inline bool getHomePosR();
 
 bool returnBaseX();
 bool returnBaseY();
+bool returnBaseR();
 
 void setDirX(bool lewo);
 void setDirY(bool gora);
+void setDirR(bool gora);
 
 void attachEnkoderY(bool attach);
 void attachEnkoderX(bool attach);
+
 
 void initEnkodery();
 
@@ -41,10 +48,11 @@ void initSilniki();
 uint32_t delayPulse(uint32_t step, uint32_t steps);
 
 void setPosY(uint32_t pos);
-
 void setPosX(uint32_t pos);
+void setPosR(uint32_t pos);
 
 void clearPos();
+void clearPosRol();
 
 void checkMaxImpuls();
 

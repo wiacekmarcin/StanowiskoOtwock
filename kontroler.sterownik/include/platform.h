@@ -15,7 +15,11 @@
 #define DIR_X A3 //17
 #define ENABLE_X  A2 //16
 
+#define PULSE_R 8 //
+#define DIR_R 7 //
+#define ENABLE_R  6 //
+
 #define BASE_Y 10
 #define BASE_X 9
 
-#define BASE_R 11
+#define BASE_R 12

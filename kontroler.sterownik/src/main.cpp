@@ -46,17 +46,17 @@ bool work()
 {
     static MessageSerial::Work prevWork = MessageSerial::NOP;
     MessageSerial::Work actWork = msg.getStatusWork();
-    //if (prevWork != actWork) {
-#ifdef DEBUG_SERIAL        
+#ifdef DEBUG
+    if (prevWork != actWork) {
         Serial.println("ACTWORK=");
         Serial.println(actWork, DEC);
-#endif        
-        //Serial.println("ACTWORK=");
-        //Serial.println(actWork, DEC);
-        //prevWork = actWork;
-        //delay(1000);
-    //}
-    
+
+        Serial.println("ACTWORK=");
+        Serial.println(actWork, DEC);
+        prevWork = actWork;
+        delay(1000);
+    }
+#endif            
     if (actWork == MessageSerial::NOP) {
         return false;
     }
@@ -90,10 +90,17 @@ bool work()
             msg.sendRetHomeDone();
             actWork = MessageSerial::NOP;
         return true;
-
+        case MessageSerial::ROL_START:
+            msg.sendRoletaStart();
+            if ()
+        return true;
+        case MessageSerial::ROL_HOME:
+        return true;
+        case MessageSerial::ROL_DONE:
+        return true;
         default:
-#ifdef DEBUG_SERIAL                
-            Serial.println("UNKNOWN");
+#ifdef DEBUG                
+            Serial.println("UNKNOWN WORK TYPE");
 #endif            
         break;
     }

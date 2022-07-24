@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "../../kontroler.lib/crc8.h"
+#include "../../kontroler_lib/crc8.h"
 #define MAXLENPROTO 17
 
 // |      HEAD       | n1 | n2 | .... | n15 | CRC8
@@ -20,20 +20,18 @@
 //55 52 R4 R3 R2 R1 CRC8 - req ustawienie rolety 
 //U  R
 
-//61 S/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges S=start, l=start lewoprawo, P=end lewoprawo, 
+//61 S/l/d/G/K/R/r/  CRC8 - reply setting position in proges S=start, l=start lewoprawo, P=end lewoprawo, 
 //                            d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
 //62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
+//69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+//69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
 
 //61 53 5e - start ustawiania pozycji ogolnie
 //a  S  ^
 //61 63 e3 - start ustawianie lewo-prawo
 //a  l  
-//61 50 57 - koniec ustawiania lewo-prawo
-//a  P  W
 //61 64 db - poczatek ustawianai dol-gora
 //a  d  
-//61 47 32 - koniec ustawienia dol-gora
-//a  G  2
 //61 4b 16 - koniec wszystkiego
 //a  K   
 //61 52 59 - start ustawiania rolety

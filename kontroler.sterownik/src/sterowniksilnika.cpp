@@ -48,11 +48,12 @@ volatile int32_t gActPosStepRol  = 0;
 /* ilosc impulsow do przesuniecia */
 volatile int32_t gMoveImpX = 0;
 volatile int32_t gMoveImpY = 0;
+volatile int32_t gMoveStepR = 0;
 
 static volatile bool homePosX   = false;
 static volatile bool homePosY   = false;
 
-static volatile bool homePosRol = false;
+static volatile bool homePosR   = false;
 
 volatile bool canMoveX = false;
 volatile bool canMoveY = false;
@@ -87,6 +88,9 @@ void initCzujnikiKrancowe()
 
     pinMode(BASE_X, INPUT);
     attachInterrupt(digitalPinToInterrupt(BASE_X), setHomePosX, CHANGE);
+
+    pinMode(BASE_R, INPUT);
+    attachInterrupt(digitalPinToInterrupt(BASE_R), setHomePosR, CHANGE);
 }
 
 void setHomePosX()
@@ -101,6 +105,13 @@ void setHomePosY()
     //canMoveY = !homePosY;
 }
 
+void setHomePosR()
+{
+    homePosR = digitalRead(BASE_R) == LOW;
+    //canMoveR = !homePosR;
+}
+
+
 inline bool getHomePosX()
 {
     return homePosX;
@@ -109,6 +120,11 @@ inline bool getHomePosX()
 inline bool getHomePosY()
 {
     return homePosY;
+}
+
+inline bool getHomePosR()
+{
+    return homePosR;
 }
 
 void stepX(uint16_t delay1, uint16_t delay2)
@@ -129,6 +145,15 @@ void stepY(uint16_t delay1, uint16_t delay2)
     digitalWrite(PULSE_Y, HIGH);
     delayMicroseconds(delay2);
     digitalWrite(PULSE_Y, LOW);
+    //PORTF.OUTCLR = 0x0d;
+}
+
+void stepR(uint16_t delay1, uint16_t delay2)
+{
+    delayMicroseconds(delay1);
+    digitalWrite(PULSE_R, HIGH);
+    delayMicroseconds(delay2);
+    digitalWrite(PULSE_R, LOW);
     //PORTF.OUTCLR = 0x0d;
 }
 
@@ -217,6 +242,39 @@ bool returnBaseY()
     return true;
 }
 
+bool returnBaseR()
+{
+    msg.sendRetHomeYStart();
+    setHomePosR();
+    setDirY(R_UP);
+
+    uint32_t step = 0;
+
+
+    if (!getHomePosR()) {
+        
+        while (!getHomePosR() && ++step < gStepMaxR) {
+            stepR(400, 400);
+        }
+        if (!getHomePosR()) {
+            msg.setErrorRoletaHomeBack();
+            return false;
+
+        }
+
+        //przesuwam jeszcze z 2mm glebiej karetke
+        uint8_t idx = 200;
+        step += 200;
+        while (--idx) {
+            stepR(1000,1000);
+        }
+    }
+    msg.sendRetHomeRDone(step);
+    gActPosStepRol = 0;
+
+    return true;
+}
+
 void setDirX(bool lewo) {
     digitalWrite(DIR_Y, (lewo ^ reverseX) ? HIGH : LOW);
     digitalWrite(DIR_X, (lewo ^ reverseX) ? HIGH : LOW);
@@ -224,6 +282,10 @@ void setDirX(bool lewo) {
 
 void setDirY(bool gora) {
     digitalWrite(DIR_Y, (gora ^ reverseY ? LOW : HIGH));
+}
+
+void setDirY(bool gora) {
+    digitalWrite(DIR_R, (gora ^ reverseR ? LOW : HIGH));
 }
 
 void attachEnkoderY(bool attach) {
@@ -318,12 +380,21 @@ void initSilniki()
     digitalWrite(DIR_Y, LOW);
     digitalWrite(PULSE_Y, LOW);
 
+    pinMode(ENABLE_R, OUTPUT);
+    pinMode(DIR_R, OUTPUT);
+    pinMode(PULSE_R, OUTPUT);
+    digitalWrite(ENABLE_R, LOW);
+    digitalWrite(DIR_R, LOW);
+    digitalWrite(PULSE_R, LOW);
+
     delay(100);
     digitalWrite(ENABLE_Y, HIGH);
     digitalWrite(ENABLE_X, HIGH);
+    digitalWrite(ENABLE_R, HIGH);
     delay(100);
     digitalWrite(ENABLE_Y, LOW);
     digitalWrite(ENABLE_X, LOW);
+    digitalWrite(ENABLE_R, LOW);
 }
 
 uint32_t delayPulse(uint32_t step, uint32_t steps) {
@@ -474,11 +545,81 @@ void setPosX(uint32_t pos)
     msg.sendPositionDoneX(step, gActPosStepX);
 }
 
+void setPosR(uint32_t pos)
+{
+#ifdef DEBUG
+    Serial.print("gActPosStepR=");
+    Serial.println(gActPosStepRol, DEC);
+#endif    
+    msg.sendRoletaStart();
+    
+#ifdef TEST_SILNIKA
+    delay(2000);
+    msg.sendRoletaDone(gActPosStepRol);
+    return;
+#endif
+    
+    if (gActPosStepRol == pos) {
+        msg.sendRoletaDone(pos, gActPosStepRol);
+#ifdef DEBUG        
+        Serial.println("gPos == pos");
+#endif        
+        return;
+    }
+    
+    if (gActPosStepRol < 0)
+        gActPosStepRol = 0;
+
+    bool goraK = gActPosStepRol < pos;
+    if (goraK) {
+        gMoveStepR = pos - gActPosImpY;
+    } else {
+        gMoveStepR = gActPosImpY - pos;
+    }
+#ifdef DEBUG
+    Serial.print(goraK ? "Ruch w dol " : "Ruch w gore ");
+    Serial.print(gMoveImpY, DEC);
+    Serial.println(" impulsow\n---");
+#endif
+
+    uint32_t imps = gMoveStepR;
+    setDirR(goraK);
+    int32_t step = 0;
+    //canMoveY = true;
+
+    if (gMoveImpY < 2*sizeImpuls + 10) {
+        while(gMoveImpY >= 0 && ++step < gStepMaxY) {
+            stepY(20,500);
+        }
+    } else {
+        while(gMoveImpY >= 0 && ++step < gStepMaxY) {
+            stepY(20,delayPulse(imps - gMoveImpY, imps));
+        }
+    }
+#ifdef DEBUG   
+    Serial.print("gActPosImpY=");
+    Serial.println(gActPosImpY, DEC);
+    Serial.print("step=");
+    Serial.println(step, DEC);
+    Serial.print("canMoveY=");
+    Serial.println(canMoveY,DEC);
+    Serial.print("gStepMaxY=");
+    Serial.println(gStepMaxY, DEC);
+#endif    
+
+    gActPosStepY += goraK ? step : -step;
+    msg.sendPositionDoneY(step, gActPosStepY);
+}
+
+
 void clearPos() {
     gActPosImpY = 0;
     gActPosImpX = 0;
 }
 
+void clearPosRol() {
+    gActPosStepRol = 0;
+}
 //290674
 //[16:40:48:385] POS=-68497
 //[16:40:48:397] IMP=275794
