@@ -91,13 +91,14 @@ bool work()
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_START:
-            
             setPosR(msg.getRol());
-
         return true;
         case MessageSerial::ROL_HOME:
+            returnBaseR();
+            actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_DONE:
+            actWork = MessageSerial::NOP;
         return true;
         default:
 #ifdef DEBUG                
