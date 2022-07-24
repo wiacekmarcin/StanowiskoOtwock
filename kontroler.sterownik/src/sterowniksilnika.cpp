@@ -10,6 +10,9 @@ int32_t gImpMaxY = 301000L;
 int32_t gStepMaxX = 73000L;
 int32_t gStepMaxY = 76000L;
 
+
+int32_t gStepMaxR = 40000L;
+
 #ifdef OKNO_SILNIK_PRAWA
     bool reverseY = false;
     bool reverseX = true;
@@ -25,6 +28,7 @@ int32_t gStepMaxY = 76000L;
     bool reverseX = false;
 #endif
 
+bool reverseR = false;
 
 extern MessageSerial msg;
 
