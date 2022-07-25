@@ -8,7 +8,7 @@ MessageSerialBase::MessageSerialBase()
 
 void MessageSerialBase::init()
 {
-    actWork = NOP;
+    
 }
 
 

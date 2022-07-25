@@ -133,8 +133,9 @@ public:
         ERROR_REP = 15,
     } CMD;
 
+
     void sendError(const char * errorStr);
     void init();
     void sendMessage(uint8_t, uint8_t*,uint8_t) {}
-    Work  actWork;
 };
+    

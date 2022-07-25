@@ -46,13 +46,25 @@ public :
     uint32_t getRol() const { return rolP; }
 
     void init();
+
+    void setStop() { actWork = NOP; }    
+    Work getStatusWork() const { return actWork; }
+
 protected:
     void sendMessage(uint8_t cmd, uint8_t* buf, uint8_t len);
     bool parseRozkaz();
 private:
+    uint8_t data[MAXLENPROTO + 4];
+
     uint32_t posY;
     uint32_t posX;
     uint32_t rolP;
+
+    Work actWork;
+    uint8_t posCmd;
+    uint8_t rozkaz;
+    uint8_t dlugosc;
+    CRC8 crc;
 
 };
 
