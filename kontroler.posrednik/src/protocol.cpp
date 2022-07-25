@@ -1,204 +1,94 @@
 #include "protocol.hpp"
 
+#include "../../kontroler_lib/protocol_kontroler.cpp"
+#include "../../kontroler_lib/crc8.cpp"
 
-void Message::init() 
+//10 imp silnika na 1 mm
+#include "platform.h"
+
+MessageSerial::MessageSerial() 
 {
-    posCmd[0] = 0;
-    posCmd[1] = 0;
-    rozkaz[0] = 0;
-    rozkaz[1] = 0;
-    dlugosc[0] = 0;
-    dlugosc[1] = 0;
-    crc[0].restart();
-    crc[1].restart();
+    posCmd = 0;
+    rozkaz = 0;
+    dlugosc = 0;
+    crc.restart();
 }
 
-bool Message::check(uint8_t s, unsigned char c)
+void MessageSerial::init() 
 {
-    data[s][posCmd[s]++] = c;
-    if (posCmd[s]-1 == 0) {    
-        crc[s].restart();
-        crc[s].add(data[s][0]);
-        rozkaz[s] = data[s][0] >> 4;
-        dlugosc[s] = data[s][0] & 0x0f;
+    MessageSerialBase::init();
+#ifdef DEBUG    
+    Serial.begin(115200);
+#endif    
+    Serial1.begin(115200); 
+    Serial.begin(115200); 
+}
+
+bool MessageSerial::check(unsigned char c)
+{
+    data[posCmd++] = c;
+    data[posCmd] = '\0';
+#ifdef DEBUG        
+    Serial.print("NOWY ZNAK=");
+    Serial.println(c, HEX);
+#endif    
+    if (posCmd-1 == 0) {    
+        crc.restart();
+        crc.add(data[0]);
+        rozkaz = data[0] >> 4;
+        dlugosc = data[0] & 0x0f;
+#ifdef DEBUG            
+        Serial.print("ROZKAZ=");
+        Serial.println(rozkaz,DEC);
+        Serial.print("LEN=");
+        Serial.println(dlugosc, DEC);
+#endif        
         return false;
     }
     
-    if (posCmd[s] == dlugosc[s] + 2) {
-        uint8_t c = crc[s].getCRC();
-        if (data[s][posCmd[s]-1] == c) {
-            posCmd[s] = 0;
-            bool r = parse(s);
-            if (!r)
-                sendError("P:ZLY ROZKAZ", 12);
+    if (posCmd == dlugosc + 2) {
+        uint8_t c = crc.getCRC();
+#ifdef DEBUG            
+        Serial.print("CRC=");
+        Serial.print(c,HEX);
+        Serial.print("==");
+        Serial.println(data[posCmd-1],HEX);
+#endif        
+        if (data[posCmd-1] == c) {
+            posCmd = 0;
+            bool r = parseRozkaz();
+            if (!r) {
+                sendError("ZLY ROZKAZ");
+#ifdef DEBUG                    
+                Serial.println("ZLY ROZKAZ");
+#endif                
+            }
             return r;
         }
-        posCmd[s] = 0;
+        posCmd = 0;
+        sendError("ZLE CRC");
+#ifdef DEBUG            
+        Serial.print("CRC FAILD");
+#endif        
         return false;
 
     }
 
-    crc[s].add(data[s][posCmd[s]-1]);    
+    crc.add(data[posCmd-1]);    
     
     
-    if (posCmd[s] == MAXLENPROTO) {
-        posCmd[s] = 0;
-        sendError("P:ZBYT DUZA WI.", 15);
+    if (posCmd == MAXLENPROTO) {
+        posCmd = 0;
+        sendError("ZBYT DUZA WIAD");
+#ifdef DEBUG           
+        Serial.println("ZBYT DUZA WIADOMOSC");
+#endif        
         return false;    
     }
     return false;
 }
 
-bool Message::check1(unsigned char c) 
-{ 
-    return check(0, c); 
-}
-
-bool Message::check2(unsigned char c) 
-{ 
-    return check(1, c); 
-}
-
-Message::Work Message::getStatusWork() const 
-{ 
-    return actWork; 
-}
-
-bool Message::parse1() {
-
-    switch(rozkaz[0]) {
-        case NOP_REQ: 
-        {
-            uint8_t sendData2[2] = {0xff,0x00};
-            messageWrite1(sendData2,2);
-            sendMessage1(NOP_REP, nullptr, 0);
-            return true;
-        }
-        // get info |HEAD| CRC
-        case WELCOME_REQ:   //get info 
-        {                          //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
-            uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','P','O','S','R','E', 'D'};
-            sendMessage1(WELCOME_REP, sendData, 15);
-            return true;
-        }
-        case POSITION_REQ: 
-        {
-            //Serial.print("recv pos req ");
-            //Serial.print(dlugosc[0] + 2);
-            //sendRawMessage2(data[0], dlugosc[0] + 2);          
-            uint32_t n = parseNumber(data[0][1], data[0][2], data[0][3], data[0][4]);            
-            uint8_t tab[4];
-            tab[0] = (n >> 24) & 0xff;
-            tab[1] = (n >> 16) & 0xff;
-            tab[2] = (n >> 8) & 0xff;
-            tab[3] = n & 0xff;
-            delay(n);
-            sendMessage1(POSITION_REP, tab, 4);
-            return true;
-        }
-        case ECHO_REQ: 
-        {   
-            if (data[0][1] == 0) {
-                uint8_t sdata[1] = {0};
-                sendMessage1(ECHO_REP, sdata, 1);
-                return true;
-            }
-            if (data[0][1] == 1) {
-                sendRawMessage2(data[0], dlugosc[0]+2);
-                return true;
-            }
-        }
-        case MOVEHOME_REQ:
-        {
-            //Serial.print("move home req ");
-            //Serial.print(dlugosc[0] + 2);
-            //sendRawMessage2(data[0], dlugosc[0]+2);
-            uint32_t n = 55000;            
-            uint8_t tab[4];
-            tab[0] = (n >> 24) & 0xff;
-            tab[1] = (n >> 16) & 0xff;
-            tab[2] = (n >> 8) & 0xff;
-            tab[3] = n & 0xff;
-            delay(50000);
-            sendMessage1(MOVEHOME_REP, tab, 4);
-            return true;
-        }
-        case SET_PARAM_REQ:
-        {
-            //Serial.print("params set req ");
-            //Serial.print(dlugosc[0] + 2);
-            //sendRawMessage2(data[0], dlugosc[0]+2);
-            sendMessage1(SET_PARAM_REP, nullptr, 0);
-            return true;
-        }
-        case RESET_REQ: 
-        {
-            digitalWrite(2, LOW);
-            //digitalWrite(13, HIGH);
-            delay(1000);
-            digitalWrite(2, HIGH);
-            //digitalWrite(13, LOW);
-            sendMessage1(RESET_REP, nullptr, 0);
-            return true;
-        }
-        
-        default:
-            Serial.println("Nieznany rozkaz\n");
-            break;
-
-    }
-    rozkaz[0] = 0;
-    return false;
-}
-
-bool Message::parse2() {
-
-    switch(rozkaz[1]) {
-        
-        // get info |HEAD| CRC
-        case POSITION_REP: 
-        {
-            sendRawMessage1(data[1], dlugosc[1] + 2);            
-            return true;
-        }
-        case MOVEHOME_REP:
-        {
-            sendRawMessage1(data[1], dlugosc[1]+2);
-            return true;
-        }
-        case SET_PARAM_REP:
-        {
-            sendRawMessage1(data[1], dlugosc[1]+2);
-            return true;
-        }
-        case ECHO_REP:
-        {
-            Serial.println("echo...rep");
-            sendRawMessage1(data[1], dlugosc[1]+2);
-            return true;
-        }
-        case ERROR_REP: 
-        {
-            sendRawMessage1(data[1], dlugosc[1]+2);
-            return true;
-        }
-        case RESET_REP:
-        {
-            sendRawMessage1(data[1], dlugosc[1]+2);
-            return true;
-        }
-        default:
-            //Serial.print("Nie znany rozkaz z Serial1\n");
-            uint8_t buf[16] = "S1:Niezn.rozkaz";
-            sendError(buf, 15);
-            break;
-
-    }
-    rozkaz[1] = 0;
-    return false;
-}
-
-void Message::sendMessage(uint8_t s, uint8_t cmd, uint8_t* buf, uint8_t len)
+void MessageSerial::sendMessage(uint8_t cmd, uint8_t* buf, uint8_t len)
 {
     if (len > 15)
         return;
@@ -207,55 +97,133 @@ void Message::sendMessage(uint8_t s, uint8_t cmd, uint8_t* buf, uint8_t len)
     if (len > 0)
         memcpy(sendData+1, buf, len);
     sendData[0] = cmd << 4 | len ;
-    CRC8 lcrc;
-    lcrc.restart();
-    lcrc.add(sendData, len+1);
-    sendData[len+1] = lcrc.getCRC();
-    if (s == 0)
-        messageWrite1(sendData, len+2);
-    else
-        messageWrite2(sendData, len+2);
+    crc.restart();
+    crc.add(sendData, len+1);
+    sendData[len+1] = crc.getCRC();
+    Serial.write(sendData, len+2);
 }
 
-void Message::sendRawMessage(uint8_t s, uint8_t* buf, uint8_t len)
+bool MessageSerial::parseRozkaz()
 {
-    if (s == 0)
-        messageWrite1(buf, len);
-    else
-        messageWrite2(buf, len);
-}
+    
+    switch(rozkaz) {
+        case WELCOME_REQ:   //get info 
+        {                          //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
+            uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
+            sendMessage(WELCOME_REP, sendData, 15);
+            actWork = NOP;
+            return true;
+        }
 
-void Message::messageWrite1(uint8_t* buf, uint8_t len)
-{
-    Serial.write(buf, len);
-    Serial.flush();
-}
+        case POSITION_REQ: 
+        {
+            Serial1.write(data, dlugosc+2);
+            return true;
+        }
+        case MOVEHOME_REQ:
+        {
+            Serial1.write(data, dlugosc+2);
+            return true;
+        }
+        case SET_PARAM_REQ:
+        {
+            Serial1.write(data, dlugosc+2);
+            return true;
+        }
+        case NOP_MSG:
+        {
+            Serial.write(0xF0);
+            return true;
+        }
+        case MEASVALUE_REQ:
+        {
+            actWork = GET_RADIOVAL;
+            return true;
+        }
+        case MEASUNIT_REQ:
+        {
+            return true;
+        }
+        default:
+            break;
 
-void Message::messageWrite2(uint8_t* buf, uint8_t len)
-{
-    Serial1.write(buf, len);
-    Serial1.flush();
-}
-
-void Message::sendError(const char *buf, uint8_t len)
-{
-    uint8_t b[17];
-    for (short id = 0; id < len; ++id) {
-        b[id] = buf[id];
     }
-    sendError(b, len);
+    rozkaz = 0;
+    return false;
 }
 
-uint32_t Message::parseNumber(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4)
+
+void MessageSerial::sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, uint16_t val4)
 {
-    uint32_t d1 = b1 & 0xff;
-    uint32_t d2 = b2 & 0xff;
-    uint32_t d3 = b3 & 0xff;
-    uint32_t d4 = b4 & 0xff;
-    return (d1 << 24) + (d2 << 16) + (d3 << 8) + d4;
+ 
+    unsigned long actMls = millis();
+
+    if (!wasWelcomeMsg)
+        return;
+
+
+    if (actMls - timeSendRadioVal < 500) 
+        return ;
+    sendRadioDebug(val1);
+    timeSendRadioVal = actMls;
+    actWork = NOP;
+    uint8_t sendData[9] = {'O', 0, 0, 0, 0, 0, 0, 0, 0};
+    sendData[1] = (val1 >> 8 ) & 0xff;
+    sendData[2] = (val1) & 0xff;
+    sendData[3] = (val2 >> 8 ) & 0xff;
+    sendData[4] = (val2) & 0xff;
+    sendData[5] = (val3 >> 8 ) & 0xff;
+    sendData[6] = (val3) & 0xff;
+    sendData[7] = (val4 >> 8 ) & 0xff;
+    sendData[8] = (val4) & 0xff;
+    sendMessage(MEASVALUE_REP, sendData, 9);
+
 }
 
-void Message::reset()
+void MessageSerial::sendRadioError()
 {
-    init();
+    unsigned long actMls = millis();
+    
+    if (!wasWelcomeMsg || timeSendRadioVal - actMls < 500)
+        return ;
+    timeSendRadioVal = actMls;
+    uint8_t sendData[1] = {'E'};
+    sendMessage(MEASVALUE_REP, sendData, 1);
+ 
 }
+
+void MessageSerial::sendRadioDebug(uint16_t val)
+{
+    uint8_t sendData[12] = {'I', ' ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char c1 = val / 100000;
+    unsigned int val1 = val - c1 * 100000;
+    sendData[2] = '0' + c1;
+
+    unsigned char c2 = val1 / 10000;
+    unsigned int val2 = val1 - c2 * 10000;
+    sendData[3] = '0' + c2;
+
+    unsigned char c3 = val2 / 1000;
+    unsigned int val3 = val2 - c3 * 1000;
+    sendData[4] = '0' + c3;
+
+    unsigned char c4 = val3 / 100;
+    unsigned int val4 = val3 - c4 * 100;
+    sendData[5] = '0' + c4;
+
+    unsigned char c5 = val4 / 10;
+    unsigned int val5 = val4 - c5 * 10;
+    sendData[6] = '0' + c5;
+
+    sendData[7] = '0' + val5;
+
+    sendData[8] = ' ';
+    sendData[9] = 'm';
+    sendData[10] = 'V';
+    sendData[11] = ' ';
+
+
+    sendMessage(MEASVALUE_REP, sendData, 12);
+}
+
+

@@ -118,72 +118,23 @@ public:
 
     typedef enum _cmd {
         NOP_MSG = 0,
-#ifdef POSREDNIK
         WELCOME_REQ = 1,
         WELCOME_REP = 2,
-#endif // DEBUG                
         SET_PARAM_REQ = 3,
         SET_PARAM_REP = 4,
         POSITION_REQ = 5,
         POSITION_REP = 6,
         MOVEHOME_REQ = 7,
         MOVEHOME_REP = 8,
-#ifdef POSREDNIK        
         MEASVALUE_REQ = 9,
         MEASVALUE_REP = 10,
         MEASUNIT_REQ = 11,
         MEASUNIT_REP = 12,
-#endif        
         ERROR_REP = 15,
     } CMD;
 
-    bool check(unsigned char c);
-
-    void init();
-
-    Work getStatusWork() const { return actWork; }
-
     void sendError(const char * errorStr);
-
-    void setErrorHomeBack();
-
-    void setStop() { actWork != NOP; }
-
-#ifdef POSREDNIK 
-    bool isWelcomeMsg() {
-        return rozkaz == WELCOME_REQ;
-    }
-#endif
-
-    bool isWork() { 
-        return actWork != NOP; 
-    }
-
-    void sendRadioError();
-    void sendRadioDebug(uint16_t val);
-    void sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, uint16_t val4);
-protected:
-    
-
-    bool parseRozkaz();
-    void sendMessage(uint8_t cmd, uint8_t *buf, uint8_t len);
-    
-    // rozkaz/dlugosc | 1 byte | 2 byte | 3 byte | 4 byte | crc
-    uint8_t data[MAXLENPROTO + 4];
-
-    Work actWork;
-
-#ifdef SILNIK    
-    uint8_t posCmd;
-    uint8_t rozkaz;
-    uint8_t dlugosc;
-    CRC8 crc;
-#endif
-
-
-
-#ifdef POSREDNIK 
-    bool wasWelcomeMsg;
-    uint32_t timeSendRadioVal;
-#endif    
+    void init();
+    void sendMessage(uint8_t, uint8_t*,uint8_t) {}
+    Work  actWork;
 };

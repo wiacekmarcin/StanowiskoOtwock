@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "protocol.hpp"
 #include "radio.hpp"
-#include "sterowniksilnika.hpp"
 
 
 //#define DEBUG_SERIAL
