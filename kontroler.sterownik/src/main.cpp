@@ -23,7 +23,7 @@ void setup()
 #ifdef DEBUG_SERIAL
     Serial.begin(115200);
 #endif  
-
+    Serial1.begin(115200);
 }
 
 void loop()

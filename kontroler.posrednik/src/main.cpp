@@ -1,30 +1,130 @@
 #include <Arduino.h>
 #include "protocol.hpp"
-Message msg;
+#include "radio.hpp"
+#include "sterowniksilnika.hpp"
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200, SERIAL_8O1);
-  Serial1.begin(115200, SERIAL_8O1);
 
-  msg.init();
+//#define DEBUG_SERIAL
+MessageSerial msg;
+void checkMsg();
+bool work();
 
-  pinMode(2, OUTPUT);
-  digitalWrite(2, HIGH);
-  //pinMode(13, OUTPUT);
+void setup()
+{
+#ifndef DEBUG_SERIAL
+    msg.init();
+#endif // !DEBUG_SERIAL    
+    
+
+    radioInit();
+    
+    interrupts();
+
+    Serial1.begin(115200);
+    Serial.begin(115200);
+
+    
 }
 
-unsigned long timeMsg;
-void loop() {
-  // put your main code here, to run repeatedly:
-      if (Serial.available() > 0) {
-        timeMsg = millis();
-        msg.check1(Serial.read());
-      }
-      if (Serial1.available() > 0) {
-        msg.check2(Serial1.read());
-      }
-      if ((unsigned long)(millis() - timeMsg) > 6000) {
-        msg.reset();  
-      }            
+void loop()
+{
+#ifndef DEBUG_SERIAL
+    //
+    if (Serial.available())  {
+        if (msg.check(Serial.read())) {
+            work();
+        }
+    }
+    if (Serial1.available()) {
+        Serial.write(Serial1.read());
+    }
+
+
+#endif // !DEBUG_SERIAL
+    
+#ifdef DEBUG_SERIAL
+/*
+    static bool firsttime = false;
+    if (!firsttime) {
+        delay(10000);
+        Serial.println("Init Radio");
+    
+        radioInit();
+        firsttime = true;
+        Serial.println("Radio Init");
+    }
+    
+    delay(1000);
+    uint16_t val1 = 0;
+    if (isRadioConnected()) {
+        if (readRadio(val1)) {;
+            Serial.print("val=");
+            Serial.println(val1);
+        }
+        else {
+            Serial.println("Cannot read data");
+        }
+    } else {
+        Serial.println("radio nie polaczone");
+    }
+    */
+#endif
 }
+
+bool wasWelcomeMsg = false;
+int tryReadRadio = 10;
+bool work()
+{
+    static MessageSerial::Work prevWork = MessageSerial::NOP;
+    MessageSerial::Work actWork = msg.getStatusWork();
+    //if (prevWork != actWork) {
+#ifdef DEBUG_SERIAL        
+        Serial.println("ACTWORK=");
+        Serial.println(actWork, DEC);
+#endif        
+        //Serial.println("ACTWORK=");
+        //Serial.println(actWork, DEC);
+        //prevWork = actWork;
+        //delay(1000);
+    //}
+    
+    if (actWork == MessageSerial::NOP) {
+        /*
+        uint16_t val1 = 0;
+        if (isRadioConnected() && readRadio(val1)) {
+            msg.sendRadioVal(val1, 0, 0, 0);
+            tryReadRadio = 10;
+        } else {
+            if (!--tryReadRadio) {
+                tryReadRadio = 10;
+                msg.sendRadioError();
+            }
+        }*/
+        return false;
+    }
+    
+    switch(actWork) {
+        case MessageSerial::GET_RADIOVAL:
+            if (isRadioConnected()) {
+                uint16_t val1;
+                if (readRadio(val1)) {
+                    msg.sendRadioVal(val1, 0, 0, 0);
+                }
+                else {
+                    msg.sendRadioError();    
+                }
+            } else {
+                msg.sendRadioError();
+            }
+            msg.sendRadioError();
+            actWork = MessageSerial::NOP;
+            return true;
+        
+        default:
+            Serial.println("UNKNOWN");
+        break;
+    }
+    return true;
+}
+    
+
