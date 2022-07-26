@@ -61,40 +61,43 @@ bool work()
     switch(actWork) {
         case MessageSerial::POS_START:
             msg.sendPositionStart();
-         
+            delay(200);
             setPosY(msg.getPosY());
+            delay(200);
             setPosX(msg.getPosX());
-        
+            delay(200);
             msg.sendPositionDone();
             actWork = MessageSerial::NOP;
         return true;
 
         case MessageSerial::RETURN_HOME:
             msg.sendRetHomeStart();
+            delay(200);
             if (!returnBaseX()) {
                 msg.setStop();
                 delay(200);
                 msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
             }
-
+            delay(200);
             if (!returnBaseY()) {
                 msg.setStop();
                 delay(200);
                 msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
             }
+            delay(200);
             msg.sendRetHomeDone();
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_START:
+            msg.sendRoletaStart();
+            delay(200);
             setPosR(msg.getRol());
+            actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_HOME:
             returnBaseR();
-            actWork = MessageSerial::NOP;
-        return true;
-        case MessageSerial::ROL_DONE:
             actWork = MessageSerial::NOP;
         return true;
         default:

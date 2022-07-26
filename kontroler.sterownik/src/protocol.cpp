@@ -270,7 +270,7 @@ bool MessageSerial::parseRozkaz()
 
 void MessageSerial::sendRetHomeYDone(uint32_t step)
 {
-    uint8_t sendData[5] = {'D', 0, 0, 0, 0};
+    uint8_t sendData[5] = {'G', 0, 0, 0, 0};
     sendData[1] = (step >> 24) & 0xff;
     sendData[2] = (step >> 16) & 0xff;
     sendData[3] = (step >> 8) & 0xff;
@@ -280,7 +280,17 @@ void MessageSerial::sendRetHomeYDone(uint32_t step)
 
 void MessageSerial::sendRetHomeXDone(uint32_t step)
 {
-    uint8_t sendData[5] = {'L', 0, 0, 0, 0};
+    uint8_t sendData[5] = {'P', 0, 0, 0, 0};
+    sendData[1] = (step >> 24) & 0xff;
+    sendData[2] = (step >> 16) & 0xff;
+    sendData[3] = (step >> 8) & 0xff;
+    sendData[4] = step & 0xff;
+    sendMessage(MOVEHOME_REP, sendData, 5);
+}
+
+void MessageSerial::sendRetHomeRDone(uint32_t step)
+{
+    uint8_t sendData[5] = {'R', 0, 0, 0, 0};
     sendData[1] = (step >> 24) & 0xff;
     sendData[2] = (step >> 16) & 0xff;
     sendData[3] = (step >> 8) & 0xff;
@@ -290,19 +300,19 @@ void MessageSerial::sendRetHomeXDone(uint32_t step)
 
 void MessageSerial::sendRetHomeYStart()
 {
-    uint8_t sendData[1] = {'g'};
+    uint8_t sendData[1] = {'d'};
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
 void MessageSerial::sendRetHomeXStart()
 {
-    uint8_t sendData[1] = {'p'};
+    uint8_t sendData[1] = {'l'};
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
 void MessageSerial::sendRetHomeRStart()
 {
-    uint8_t sendData[1] = {'R'};
+    uint8_t sendData[1] = {'r'};
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
@@ -318,11 +328,7 @@ void MessageSerial::sendRetHomeStart()
     sendMessage(MOVEHOME_REP, sendData, 1);
 }
 
-void MessageSerial::sendRetHomeRDone()
-{
-    uint8_t sendData[1] = {'r'};
-    sendMessage(MOVEHOME_REP, sendData, 1);
-}
+
 
 void MessageSerial::setErrorHomeBack()
 {
@@ -342,7 +348,7 @@ void MessageSerial::setErrorRoletaHomeBack()
 
 void MessageSerial::sendPositionStart()
 {
-    uint8_t sendData[1] = {'S'};
+    uint8_t sendData[1] = {'s'};
     sendMessage(POSITION_REP, sendData, 1);
 }
 
@@ -400,13 +406,13 @@ void MessageSerial::sendAckSettings(uint8_t nr)
 
 void MessageSerial::sendRoletaStart()
 {
-    uint8_t sendData[1] = {'R'};
+    uint8_t sendData[1] = {'r'};
     sendMessage(POSITION_REP, sendData, 1);
 }
 
 void MessageSerial::sendRoletaDone(uint32_t step, uint32_t stepPos)
 {
-    uint8_t sendData[9] = {'r', 0, 0, 0, 0, 0, 0, 0, 0};
+    uint8_t sendData[9] = {'R', 0, 0, 0, 0, 0, 0, 0, 0};
     sendData[1] = (step >> 24) & 0xff;
     sendData[2] = (step >> 16) & 0xff;
     sendData[3] = (step >> 8) & 0xff;

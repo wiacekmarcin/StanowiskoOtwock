@@ -261,7 +261,7 @@ bool returnBaseR()
 
     if (!getHomePosR()) {
         
-        while (!getHomePosR() /*&& ++step < gStepMaxR*/) {
+        while (!getHomePosR() && ++step < gStepMaxR) {
             ++step;
             stepR(400, 400);
         }
@@ -281,7 +281,7 @@ bool returnBaseR()
     }
     Serial.println("Done");
     Serial.println(step,DEC);
-    msg.sendRetHomeRDone();
+    msg.sendRetHomeRDone(step);
     gActPosStepRol = 0;
 
     return true;
@@ -563,7 +563,6 @@ void setPosR(uint32_t pos)
     Serial.print("gActPosStepR=");
     Serial.println(gActPosStepRol, DEC);
 #endif    
-    msg.sendRoletaStart();
     
 #ifdef TEST_SILNIKA
     delay(2000);
@@ -582,6 +581,9 @@ void setPosR(uint32_t pos)
     if (gActPosStepRol < 0)
         gActPosStepRol = 0;
 
+    if (pos > gStepMaxR)
+        pos = gStepMaxR;    
+
     bool goraK = gActPosStepRol < pos;
     if (goraK) {
         gMoveStepR = pos - gActPosStepRol;
@@ -597,7 +599,7 @@ void setPosR(uint32_t pos)
     uint32_t imps = gMoveStepR;
     setDirR(goraK);
     int32_t step = 0;
-    //canMoveY = true;
+    
 
     if (gMoveStepR < 2*sizeImpuls + 10) {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
@@ -620,7 +622,7 @@ void setPosR(uint32_t pos)
 #endif    
 
     gActPosStepRol += goraK ? step : -step;
-    msg.sendPositionDoneY(step, gActPosStepRol);
+    msg.sendRoletaDone(step, gActPosStepRol);
 }
 
 
