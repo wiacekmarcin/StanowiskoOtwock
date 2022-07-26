@@ -22,4 +22,4 @@
 #define BASE_Y 10
 #define BASE_X 9
 
-#define BASE_R 12
+#define BASE_R 11

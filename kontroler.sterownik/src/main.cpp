@@ -4,13 +4,15 @@
 #include "sterowniksilnika.hpp"
 
 
-//#define DEBUG_SERIAL
+#define DEBUG
 MessageSerial msg;
 void checkMsg();
 bool work();
 
+
 void setup()
 {
+    Serial.begin(115200);
 #ifndef DEBUG_SERIAL
     msg.init();
 #endif // !DEBUG_SERIAL    
@@ -23,24 +25,19 @@ void setup()
 #ifdef DEBUG_SERIAL
     Serial.begin(115200);
 #endif  
-    Serial1.begin(115200);
+    //Serial1.begin(115200);
+    Serial.begin(115200);
 }
 
 void loop()
 {
-#ifndef DEBUG_SERIAL
-    //
-    if (Serial1.available())  
-        if (msg.check(Serial1.read()))
+    if (Serial.available())  
+        if (msg.check(Serial.read()))
             work();
-
-
-#endif // !DEBUG_SERIAL
    
-
 }
 
-bool wasWelcomeMsg = false;
+
 
 bool work()
 {

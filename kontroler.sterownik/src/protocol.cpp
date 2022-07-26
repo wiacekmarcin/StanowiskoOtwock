@@ -1,5 +1,7 @@
 #include "protocol.hpp"
 
+#define DEBUG
+
 #include "../../kontroler_lib/protocol_kontroler.cpp"
 
 //10 imp silnika na 1 mm
@@ -32,9 +34,9 @@ void MessageSerial::init()
 {
     MessageSerialBase::init();
 #ifdef DEBUG    
-    Serial.begin(115200);
+    //Serial.begin(115200);
 #endif    
-    Serial1.begin(115200); 
+    //Serial1.begin(115200); 
     
 }
 
@@ -114,7 +116,7 @@ void MessageSerial::sendMessage(uint8_t cmd, uint8_t* buf, uint8_t len)
     crc.restart();
     crc.add(sendData, len+1);
     sendData[len+1] = crc.getCRC();
-    Serial1.write(sendData, len+2);
+    Serial.write(sendData, len+2);
 }
 
 bool MessageSerial::parseRozkaz()

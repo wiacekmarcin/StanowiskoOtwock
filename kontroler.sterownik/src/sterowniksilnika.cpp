@@ -4,14 +4,14 @@
 
 //#define NORMAL
 #define OKNO_SILNIK_PRAWA
-int32_t gImpMaxX = 291000L;
-int32_t gImpMaxY = 301000L;
+uint32_t gImpMaxX = 291000L;
+uint32_t gImpMaxY = 301000L;
 
-int32_t gStepMaxX = 73000L;
-int32_t gStepMaxY = 76000L;
+uint32_t gStepMaxX = 73000L;
+uint32_t gStepMaxY = 76000L;
 
 
-int32_t gStepMaxR = 40000L;
+int32_t gStepMaxR = 63000L;
 
 #ifdef OKNO_SILNIK_PRAWA
     bool reverseY = false;
@@ -28,7 +28,7 @@ int32_t gStepMaxR = 40000L;
     bool reverseX = false;
 #endif
 
-bool reverseR = false;
+bool reverseR = true;
 
 extern MessageSerial msg;
 
@@ -53,6 +53,8 @@ volatile int32_t gMoveStepR = 0;
 static volatile bool homePosX   = false;
 static volatile bool homePosY   = false;
 
+static volatile bool homePosRId[16];
+static volatile uint8_t homeRIdx = 0;
 static volatile bool homePosR   = false;
 
 volatile bool canMoveX = false;
@@ -107,8 +109,8 @@ void setHomePosY()
 
 void setHomePosR()
 {
-    homePosR = digitalRead(BASE_R) == LOW;
-    //canMoveR = !homePosR;
+    homePosRId[homeRIdx & 0x0f] = digitalRead(BASE_R) == LOW;
+    homeRIdx++;
 }
 
 
@@ -124,7 +126,11 @@ inline bool getHomePosY()
 
 inline bool getHomePosR()
 {
-    return homePosR;
+    for (uint8_t i = 0; i < 16; ++i ) {
+        if (!homePosRId[i])
+            return false;
+    }
+    return true;
 }
 
 void stepX(uint16_t delay1, uint16_t delay2)
@@ -245,15 +251,18 @@ bool returnBaseY()
 bool returnBaseR()
 {
     msg.sendRetHomeRStart();
+    Serial.println("Return BASE");
     setHomePosR();
-    setDirR(R_UP);
-
+    setDirR(R_DOWN);
+    Serial.print("digitalRead(BASE_R)=");
+    Serial.println(digitalRead(BASE_R),DEC);
     uint32_t step = 0;
 
 
     if (!getHomePosR()) {
         
-        while (!getHomePosR() && ++step < gStepMaxR) {
+        while (!getHomePosR() /*&& ++step < gStepMaxR*/) {
+            ++step;
             stepR(400, 400);
         }
         if (!getHomePosR()) {
@@ -261,14 +270,17 @@ bool returnBaseR()
             return false;
 
         }
-
+        Serial.print("digitalRead(BASE_R)=");
+        Serial.println(digitalRead(BASE_R),DEC);
         //przesuwam jeszcze z 2mm glebiej karetke
-        uint8_t idx = 200;
-        step += 200;
+        uint8_t idx = 20;
+        step += 20;
         while (--idx) {
             stepR(1000,1000);
         }
     }
+    Serial.println("Done");
+    Serial.println(step,DEC);
     msg.sendRetHomeRDone();
     gActPosStepRol = 0;
 
