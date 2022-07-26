@@ -17,10 +17,10 @@ ser.isOpen()
 
 def send(bytes, num_read):
     
-    sdata = bytes.encode()
+    sdata = [ord(b) for b in bytes]
     str = ''
     for s in sdata:
-        str += '%2x ' % int(ord(s))
+        str += '%2x ' % s
     print(str)
     ser.write(sdata)
     out = ''
@@ -55,9 +55,10 @@ while True:
         send("%c%c" % (0x10, int(c, 16)), 1)
     if i == '2':
         hash = crc8.crc8()
-        step = int(raw_input("Podaj maksymalna ilosc krokow: "))
-        mls = int(raw_input("Podaj czas impulsu: "));
-        rev = raw_input("Podaj maske odwroconego kierunku w postaci np HHHHL: ")
+        stepX = int(raw_input("Podaj maksymalna ilosc krokow w plaszczyznie X: "))
+        stepY = int(raw_input("Podaj maksymalna ilosc krokow w plaszczyznie Y: "))
+        stepR = int(raw_input("Podaj maksymalna ilosc krokow w plaszczyznie Y: "))
+        rev = raw_input("Podaj maske odwroconego kierunku w postaci np HHH: ")
         brev = 0
         for i in range(5): 
             brev += (0x1 << i) if rev[i]== 'H' else 0
@@ -81,20 +82,19 @@ while True:
     if i == '4':
         hash.update("%cP" % (0x71))
         c = hash.hexdigest()
-        send("%cP%c" % (0x71, int(c, 16)), 6)
+        #send("%cP%c" % (0x71, int(c, 16)), 6)
+        print("%02x %02x %02x " % (0x71, 'P', int(c, 16))) 
     if i == '5':
-        dozo = int(raw_input("Podaj nr dozownika: "))
-        hash.update("%c%c" % (0x91, dozo))
+        step = int(raw_input("Podaj ilosc krokow: "))
+        hash.update("%cR%c%c%c%c" % (0x55, step >> 24, (step >> 16) & 0xff, (step >> 8) & 0xff, step & 0xff))
         c = hash.hexdigest()
-        print ("91%02x%s" % (dozo, c))
+        send("%cR%c%c%c%c%c" % (0x55, step >> 24, (step >> 16) & 0xff, (step >> 8) & 0xff, step & 0xff, int(c, 16)), 2)
+        
     if i == '6':
         hash.update("%cR" % (0x71))
         c = hash.hexdigest()
-        send("%cR%c" % (0x71, int(c, 16)), 6)
-    if i == '7':
-        hash.update("%c%c" % (0x71,0x01))
-        c = hash.hexdigest()
-        print ("7101%s" % c)
+        send("%cR%c" % (0x71, int(c, 16)), 2)
+        #print("%02x %02x %02x " % (0x71, int'R', int(c, 16))) 
 
 
 ser.close()

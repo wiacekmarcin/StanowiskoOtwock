@@ -2,7 +2,7 @@
 #include "protocol.hpp"
 #include "radio.hpp"
 
-
+#define RESET_NANO 4
 //#define DEBUG_SERIAL
 MessageSerial msg;
 void checkMsg();
@@ -22,7 +22,10 @@ void setup()
     Serial1.begin(115200);
     Serial.begin(115200);
 
-    
+    pinMode(RESET_NANO, OUTPUT);
+    digitalWrite(RESET_NANO, LOW);
+    delay(1000);
+    digitalWrite(RESET_NANO, HIGH);
 }
 
 void loop()
@@ -103,6 +106,12 @@ bool work()
     }
     
     switch(actWork) {
+        case MessageSerial::WELCOME_MSG:
+            digitalWrite(RESET_NANO, LOW);
+            delay(1000);
+            digitalWrite(RESET_NANO, HIGH);
+            actWork = MessageSerial::NOP;
+            return true;
         case MessageSerial::GET_RADIOVAL:
             if (isRadioConnected()) {
                 uint16_t val1;

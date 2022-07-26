@@ -19,6 +19,7 @@ class MessageSerial : public MessageSerialBase
     typedef enum _work {
         NOP,
         GET_RADIOVAL,
+        WELCOME_MSG,
     } Work;
 
     bool check(unsigned char c);

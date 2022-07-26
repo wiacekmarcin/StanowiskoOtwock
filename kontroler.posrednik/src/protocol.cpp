@@ -111,7 +111,7 @@ bool MessageSerial::parseRozkaz()
         {                          //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
             uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
             sendMessage(WELCOME_REP, sendData, 15);
-            actWork = NOP;
+            actWork = WELCOME_MSG;
             return true;
         }
 
