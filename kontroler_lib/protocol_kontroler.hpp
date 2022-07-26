@@ -20,14 +20,23 @@
 //55 52 R4 R3 R2 R1 CRC8 - req ustawienie rolety 
 //U  R
 
-//61 S/l/d/G/K/R/r/  CRC8 - reply setting position in proges S=start, l=start lewoprawo, P=end lewoprawo, 
-//                            d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
+//set post reply
+//61 s/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges 
+//                              S=start, 
+//                              l=start lewoprawo, 
+//                              P=end lewoprawo, 
+//                              d=start goradol 
+//                              G=end goradol 
+//                              K=endboth, 
+//                              r - start rolet, 
+//                              R - koniec rolet
 //62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
 //69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
 //69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+//69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
 
-//61 53 5e - start ustawiania pozycji ogolnie
-//a  S  ^
+//61 73 be - start ustawiania pozycji ogolnie
+//a  s  
 //61 63 e3 - start ustawianie lewo-prawo
 //a  l  
 //61 64 db - poczatek ustawianai dol-gora
@@ -52,16 +61,17 @@
 //71 52 0e - req home roleta
 //q  R 
 
-//81 S/l/d/G/K/R/r/ CRC8 - rep home position
+//81 S/l/P/d/G/K/R/r/ CRC8 - rep home position
 //                                S=start, l=start lewoprawo, P=end lewoprawo, 
 //                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
+
+
 
 //set parameters
 //3a 01 STATUSBYTE IMPX4 IMPX3 IMPX2 IMPX1 IMPY4 IMPY3 IMPY2 IMPY1 CRC8- ustawianie parametrow 
 // STATUSBYTE = 0 0 0 0 0 RevR RevY RevX
 
 //3c 02 STEPX4 STEPX3 STEPX2 STEPX1 STEPY4 STEPY3 STEPY2 STEPY1 R4 R3 R2 R1 CRC8- ustawianie parametrow maksymalne kroki silnikow
-
 
 //41 01 49 - ACK
 //0x4f nrE CRC8 - rep
@@ -72,7 +82,7 @@
 
 
 
-//0xC1 s/L/D/p/g/K CRC8 - s=start, p=start lewoprawo, L=stop lewoprawo, g=start goradol D=stop goradol K=stop all
+
 
 
 

@@ -35,7 +35,7 @@ public :
     void sendRetHomeDone();
 
     void sendRetHomeRStart();
-    void sendRetHomeRDone();
+    void sendRetHomeRDone(uint32_t step);
 
     void sendAckSettings(uint8_t nr);
     void setErrorHomeBack();
