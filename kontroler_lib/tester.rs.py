@@ -15,6 +15,22 @@ if ser.isOpen():
 ser.open()
 ser.isOpen()
 
+def R_mm2step(mm):
+    pos = [52,104,157,209,263,318,374,431,488,546,605,665,727,789,852,915,
+            979,1044,1109,1175,1247,1311,1372,1454,1522,1595]
+    if mm > 1595:
+        print("Za duza wartosc");
+        return 0
+    if mm < pos[0]:
+        return int(mm*2400/52)
+    num = 1
+    while pos[num] < mm:
+        num += 1
+
+    return int(mm*((num-1)*2400/pos[num-1] + num*2400/pos[num])/2)
+
+
+
 def compare(out, bytes):
     
     if len(out) != len(bytes):
