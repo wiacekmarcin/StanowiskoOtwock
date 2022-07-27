@@ -99,9 +99,9 @@ def sendPos(bytes):
             out = ''
             continue
 
-        if len(out) == 7 and idx == 3 and out[1] == 'P':
+        if len(out) == 11 and idx == 3 and out[1] == 'P':
             idx = 4
-            print("Koniec pozycjonowania osi X ", toint(out[2],out[3],out[4],out[5]))
+            print("Koniec pozycjonowania osi X ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
             out = ''
             continue
 
@@ -116,7 +116,7 @@ def sendPos(bytes):
 
         if len(out) == 7 and idx == 5 and out == 'G':
             idx = 6
-            print("Koniec pozycjonowania osi Y ", toint(out[2],out[3],out[4],out[5]))
+            print("Koniec pozycjonowania osi Y ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
             out = ''
             continue    
 
@@ -167,7 +167,7 @@ def homePos(bytes):
 
         if len(out) == 7 and idx == 3 and out[1] == 'P':
             idx = 4
-            print("Koniec bazowania osi X ", toint(out[2],out[3],out[4],out[5])))
+            print("Koniec bazowania osi X ", toint(out[2],out[3],out[4],out[5]))
             out = ''
             continue
 
@@ -222,13 +222,13 @@ def sendRoleta(bytes):
             out = ''
             continue
 
-        if len(out) == 3 and idx == 2:
-            if not compare(out, [0x61, 0x63, 0xe3]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
-                return
-
-            print("Koniec pozycjonowania rolety")
+        if len(out) == 11 and idx == 2 and out[1] == 'R':
+            print("Koniec pozycjonowania rolety ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
             out = ''
+            return
+        
+        if len(out) > 1:
+            print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
             return
 
 def homeRol(bytes):
@@ -255,13 +255,14 @@ def homeRol(bytes):
             out = ''
             continue
 
-        if len(out) == 3 and idx == 2:
-            if not compare(out, [0x81, 0x72, 0xfa]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
-                return
-            print("Koniec bazowania rolety")
+        if len(out) == 7 and idx == 2 and out[1] == 'R':
+            print("Koniec bazowania rolety ", toint(out[2],out[3],out[4],out[5]))
             out = ''
             return
+
+        if len(out) > 1:
+            print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+            return    
 
 
 while True:
@@ -302,24 +303,23 @@ while True:
                                            stepY >> 24, (stepY >> 16) & 0xff, (stepY >> 8) & 0xff, stepY & 0xff)
         crc = hash.update(s)
         c = hash.hexdigest()
-        sendPos(s + '%c' % crc)
+        sendPos(s + '%c' % int(c, 16))
     if i == '4':
         hash.update("%cP" % (0x71))
         c = hash.hexdigest()
         #send("%cP%c" % (0x71, int(c, 16)), 6)
         #print("%02x %02x %02x " % (0x71, 'P', int(c, 16))) 
-        homePos(s + '%c' % crc)
+        homePos(s + '%c' % int(c, 16))
     if i == '5':
         step = int(raw_input("Podaj ilosc krokow: "))
         hash.update("%cR%c%c%c%c" % (0x55, step >> 24, (step >> 16) & 0xff, (step >> 8) & 0xff, step & 0xff))
         c = hash.hexdigest()
-        send("%cR%c%c%c%c%c" % (0x55, step >> 24, (step >> 16) & 0xff, (step >> 8) & 0xff, step & 0xff, int(c, 16)), 2)
+        sendRoleta("%cR%c%c%c%c%c" % (0x55, step >> 24, (step >> 16) & 0xff, (step >> 8) & 0xff, step & 0xff, int(c, 16)), 2)
         
     if i == '6':
         hash.update("%cR" % (0x71))
         c = hash.hexdigest()
-        send("%cR%c" % (0x71, int(c, 16)), 2)
-        #print("%02x %02x %02x " % (0x71, int'R', int(c, 16))) 
+        homeRol("%cR%c" % (0x71, int(c, 16)), 2)
 
 
 ser.close()
