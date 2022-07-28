@@ -3,7 +3,7 @@
 #include "radio.hpp"
 
 #define RESET_NANO 4
-//#define DEBUG_SERIAL
+#define DEBUG_SERIAL
 MessageSerial msg;
 void checkMsg();
 bool work();
@@ -31,7 +31,7 @@ void setup()
 void loop()
 {
 #ifndef DEBUG_SERIAL
-    //
+    
     if (Serial.available())  {
         if (msg.check(Serial.read())) {
             work();
@@ -45,7 +45,7 @@ void loop()
 #endif // !DEBUG_SERIAL
     
 #ifdef DEBUG_SERIAL
-/*
+
     static bool firsttime = false;
     if (!firsttime) {
         delay(10000);
@@ -69,7 +69,7 @@ void loop()
     } else {
         Serial.println("radio nie polaczone");
     }
-    */
+    
 #endif
 }
 
@@ -79,17 +79,18 @@ bool work()
 {
     static MessageSerial::Work prevWork = MessageSerial::NOP;
     MessageSerial::Work actWork = msg.getStatusWork();
-    //if (prevWork != actWork) {
-#ifdef DEBUG_SERIAL        
+    #ifdef DEBUG_SERIAL   
+    if (prevWork != actWork) {
+     
         Serial.println("ACTWORK=");
         Serial.println(actWork, DEC);
-#endif        
-        //Serial.println("ACTWORK=");
-        //Serial.println(actWork, DEC);
-        //prevWork = actWork;
-        //delay(1000);
-    //}
-    
+      
+        Serial.println("ACTWORK=");
+        Serial.println(actWork, DEC);
+        prevWork = actWork;
+        delay(1000);
+    }
+    #endif  
     if (actWork == MessageSerial::NOP) {
         /*
         uint16_t val1 = 0;

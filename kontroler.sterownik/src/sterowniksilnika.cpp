@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "protocol.hpp"
 
-//#define NORMAL
+#define DEBUG
 #define OKNO_SILNIK_PRAWA
 uint32_t gImpMaxX = 291000L;
 uint32_t gImpMaxY = 301000L;
@@ -11,7 +11,7 @@ uint32_t gStepMaxX = 73000L;
 uint32_t gStepMaxY = 76000L;
 
 
-int32_t gStepMaxR = 63000L;
+int32_t gStepMaxR = 160000L;
 
 #ifdef OKNO_SILNIK_PRAWA
     bool reverseY = false;
@@ -109,8 +109,10 @@ void setHomePosY()
 
 void setHomePosR()
 {
-    homePosRId[homeRIdx & 0x0f] = digitalRead(BASE_R) == LOW;
-    homeRIdx++;
+    //Serial.print(digitalRead(BASE_R));
+    //Serial.println(digitalRead(12));
+    //homePosRId[homeRIdx & 0x0f] = digitalRead(BASE_R) == LOW;
+    //homeRIdx++;
 }
 
 
@@ -251,11 +253,15 @@ bool returnBaseY()
 bool returnBaseR()
 {
     msg.sendRetHomeRStart();
+#ifdef DEBUG
     Serial.println("Return BASE");
+#endif
     setHomePosR();
     setDirR(R_DOWN);
+#ifdef DEBUG
     Serial.print("digitalRead(BASE_R)=");
     Serial.println(digitalRead(BASE_R),DEC);
+#endif
     uint32_t step = 0;
 
 
@@ -270,17 +276,21 @@ bool returnBaseR()
             return false;
 
         }
+#ifdef DEBUG
         Serial.print("digitalRead(BASE_R)=");
         Serial.println(digitalRead(BASE_R),DEC);
+#endif
         //przesuwam jeszcze z 2mm glebiej karetke
-        uint8_t idx = 20;
-        step += 20;
-        while (--idx) {
-            stepR(1000,1000);
-        }
+        //uint8_t idx = 20;
+        //step += 20;
+        //while (--idx) {
+        //    stepR(1000,1000);
+        //}
     }
+#ifdef DEBUG
     Serial.println("Done");
     Serial.println(step,DEC);
+#endif
     msg.sendRetHomeRDone(step);
     gActPosStepRol = 0;
 
@@ -560,6 +570,8 @@ void setPosX(uint32_t pos)
 void setPosR(uint32_t pos)
 {
 #ifdef DEBUG
+    Serial.print("pos=");
+    Serial.println(pos);
     Serial.print("gActPosStepR=");
     Serial.println(gActPosStepRol, DEC);
 #endif    
@@ -592,7 +604,7 @@ void setPosR(uint32_t pos)
     }
 #ifdef DEBUG
     Serial.print(goraK ? "Ruch w dol " : "Ruch w gore ");
-    Serial.print(gMoveImpY, DEC);
+    Serial.print(gMoveStepR, DEC);
     Serial.println(" impulsow\n---");
 #endif
 
@@ -607,7 +619,7 @@ void setPosR(uint32_t pos)
             --gMoveStepR;
         }
     } else {
-        while(gMoveStepR >= 0 && ++step < gMoveStepR) {
+        while(gMoveStepR >= 0 && ++step < gStepMaxR) {
             stepR(20,delayPulse(imps - gMoveStepR, imps));
             --gMoveStepR;
         }

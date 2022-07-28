@@ -12,29 +12,28 @@ bool work();
 
 void setup()
 {
-    Serial.begin(115200);
-#ifndef DEBUG_SERIAL
+    //Serial.begin(115200);
+#ifndef DEBUG
     msg.init();
-#endif // !DEBUG_SERIAL    
-    
+#endif // !DEBUG    
+
     initSilniki();
     initCzujnikiKrancowe();
     initEnkodery();
     interrupts();
 
-#ifdef DEBUG_SERIAL
+#ifdef DEBUG
     Serial.begin(115200);
 #endif  
-    //Serial1.begin(115200);
-    Serial.begin(115200);
+    Serial1.begin(115200);
+    //Serial.begin(115200);
 }
 
 void loop()
 {
-    if (Serial.available())  
-        if (msg.check(Serial.read()))
-            work();
-   
+    if (Serial1.available())  
+        if (msg.check(Serial1.read()))
+            work();   
 }
 
 

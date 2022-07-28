@@ -6,6 +6,8 @@
 //10 imp silnika na 1 mm
 #include "platform.h"
 
+//#define DEBUG_SERIAL
+
 MessageSerial::MessageSerial() 
 {
     posCmd = 0;
@@ -17,9 +19,6 @@ MessageSerial::MessageSerial()
 void MessageSerial::init() 
 {
     MessageSerialBase::init();
-#ifdef DEBUG    
-    Serial.begin(115200);
-#endif    
     Serial1.begin(115200); 
     Serial.begin(115200); 
 }
@@ -28,7 +27,7 @@ bool MessageSerial::check(unsigned char c)
 {
     data[posCmd++] = c;
     data[posCmd] = '\0';
-#ifdef DEBUG        
+#ifdef DEBUG_SERIAL        
     Serial.print("NOWY ZNAK=");
     Serial.println(c, HEX);
 #endif    
@@ -37,7 +36,7 @@ bool MessageSerial::check(unsigned char c)
         crc.add(data[0]);
         rozkaz = data[0] >> 4;
         dlugosc = data[0] & 0x0f;
-#ifdef DEBUG            
+#ifdef DEBUG_SERIAL            
         Serial.print("ROZKAZ=");
         Serial.println(rozkaz,DEC);
         Serial.print("LEN=");
@@ -48,7 +47,7 @@ bool MessageSerial::check(unsigned char c)
     
     if (posCmd == dlugosc + 2) {
         uint8_t c = crc.getCRC();
-#ifdef DEBUG            
+#ifdef DEBUG_SERIAL            
         Serial.print("CRC=");
         Serial.print(c,HEX);
         Serial.print("==");
@@ -59,7 +58,7 @@ bool MessageSerial::check(unsigned char c)
             bool r = parseRozkaz();
             if (!r) {
                 sendError("ZLY ROZKAZ");
-#ifdef DEBUG                    
+#ifdef DEBUG_SERIAL                    
                 Serial.println("ZLY ROZKAZ");
 #endif                
             }
@@ -67,7 +66,7 @@ bool MessageSerial::check(unsigned char c)
         }
         posCmd = 0;
         sendError("ZLE CRC");
-#ifdef DEBUG            
+#ifdef DEBUG_SERIAL            
         Serial.print("CRC FAILD");
 #endif        
         return false;
@@ -80,7 +79,7 @@ bool MessageSerial::check(unsigned char c)
     if (posCmd == MAXLENPROTO) {
         posCmd = 0;
         sendError("ZBYT DUZA WIAD");
-#ifdef DEBUG           
+#ifdef DEBUG_SERIAL           
         Serial.println("ZBYT DUZA WIADOMOSC");
 #endif        
         return false;    
@@ -118,16 +117,19 @@ bool MessageSerial::parseRozkaz()
         case POSITION_REQ: 
         {
             Serial1.write(data, dlugosc+2);
+            actWork=NOP;
             return true;
         }
         case MOVEHOME_REQ:
         {
             Serial1.write(data, dlugosc+2);
+            actWork=NOP;
             return true;
         }
         case SET_PARAM_REQ:
         {
             Serial1.write(data, dlugosc+2);
+            actWork=NOP;
             return true;
         }
         case NOP_MSG:
