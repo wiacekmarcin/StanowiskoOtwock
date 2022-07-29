@@ -15,21 +15,19 @@ if ser.isOpen():
 ser.open()
 ser.isOpen()
 
+//nawiniete sa juz 3 warstwy o grubosci 0.7 na walku o srednicy 30
+def LRolObrot(n):
+    return ((3+n)*0.7+30)*3.1415926
+
 def R_mm2step(mm):
-    pos = [52,104,157,209,263,318,374,431,488,546,605,665,727,789,852,915,
-            979,1044,1109,1175,1247,1311,1372,1454,1522,1595]
-    if mm > 1595:
-        print("Za duza wartosc");
-        return 0
-    if mm < pos[0]:
-        return int(5*mm*2400/52)
-    num = 1
-    while pos[num] < mm:
-        num += 1
-
-    return int(5*mm*((num-1)*2400/pos[num-1] + 5*num*2400/pos[num])/2)
-
-
+    n = 0:
+    while n < 14:
+        obwod = LRolObrot(n)
+        if mm < obwod:
+            return 12000*n + int(12000*mm/obwod)
+        mm = mm - obwod
+        n += 1
+    return 0
 
 def compare(out, bytes):
     
@@ -53,7 +51,7 @@ def send(bytes):
     str = ''
     for s in sdata:
         str += '%2x ' % s
-    print("Send", str)
+    print("Send [", str, "]")
     ser.write(sdata)
     
 
@@ -117,51 +115,57 @@ def sendPos(bytes):
         if len(out) == 0 :
             continue 
 
-        if len(out) == 3 and idx == 1:
-            if not compare(out, [0x61, 0x73, 0xbe]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 1:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x61, 0x73, 0xbe]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 2
             print("Start pozycjonowania")
-            out = ''
             continue
 
-        if len(out) == 3 and idx == 2:
-            if not compare(out, [0x61, 0x63, 0xe3]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 2:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x61, 0x63, 0xe3]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 3
             print("Start pozycjonowania osi X")
-            out = ''
             continue
 
-        if len(out) == 11 and idx == 3 and out[1] == 'P':
+        if len(out) >= 11 and idx == 3 and out[1] == 'P':
+            sout = out[0:11]
+            out = out[11:]
             idx = 4
-            print("Koniec pozycjonowania osi X ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
-            out = ''
+            print("Koniec pozycjonowania osi X ", toint(sout[2],sout[3],sout[4],sout[5]), toint(sout[6],sout[7],sout[8],sout[9]))
             continue
 
-        if len(out) == 3 and idx == 4:
-            if not compare(out, [0x61, 0x64, 0xdb]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 4:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x61, 0x64, 0xdb]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 5
             print("Poczatek pozycjonowania osi Y")
-            out = ''
             continue    
 
-        if len(out) == 7 and idx == 5 and out == 'G':
+        if len(out) >= 11 and idx == 5 and out == 'G':
+            sout = out[0:11]
+            out = out[11:]
             idx = 6
-            print("Koniec pozycjonowania osi Y ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
-            out = ''
+            print("Koniec pozycjonowania osi Y ", toint(sout[2],sout[3],sout[4],sout[5]), toint(sout[6],sout[7],sout[8],sout[9]))
             continue    
 
-        if len(out) == 3 and idx == 6:
-            if not compare(out, [0x61, 0x4b, 0x16]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 6:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x61, 0x4b, 0x16]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             print("Koniec pozycjonowania")
-            out = ''
             return
 
         if len(out) > 1:
@@ -183,51 +187,57 @@ def homePos(bytes):
         if len(out) == 0 :
             continue 
 
-        if len(out) == 3 and idx == 1:
-            if not compare(out, [0x81, 0x73, 0xfd]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 1:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x81, 0x73, 0xfd]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 2
             print("Start bazowania")
-            out = ''
             continue
 
-        if len(out) == 3 and idx == 2:
-            if not compare(out, [0x81, 0x63, 0x8d]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 2:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x81, 0x63, 0x8d]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 3
             print("Start bazowania osi X")
-            out = ''
-            continue
+             continue
 
-        if len(out) == 7 and idx == 3 and out[1] == 'P':
+        if len(out) >= 7 and idx == 3 and out[1] == 'P':
+            sout = out[0:7]
+            out = out[7:]
             idx = 4
-            print("Koniec bazowania osi X ", toint(out[2],out[3],out[4],out[5]))
-            out = ''
+            print("Koniec bazowania osi X ", toint(sout[2],sout[3],sout[4],sout[5]))
             continue
 
-        if len(out) == 3 and idx == 4:
-            if not compare(out, [0x81, 0x64, 0x98]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 4:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x81, 0x64, 0x98]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 5
             print("Poczatek bazowania osi Y")
-            out = ''
             continue    
 
-        if len(out) == 7 and idx == 5 and out[1] == 'G':
+        if len(out) >= 7 and idx == 5 and out[1] == 'G':
             idx = 6
-            print("Koniec bazowania osi Y ", toint(out[2],out[3],out[4],out[5]))
-            out = ''
+            sout = out[0:7]
+            out = out[7:]
+            print("Koniec bazowania osi Y ", toint(sout[2],sout[3],sout[4],sout[5]))
             continue    
 
-        if len(out) == 3 and idx == 6:
-            if not compare(out, [0x81, 0x4b, 0x55]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 6:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x81, 0x4b, 0x55]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             print("Koniec bazowanania")
-            out = ''
             return
 
         if len(out) > 1:
@@ -249,18 +259,20 @@ def sendRoleta(bytes):
         if len(out) == 0 :
             continue 
 
-        if len(out) == 3 and idx == 1:
-            if not compare(out, [0x61, 0x53, 0x5e]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 1:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x61, 0x53, 0x5e]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 2
             print("Start pozycjonowania rolety")
-            out = ''
             continue
 
-        if len(out) == 11 and idx == 2 and out[1] == 'R':
-            print("Koniec pozycjonowania rolety ", toint(out[2],out[3],out[4],out[5]), toint(out[6],out[7],out[8],out[9]))
-            out = ''
+        if len(out) >= 11 and idx == 2 and out[1] == 'R':
+            sout = out[0:11]
+            out = out[11:]
+            print("Koniec pozycjonowania rolety ", toint(sout[2],sout[3],sout[4],sout[5]), toint(sout[6],sout[7],sout[8],sout[9]))
             return
         
         if len(out) > 1:
@@ -282,18 +294,20 @@ def homeRol(bytes):
         if len(out) == 0 :
             continue 
 
-        if len(out) == 3 and idx == 1:
-            if not compare(out, [0x81, 0x52, 0x1a]):
-                print("ERROR:", out, ' '.join(['%02x' % ord(o) for o in out]))
+        if len(out) >= 3 and idx == 1:
+            sout = out[0:3]
+            out = out[3:]
+            if not compare(sout, [0x81, 0x52, 0x1a]):
+                print("ERROR:", sout, ' '.join(['%02x' % ord(o) for o in sout]))
                 return
             idx = 2
             print("Start bazowania rolety")
-            out = ''
             continue
 
-        if len(out) == 7 and idx == 2 and out[1] == 'R':
-            print("Koniec bazowania rolety ", toint(out[2],out[3],out[4],out[5]))
-            out = ''
+        if len(out) >= 7 and idx == 2 and out[1] == 'R':
+            sout = out[0:7]
+            out = out[7:]
+            print("Koniec bazowania rolety ", toint(sout[2],sout[3],sout[4],sout[5]))
             return
 
         if len(out) > 1:
