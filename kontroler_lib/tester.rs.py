@@ -15,12 +15,15 @@ if ser.isOpen():
 ser.open()
 ser.isOpen()
 
-//nawiniete sa juz 3 warstwy o grubosci 0.7 na walku o srednicy 30
+#nawiniete sa juz 3 warstwy o grubosci 0.7 na walku o srednicy 30
 def LRolObrot(n):
-    return ((3+n)*0.7+30)*3.1415926
+    obwody = [101.3, 105.9, 108.9, 112.4, 115.8, 118.6, 121.9, 125.5, 128.4, 132.1, 135, 138.7, 141.9]
+    if n >= len(obwody):
+        return 0
+    return obwody[n]
 
 def R_mm2step(mm):
-    n = 0:
+    n = 0
     while n < 14:
         obwod = LRolObrot(n)
         if mm < obwod:
@@ -205,7 +208,7 @@ def homePos(bytes):
                 return
             idx = 3
             print("Start bazowania osi X")
-             continue
+            continue
 
         if len(out) >= 7 and idx == 3 and out[1] == 'P':
             sout = out[0:7]
@@ -349,8 +352,8 @@ while True:
         hash = crc8.crc8()
         stepX = int(raw_input("Podaj ilosc krokow w plaszczyznie X: "))
         stepY = int(raw_input("Podaj ilosc krokow w plaszczyznie Y: "))
-        s = "%cP%c%c%c%c%c%c%c%c" % (0x59, stepX >> 24, (stepX >> 16) & 0xff, (stepX >> 8) & 0xff, stepX & 0xff,
-                                           stepY >> 24, (stepY >> 16) & 0xff, (stepY >> 8) & 0xff, stepY & 0xff)
+        s = "%cP%c%c%c%c%c%c%c%c" % (0x59, stepY >> 24, (stepY >> 16) & 0xff, (stepY >> 8) & 0xff, stepY & 0xff,
+                                           stepX >> 24, (stepX >> 16) & 0xff, (stepX >> 8) & 0xff, stepX & 0xff)
         crc = hash.update(s)
         c = hash.hexdigest()
         sendPos(s + '%c' % int(c, 16))

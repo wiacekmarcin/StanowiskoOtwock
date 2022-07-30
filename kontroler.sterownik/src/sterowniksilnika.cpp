@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "protocol.hpp"
 
-#define DEBUG
+//#define DEBUG
 #define OKNO_SILNIK_PRAWA
 uint32_t gImpMaxX = 291000L;
 uint32_t gImpMaxY = 301000L;
@@ -53,9 +53,7 @@ volatile int32_t gMoveStepR = 0;
 static volatile bool homePosX   = false;
 static volatile bool homePosY   = false;
 
-static volatile bool homePosRId[16];
-static volatile uint8_t homeRIdx = 0;
-static volatile bool homePosR   = false;
+static volatile int32_t homePosR;
 
 volatile bool canMoveX = false;
 volatile bool canMoveY = false;
@@ -109,12 +107,8 @@ void setHomePosY()
 
 void setHomePosR()
 {
-    //Serial.print(digitalRead(BASE_R));
-    //Serial.println(digitalRead(12));
-    //homePosRId[homeRIdx & 0x0f] = digitalRead(BASE_R) == LOW;
-    //homeRIdx++;
+    homePosR = digitalRead(BASE_R) == LOW;
 }
-
 
 inline bool getHomePosX()
 {
@@ -128,11 +122,7 @@ inline bool getHomePosY()
 
 inline bool getHomePosR()
 {
-    for (uint8_t i = 0; i < 16; ++i ) {
-        if (!homePosRId[i])
-            return false;
-    }
-    return true;
+    return homePosR;
 }
 
 void stepX(uint16_t delay1, uint16_t delay2)
@@ -268,7 +258,6 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            ++step;
             stepR(400, 400);
         }
         if (!getHomePosR()) {
@@ -281,11 +270,11 @@ bool returnBaseR()
         Serial.println(digitalRead(BASE_R),DEC);
 #endif
         //przesuwam jeszcze z 2mm glebiej karetke
-        //uint8_t idx = 20;
-        //step += 20;
-        //while (--idx) {
-        //    stepR(1000,1000);
-        //}
+        uint16_t idx = 500;
+        step += 500;
+        while (--idx) {
+            stepR(1000,1000);
+        }
     }
 #ifdef DEBUG
     Serial.println("Done");

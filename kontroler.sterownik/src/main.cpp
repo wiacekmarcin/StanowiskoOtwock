@@ -4,7 +4,7 @@
 #include "sterowniksilnika.hpp"
 
 
-#define DEBUG
+//#define DEBUG
 MessageSerial msg;
 void checkMsg();
 bool work();

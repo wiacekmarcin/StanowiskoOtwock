@@ -3,7 +3,7 @@
 #include "radio.hpp"
 
 #define RESET_NANO 4
-#define DEBUG_SERIAL
+//#define DEBUG_SERIAL
 MessageSerial msg;
 void checkMsg();
 bool work();
