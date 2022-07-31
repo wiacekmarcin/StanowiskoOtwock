@@ -55,7 +55,7 @@ void RoletaKroki::pbUstaw_clicked()
         if (!ok)
             return;
         lineEdit->setText(QString::number(steps));
-        emit reject();
+        reject();
     } else if (ui->rbmm->isChecked()) {
         if (ui->mm->text().isEmpty())
             return;
@@ -64,7 +64,7 @@ void RoletaKroki::pbUstaw_clicked()
         if (!ok)
             return;
         lineEdit->setText(QString::number(ruch->podniescMM(mm)));
-        emit reject();
+        reject();
     } else if (ui->rbPercent->isChecked()) {
         if (ui->percent->text().isEmpty())
             return;
@@ -73,7 +73,7 @@ void RoletaKroki::pbUstaw_clicked()
         if (!ok)
             return;
         lineEdit->setText(QString::number(ruch->poniescPercent(0.01*p)));
-        emit reject();
+        reject();
     }
 }
 

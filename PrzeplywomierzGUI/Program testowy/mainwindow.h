@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pbFindSerial_clicked();
+    void pbFindSerial_clicked();
 
     void connectedToPort(QString);
 
@@ -41,17 +41,18 @@ private slots:
 
     void debug(QString);
 
-    void on_pbHome_clicked();
-    void on_pbUstaw_clicked();
+    void pbHome_clicked();
+    void pbUstaw_clicked();
 
-    void on_pbClose_clicked();
-    void on_pbSettings_clicked();
-    void on_tbRoletaR_clicked();
-    void on_pbRoletaHome_clicked();
-    void on_pbRoletaUstaw_clicked();
-    void on_pbRadioOff_clicked();
-    void on_pbRadioOn_clicked();
-
+    void pbClose_clicked();
+    void pbSettings_clicked();
+    void tbRoletaR_clicked();
+    void pbRoletaHome_clicked();
+    void pbRoletaUstaw_clicked();
+    void pbRadioOff_clicked();
+    void pbRadioOn_clicked();
+    void tbX_clicked();
+    void tbY_clicked();
     void radioTimeout();
 
 signals:

@@ -79,8 +79,8 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
 
     unsigned long MM = 10*mm;
     unsigned long obwod;
-    while (n < 14) {
-        obwod = obrotStala10xmm[n];
+    while (n < 13) {
+        obwod = obrotStala10xmm[n+1];
         if (MM < obwod) {
             return krokiPerObrot*n + (unsigned long)(12000*MM/obwod);
         }

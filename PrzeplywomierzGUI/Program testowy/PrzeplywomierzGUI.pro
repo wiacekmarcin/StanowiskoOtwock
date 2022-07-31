@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    impulsydlg.cpp \
         main.cpp \
         mainwindow.cpp \
         crc8.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
     serialmessage.cpp \
     ustawienia.cpp
 HEADERS += \
+    impulsydlg.h \
         mainwindow.h \
         crc8.h \
         mechanika.h \
@@ -41,5 +43,6 @@ HEADERS += \
     ustawienia.h
 
 FORMS += \
+        impulsydlg.ui \
         mainwindow.ui \
         roletakroki.ui

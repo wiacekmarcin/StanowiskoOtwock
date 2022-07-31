@@ -53,7 +53,7 @@ private:
     unsigned long timeoutY;
 };
 
-#define ObrotN(N) void setObrot##N(const QString & obr##N); \
+#define ObrotN(N) void setObrot##N(const QString & obr##N) { obrotStala10xmm[N]=10*obr##N.toUInt(); }\
     unsigned int getObrotx10##N() const { return obrotStala10xmm[N]; } \
     float getObrot##N() const { return 0.1*obrotStala10xmm[N]; }
 

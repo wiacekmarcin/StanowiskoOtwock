@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include "roletakroki.h"
+#include "impulsydlg.h"
 
 #include <QPushButton>
 MainWindow::MainWindow(QWidget *parent) :
@@ -15,15 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionDone(SerialMessage::StatusWork)));
     connect(&sMsg, SIGNAL(homeStatus(SerialMessage::StatusWork)), this, SLOT(homeDone(SerialMessage::StatusWork)));
 
-
     connect(&sMsg, SIGNAL(errorReadFromRadio()), this, SLOT(errorReadFromRadio()));
     connect(&sMsg, SIGNAL(readFromRadio(int)), this, SLOT(readFromRadio(int)));
 
-
-
     connect(&sMsg, SIGNAL(errorSerial(QString)), this, SLOT(errorSerial(QString)));
     connect(&sMsg, SIGNAL(debug(QString)), this, SLOT(debug(QString)));
-
 
     connect(&sMsg, SIGNAL(deviceName(QString)), this, SLOT(deviceName(QString)));
     connect(&sMsg, SIGNAL(controllerOK()), this, SLOT(controllerOK()));
@@ -44,8 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)),
             &sMsg,  SLOT(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)));
 
-
     connect(this, SIGNAL(readRadio()), &sMsg, SLOT(readRadio()));
+
+
 
     rpos.setImpusyXPerMM(ust.getImpulsyXperMM().toUInt());
     rpos.setImpusyYPerMM(ust.getImpulsyYperMM().toUInt());
@@ -57,6 +55,20 @@ MainWindow::MainWindow(QWidget *parent) :
     rr.setMaxMM(ust.getRolDlugosc().toUInt());
     rr.setMaxKroki(160000);
 
+    rr.setObrot1(ust.getRolObrot1());
+    rr.setObrot2(ust.getRolObrot2());
+    rr.setObrot3(ust.getRolObrot3());
+    rr.setObrot4(ust.getRolObrot4());
+    rr.setObrot5(ust.getRolObrot5());
+    rr.setObrot6(ust.getRolObrot6());
+    rr.setObrot7(ust.getRolObrot7());
+    rr.setObrot8(ust.getRolObrot8());
+    rr.setObrot9(ust.getRolObrot9());
+    rr.setObrot10(ust.getRolObrot10());
+    rr.setObrot11(ust.getRolObrot11());
+    rr.setObrot12(ust.getRolObrot12());
+    rr.setObrot13(ust.getRolObrot13());
+
     ui->maxImpx->setText("750000");
     ui->maxImpY->setText("750000");
 
@@ -66,15 +78,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->pbRadioOff->setEnabled(false);
 
-    connect(ui->pbHome, &QPushButton::clicked, this, &MainWindow::on_pbHome_clicked);
-    connect(ui->pbUstaw, &QPushButton::clicked, this, &MainWindow::on_pbUstaw_clicked);
-    connect(ui->pbClose, &QPushButton::clicked, this, &MainWindow::on_pbClose_clicked);
-    connect(ui->pbSettings, &QPushButton::clicked, this, &MainWindow::on_pbSettings_clicked);
-    connect(ui->tbRoletaR, &QToolButton::clicked, this, &MainWindow::on_tbRoletaR_clicked);
-    connect(ui->pbRoletaHome, &QPushButton::clicked, this, &MainWindow::on_pbRoletaHome_clicked);
-    connect(ui->pbRoletaUstaw, &QPushButton::clicked, this, &MainWindow::on_pbRoletaUstaw_clicked);
-    connect(ui->pbRadioOff, &QPushButton::clicked, this, &MainWindow::on_pbRadioOff_clicked);
-    connect(ui->pbRadioOn, &QPushButton::clicked, this, &MainWindow::on_pbRadioOn_clicked);
+    connect(ui->pbHome, &QPushButton::clicked, this, &MainWindow::pbHome_clicked);
+    connect(ui->pbUstaw, &QPushButton::clicked, this, &MainWindow::pbUstaw_clicked);
+    connect(ui->pbClose, &QPushButton::clicked, this, &MainWindow::pbClose_clicked);
+    connect(ui->pbSettings, &QPushButton::clicked, this, &MainWindow::pbSettings_clicked);
+    connect(ui->tbRoletaR, &QToolButton::clicked, this, &MainWindow::tbRoletaR_clicked);
+    connect(ui->pbRoletaHome, &QPushButton::clicked, this, &MainWindow::pbRoletaHome_clicked);
+    connect(ui->pbRoletaUstaw, &QPushButton::clicked, this, &MainWindow::pbRoletaUstaw_clicked);
+    connect(ui->pbRadioOff, &QPushButton::clicked, this, &MainWindow::pbRadioOff_clicked);
+    connect(ui->pbRadioOn, &QPushButton::clicked, this, &MainWindow::pbRadioOn_clicked);
+    connect(ui->tb_X, &QToolButton::clicked, this, &MainWindow::tbX_clicked);
+    connect(ui->tb_Y, &QToolButton::clicked, this, &MainWindow::tbY_clicked);
+    connect(ui->pbFindSerial, &QPushButton::clicked, this, &MainWindow::pbFindSerial_clicked);
+    connect(ui->pbClose, &QPushButton::clicked, this, &MainWindow::pbClose_clicked);
 
     tmr.setInterval(1000);
     connect(&tmr, &QTimer::timeout, this, &MainWindow::radioTimeout);
@@ -85,10 +101,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pbFindSerial_clicked()
+void MainWindow::pbFindSerial_clicked()
 {
     ui->statusserial->setText("");
     ui->errorserial->setText("");
+    ui->portname->setText("");
     emit connectToDevice();
 }
 
@@ -248,7 +265,7 @@ void MainWindow::debug(QString text)
     ui->debug->appendPlainText(text);
 }
 
-void MainWindow::on_pbHome_clicked()
+void MainWindow::pbHome_clicked()
 {
     ui->cbHomeStart->setChecked(false);
     ui->cbHomeStartLP->setChecked(false);
@@ -261,7 +278,7 @@ void MainWindow::on_pbHome_clicked()
     emit setPositionHome();
 }
 
-void MainWindow::on_pbUstaw_clicked()
+void MainWindow::pbUstaw_clicked()
 {
     ui->cbPosStart->setChecked(false);
     ui->cbPosStartLP->setChecked(false);
@@ -278,13 +295,13 @@ void MainWindow::on_pbUstaw_clicked()
     emit setPosition(ui->pos_X->text().toUInt(), ui->pos_Y->text().toUInt());
 }
 
-void MainWindow::on_pbClose_clicked()
+void MainWindow::pbClose_clicked()
 {
     ui->pbFindSerial->setEnabled(true);
     sMsg.closeDevice();
 }
 
-void MainWindow::on_pbSettings_clicked()
+void MainWindow::pbSettings_clicked()
 {
     bool ok;
     int32_t impX =0, impY = 0, stepX = 0, stepY = 0, stepR = 0;
@@ -315,13 +332,13 @@ void MainWindow::on_pbSettings_clicked()
     emit setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR);
 }
 
-void MainWindow::on_tbRoletaR_clicked()
+void MainWindow::tbRoletaR_clicked()
 {
     RoletaKroki * dlg = new RoletaKroki(&rr, ui->pos_R, this);
     dlg->exec();
 }
 
-void MainWindow::on_pbRoletaHome_clicked()
+void MainWindow::pbRoletaHome_clicked()
 {
     ui->cbRolHomeKoniec->setChecked(false);
     ui->cbRolHomeStart->setChecked(false);
@@ -329,7 +346,7 @@ void MainWindow::on_pbRoletaHome_clicked()
     emit setRoletaHome();
 }
 
-void MainWindow::on_pbRoletaUstaw_clicked()
+void MainWindow::pbRoletaUstaw_clicked()
 {
     if (ui->pos_R->text().isEmpty())
         return;
@@ -346,7 +363,7 @@ void MainWindow::on_pbRoletaUstaw_clicked()
 }
 
 
-void MainWindow::on_pbRadioOff_clicked()
+void MainWindow::pbRadioOff_clicked()
 {
     ui->pbRadioOff->setEnabled(false);
     ui->pbRadioOn->setEnabled(true);
@@ -355,11 +372,27 @@ void MainWindow::on_pbRadioOff_clicked()
 }
 
 
-void MainWindow::on_pbRadioOn_clicked()
+void MainWindow::pbRadioOn_clicked()
 {
     ui->pbRadioOn->setEnabled(false);
     ui->pbRadioOff->setEnabled(true);
     tmr.start();
+}
+
+//unsigned int imp2mm, unsigned int step2mm, const QString & title, QLineEdit * value, QWidget *parent = nullptr);
+
+void MainWindow::tbX_clicked()
+{
+    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyXperMM().toUInt(), ust.getKrokiXperMM().toUInt(),
+                                       QString("Oś lewo-prawo"), ui->pos_X, this);
+    dlg->exec();
+}
+
+void MainWindow::tbY_clicked()
+{
+    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyYperMM().toUInt(), ust.getKrokiYperMM().toUInt(),
+                                       QString("Oś góra-dół"), ui->pos_Y, this);
+    dlg->exec();
 }
 
 void MainWindow::radioTimeout()
