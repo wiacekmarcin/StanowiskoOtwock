@@ -605,10 +605,12 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             if (data[0] == (char)1) {
                 setSettings2(memoryStepX, memoryStepY, memoryStepR);
                 return true;
-            } else if (data[0] == (char)2) {
+            } 
+            if (data[0] == (char)2) {
                 emit setParamsDone();
                 return true;
             }
+            return false;
         }
 
         default:

@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto val10 = ust.getRolDlugosc();
     ui->dlugoscRolety->setText(val10 == "" ? "1700" : val10);
 
-    auto val11 = ust.getRolImpObrot();
+    auto val11 = ust.getRolStepObrot();
     ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
 
 //101.3, 105.9, 108.9, 112.4, 115.8, 118.6, 121.9, 125.5, 128.4, 132.1, 135, 138.7, 141.9
