@@ -95,6 +95,7 @@ public slots:
                    uint32_t maxStepX, uint32_t maxStepY,
                    uint32_t maxStepR);
 
+    void readRadio();
 
 protected:
     void setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);

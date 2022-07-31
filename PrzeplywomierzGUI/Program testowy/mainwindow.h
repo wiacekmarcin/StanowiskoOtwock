@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "serialmessage.h"
 #include "mechanika.h"
+#include "ustawienia.h"
+
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -44,8 +47,12 @@ private slots:
     void on_pbClose_clicked();
     void on_pbSettings_clicked();
     void on_tbRoletaR_clicked();
-
     void on_pbRoletaHome_clicked();
+    void on_pbRoletaUstaw_clicked();
+    void on_pbRadioOff_clicked();
+    void on_pbRadioOn_clicked();
+
+    void radioTimeout();
 
 signals:
     void connectToDevice();
@@ -58,11 +65,16 @@ signals:
     void setParams(bool reverseX, bool reverseY, bool reverseR,
                    uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY,
                    uint32_t maxStepR);
+
+    void readRadio();
+
 private:
     Ui::MainWindow *ui;
     SerialMessage sMsg;
     Ruch rpos;
     RoletaRuch rr;
+    Ustawienia ust;
+    QTimer tmr;
 };
 
 #endif // MAINWINDOW_H

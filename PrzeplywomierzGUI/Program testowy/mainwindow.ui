@@ -15,13 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pbClose">
-      <property name="text">
-       <string>Zamknij port</string>
-      </property>
-     </widget>
-    </item>
     <item row="5" column="0" colspan="4">
      <widget class="QPlainTextEdit" name="debug"/>
     </item>
@@ -283,20 +276,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="portname">
-      <property name="text">
-       <string>Port</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" colspan="3">
-     <widget class="QLabel" name="errorserial">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0" colspan="3">
      <widget class="QFrame" name="frame_4">
       <property name="frameShape">
@@ -354,20 +333,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pbFindSerial">
-      <property name="text">
-       <string>Znajdz urzadzenia</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="statusserial">
-      <property name="text">
-       <string/>
-      </property>
      </widget>
     </item>
     <item row="3" column="0" colspan="3">
@@ -557,6 +522,93 @@
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string>Pozycja</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="3">
+     <widget class="QFrame" name="frame_6">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pbRadioOn">
+         <property name="text">
+          <string>Włącz radio</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pbRadioOff">
+         <property name="text">
+          <string>Wyłącz radio</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Odczyt z radio</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="radioInfo">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QFrame" name="frame_7">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_8">
+       <item row="1" column="1">
+        <widget class="QLabel" name="errorserial">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="portname">
+         <property name="text">
+          <string>Port</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pbClose">
+         <property name="text">
+          <string>Zamknij port</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pbFindSerial">
+         <property name="text">
+          <string>Znajdz urzadzenia</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" rowspan="2">
+        <widget class="QLabel" name="statusserial">
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>

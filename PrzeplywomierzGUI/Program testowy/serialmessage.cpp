@@ -188,6 +188,12 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
     memoryStepR = maxStepR;
 }
 
+void SerialMessage::readRadio()
+{
+    emit debug(QString(measValuesMsg().toHex().toStdString().c_str()));
+    writeMessage(measValuesMsg());
+}
+
 void SerialMessage::closeDevice()
 {
     if (m_serialPort.isOpen())

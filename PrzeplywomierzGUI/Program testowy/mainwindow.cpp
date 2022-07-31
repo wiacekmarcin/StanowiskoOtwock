@@ -3,6 +3,8 @@
 
 #include <QMessageBox>
 #include "roletakroki.h"
+
+#include <QPushButton>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -43,11 +45,39 @@ MainWindow::MainWindow(QWidget *parent) :
             &sMsg,  SLOT(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)));
 
 
-    ui->maxImpx->setText("1000");
-    ui->maxImpY->setText("1500");
+    connect(this, SIGNAL(readRadio()), &sMsg, SLOT(readRadio()));
 
-    ui->maxStepX->setText("200");
-    ui->maxStepY->setText("300");
+    rpos.setImpusyXPerMM(ust.getImpulsyXperMM().toUInt());
+    rpos.setImpusyYPerMM(ust.getImpulsyYperMM().toUInt());
+
+    rpos.setKrokiXPerMM(ust.getKrokiXperMM().toUInt());
+    rpos.setKrokiYPerMM(ust.getKrokiYperMM().toUInt());
+
+    rr.setKrokiPerObrot(ust.getRolStepObrot().toUInt());
+    rr.setMaxMM(ust.getRolDlugosc().toUInt());
+    rr.setMaxKroki(160000);
+
+    ui->maxImpx->setText("750000");
+    ui->maxImpY->setText("750000");
+
+    ui->maxStepX->setText("300000");
+    ui->maxStepY->setText("300000");
+    ui->maxStepR->setText("160000");
+
+    ui->pbRadioOff->setEnabled(false);
+
+    connect(ui->pbHome, &QPushButton::clicked, this, &MainWindow::on_pbHome_clicked);
+    connect(ui->pbUstaw, &QPushButton::clicked, this, &MainWindow::on_pbUstaw_clicked);
+    connect(ui->pbClose, &QPushButton::clicked, this, &MainWindow::on_pbClose_clicked);
+    connect(ui->pbSettings, &QPushButton::clicked, this, &MainWindow::on_pbSettings_clicked);
+    connect(ui->tbRoletaR, &QToolButton::clicked, this, &MainWindow::on_tbRoletaR_clicked);
+    connect(ui->pbRoletaHome, &QPushButton::clicked, this, &MainWindow::on_pbRoletaHome_clicked);
+    connect(ui->pbRoletaUstaw, &QPushButton::clicked, this, &MainWindow::on_pbRoletaUstaw_clicked);
+    connect(ui->pbRadioOff, &QPushButton::clicked, this, &MainWindow::on_pbRadioOff_clicked);
+    connect(ui->pbRadioOn, &QPushButton::clicked, this, &MainWindow::on_pbRadioOn_clicked);
+
+    tmr.setInterval(1000);
+    connect(&tmr, &QTimer::timeout, this, &MainWindow::radioTimeout);
 }
 
 MainWindow::~MainWindow()
@@ -100,7 +130,8 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
     case SerialMessage::END_R:
         ui->cbRolPosKoniec->setChecked(true);
         ui->pbRoletaUstaw->setEnabled(true);
-
+        ui->stepR->setText(QString::number(sMsg.getMoveStepR()));
+        ui->posStepR->setText(QString::number(sMsg.getPosStepR()));
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Pozycja X/Y", "Nie udało się ustawić pozycji");
@@ -141,6 +172,7 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
         break;
     case SerialMessage::START_R:
         ui->cbRolHomeStart->setChecked(true);
+        ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
         ui->cbRolHomeKoniec->setChecked(true);
@@ -293,7 +325,6 @@ void MainWindow::on_pbRoletaHome_clicked()
 {
     ui->cbRolHomeKoniec->setChecked(false);
     ui->cbRolHomeStart->setChecked(false);
-    ui->pbRoletaHome->setEnabled(false);
     ui->homeStepsR->setText("-");
     emit setRoletaHome();
 }
@@ -309,6 +340,30 @@ void MainWindow::on_pbRoletaUstaw_clicked()
     ui->cbRolPosKoniec->setChecked(false);
     ui->cbRolPosKoniec->setChecked(false);
     ui->pbRoletaUstaw->setEnabled(false);
+    ui->stepR->setText("-");
+    ui->posStepR->setText("-");
     emit setRoleta(steps);
+}
+
+
+void MainWindow::on_pbRadioOff_clicked()
+{
+    ui->pbRadioOff->setEnabled(false);
+    ui->pbRadioOn->setEnabled(true);
+    tmr.stop();
+
+}
+
+
+void MainWindow::on_pbRadioOn_clicked()
+{
+    ui->pbRadioOn->setEnabled(false);
+    ui->pbRadioOff->setEnabled(true);
+    tmr.start();
+}
+
+void MainWindow::radioTimeout()
+{
+    emit readRadio();
 }
 
