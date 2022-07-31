@@ -6,9 +6,12 @@
 
 Q_DECLARE_METATYPE(long double)
 
+#define RolObrotN(N) const QString &getRolObrot##N() const; void setRolObrot##N(const QString &newRolObrot##N);
+
 class Ustawienia
 {
 public:
+
     Ustawienia();
 
     void read();
@@ -22,8 +25,6 @@ public:
 
     QString getUnitCzujnik1() const;
     void setUnitCzujnik1(const QString &value);
-
-
 
     QString getImpulsyXperMM() const;
     void setImpulsyXperMM(const QString &value);
@@ -48,6 +49,30 @@ public:
     QString getOffsetY() const;
     void setOffsetY(const QString &value);
 
+
+
+    const QString &getRolDlugosc() const;
+    void setRolDlugosc(const QString &newRolDlugosc);
+
+    const QString &getRolImpObrot() const;
+    void setRolImpObrot(const QString &newRolImpObrot);
+
+
+    RolObrotN(1)
+    RolObrotN(2)
+    RolObrotN(3)
+    RolObrotN(4)
+    RolObrotN(5)
+    RolObrotN(6)
+    RolObrotN(7)
+    RolObrotN(8)
+    RolObrotN(9)
+    RolObrotN(10)
+    RolObrotN(11)
+    RolObrotN(12)
+    RolObrotN(13)
+
+
 private:
     QSettings settings;
 
@@ -67,6 +92,22 @@ private:
     QString katnachylenia;
     QString offsetX;
     QString offsetY;
+
+    QString rolDlugosc;
+    QString rolImpObrot;
+    QString rolObrot1;
+    QString rolObrot2;
+    QString rolObrot3;
+    QString rolObrot4;
+    QString rolObrot5;
+    QString rolObrot6;
+    QString rolObrot7;
+    QString rolObrot8;
+    QString rolObrot9;
+    QString rolObrot10;
+    QString rolObrot11;
+    QString rolObrot12;
+    QString rolObrot13;
 
 };
 

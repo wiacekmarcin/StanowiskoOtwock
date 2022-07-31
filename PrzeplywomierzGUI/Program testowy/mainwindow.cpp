@@ -1,29 +1,23 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMessageBox>
+#include "roletakroki.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Program testowy");
 
-    connect(&sMsg, SIGNAL(startingPosition()), this, SLOT(startingPosition()));
-    connect(&sMsg, SIGNAL(startingPositionX()), this, SLOT(startingPositionX()));
-    connect(&sMsg, SIGNAL(donePositionX()), this, SLOT(donePositionX()));
-    connect(&sMsg, SIGNAL(startingPositionY()), this, SLOT(startingPositionY()));
-    connect(&sMsg, SIGNAL(donePositionY()), this, SLOT(donePositionY()));
-    connect(&sMsg, SIGNAL(donePosition()), this, SLOT(donePosition()));
+    connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionDone(SerialMessage::StatusWork)));
+    connect(&sMsg, SIGNAL(homeStatus(SerialMessage::StatusWork)), this, SLOT(homeDone(SerialMessage::StatusWork)));
+
 
     connect(&sMsg, SIGNAL(errorReadFromRadio()), this, SLOT(errorReadFromRadio()));
     connect(&sMsg, SIGNAL(readFromRadio(int)), this, SLOT(readFromRadio(int)));
 
-    connect(&sMsg, SIGNAL(startingHome()), this, SLOT(startingHome()));
-    connect(&sMsg, SIGNAL(startingHomeX()), this, SLOT(startingHomeX()));
-    connect(&sMsg, SIGNAL(doneHomeX()), this, SLOT(doneHomeX()));
-    connect(&sMsg, SIGNAL(startingHomeY()), this, SLOT(startingHomeY()));
-    connect(&sMsg, SIGNAL(doneHomeY()), this, SLOT(doneHomeY()));
-    connect(&sMsg, SIGNAL(doneHome()), this, SLOT(doneHome()));
-    connect(&sMsg, SIGNAL(errorHome()), this, SLOT(errorHome()));
+
 
     connect(&sMsg, SIGNAL(errorSerial(QString)), this, SLOT(errorSerial(QString)));
     connect(&sMsg, SIGNAL(debug(QString)), this, SLOT(debug(QString)));
@@ -37,15 +31,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(connectToDevice()), &sMsg, SLOT(connectToSerial()));
     connect(this, SIGNAL(checkDevice()), &sMsg, SLOT(checkController()));
+
+
     connect(this, SIGNAL(setPositionHome()), &sMsg, SLOT(setPositionHome()));
     connect(this, SIGNAL(setPosition(uint32_t,uint32_t)), &sMsg, SLOT(setPosition(uint32_t,uint32_t)));
 
-    connect(this, SIGNAL(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)), &sMsg, SLOT(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)));
+    connect(this, SIGNAL(setRoletaHome()), &sMsg, SLOT(setRoletaHome()));
+    connect(this, SIGNAL(setRoleta(uint32_t)), &sMsg, SLOT(setRoleta(uint32_t)));
 
-    ui->pbHome->setEnabled(false);
-    ui->pbUstaw->setEnabled(false);
+    connect(this, SIGNAL(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)),
+            &sMsg,  SLOT(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)));
 
-    numhomestart = numhomedone = numxhomestart = numxhomedone = numyhomestart = numyhomedone = 0;
 
     ui->maxImpx->setText("1000");
     ui->maxImpY->setText("1500");
@@ -71,34 +67,95 @@ void MainWindow::connectedToPort(QString portname)
     ui->portname->setText(portname);
 }
 
-void MainWindow::startingPosition()
+void MainWindow::positionDone(SerialMessage::StatusWork work)
 {
-    ui->startpos->setText(QString("%1").arg(++numposstart));
+    switch(work) {
+    case SerialMessage::START_XY:
+        ui->cbPosStart->setChecked(true);
+        ui->pbUstaw->setEnabled(false);
+        break;
+    case SerialMessage::START_X:
+        ui->cbPosStartLP->setChecked(true);
+        break;
+    case SerialMessage::END_X:
+        ui->cbPosKoniecLP->setChecked(true);
+        ui->stepX->setText(QString::number(sMsg.getMoveStepX()));
+        ui->posImpX->setText(QString::number(sMsg.getPosImpX()));
+        break;
+    case SerialMessage::START_Y:
+        ui->cbPosStartGD->setChecked(true);
+        break;
+    case SerialMessage::END_Y:
+        ui->cbPosKoniecGD->setChecked(true);
+        ui->stepY->setText(QString::number(sMsg.getMoveStepY()));
+        ui->posImpY->setText(QString::number(sMsg.getPosImpY()));
+        break;
+    case SerialMessage::END_XY:
+        ui->cbPosKoniec->setChecked(true);
+        ui->pbUstaw->setEnabled(true);
+        break;
+    case SerialMessage::START_R:
+        ui->cbRolHomeStart->setChecked(true);
+        break;
+    case SerialMessage::END_R:
+        ui->cbRolPosKoniec->setChecked(true);
+        ui->pbRoletaUstaw->setEnabled(true);
+
+        break;
+    case SerialMessage::ERROR_XY:
+        QMessageBox::critical(this, "Pozycja X/Y", "Nie udało się ustawić pozycji");
+        ui->pbUstaw->setEnabled(true);
+        break;
+    case SerialMessage::ERROR_R:
+        ui->pbRoletaUstaw->setEnabled(true);
+        break;
+    default:
+        break;
+    }
 }
 
-void MainWindow::startingPositionX()
+void MainWindow::homeDone(SerialMessage::StatusWork work)
 {
-    ui->startposx->setText(QString("%1").arg(++numxposstart));
-}
-
-void MainWindow::donePositionX()
-{
-    ui->doneposx->setText(QString("%1").arg(++numxposdone));
-}
-
-void MainWindow::startingPositionY()
-{
-    ui->startposy->setText(QString("%1").arg(++numyposstart));
-}
-
-void MainWindow::donePositionY()
-{
-    ui->doneposy->setText(QString("%1").arg(++numyposdone));
-}
-
-void MainWindow::donePosition()
-{
-    ui->donepos->setText(QString("%1").arg(++numposdone));
+    switch(work) {
+    case SerialMessage::START_XY:
+        ui->cbHomeStart->setChecked(true);
+        ui->pbHome->setEnabled(false);
+        break;
+    case SerialMessage::START_X:
+        ui->cbHomeStartLP->setChecked(true);
+        break;
+    case SerialMessage::END_X:
+        ui->cbHomeKoniecLP->setChecked(true);
+        ui->homeStepsX->setText(QString::number(sMsg.getMoveStepX()));
+        break;
+    case SerialMessage::START_Y:
+        ui->cbHomeStartGD->setChecked(true);
+        break;
+    case SerialMessage::END_Y:
+        ui->cbHomeKoniecGD->setChecked(true);
+        ui->homeStepsY->setText(QString::number(sMsg.getMoveStepY()));
+        break;
+    case SerialMessage::END_XY:
+        ui->cbHomeKoniec->setChecked(true);
+        ui->pbHome->setEnabled(true);
+        break;
+    case SerialMessage::START_R:
+        ui->cbRolHomeStart->setChecked(true);
+        break;
+    case SerialMessage::END_R:
+        ui->cbRolHomeKoniec->setChecked(true);
+        ui->pbRoletaHome->setEnabled(true);
+        ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));
+        break;
+    case SerialMessage::ERROR_XY:
+        QMessageBox::critical(this, "Powrót do pozycji startowej", "Nie udało się ustawić pozycji bazowej");
+        ui->pbHome->setEnabled(true);
+        break;
+    case SerialMessage::ERROR_R:
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::errorReadFromRadio()
@@ -111,46 +168,11 @@ void MainWindow::readFromRadio(int val)
     qDebug("readFromRadio %d", val);
 }
 
-void MainWindow::startingHome()
-{
-    ui->startinghome->setText(QString("%1").arg(++numhomestart));
-}
-
-void MainWindow::startingHomeX()
-{
-    ui->startinghomex->setText(QString("%1").arg(++numxhomestart));
-}
-
-void MainWindow::doneHomeX()
-{
-    ui->donehomex->setText(QString("%1").arg(++numxhomedone));
-}
-
-void MainWindow::startingHomeY()
-{
-    ui->startinghomey->setText(QString("%1").arg(++numyhomestart));
-}
-
-void MainWindow::doneHomeY()
-{
-    ui->donehomey->setText(QString("%1").arg(++numyhomedone));
-}
-
-void MainWindow::doneHome()
-{
-    ui->donehome->setText(QString("%1").arg(++numhomedone));
-
-}
-
-void MainWindow::errorHome()
-{
-    ui->errorhome->setText("Error");
-}
-
 void MainWindow::errorSerial(QString error)
 {
     ui->pbHome->setEnabled(false);
     ui->pbUstaw->setEnabled(false);
+
     ui->pbFindSerial->setEnabled(true);
     ui->errorserial->setText(error);
     ui->debug->appendPlainText(error);
@@ -194,28 +216,33 @@ void MainWindow::debug(QString text)
     ui->debug->appendPlainText(text);
 }
 
-
 void MainWindow::on_pbHome_clicked()
 {
-    numhomestart = numhomedone = numxhomestart = numxhomedone = numyhomestart = numyhomedone = 0;
-    ui->startinghome->setText(QString("0"));
-    ui->startinghomex->setText(QString("0"));
-    ui->donehomex->setText(QString("0"));
-    ui->startinghomey->setText(QString("0"));
-    ui->donehomex->setText(QString("0"));
-    ui->donehome->setText(QString("0"));
+    ui->cbHomeStart->setChecked(false);
+    ui->cbHomeStartLP->setChecked(false);
+    ui->cbHomeKoniecLP->setChecked(false);
+    ui->cbHomeStartGD->setChecked(false);
+    ui->cbHomeKoniecGD->setChecked(false);
+    ui->cbHomeKoniec->setChecked(false);
+    ui->homeStepsX->setText("-");
+    ui->homeStepsY->setText("-");
     emit setPositionHome();
 }
 
 void MainWindow::on_pbUstaw_clicked()
 {
-    numposstart = numposdone = numxposstart = numxposdone = numyposstart = numyposdone = 0;
-    ui->startpos->setText(QString("0"));
-    ui->startposx->setText(QString("0"));
-    ui->doneposx->setText(QString("0"));
-    ui->startposy->setText(QString("0"));
-    ui->doneposy->setText(QString("0"));
-    ui->donepos->setText(QString("0"));
+    ui->cbPosStart->setChecked(false);
+    ui->cbPosStartLP->setChecked(false);
+    ui->cbPosKoniecLP->setChecked(false);
+    ui->cbPosStartGD->setChecked(false);
+    ui->cbPosKoniecGD->setChecked(false);
+    ui->cbPosKoniec->setChecked(false);
+
+    ui->stepX->setText("-");
+    ui->stepY->setText("-");
+    ui->posImpX->setText("-");
+    ui->posImpY->setText("-");
+
     emit setPosition(ui->pos_X->text().toUInt(), ui->pos_Y->text().toUInt());
 }
 
@@ -225,30 +252,63 @@ void MainWindow::on_pbClose_clicked()
     sMsg.closeDevice();
 }
 
-
 void MainWindow::on_pbSettings_clicked()
 {
     bool ok;
-    int32_t impX = ui->maxImpx->text().toUInt(&ok);
+    int32_t impX =0, impY = 0, stepX = 0, stepY = 0, stepR = 0;
+    impX = ui->maxImpx->text().toUInt(&ok);
     if (!ok)
         impX = 0;
 
-    int32_t impY = ui->maxImpY->text().toUInt(&ok);
+    impY = ui->maxImpY->text().toUInt(&ok);
     if (!ok)
         impY = 0;
 
-    int32_t stepX = ui->maxStepX->text().toUInt(&ok);
+    stepX = ui->maxStepX->text().toUInt(&ok);
     if (!ok)
         stepX = 0;
 
-    int32_t stepY = ui->maxStepY->text().toUInt(&ok);
+    stepY = ui->maxStepY->text().toUInt(&ok);
     if (!ok)
         stepY = 0;
 
-    bool reverseX = ui->dirX->isChecked();
+    stepR = ui->maxStepR->text().toUInt(&ok);
+    if (!ok)
+        stepR = 0;
 
+    bool reverseX = ui->dirX->isChecked();
     bool reverseY = ui->dirY->isChecked();
-    ui->statusparams->setText("Trwa ustawianie");
-    emit setParams(reverseX, reverseY, impX, impY, stepX, stepY);
+    bool reverseR = ui->dirR->isChecked();
+    ui->statusparams->setText("Trwa ustawianie parametrów");
+    emit setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR);
+}
+
+void MainWindow::on_tbRoletaR_clicked()
+{
+    RoletaKroki * dlg = new RoletaKroki(&rr, ui->pos_R, this);
+    dlg->exec();
+}
+
+void MainWindow::on_pbRoletaHome_clicked()
+{
+    ui->cbRolHomeKoniec->setChecked(false);
+    ui->cbRolHomeStart->setChecked(false);
+    ui->pbRoletaHome->setEnabled(false);
+    ui->homeStepsR->setText("-");
+    emit setRoletaHome();
+}
+
+void MainWindow::on_pbRoletaUstaw_clicked()
+{
+    if (ui->pos_R->text().isEmpty())
+        return;
+    bool ok;
+    uint32_t steps = ui->pos_R->text().toULong(&ok);
+    if (!ok)
+        return;
+    ui->cbRolPosKoniec->setChecked(false);
+    ui->cbRolPosKoniec->setChecked(false);
+    ui->pbRoletaUstaw->setEnabled(false);
+    emit setRoleta(steps);
 }
 

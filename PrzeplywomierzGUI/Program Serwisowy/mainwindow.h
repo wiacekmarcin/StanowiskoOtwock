@@ -24,6 +24,8 @@ private slots:
 
     void on_pbSaveWentylator_clicked();
 
+    void on_pbRoletaSave_clicked();
+
 private:
     Ui::MainWindow *ui;
     Ustawienia ust;

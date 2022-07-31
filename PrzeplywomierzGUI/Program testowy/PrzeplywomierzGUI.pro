@@ -29,12 +29,15 @@ SOURCES += \
         mainwindow.cpp \
         crc8.cpp \
         mechanika.cpp \
+    roletakroki.cpp \
     serialmessage.cpp
 HEADERS += \
         mainwindow.h \
         crc8.h \
         mechanika.h \
+    roletakroki.h \
     serialmessage.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        roletakroki.ui

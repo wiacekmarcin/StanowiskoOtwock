@@ -53,4 +53,47 @@ private:
     unsigned long timeoutY;
 };
 
+#define ObrotN(N) void setObrot##N(const QString & obr##N); \
+    unsigned int getObrotx10##N() const { return obrotStala10xmm[N]; } \
+    float getObrot##N() const { return 0.1*obrotStala10xmm[N]; }
+
+class RoletaRuch {
+public:
+    RoletaRuch();
+
+    ObrotN(1)
+    ObrotN(2)
+    ObrotN(3)
+    ObrotN(4)
+    ObrotN(5)
+    ObrotN(6)
+    ObrotN(7)
+    ObrotN(8)
+    ObrotN(9)
+    ObrotN(10)
+    ObrotN(11)
+    ObrotN(12)
+    ObrotN(13)
+
+    unsigned int getKrokiPerObrot() const;
+    void setKrokiPerObrot(unsigned int newKrokiPerObrot);
+
+    unsigned long podniescMM(unsigned int mm);
+    unsigned long poniescPercent(float percent) {
+        return podniescMM((unsigned int)(percent * maxMM / 100));
+    }
+
+    unsigned int getMaxMM() const;
+    void setMaxMM(unsigned int newMaxMM);
+
+    unsigned long getMaxKroki() const;
+    void setMaxKroki(unsigned long newMaxKroki);
+
+private:
+    static unsigned int obrotStala10xmm[14];
+    unsigned int krokiPerObrot;
+    unsigned int maxMM;
+    unsigned long maxKroki;
+};
+
 #endif // MECHANIKA_H

@@ -6,6 +6,8 @@
 #include <QTextStream>
 #include <QCoreApplication>
 
+#include <QDebug>
+
 #ifdef Q_OS_WIN
 #include <windows.h> // for Sleep
 #endif
@@ -49,8 +51,6 @@ SerialMessage::SerialMessage(QObject *parent) :
     connect(&m_serialPort, SIGNAL(readyRead()), this, SLOT(handleReadyRead()));
     connect(&m_serialPort, SIGNAL(errorOccurred(QSerialPort::SerialPortError)), this, SLOT(serialError(QSerialPort::SerialPortError)));
 
-    connect(this, SIGNAL(setParams1()), this, SLOT(doneSettings1()));
-    connect(this, SIGNAL(setParams2()), this, SLOT(doneSettings2()));
 
     //connect(&m_timer, &QTimer::timeout, this, &SerialPortReader::handleTimeout);
 
@@ -115,7 +115,7 @@ void SerialMessage::connectToSerial()
         description = serialPortInfo.description();
         manufacturer = serialPortInfo.manufacturer();
         serialNumber = serialPortInfo.serialNumber();
-
+        qDebug() << description.toStdString().c_str() << manufacturer.toStdString().c_str() << serialNumber.toStdString().c_str();
 
        //if (description == "Arduino Nano Every" &&
        //         manufacturer == "Arduino LLC") {
@@ -147,26 +147,16 @@ void SerialMessage::setPositionHome()
     writeMessage(homePositionMsg());
 }
 
-void SerialMessage::setSettings1(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY)
+void SerialMessage::setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
-    emit debug(QString(settings1Msg(reverseX, reverseY, maxImpX, maxImpY).toHex().toStdString().c_str()));
-    writeMessage(settings1Msg(reverseX, reverseY, maxImpX, maxImpY));
+    emit debug(QString(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY).toHex().toStdString().c_str()));
+    writeMessage(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY));
 }
 
-void SerialMessage::setSettings2(uint32_t stepImpX, uint32_t stepImpY)
+void SerialMessage::setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR)
 {
-    emit debug(QString(settings2Msg(stepImpX, stepImpY).toHex().toStdString().c_str()));
-    writeMessage(settings2Msg(stepImpX, stepImpY));
-}
-
-void SerialMessage::doneSettings1()
-{
-    setSettings2(memoryStepX, memoryStepY);
-}
-
-void SerialMessage::doneSettings2()
-{
-    emit setParamsDone();
+    emit debug(QString(settings2Msg(stepMaxX, stepMaxY, stepMaxR).toHex().toStdString().c_str()));
+    writeMessage(settings2Msg(stepMaxX, stepMaxY, stepMaxR));
 }
 
 void SerialMessage::setPosition(uint32_t x, uint32_t y)
@@ -175,11 +165,27 @@ void SerialMessage::setPosition(uint32_t x, uint32_t y)
     writeMessage(positionMsg(x, y));
 }
 
-void SerialMessage::setParams(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY)
+void SerialMessage::setRoletaHome()
 {
-    setSettings1(reverseX, reverseY, maxImpX, maxImpY);
+    emit debug(QString(homeRoletaMsg().toHex().toStdString().c_str()));
+    writeMessage(homeRoletaMsg());
+}
+
+void SerialMessage::setRoleta(uint32_t r)
+{
+    emit debug(QString(roletaMsg(r).toHex().toStdString().c_str()));
+    writeMessage(roletaMsg(r));
+}
+
+void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
+                              uint32_t maxImpX, uint32_t maxImpY,
+                              uint32_t maxStepX, uint32_t maxStepY,
+                              uint32_t maxStepR)
+{
+    setSettings1(reverseX, reverseY, reverseR, maxImpX, maxImpY);
     memoryStepX = maxStepX;
     memoryStepY = maxStepY;
+    memoryStepR = maxStepR;
 }
 
 void SerialMessage::closeDevice()
@@ -226,7 +232,8 @@ QByteArray SerialMessage::welcomeMsg()
 
 QByteArray SerialMessage::homePositionMsg()
 {
-    return prepareMessage(MOVEHOME_REQ, NULL, 0);
+    uint8_t tab[1] = {'P'};
+    return prepareMessage(MOVEHOME_REQ, tab, 1);
 }
 
 QByteArray SerialMessage::positionMsg(uint32_t x, const uint32_t y)
@@ -241,6 +248,22 @@ QByteArray SerialMessage::positionMsg(uint32_t x, const uint32_t y)
     tab[6] = (x >> 8) & 0xff;
     tab[7] = x & 0xff;
     return prepareMessage(POSITION_REQ, tab, 8);
+}
+
+QByteArray SerialMessage::homeRoletaMsg()
+{
+    uint8_t tab[1] = {'R'};
+    return prepareMessage(MOVEHOME_REQ, tab, 1);
+}
+
+QByteArray SerialMessage::roletaMsg(uint32_t r)
+{
+    uint8_t tab[4];
+    tab[0] = (r >> 24) & 0xff;
+    tab[1] = (r >> 16) & 0xff;
+    tab[2] = (r >> 8) & 0xff;
+    tab[3] = r & 0xff;
+    return prepareMessage(POSITION_REQ, tab, 4);
 }
 
 QByteArray SerialMessage::measValuesMsg()
@@ -270,11 +293,11 @@ QByteArray SerialMessage::measUnitMsg(short index, const float &ratio, QString &
     return prepareMessage(MEASUNIT_REQ, tab, 5+unit.size());
 }
 
-QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY)
+QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
     uint8_t tab[10];
     tab[0] = 0x01;
-    tab[1] = (reverseX ? 0x01 : 0x00) | (reverseY ? 0x02 : 0x00);
+    tab[1] = (reverseX ? 0x01 : 0x00) | (reverseY ? 0x02 : 0x00) | (reverseR ? 0x04 : 0x00) ;
     tab[2] = (maxImpX >> 24) & 0xff;
     tab[3] = (maxImpX >> 16) & 0xff;
     tab[4] = (maxImpX >> 8) & 0xff;
@@ -286,19 +309,53 @@ QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, uint32_t ma
     return prepareMessage(SET_PARAM_REQ, tab, 10);
 }
 
-QByteArray SerialMessage::settings2Msg(uint32_t stepImpX, uint32_t stepImpY)
+QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
 {
-    uint8_t tab[9];
+    uint8_t tab[13];
     tab[0] = 0x02;
-    tab[1] = (stepImpX >> 24) & 0xff;
-    tab[2] = (stepImpX >> 16) & 0xff;
-    tab[3] = (stepImpX >> 8) & 0xff;
-    tab[4] = stepImpX & 0xff;
-    tab[5] = (stepImpY >> 24) & 0xff;
-    tab[6] = (stepImpY >> 16) & 0xff;
-    tab[7] = (stepImpY >> 8) & 0xff;
-    tab[8] = stepImpY & 0xff;
-    return prepareMessage(SET_PARAM_REQ, tab, 9);
+    tab[1] = (maxStepX >> 24) & 0xff;
+    tab[2] = (maxStepX >> 16) & 0xff;
+    tab[3] = (maxStepX >> 8) & 0xff;
+    tab[4] = maxStepX & 0xff;
+    tab[5] = (maxStepY >> 24) & 0xff;
+    tab[6] = (maxStepY >> 16) & 0xff;
+    tab[7] = (maxStepY >> 8) & 0xff;
+    tab[8] = maxStepY & 0xff;
+    tab[9] = (maxStepR >> 24) & 0xff;
+    tab[10] = (maxStepR >> 16) & 0xff;
+    tab[11] = (maxStepR >> 8) & 0xff;
+    tab[12] = maxStepR & 0xff;
+    return prepareMessage(SET_PARAM_REQ, tab, 13);
+}
+
+int32_t SerialMessage::getPosStepR() const
+{
+    return posStepR;
+}
+
+int32_t SerialMessage::getPosImpY() const
+{
+    return posImpY;
+}
+
+int32_t SerialMessage::getPosImpX() const
+{
+    return posImpX;
+}
+
+int32_t SerialMessage::getMoveStepY() const
+{
+    return moveStepY;
+}
+
+int32_t SerialMessage::getMoveStepX() const
+{
+    return moveStepX;
+}
+
+int32_t SerialMessage::getMoveStepR() const
+{
+    return moveStepR;
 }
 
 bool SerialMessage::checkHead(const QByteArray &arr, uint8_t & cmd, uint8_t & len,  QByteArray & data)
@@ -360,7 +417,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 qDebug("len != 15");
                 return false;
             }
-            uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', 'U'};
+            uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
             for (int i = 0; i < 15; ++i) {
                 if (wzorzec[i] != data[i]) {
                     qDebug("wzorzec != data");
@@ -376,40 +433,65 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         case MOVEHOME_REP:
         {
             //set home position
-            //0xB0 CRC8 - req
-            //0xC1 s/L/D/p/g/K CRC8 - s=start, p=start lewoprawo, L=stop lewoprawo, g=start goradol D=stop goradol K=stop all
+            //81 S/l/P/d/G/K/R/r/ CRC8 - rep home position
+            //                                S=start, l=start lewoprawo, P=end lewoprawo,
+            //                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
             if (len == 1) {
                 switch(data[0]) {
-                    case 's':
-                        emit debug("staring home msg");
-                        emit startingHome();
+                    case 'S':
+                        emit debug("Starting home-base positioning");
+                        emit homeStatus(START_XY);
                         return true;
-                    case 'L':
-                        emit debug("done home X msg");
-                        emit doneHomeX();
+                    case 'l':
+                        emit debug("Starting X home-base positioning");
+                        emit homeStatus(START_X);
                         return true;
-                    case 'D':
-                        emit debug("done home Y msg");
-                        emit doneHomeY();
-                        return true;
-                    case 'p':
-                        emit debug("staring home X msg");
-                        emit startingHomeX();
-                        return true;
-                    case 'g':
-                        emit debug("staring home Y msg");
-                        emit startingHomeY();
+                    case 'd':
+                        emit debug("Starting Y home-base positioning");
+                        emit homeStatus(START_Y);
                         return true;
                     case 'K':
-                        emit debug("done home msg");
-                        emit doneHome();
+                        emit debug("Home-base positioning done");
+                        emit homeStatus(END_XY);
                         return true;
-                    case 'E':
-                        emit debug("error home msg");
-                        emit errorHome();
+                    case 'r':
+                        emit debug("Roleta home-base start");
+                        emit homeStatus(START_R);
                         return true;
                     default:
                         return false;
+                }
+            } else if (len == 5) {
+                switch(data[0]) {
+                case 'P':
+                    moveStepX = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    emit debug(QString("Ending X home-base positioning. Steps = %1").arg(moveStepX));
+                    emit homeStatus(END_X);
+                    return true;
+                case 'G':
+                    moveStepY = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    emit debug(QString("Ending Y home-base positioning. Steps = %1").arg(moveStepY));
+                    emit homeStatus(END_Y);
+                    return true;
+                case 'R':
+                    moveStepR = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    emit debug(QString("Ending Roleta. Steps = %1").arg(moveStepR));
+                    emit homeStatus(END_R);
+                    return true;
+                default:
+                    return false;
+                }
+            } else if (len == 2) {
+                if (data[0] == 'E' && data[1] == 'P') {
+                    emit debug("Error home-base positioning");
+                    emit errorHome();
+                    emit homeStatus(ERROR_XY);
+                    return true;
+                } else if (data[0] == 'E' && data[1] == 'R') {
+                    emit debug("Error roleta home-base positioning");
+                    emit errorHome();
+                    emit homeStatus(ERROR_R);
+                    return true;
                 }
             }
             return false;
@@ -417,32 +499,64 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
         case POSITION_REP:
         {
-        //0xC1 s/L/D/p/g/K CRC8 - s=start, p=start lewoprawo, L=stop lewoprawo, g=start goradol D=stop goradol K=stop all
+        // 61 s/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges
+        //                              S=start,
+        //                              l=start lewoprawo,
+        //                              P=end lewoprawo,
+        //                              d=start goradol
+        //                              G=end goradol
+        //                              K=endboth,
+        //                              r - start rolet,
+        //                              R - koniec rolet
+        //62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
+        //69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+        //69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+        //69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
         if (len == 1) {
             switch(data[0]) {
-                case 's':
-                    emit debug("staring pos msg");
-                    emit startingPosition();
-                    return true;
-                case 'P':
-                    emit debug("done pos x msg");
-                    emit donePositionX();
-                    return true;
-                case 'G':
-                    emit debug("done pos y msg");
-                    emit donePositionY();
+                case 'S':
+                    emit debug("Starting positioning");
+                    emit positionStatus(START_XY);
                     return true;
                 case 'l':
-                    emit debug("staring pos x msg");
-                    emit startingPositionX();
+                    emit debug("Starting X positioning");
+                    emit positionStatus(START_X);
                     return true;
                 case 'd':
-                    emit debug("staring pos y msg");
-                    emit startingPositionY();
+                    emit debug("Starting Y positioning");
+                    emit positionStatus(START_Y);
                     return true;
                 case 'K':
-                    emit debug("done pos");
-                    emit donePosition();
+                    emit debug("Positioning done");
+                    emit positionStatus(END_XY);
+                    return true;
+                case 'r':
+                    emit debug("Roleta move start");
+                    emit positionStatus(START_R);
+                    return true;
+                default:
+                    return false;
+            }
+        } else if (len == 9) {
+            switch(data[0]) {
+                case 'P':
+                    moveStepX = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    posImpX = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    emit debug(QString("Position X done: Steps = %1. Global pos = %2").arg(moveStepX).arg(posImpX));
+
+                    emit homeStatus(END_X);
+                    return true;
+                case 'G':
+                    moveStepY = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    posImpY = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    emit debug(QString("Position Y done: Steps = %1. Global pos = %2").arg(moveStepY).arg(posImpY));
+                    emit homeStatus(END_Y);
+                    return true;
+                case 'R':
+                    moveStepR = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    posStepR = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    emit debug(QString("Position R done: Steps = %1. Global pos = %2").arg(moveStepR).arg(posStepR));
+                    emit homeStatus(END_R);
                     return true;
                 default:
                     return false;
@@ -455,9 +569,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         case MEASVALUE_REP:
         {
             //getCzujVal
-            //0x70 CRC8 - req
-            //0x8A 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
-            //0x81 'E' CRC8 - error polaczenia z radiem
+            //0xa0 CRC8 - req
+            //0xbA 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
+            //0xb1 'E' CRC8 - error polaczenia z radiem
             if (len == 1 && data[0] == 'E') {
                 emit errorReadFromRadio();
                 return true;
@@ -483,11 +597,10 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         case SET_PARAM_REP:
         {
             if (data[0] == (char)1) {
-                emit setParams1();
+                setSettings2(memoryStepX, memoryStepY, memoryStepR);
                 return true;
-            }
-            if (data[0] == (char)2) {
-                emit setParams2();
+            } else if (data[0] == (char)2) {
+                emit setParamsDone();
                 return true;
             }
         }

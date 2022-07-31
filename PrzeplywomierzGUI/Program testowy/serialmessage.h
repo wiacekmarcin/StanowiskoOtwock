@@ -18,45 +18,58 @@ public:
     void closeDevice();
 
     typedef enum _cmd {
+        NOP_MSG = 0,
         WELCOME_REQ = 1,
         WELCOME_REP = 2,
         SET_PARAM_REQ = 3,
         SET_PARAM_REP = 4,
         POSITION_REQ = 5,
         POSITION_REP = 6,
-        MEASVALUE_REQ = 7,
-        MEASVALUE_REP = 8,
-        MEASUNIT_REQ = 9,
-        MEASUNIT_REP = 10,
-        MOVEHOME_REQ = 11,
-        MOVEHOME_REP = 12,
+        MOVEHOME_REQ = 7,
+        MOVEHOME_REP = 8,
+        MEASVALUE_REQ = 9,
+        MEASVALUE_REP = 10,
+        MEASUNIT_REQ = 11,
+        MEASUNIT_REP = 12,
+        ERROR_REP = 15,
 
     } CMD;
+
+    typedef enum _status {
+        START_XY,
+        START_X,
+        END_X,
+        START_Y,
+        END_Y,
+        END_XY,
+        START_R,
+        END_R,
+        ERROR_XY,
+        ERROR_R
+    } StatusWork;
+
+    int32_t getMoveStepR() const;
+    int32_t getMoveStepX() const;
+    int32_t getMoveStepY() const;
+    int32_t getPosImpX() const;
+    int32_t getPosImpY() const;
+    int32_t getPosStepR() const;
 
 signals:
     void successOpenDevice(bool);
     void deviceName(QString);
 
     void controllerOK();
-    void startingPosition();
-    void startingPositionX();
-    void donePositionX();
-    void startingPositionY();
-    void donePositionY();
-    void donePosition();
+
+    void positionStatus(SerialMessage::StatusWork work);
+    void homeStatus(SerialMessage::StatusWork work);
+
+    void errorHome();
+    void errorHomeRoleta();
+
     void errorReadFromRadio();
     void readFromRadio(int val);
 
-    void startingHome();
-    void startingHomeX();
-    void doneHomeX();
-    void startingHomeY();
-    void doneHomeY();
-    void doneHome();
-    void errorHome();
-
-    void setParams1();
-    void setParams2();
 
     void setParamsDone();
 
@@ -72,13 +85,20 @@ public slots:
     void checkController();
     void connectToSerial();
     void setPositionHome();
-    void setSettings1(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY);
-    void setSettings2(uint32_t stepImpX, uint32_t stepImpY);
-    void doneSettings1();
-    void doneSettings2();
     void setPosition(uint32_t x, uint32_t y);
 
-    void setParams(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY);
+    void setRoletaHome();
+    void setRoleta(uint32_t x);
+
+    void setParams(bool reverseX, bool reverseY, bool reverseR,
+                   uint32_t maxImpX, uint32_t maxImpY,
+                   uint32_t maxStepX, uint32_t maxStepY,
+                   uint32_t maxStepR);
+
+
+protected:
+    void setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);
+    void setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR);
 
     void response(const QByteArray &s);
     //void errorRead(const QString &s);
@@ -94,14 +114,17 @@ protected:
     QByteArray welcomeMsg();
     QByteArray homePositionMsg();
     QByteArray positionMsg(uint32_t x, const uint32_t y);
+    QByteArray homeRoletaMsg();
+    QByteArray roletaMsg(uint32_t r);
     QByteArray measValuesMsg();
     QByteArray measUnitMsg(short index, const float &ratio, QString &unit);
     bool checkHead(const QByteArray &arr, uint8_t & cmd, uint8_t & len, QByteArray & data);
     bool parseCommand(const QByteArray &arr);
     QByteArray prepareMessage(uint8_t cmd, uint8_t tab[], uint8_t len);
     void writeMessage(const QByteArray &writeData);
-    QByteArray settings1Msg(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY);
-    QByteArray settings2Msg(uint32_t maxImpX, uint32_t maxImpY);
+    QByteArray settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);
+    QByteArray settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR);
+
 
 
 private:
@@ -116,7 +139,15 @@ private:
 
     int32_t memoryStepX;
     int32_t memoryStepY;
+    int32_t memoryStepR;
 
+    int32_t moveStepR;
+    int32_t moveStepX;
+    int32_t moveStepY;
+
+    int32_t posImpX;
+    int32_t posImpY;
+    int32_t posStepR;
 };
 
 #endif // SERIALMESSAGE_H
