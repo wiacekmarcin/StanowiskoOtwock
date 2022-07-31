@@ -54,8 +54,8 @@ public:
     const QString &getRolDlugosc() const;
     void setRolDlugosc(const QString &newRolDlugosc);
 
-    const QString &getRolImpObrot() const;
-    void setRolImpObrot(const QString &newRolImpObrot);
+    const QString &getRolStepObrot() const;
+    void setRolStepObrot(const QString &newRolImpObrot);
 
 
     RolObrotN(1)
@@ -94,7 +94,7 @@ private:
     QString offsetY;
 
     QString rolDlugosc;
-    QString rolImpObrot;
+    QString rolStepObrot;
     QString rolObrot1;
     QString rolObrot2;
     QString rolObrot3;

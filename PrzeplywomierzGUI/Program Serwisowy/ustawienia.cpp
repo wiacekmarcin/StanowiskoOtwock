@@ -29,7 +29,7 @@ void Ustawienia::read()
     offsetY = settings.value("offsety").toString();
 
     rolDlugosc = settings.value("rol_dlugoscMM").toString();
-    rolImpObrot = settings.value("rol_impulsyPerObrot").toString();
+    rolStepObrot = settings.value("rol_stepsPerObrot").toString();
 
     rolReadN(1);
     rolReadN(2);
@@ -65,7 +65,7 @@ void Ustawienia::write()
     settings.setValue("offsetY", QVariant::fromValue(offsetY));
 
     settings.setValue("rol_dlugoscMM", QVariant::fromValue(rolDlugosc));
-    settings.setValue("rol_impulsyPerObrot", QVariant::fromValue(rolImpObrot));
+    settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
 
     rolWriteN(1);
     rolWriteN(2);
@@ -195,15 +195,15 @@ void Ustawienia::setRolDlugosc(const QString &newRolDlugosc)
     settings.setValue("rol_dlugoscMM", QVariant::fromValue(rolDlugosc));
 }
 
-const QString &Ustawienia::getRolImpObrot() const
+const QString &Ustawienia::getRolStepObrot() const
 {
-    return rolImpObrot;
+    return rolStepObrot;
 }
 
-void Ustawienia::setRolImpObrot(const QString &newRolImpObrot)
+void Ustawienia::setRolStepObrot(const QString &newRolImpObrot)
 {
-    rolImpObrot = newRolImpObrot;
-    settings.setValue("rol_impulsyPerObrot", QVariant::fromValue(rolImpObrot));
+    rolStepObrot = newRolImpObrot;
+    settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
 }
 
 #define RolObrotDefN(N) \
