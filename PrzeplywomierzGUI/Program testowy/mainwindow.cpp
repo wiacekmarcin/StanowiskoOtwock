@@ -5,6 +5,8 @@
 #include "roletakroki.h"
 #include "impulsydlg.h"
 
+#include  <QDebug>
+
 #include <QPushButton>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -164,34 +166,43 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
 
 void MainWindow::homeDone(SerialMessage::StatusWork work)
 {
+    qDebug() << "homeDone work" << work;
     switch(work) {
     case SerialMessage::START_XY:
+        qDebug() << "Start home";
         ui->cbHomeStart->setChecked(true);
         ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
+        qDebug() << "Start X";
         ui->cbHomeStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
+        qDebug() << "End X";
         ui->cbHomeKoniecLP->setChecked(true);
         ui->homeStepsX->setText(QString::number(sMsg.getMoveStepX()));
         break;
     case SerialMessage::START_Y:
+        qDebug() << "Start Y";
         ui->cbHomeStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
+        qDebug() << "End Y";
         ui->cbHomeKoniecGD->setChecked(true);
         ui->homeStepsY->setText(QString::number(sMsg.getMoveStepY()));
         break;
     case SerialMessage::END_XY:
+        qDebug() << "Koniec Baza";
         ui->cbHomeKoniec->setChecked(true);
         ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
+        qDebug() << "Start R";
         ui->cbRolHomeStart->setChecked(true);
         ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
+        qDebug() << "End R";
         ui->cbRolHomeKoniec->setChecked(true);
         ui->pbRoletaHome->setEnabled(true);
         ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));
@@ -399,4 +410,5 @@ void MainWindow::radioTimeout()
 {
     emit readRadio();
 }
+
 

@@ -76,7 +76,8 @@ private:
         POSITIONING,
         MEASURING,
         NEXTPOSITION,
-        NEXTROLETA,
+        ROLETA,
+        ROLETAWAIT
     } statusWorkEnum;
 
 private:

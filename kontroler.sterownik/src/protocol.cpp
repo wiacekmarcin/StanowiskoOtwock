@@ -1,6 +1,6 @@
 #include "protocol.hpp"
 
-#define DEBUG
+//#define DEBUG
 
 #include "../../kontroler_lib/protocol_kontroler.cpp"
 

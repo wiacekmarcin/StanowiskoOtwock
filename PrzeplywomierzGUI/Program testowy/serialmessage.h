@@ -98,6 +98,8 @@ public slots:
     void readRadio();
 
 protected:
+    void sendReset();
+
     void setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);
     void setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR);
 
@@ -126,7 +128,7 @@ protected:
     QByteArray settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);
     QByteArray settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR);
 
-
+    uint32_t getNumber(const QByteArray & data);
 
 private:
     //MasterThread mt;
@@ -138,17 +140,25 @@ private:
     QByteArray cmd;
     unsigned short lenCmd;
 
-    int32_t memoryStepX;
-    int32_t memoryStepY;
-    int32_t memoryStepR;
+    bool memoryreverseX;
+    bool memoryreverseY;
+    bool memoryreverseR;
+    uint32_t memorymaxImpX;
+    uint32_t memorymaxImpY;
 
-    int32_t moveStepR;
-    int32_t moveStepX;
-    int32_t moveStepY;
+    uint32_t memoryStepX;
+    uint32_t memoryStepY;
+    uint32_t memoryStepR;
 
-    int32_t posImpX;
-    int32_t posImpY;
-    int32_t posStepR;
+    uint32_t moveStepR;
+    uint32_t moveStepX;
+    uint32_t moveStepY;
+
+    uint32_t posImpX;
+    uint32_t posImpY;
+    uint32_t posStepR;
+
+    bool setParamsWork;
 };
 
 #endif // SERIALMESSAGE_H

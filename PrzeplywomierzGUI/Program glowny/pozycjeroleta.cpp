@@ -70,7 +70,77 @@ void PozycjeRoleta::setData(unsigned short etapNr, unsigned int stableTime, unsi
 
 void PozycjeRoleta::update()
 {
+    if (getIsStart()) {
+        if (getIsWait())
+            return;
 
+        if (actStatus == WAIT)
+            return;
+
+
+        if (actStatus == POSITIONING) {
+            if (actPos >= ui->table->rowCount()) {
+                setIsStart(false);
+                actStatus = WAIT;
+                emit statusMiernik("Zakonczono ustawianie wszystkich pozycji");
+                ui->status->setText("Zakonczono ustawianie wszystkich pozycji");
+                emit end();
+                ui->pbStart->setEnabled(false);
+                ui->pbNoweDane->setEnabled(true);
+                ui->pbZapisz->setEnabled(true);
+                return;
+            }
+
+            //ustaw na pozycji
+            unsigned int xmm = ui->table->item(actPos,0)->text().toUInt();
+            unsigned int ymm = ui->table->item(actPos,1)->text().toUInt();
+
+            actCzas = ui->table->item(actPos,8)->text().toUInt();
+            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Ustawiam pozycję"));
+            uint32_t impx, impy;
+            impx = mech.getImpulsyX(xmm);
+            impy = mech.getImpulsyY(ymm);
+
+            debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+            actStatus = MEASURING;
+            emit setPosition(impx, impy);
+            ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
+            setIsWait( true );
+            avg1 = 0.0;
+            cnt1 = 0;
+            qDebug("xmm=%d",impx);
+            qDebug("ymm=%d",impy);
+        } else if (actStatus == MEASURING) {
+            ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(ui->table->item(actPos,0)->text()).arg(ui->table->item(actPos,1)->text()).arg(avg1));
+            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
+            debug(QString("Pomiar [%1 s]").arg(actCzas));
+            emit readRadio();
+
+            if (actCzas == 0) {
+                actStatus = NEXTPOSITION;
+            } else {
+                --actCzas;
+            }
+        } else if (actStatus == NEXTPOSITION) {
+            debug(QString("Ukonczono"));
+            ui->status->setText("Zakonczono pomiary");
+
+            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Ukończono"));
+            ++actPos;
+            ui->table->scrollToItem(ui->table->item(actPos, 0));
+            if (actPos < ui->table->rowCount()) {
+                if (ui->table->item(actPos, 10)->text() ==QString("P")) {
+                    actStatus = POSITIONING;
+                } else {
+                    actStatus = MOVEROLETA;
+                }
+            } else {
+                actStatus = WAIT;
+            }
+        } else if (actStatus == MOVEROLETA) {
+            emit
+        }
+    }
 }
 
 void PozycjeRoleta::readedFromRadio(int val)

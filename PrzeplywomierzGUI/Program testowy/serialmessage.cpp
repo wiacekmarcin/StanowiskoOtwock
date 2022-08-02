@@ -72,7 +72,8 @@ void SerialMessage::handleReadyRead()
 
     while (readData.size() > 0 ) {
 
-        unsigned char c = readData.front();
+        //unsigned char c = readData.front();
+        unsigned char c = readData.at(0);
         readData.remove(0,1);
         cmd.append(c);
 
@@ -98,11 +99,17 @@ void SerialMessage::serialError(const QSerialPort::SerialPortError &error)
 
 void SerialMessage::checkController()
 {
-
+    qDebug() << "checkController";
+    if (setParamsWork) {
+        qDebug() << __FILE__ << __LINE__ << "setParam";
+        setSettings1(memoryreverseX, memoryreverseY, memoryreverseR, memorymaxImpX, memorymaxImpY);
+        setParamsWork = false;
+    }
 }
 
 void SerialMessage::connectToSerial()
 {
+    qDebug() << "Connect to serial";
     const auto serialPortInfos = QSerialPortInfo::availablePorts();
 
     QString description;
@@ -115,15 +122,19 @@ void SerialMessage::connectToSerial()
         description = serialPortInfo.description();
         manufacturer = serialPortInfo.manufacturer();
         serialNumber = serialPortInfo.serialNumber();
-        qDebug() << description.toStdString().c_str() << manufacturer.toStdString().c_str() << serialNumber.toStdString().c_str();
+        qDebug() << "D" << description.toStdString().c_str()
+                 << "M" << manufacturer.toStdString().c_str()
+                 << "S" << serialNumber.toStdString().c_str();
 
        //if (description == "Arduino Nano Every" &&
        //         manufacturer == "Arduino LLC") {
        //Pod windowsem jest uniwersalne urzadzenie USB firmy Microsoft
             if (serialPortInfo.hasVendorIdentifier() && serialPortInfo.hasProductIdentifier()) {
+
                 auto vendorId = serialPortInfo.vendorIdentifier();
                 auto productId = serialPortInfo.productIdentifier();
-                if (vendorId == 9025 && productId == 88 && serialNumber == serialNumberKontroler) {
+                qDebug() << vendorId << " : " << productId;
+                if (vendorId == 6991 && productId == 37382 /*&& serialNumber == serialNumberKontroler*/) {
                     //if (sendMesgWelcome(serialPortInfo)) {
                     //    connSerial = true;
                     //    return;
@@ -149,12 +160,14 @@ void SerialMessage::setPositionHome()
 
 void SerialMessage::setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
+    qDebug() << __FILE__ << __LINE__ << "set setttings 1";
     emit debug(QString(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY).toHex().toStdString().c_str()));
     writeMessage(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY));
 }
 
 void SerialMessage::setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR)
 {
+    qDebug() << __FILE__ << __LINE__ << "set setttings 2";
     emit debug(QString(settings2Msg(stepMaxX, stepMaxY, stepMaxR).toHex().toStdString().c_str()));
     writeMessage(settings2Msg(stepMaxX, stepMaxY, stepMaxR));
 }
@@ -182,16 +195,35 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxStepX, uint32_t maxStepY,
                               uint32_t maxStepR)
 {
-    setSettings1(reverseX, reverseY, reverseR, maxImpX, maxImpY);
+    qDebug() << __FILE__ << __LINE__ << "Reset";
+    setParamsWork = true;
+
+    memoryreverseX = reverseX;
+    memoryreverseY = reverseY;
+    memoryreverseR = reverseR;
+    memorymaxImpX = maxImpX;
+    memorymaxImpY = maxImpY;
+
+
     memoryStepX = maxStepX;
     memoryStepY = maxStepY;
     memoryStepR = maxStepR;
+
+    //sendReset();
+    setSettings1(reverseX,reverseY,reverseR,maxImpX,maxImpY);
 }
 
 void SerialMessage::readRadio()
 {
     emit debug(QString(measValuesMsg().toHex().toStdString().c_str()));
     writeMessage(measValuesMsg());
+}
+
+void SerialMessage::sendReset()
+{
+    qDebug() << __FILE__ << __LINE__ << "Reset";
+    emit debug(QString(welcomeMsg().toHex().toStdString().c_str()));
+    writeMessage(welcomeMsg());
 }
 
 void SerialMessage::closeDevice()
@@ -334,6 +366,12 @@ QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uin
     return prepareMessage(SET_PARAM_REQ, tab, 13);
 }
 
+uint32_t SerialMessage::getNumber(const QByteArray &data)
+{
+    qDebug() << data.toHex().toStdString().c_str();
+    return ((data[0] & 0xff) << 24) +  ((data[1] & 0xff) << 16) + ((data[2] & 0xff) << 8) + (data[3] & 0xff);
+}
+
 int32_t SerialMessage::getPosStepR() const
 {
     return posStepR;
@@ -433,7 +471,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
             emit debug("welcome msg");
             emit controllerOK();
-
+            checkController();
             return true;
         }
         case MOVEHOME_REP:
@@ -444,7 +482,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             //                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
             if (len == 1) {
                 switch(data[0]) {
-                    case 'S':
+                    case 's':
                         emit debug("Starting home-base positioning");
                         emit homeStatus(START_XY);
                         return true;
@@ -470,17 +508,17 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             } else if (len == 5) {
                 switch(data[0]) {
                 case 'P':
-                    moveStepX = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    moveStepX = getNumber(data.mid(1, 4));
                     emit debug(QString("Ending X home-base positioning. Steps = %1").arg(moveStepX));
                     emit homeStatus(END_X);
                     return true;
                 case 'G':
-                    moveStepY = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    moveStepY = getNumber(data.mid(1, 4));
                     emit debug(QString("Ending Y home-base positioning. Steps = %1").arg(moveStepY));
                     emit homeStatus(END_Y);
                     return true;
                 case 'R':
-                    moveStepR = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
+                    moveStepR = getNumber(data.mid(1, 4));
                     emit debug(QString("Ending Roleta. Steps = %1").arg(moveStepR));
                     emit homeStatus(END_R);
                     return true;
@@ -520,7 +558,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         //69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
         if (len == 1) {
             switch(data[0]) {
-                case 'S':
+                case 's':
                     emit debug("Starting positioning");
                     emit positionStatus(START_XY);
                     return true;
@@ -546,21 +584,21 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         } else if (len == 9) {
             switch(data[0]) {
                 case 'P':
-                    moveStepX = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
-                    posImpX = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    moveStepX = getNumber(data.mid(1, 4));
+                    posImpX = getNumber(data.mid(5, 4));
                     emit debug(QString("Position X done: Steps = %1. Global pos = %2").arg(moveStepX).arg(posImpX));
 
                     emit homeStatus(END_X);
                     return true;
                 case 'G':
-                    moveStepY = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
-                    posImpY = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    moveStepY = getNumber(data.mid(1, 4));
+                    posImpY = getNumber(data.mid(5, 4));
                     emit debug(QString("Position Y done: Steps = %1. Global pos = %2").arg(moveStepY).arg(posImpY));
                     emit homeStatus(END_Y);
                     return true;
                 case 'R':
-                    moveStepR = (data[1] << 24) +  (data[2] << 16) + (data[3] << 8) + data[4];
-                    posStepR = (data[5] << 24) +  (data[6] << 16) + (data[7] << 8) + data[8];
+                    moveStepR = getNumber(data.mid(1, 4));
+                    posStepR = getNumber(data.mid(5, 4));
                     emit debug(QString("Position R done: Steps = %1. Global pos = %2").arg(moveStepR).arg(posStepR));
                     emit homeStatus(END_R);
                     return true;
@@ -602,7 +640,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
         case SET_PARAM_REP:
         {
+            qDebug() << "setParams reply" << (unsigned int) data[0];
             if (data[0] == (char)1) {
+
                 setSettings2(memoryStepX, memoryStepY, memoryStepR);
                 return true;
             } 

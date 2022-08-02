@@ -12,7 +12,7 @@ bool work();
 
 void setup()
 {
-    //Serial.begin(115200);
+   // Serial.begin(115200);
 #ifndef DEBUG
     msg.init();
 #endif // !DEBUG    
@@ -59,6 +59,7 @@ bool work()
     
     switch(actWork) {
         case MessageSerial::POS_START:
+            delay(200);
             msg.sendPositionStart();
             delay(200);
             setPosY(msg.getPosY());
@@ -70,6 +71,7 @@ bool work()
         return true;
 
         case MessageSerial::RETURN_HOME:
+            delay(200);
             msg.sendRetHomeStart();
             delay(200);
             if (!returnBaseX()) {

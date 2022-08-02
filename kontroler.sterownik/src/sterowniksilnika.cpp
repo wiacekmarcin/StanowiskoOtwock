@@ -175,7 +175,7 @@ bool returnBaseX()
     if (!getHomePosX()) {
         
         while (!getHomePosX() && ++step < gStepMaxX) {
-            stepX(300, 300);
+            stepX(200, 200);
         }
         if (!getHomePosX()) {
             msg.setErrorHomeBack();
@@ -186,7 +186,7 @@ bool returnBaseX()
         uint8_t idx = 200;
         step+=200;
         while (--idx) {
-            stepX(1000, 1000);
+            stepX(500, 500);
         }
     }
     msg.sendRetHomeXDone(step);
@@ -258,7 +258,7 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            stepR(400, 400);
+            stepR(20, 200);
         }
         if (!getHomePosR()) {
             msg.setErrorRoletaHomeBack();
@@ -273,7 +273,7 @@ bool returnBaseR()
         uint16_t idx = 500;
         step += 500;
         while (--idx) {
-            stepR(1000,1000);
+            stepR(20,500);
         }
     }
 #ifdef DEBUG
@@ -604,7 +604,7 @@ void setPosR(uint32_t pos)
 
     if (gMoveStepR < 2*sizeImpuls + 10) {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-            stepR(20,500);
+            stepR(20,250);
             --gMoveStepR;
         }
     } else {
@@ -613,6 +613,7 @@ void setPosR(uint32_t pos)
             --gMoveStepR;
         }
     }
+    
 #ifdef DEBUG   
     Serial.print("gActPosStepRol=");
     Serial.println(gActPosStepRol, DEC);

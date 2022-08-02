@@ -55,6 +55,7 @@ private slots:
     void tbY_clicked();
     void radioTimeout();
 
+
 signals:
     void connectToDevice();
     void checkDevice();
