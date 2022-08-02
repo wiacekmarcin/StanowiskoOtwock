@@ -508,7 +508,7 @@
           <string>Rozpoczęcie pozycjonowania</string>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -532,7 +532,7 @@
           <string>Zakonczenie pozycjonowania</string>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -595,7 +595,7 @@
           <string>Rozpoczęcie bazowania</string>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -605,7 +605,7 @@
           <string>Zakończenie bazowania</string>
          </property>
          <property name="checkable">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
         </widget>
        </item>

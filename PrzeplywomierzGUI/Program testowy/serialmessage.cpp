@@ -276,16 +276,17 @@ QByteArray SerialMessage::homePositionMsg()
 
 QByteArray SerialMessage::positionMsg(uint32_t x, const uint32_t y)
 {
-    uint8_t tab[8];
-    tab[0] = (y >> 24) & 0xff;
-    tab[1] = (y >> 16) & 0xff;
-    tab[2] = (y >> 8) & 0xff;
-    tab[3] = y & 0xff;
-    tab[4] = (x >> 24) & 0xff;
-    tab[5] = (x >> 16) & 0xff;
-    tab[6] = (x >> 8) & 0xff;
-    tab[7] = x & 0xff;
-    return prepareMessage(POSITION_REQ, tab, 8);
+    uint8_t tab[9];
+    tab[0] = 'P';
+    tab[1] = (y >> 24) & 0xff;
+    tab[2] = (y >> 16) & 0xff;
+    tab[3] = (y >> 8) & 0xff;
+    tab[4] = y & 0xff;
+    tab[5] = (x >> 24) & 0xff;
+    tab[6] = (x >> 16) & 0xff;
+    tab[7] = (x >> 8) & 0xff;
+    tab[8] = x & 0xff;
+    return prepareMessage(POSITION_REQ, tab, 9);
 }
 
 QByteArray SerialMessage::homeRoletaMsg()
@@ -296,12 +297,13 @@ QByteArray SerialMessage::homeRoletaMsg()
 
 QByteArray SerialMessage::roletaMsg(uint32_t r)
 {
-    uint8_t tab[4];
-    tab[0] = (r >> 24) & 0xff;
-    tab[1] = (r >> 16) & 0xff;
-    tab[2] = (r >> 8) & 0xff;
-    tab[3] = r & 0xff;
-    return prepareMessage(POSITION_REQ, tab, 4);
+    uint8_t tab[5];
+    tab[0] = 'R';
+    tab[1] = (r >> 24) & 0xff;
+    tab[2] = (r >> 16) & 0xff;
+    tab[3] = (r >> 8) & 0xff;
+    tab[4] = r & 0xff;
+    return prepareMessage(POSITION_REQ, tab, 5);
 }
 
 QByteArray SerialMessage::measValuesMsg()
@@ -588,19 +590,19 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                     posImpX = getNumber(data.mid(5, 4));
                     emit debug(QString("Position X done: Steps = %1. Global pos = %2").arg(moveStepX).arg(posImpX));
 
-                    emit homeStatus(END_X);
+                    emit positionStatus(END_X);
                     return true;
                 case 'G':
                     moveStepY = getNumber(data.mid(1, 4));
                     posImpY = getNumber(data.mid(5, 4));
                     emit debug(QString("Position Y done: Steps = %1. Global pos = %2").arg(moveStepY).arg(posImpY));
-                    emit homeStatus(END_Y);
+                    emit positionStatus(END_Y);
                     return true;
                 case 'R':
                     moveStepR = getNumber(data.mid(1, 4));
                     posStepR = getNumber(data.mid(5, 4));
                     emit debug(QString("Position R done: Steps = %1. Global pos = %2").arg(moveStepR).arg(posStepR));
-                    emit homeStatus(END_R);
+                    emit positionStatus(END_R);
                     return true;
                 default:
                     return false;

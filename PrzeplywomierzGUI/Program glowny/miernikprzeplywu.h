@@ -35,6 +35,7 @@ public:
     void closeEvent (QCloseEvent *event);
 
     void setUstawienia(Ustawienia * u);
+
 protected:
     void chooseTab();
     void chooseMethod();
@@ -57,6 +58,8 @@ private slots:
     void deviceName(QString);
     void controllerOK();
 
+    void positionStatus(SerialMessage::StatusWork work);
+    void homeStatus(SerialMessage::StatusWork work);
     void setParamsDone();
 
     void doneHome();

@@ -120,35 +120,43 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
 {
     switch(work) {
     case SerialMessage::START_XY:
+        qDebug() << "start both";
         ui->cbPosStart->setChecked(true);
         ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
+        qDebug() << "start lewoprawo";
         ui->cbPosStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
+        qDebug() << "end lewo";
         ui->cbPosKoniecLP->setChecked(true);
         ui->stepX->setText(QString::number(sMsg.getMoveStepX()));
         ui->posImpX->setText(QString::number(sMsg.getPosImpX()));
         break;
     case SerialMessage::START_Y:
+        qDebug() << "Start gora dol";
         ui->cbPosStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
+        qDebug() << "Koniec gora dol";
         ui->cbPosKoniecGD->setChecked(true);
         ui->stepY->setText(QString::number(sMsg.getMoveStepY()));
         ui->posImpY->setText(QString::number(sMsg.getPosImpY()));
         break;
     case SerialMessage::END_XY:
+        qDebug() << "Koniec pozycjoowanie";
         ui->cbPosKoniec->setChecked(true);
         ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        ui->cbRolHomeStart->setChecked(true);
+        qDebug() << "Poczatek bazowania";
+        ui->cbRolPosStart->setChecked(true);
         break;
     case SerialMessage::END_R:
+        qDebug() << "Koniec bazowania";
         ui->cbRolPosKoniec->setChecked(true);
-        ui->pbRoletaUstaw->setEnabled(true);
+        //ui->pbRoletaUstaw->setEnabled(true);
         ui->stepR->setText(QString::number(sMsg.getMoveStepR()));
         ui->posStepR->setText(QString::number(sMsg.getPosStepR()));
         break;
@@ -157,7 +165,7 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
         ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::ERROR_R:
-        ui->pbRoletaUstaw->setEnabled(true);
+        //ui->pbRoletaUstaw->setEnabled(true);
         break;
     default:
         break;
@@ -199,12 +207,12 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
     case SerialMessage::START_R:
         qDebug() << "Start R";
         ui->cbRolHomeStart->setChecked(true);
-        ui->pbRoletaHome->setEnabled(false);
+        //ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
         qDebug() << "End R";
         ui->cbRolHomeKoniec->setChecked(true);
-        ui->pbRoletaHome->setEnabled(true);
+        //ui->pbRoletaHome->setEnabled(true);
         ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));
         break;
     case SerialMessage::ERROR_XY:
@@ -365,9 +373,9 @@ void MainWindow::pbRoletaUstaw_clicked()
     uint32_t steps = ui->pos_R->text().toULong(&ok);
     if (!ok)
         return;
+    ui->cbRolPosStart->setChecked(false);
     ui->cbRolPosKoniec->setChecked(false);
-    ui->cbRolPosKoniec->setChecked(false);
-    ui->pbRoletaUstaw->setEnabled(false);
+    //ui->pbRoletaUstaw->setEnabled(false);
     ui->stepR->setText("-");
     ui->posStepR->setText("-");
     emit setRoleta(steps);

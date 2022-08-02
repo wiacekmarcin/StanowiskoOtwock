@@ -37,6 +37,7 @@ void MessageSerial::init()
     //Serial.begin(115200);
 #endif    
     Serial1.begin(115200); 
+    Serial.begin(115200);
     
 }
 
@@ -234,7 +235,7 @@ bool MessageSerial::parseRozkaz()
 
                 int32_t maxR = 0;
                 for (uint8_t i = 0; i < 4; i++) {
-                    maxY = (maxY << 8) + (data[11+i] & 0xff);
+                    maxR = (maxR << 8) + (data[10+i] & 0xff);
                 }
 #ifdef DEBUG
                 Serial.print("MAXX=");

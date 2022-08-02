@@ -243,6 +243,7 @@ bool returnBaseY()
 bool returnBaseR()
 {
     msg.sendRetHomeRStart();
+    delay(200);
 #ifdef DEBUG
     Serial.println("Return BASE");
 #endif
@@ -266,6 +267,8 @@ bool returnBaseR()
 
         }
 #ifdef DEBUG
+        Serial.print("steps");
+        Serial.println(step, DEC);
         Serial.print("digitalRead(BASE_R)=");
         Serial.println(digitalRead(BASE_R),DEC);
 #endif

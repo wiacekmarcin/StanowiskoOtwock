@@ -44,6 +44,8 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
 
     avg1 = 0.0;
     cnt1 = 0;
+    ui->localdebug->setVisible(false);
+    ui->debug->setVisible(false);
 }
 
 PozycjeRoleta::~PozycjeRoleta()
@@ -70,13 +72,14 @@ void PozycjeRoleta::setData(unsigned short etapNr, unsigned int stableTime, unsi
 
 void PozycjeRoleta::update()
 {
+    /*
     if (getIsStart()) {
         if (getIsWait())
             return;
 
         if (actStatus == WAIT)
             return;
-
+    void doneHome();
 
         if (actStatus == POSITIONING) {
             if (actPos >= ui->table->rowCount()) {
@@ -141,6 +144,7 @@ void PozycjeRoleta::update()
             emit
         }
     }
+    */
 }
 
 void PozycjeRoleta::readedFromRadio(int val)

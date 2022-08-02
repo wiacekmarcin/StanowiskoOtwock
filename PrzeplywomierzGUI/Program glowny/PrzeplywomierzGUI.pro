@@ -40,7 +40,8 @@ SOURCES += \
     recznedodpozycji.cpp \
     mierzonepozycje.cpp \
     sterownik.cpp \
-    etapyroletdlg.cpp
+    etapyroletdlg.cpp \
+    podzialetapurolety.cpp
 HEADERS += \
         crc8.h \
         mechanika.h \
@@ -55,7 +56,8 @@ HEADERS += \
     recznedodpozycji.h \
     mierzonepozycje.h \
     sterownik.h \
-    etapyroletdlg.h
+    etapyroletdlg.h \
+    podzialetapurolety.h
 
 FORMS += \
     pozycjeroleta.ui \
@@ -66,7 +68,8 @@ FORMS += \
     miernikprzeplywu.ui \
     recznedodpozycji.ui \
     mierzonepozycje.ui \
-    etapyroletdlg.ui
+    etapyroletdlg.ui \
+    podzialetapurolety.ui
 
 DISTFILES += \
     polozenia.txt

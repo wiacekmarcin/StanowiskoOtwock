@@ -93,19 +93,12 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     connect(this, SIGNAL(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)), &sMsg,
             SLOT(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)));
 
-    //connect(&sMsg, SIGNAL(startingHome()), this, SLOT(startingHome()));
-    //connect(&sMsg, SIGNAL(startingHomeX()), this, SLOT(startingHomeX()));
-    //connect(&sMsg, SIGNAL(doneHomeX()), this, SLOT(doneHomeX()));
-    //connect(&sMsg, SIGNAL(startingHomeY()), this, SLOT(startingHomeY()));
-    //connect(&sMsg, SIGNAL(doneHomeY()), this, SLOT(doneHomeY()));
+    connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionStatus(SerialMessage::StatusWork)));
+
     connect(&sMsg, SIGNAL(doneHome()), this, SLOT(doneHome()));
     connect(&sMsg, SIGNAL(errorHome()), this, SLOT(errorHome()));
 
-    //connect(&sMsg, SIGNAL(startingPosition()), this, SLOT(startingPosition()));
-    //connect(&sMsg, SIGNAL(startingPositionX()), this, SLOT(startingPositionX()));
-    //connect(&sMsg, SIGNAL(donePositionX()), this, SLOT(donePositionX()));
-    //connect(&sMsg, SIGNAL(startingPositionY()), this, SLOT(startingPositionY()));
-    //connect(&sMsg, SIGNAL(donePositionY()), this, SLOT(donePositionY()));
+
     connect(&sMsg, SIGNAL(donePosition()), this, SLOT(donePosition()));
 
     ui->debug->setVisible(false);
@@ -626,6 +619,16 @@ void MiernikPrzeplywu::controllerOK()
     emit setParams(mech.getReverseX(),mech.getReverseY(),
                    mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                    mech.getMaxKrokiX(), mech.getMaxKrokiY());
+}
+
+void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
+{
+
+}
+
+void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
+{
+
 }
 
 void MiernikPrzeplywu::setParamsDone()
