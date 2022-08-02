@@ -20,7 +20,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
     on_rbmanual_toggled(false);
     on_rbhalfmanual_toggled(false);
     setEnabledContinue(false);
-    ui->gbMethod->setEnabled(false);
+    //ui->gbMethod->setEnabled(false);
     ui->rb2700->setChecked(true);
     ui->rbfile->setChecked(true);
     switch(mode) {

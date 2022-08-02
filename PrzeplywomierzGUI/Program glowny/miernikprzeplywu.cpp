@@ -41,6 +41,8 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     , stableTime(_stableTime)
     , timeMeas(_timeMeas)
 {
+
+    qDebug() << "mode" << (unsigned int)mode;
     ui->setupUi(this);
     widget = nullptr;
 
@@ -119,43 +121,49 @@ MiernikPrzeplywu::~MiernikPrzeplywu()
 void MiernikPrzeplywu::chooseTab()
 {
     if (modeWork == WyborMetody::MODE_FUNSET) {
-        ui->tabWidget->setTabVisible(0, false);
-        ui->tabWidget->setTabVisible(1, false);
-        ui->tabWidget->setTabVisible(2, false);
+        //ui->tabWidget->setTabVisible(0, false);
+        //ui->tabWidget->setTabVisible(1, false);
+        //ui->tabWidget->setTabVisible(2, false);
+
         ui->tabWidget->setCurrentIndex(3);
     }
     else if (modeWork == WyborMetody::MODE_SERVICE) {
-        ui->tabWidget->setTabVisible(0, false);
-        ui->tabWidget->setTabVisible(1, false);
-        ui->tabWidget->setTabVisible(2, false);
-        ui->tabWidget->setTabVisible(3, false);
+        //ui->tabWidget->setTabVisible(0, false);
+        //ui->tabWidget->setTabVisible(1, false);
+        //ui->tabWidget->setTabVisible(2, false);
+        //ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(4);
     }
     else if (modeWork == WyborMetody::MODE_2700) {
-        ui->tabWidget->setTabVisible(0, true);
-        ui->tabWidget->setTabVisible(1, false);
-        ui->tabWidget->setTabVisible(2, false);
-        ui->tabWidget->setTabVisible(3, false);
+        //ui->tabWidget->setTabVisible(0, true);
+        //ui->tabWidget->setTabVisible(1, false);
+        //ui->tabWidget->setTabVisible(2, false);
+        //ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(0);
         widget = widget2700;
     }
     else if (modeWork == WyborMetody::MODE_1000L) {
-        ui->tabWidget->setTabVisible(0, false);
-        ui->tabWidget->setTabVisible(1, false);
-        ui->tabWidget->setTabVisible(2, true);
-        ui->tabWidget->setTabVisible(3, false);
+        //ui->tabWidget->setTabVisible(0, false);
+        //ui->tabWidget->setTabVisible(1, false);
+        //ui->tabWidget->setTabVisible(2, true);
+        //ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(2);
 
         widget = widget1000l;
     }
 
     else if (modeWork == WyborMetody::MODE_1000P) {
-        ui->tabWidget->setTabVisible(0, false);
-        ui->tabWidget->setTabVisible(1, true);
-        ui->tabWidget->setTabVisible(2, false);
-        ui->tabWidget->setTabVisible(3, false);
+        //ui->tabWidget->setTabVisible(0, false);
+        //ui->tabWidget->setTabVisible(1, true);
+        //ui->tabWidget->setTabVisible(2, false);
+        //ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(1);
         widget = widget1000p;
+    }
+
+    else if (modeWork == WyborMetody::MODE_ROLETA) {
+         widget = nullptr;
+         ui->tabWidget->setCurrentIndex(4);
     }
 
     if (modeWork == WyborMetody::MODE_2700 || modeWork == WyborMetody::MODE_1000L || modeWork == WyborMetody::MODE_1000P ) {
@@ -187,7 +195,8 @@ void MiernikPrzeplywu::chooseTab()
 
 void MiernikPrzeplywu::chooseMethod()
 {
-    if (modeWork == WyborMetody::MODE_FUNSET || modeWork == WyborMetody::MODE_SERVICE) {
+    if (modeWork == WyborMetody::MODE_FUNSET || modeWork == WyborMetody::MODE_SERVICE ||
+            modeWork == WyborMetody::MODE_ROLETA) {
         return;
     }
     if (methodIns == WyborMetody::METHOD_FILE) {
@@ -345,7 +354,7 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
     if (resBtn != QMessageBox::Yes) {
         event->ignore();
     } else {
-        //event->accept();
+        event->accept();
     }
 }
 
@@ -723,3 +732,7 @@ void MiernikPrzeplywu::on_pbZeruj_clicked()
         emit setPositionHome();
 }
 
+void MiernikPrzeplywu::on_pbWybierzStanowisko_clicked()
+{
+    QCoreApplication::exit(1);
+}

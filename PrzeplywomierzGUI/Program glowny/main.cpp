@@ -47,8 +47,10 @@ int main(int argc, char *argv[])
                            m.getPartRolet(), m.getStableTimeCzas(), m.getTimeStopRoleta());
         	w.setUstawienia(&u);
         	w.show();
-        	return a.exec();
-	} else {
-		return 0;
-    }
+            ar = a.exec();
+        } else {
+            ar = 0;
+        }
+    } while (ar != 0);
+    return ar;
 }

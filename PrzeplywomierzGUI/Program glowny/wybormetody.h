@@ -162,8 +162,6 @@ private:
     QString fileName;
     QString fileName2;
     bool startWindow;
-
-    bool startWindow;
 };
 
 #endif // WYBORMETODY_H

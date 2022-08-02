@@ -121,15 +121,13 @@ void MierzonePozycje::update()
             //ustaw na pozycji
             unsigned int xmm = m_lista.at(actPos).x;
             unsigned int ymm = m_lista.at(actPos).y;
-            qDebug("xmm=%d",xmm);
-            qDebug("ymm=%d",ymm);
-            actMeasure = 2*m_lista.at(actPos).time;
+
+            actCzas = m_lista.at(actPos).time;
             ui->table->item(actPos, 4)->setText(QString::fromUtf8("Ustawiam pozycję"));
             uint32_t impx, impy;
             impx = mech.getImpulsyX(xmm);
             impy = mech.getImpulsyY(ymm);
-            qDebug("xmm=%d",impx);
-            qDebug("ymm=%d",impy);
+
             debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
             actStatus = MEASURING;
             emit setPosition(impx, impy);
@@ -137,6 +135,8 @@ void MierzonePozycje::update()
             setIsWait( true );
             avg1 = 0.0;
             cnt1 = 0;
+            qDebug("xmm=%d",impx);
+            qDebug("ymm=%d",impy);
         } else if (actStatus == MEASURING) {
             ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
             ui->table->item(actPos, 4)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
@@ -217,11 +217,6 @@ void MierzonePozycje::setValues(const float &val1)
     data.time = m_lista[actPos].time - actCzas;
     data.val1 = val1;
     m_listawynikowa1.append(data);
-    if ((int)actSize == m_listawynikowa1.size()) {
-        actStatus = NEXTPOSITION;
-        actMeasure = 0;
-    }
-
 }
 
 void MierzonePozycje::setValue1(const float &val, const QString &unit)
