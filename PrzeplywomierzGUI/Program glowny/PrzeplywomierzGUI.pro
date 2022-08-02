@@ -70,3 +70,5 @@ FORMS += \
 
 DISTFILES += \
     polozenia.txt
+
+RESOURCES += ikony.qrc

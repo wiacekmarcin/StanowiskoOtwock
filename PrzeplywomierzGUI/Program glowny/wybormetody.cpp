@@ -16,9 +16,13 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
     numberHeight(0)
 {
     ui->setupUi(this);
-
-
-
+    on_rbfile_toggled(true);
+    on_rbmanual_toggled(false);
+    on_rbhalfmanual_toggled(false);
+    setEnabledContinue(false);
+    ui->gbMethod->setEnabled(false);
+    ui->rb2700->setChecked(true);
+    ui->rbfile->setChecked(true);
     switch(mode) {
         case MODE_2700:
             ui->rb2700->setChecked(true);
@@ -114,7 +118,7 @@ void WyborMetody::on_rbmanual_toggled(bool checked)
     ui->frChoiceFile->setDisabled(checked);
     if (checked) {
         short ok = 0;
-        if (isValidNumber(ui->numberManual)) {
+        if (isValidNumber(ui->numberManual, 1000)) {
             numberPozMan = ui->numberManual->text().toUInt();
             ++ok;
         }
@@ -137,11 +141,11 @@ void WyborMetody::on_rbhalfmanual_toggled(bool checked)
     ui->frChoiceFile->setDisabled(checked);
     if (checked) {
         short ok = 0;
-        if (isValidNumber(ui->numberAuto)) {
+        if (isValidNumber(ui->numberAuto, 20)) {
             numberWidth = ui->numberAuto->text().toUInt();
             ++ok;
         }
-        if (isValidNumber(ui->numberAuto_2)) {
+        if (isValidNumber(ui->numberAuto_2, 20)) {
             numberHeight = ui->numberAuto_2->text().toUInt();
             ++ok;
         }
@@ -186,7 +190,7 @@ void WyborMetody::setEnabledContinue(bool enabled)
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled( enabled );
 }
 
-bool WyborMetody::isValidNumber(QLineEdit *number)
+bool WyborMetody::isValidNumber(QLineEdit *number, int maxPosition)
 {
     QString sn = number->text();
     bool ok;
@@ -317,14 +321,14 @@ bool WyborMetody::isValidTime(QLineEdit *time)
 bool WyborMetody::isValidAutoParameters()
 {
     return isValidPlaszczynaRB() &&
-           isValidNumber(ui->numberAuto) &&
-           isValidNumber(ui->numberAuto_2) &&
+           isValidNumber(ui->numberAuto, 80) &&
+           isValidNumber(ui->numberAuto_2, 80) &&
            isValidTime(ui->timeAuto);
 }
 
 bool WyborMetody::isValidManualParameters()
 {
-    return isValidPlaszczynaRB() && isValidNumber(ui->numberManual) && isValidTime(ui->timeManualDefault);
+    return isValidPlaszczynaRB() && isValidNumber(ui->numberManual, 1000) && isValidTime(ui->timeManualDefault);
 }
 
 
@@ -397,12 +401,6 @@ void WyborMetody::on_timeManualDefault_editingFinished()
 
 void WyborMetody::on_buttonBox_rejected()
 {
-    if (startWindow)
-        QApplication::quit();
-}
-
-void WyborMetody::reject()
-{
     QMessageBox::StandardButton resBtn = QMessageBox::Yes;
     resBtn = QMessageBox::question( this, "Przeplywomierz",
                                         tr("Czy jesteś pewny?\n"),
@@ -410,8 +408,16 @@ void WyborMetody::reject()
                                         QMessageBox::Yes);
 
     if (resBtn == QMessageBox::Yes) {
-        QDialog::reject();
+        QCoreApplication::exit(0);
+    } else {
+        //QDialog::accept();
     }
+}
+
+void WyborMetody::reject()
+{
+    on_buttonBox_rejected();
+
 }
 
 unsigned int WyborMetody::getNumberHeight() const
@@ -446,7 +452,7 @@ QString WyborMetody::getFileName() const
 
 void WyborMetody::on_timeAuto_editingFinished()
 {
-    if (isValidTime(ui->timeAuto)){
+    if (!isValidTime(ui->timeAuto)){
         setEnabledContinue(false);
         return;
     }
@@ -456,7 +462,7 @@ void WyborMetody::on_timeAuto_editingFinished()
 
 void WyborMetody::on_numberAuto_editingFinished()
 {
-    if (!isValidNumber(ui->numberAuto)) {
+    if (!isValidNumber(ui->numberAuto, 80)) {
         setEnabledContinue(false);
         return;
     }
@@ -466,7 +472,7 @@ void WyborMetody::on_numberAuto_editingFinished()
 
 void WyborMetody::on_numberAuto_2_editingFinished()
 {
-    if (!isValidNumber(ui->numberAuto_2)) {
+    if (!isValidNumber(ui->numberAuto_2, 80)) {
         setEnabledContinue(false);
         return;
     }
@@ -487,7 +493,7 @@ void WyborMetody::on_timeAuto_textChanged(const QString &)
 
 void WyborMetody::on_numberAuto_textChanged(const QString &)
 {
-    if (!isValidNumber(ui->numberAuto)) {
+    if (!isValidNumber(ui->numberAuto, 80)) {
         setEnabledContinue(false);
         return;
     }
@@ -497,7 +503,7 @@ void WyborMetody::on_numberAuto_textChanged(const QString &)
 
 void WyborMetody::on_numberAuto_2_textChanged(const QString &)
 {
-    if (!isValidNumber(ui->numberAuto_2)) {
+    if (!isValidNumber(ui->numberAuto_2, 80)) {
         setEnabledContinue(false);
         return;
     }
@@ -517,7 +523,7 @@ void WyborMetody::on_timeManualDefault_textChanged(const QString &)
 
 void WyborMetody::on_numberManual_textChanged(const QString &)
 {
-    if (!isValidNumber(ui->numberManual)) {
+    if (!isValidNumber(ui->numberManual, 1000)) {
         setEnabledContinue(false);
         return;
     }

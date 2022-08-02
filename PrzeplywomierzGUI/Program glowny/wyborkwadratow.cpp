@@ -15,6 +15,11 @@ WyborKwadratow::WyborKwadratow(QWidget *parent, int cols, int rows, unsigned int
     unsigned int x = 0;
     unsigned int y = 0;
     lastChoose = NULL;
+    int partx = 800 / cols;
+    int party = 800 / rows;
+    qDebug("%d %d", partx, party);
+    ui->grWyborKw->setMargin(1);
+    ui->grWyborKw->setSpacing(1);
     for (int r = 0; r < rows; r++) {
         for (int c =0; c < cols; c++) {
             QPushButton *pb = new QPushButton(ui->frWyborKw);
@@ -23,8 +28,20 @@ WyborKwadratow::WyborKwadratow(QWidget *parent, int cols, int rows, unsigned int
             x = (unsigned int) (maxX * (c + 0.5) / posX);
             y = (unsigned int) (maxY * (r + 0.5) / posY);
 
+            if ( rows < 15 && cols < 15)
             //pb->setText(QString("%1 - %2").arg(r+1).arg(c+1));
-            pb->setText(QString("%1 ; %2").arg(x).arg(y));
+                pb->setText(QString("%1 ; %2").arg(x).arg(y));
+            else if ( rows < 30 && cols < 30) {
+                QFont font = pb->font();
+                font.setPointSize(6);
+                pb->setFont(font);
+                pb->setText(QString("%1\n%2").arg(x).arg(y));
+                //pb->layout()->setMargin(0);
+            }
+            //pb->setSizeIncrement(partx, party);
+            pb->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+            pb->setMinimumSize(partx, party);
+            pb->setMaximumSize(partx, party);
 
             ui->grWyborKw->addWidget(pb, r, c, 1, 1);
             connect(pb, SIGNAL(clicked()), this, SLOT(wybranyKwadrat()));

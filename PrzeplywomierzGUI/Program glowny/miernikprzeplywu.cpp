@@ -106,7 +106,9 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     //connect(&sMsg, SIGNAL(donePositionY()), this, SLOT(donePositionY()));
     connect(&sMsg, SIGNAL(donePosition()), this, SLOT(donePosition()));
 
-
+    ui->debug->setVisible(false);
+    ui->pbZeruj->setVisible(false);
+    ui->statusWentylator->setVisible(false);
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
@@ -117,21 +119,41 @@ MiernikPrzeplywu::~MiernikPrzeplywu()
 void MiernikPrzeplywu::chooseTab()
 {
     if (modeWork == WyborMetody::MODE_FUNSET) {
+        ui->tabWidget->setTabVisible(0, false);
+        ui->tabWidget->setTabVisible(1, false);
+        ui->tabWidget->setTabVisible(2, false);
         ui->tabWidget->setCurrentIndex(3);
     }
     else if (modeWork == WyborMetody::MODE_SERVICE) {
+        ui->tabWidget->setTabVisible(0, false);
+        ui->tabWidget->setTabVisible(1, false);
+        ui->tabWidget->setTabVisible(2, false);
+        ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(4);
     }
     else if (modeWork == WyborMetody::MODE_2700) {
+        ui->tabWidget->setTabVisible(0, true);
+        ui->tabWidget->setTabVisible(1, false);
+        ui->tabWidget->setTabVisible(2, false);
+        ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(0);
         widget = widget2700;
     }
     else if (modeWork == WyborMetody::MODE_1000L) {
+        ui->tabWidget->setTabVisible(0, false);
+        ui->tabWidget->setTabVisible(1, false);
+        ui->tabWidget->setTabVisible(2, true);
+        ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(2);
+
         widget = widget1000l;
     }
 
     else if (modeWork == WyborMetody::MODE_1000P) {
+        ui->tabWidget->setTabVisible(0, false);
+        ui->tabWidget->setTabVisible(1, true);
+        ui->tabWidget->setTabVisible(2, false);
+        ui->tabWidget->setTabVisible(3, false);
         ui->tabWidget->setCurrentIndex(1);
         widget = widget1000p;
     }
@@ -275,6 +297,9 @@ void MiernikPrzeplywu::debugclear()
 
 void MiernikPrzeplywu::on_tabWidget_currentChanged(int index)
 {
+    ui->tabWidget->setCurrentIndex(modeWork);
+    return;
+
     int mapMode[] = {WyborMetody::MODE_2700, WyborMetody::MODE_1000P, WyborMetody::MODE_1000L, WyborMetody::MODE_FUNSET,
                      WyborMetody::MODE_SERVICE};
     WyborMetody::ModeWork modeTab[] = {WyborMetody::MODE_2700, WyborMetody::MODE_1000P, WyborMetody::MODE_1000L,
@@ -288,6 +313,9 @@ void MiernikPrzeplywu::on_tabWidget_currentChanged(int index)
     if (modeWork == mapMode[index])
         return;
 
+    sMsg.closeDevice();
+    if (widget)
+        widget->restart();
 
     WyborMetody wb(this, modeTab[index]);
     int r = wb.exec();
@@ -317,7 +345,7 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
     if (resBtn != QMessageBox::Yes) {
         event->ignore();
     } else {
-        event->accept();
+        //event->accept();
     }
 }
 
@@ -361,6 +389,8 @@ void MiernikPrzeplywu::on_pbUstaw_clicked()
     QString sx = ui->leX->text();
     QString sy = ui->leY->text();
     QString sl = ui->leL->text();
+    debug(QString("Ustawiam pozycje wentylatora X=%1 Y=%2 L=%3").arg(sx).arg(sy).arg(sl));
+
     int x = 0, y = 0, l = 0;
     bool ret = true;
     ui->errorWentylatorX->setVisible(false);
@@ -382,9 +412,9 @@ void MiernikPrzeplywu::on_pbUstaw_clicked()
                 ui->errorWentylatorX->setVisible(true);
                 ui->errorWentylatorX->setText(QString::fromUtf8("Wartość musi być liczbą wiekszą od zera"));
                 ret = false;
-            } else if ((unsigned int)x > mech.getMaxXmm()) {
+            } else if (x > 2200) {
                 ui->errorWentylatorX->setVisible(true);
-                ui->errorWentylatorX->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą %1").arg(mech.getMaxXmm()));
+                ui->errorWentylatorX->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą 2200"));
                 ret = false;
             }
         }
@@ -402,14 +432,14 @@ void MiernikPrzeplywu::on_pbUstaw_clicked()
             ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą"));
             ret = false;
         } else {
-            if (y < 0) {
+            if (y < 800) {
                 ui->errorWentylatorY->setVisible(true);
-                ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą wiekszą od zera"));
+                ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą wiekszą od 800"));
                 ret = false;
-            //} else if ((unsigned int)y > mech.getMaxYmm()) {
-            //    ui->errorWentylatorY->setVisible(true);
-            //    ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą od %1").arg(mech.getMaxYmm()));
-            //    ret = false;
+            } else if (y > 5000) {
+                ui->errorWentylatorY->setVisible(true);
+                ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą od 5000"));
+                ret = false;
             }
         }
     }
@@ -422,50 +452,53 @@ void MiernikPrzeplywu::on_pbUstaw_clicked()
         bool ok;
         l = sl.toInt(&ok);
         if (!ok) {
-            ui->errorWentylatorY->setVisible(true);
-            ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą"));
+            ui->errorWentylatorL->setVisible(true);
+            ui->errorWentylatorL->setText(QString::fromUtf8("Wartość musi być liczbą"));
             ret = false;
         } else {
             if (l < 0) {
-                ui->errorWentylatorY->setVisible(true);
-                ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą wiekszą od zera"));
+                ui->errorWentylatorL->setVisible(true);
+                ui->errorWentylatorL->setText(QString::fromUtf8("Wartość musi być liczbą wiekszą od zera"));
                 ret = false;
-            } else if ((unsigned int)l > 5000) {
-                ui->errorWentylatorY->setVisible(true);
-                ui->errorWentylatorY->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą od 5000"));
+            } else if (l > 200) {
+                ui->errorWentylatorL->setVisible(true);
+                ui->errorWentylatorL->setText(QString::fromUtf8("Wartość musi być liczbą mniejszą od 200"));
                 ret = false;
             }
         }
     }
 
-    impmmx = mech.getWentX(x, l);
-    impmmy = mech.getWentY(y);
+    if (ret) {
+        impmmx = mech.getWentX(x, l);
+        impmmy = mech.getWentY(y);
+        debug(QString("wyliczone wartosci x=%1 y=%2").arg(impmmx).arg(impmmy));
 
-    //impmmx = x;
-    //impmmy = y;
+        //impmmx = x;
+        //impmmy = y;
 
-    if (impmmx < 0) {
-        ui->errorWentylatorX->setText(QString("Wyliczona wartość %1 mniejsza od zera").arg(impmmx));
-        ui->errorWentylatorX->setVisible(true);
-        ret = false;
-    }
+        if (impmmx < 0) {
+            ui->errorWentylatorX->setText(QString("Wyliczona wartość %1 mniejsza od zera").arg(impmmx));
+            ui->errorWentylatorX->setVisible(true);
+            ret = false;
+        }
 
-    if ((unsigned int)impmmx > mech.getMaxXmm()) {
-        ui->errorWentylatorX->setText(QString("Wyliczona wartość %1 jest większa niż %2").arg(impmmx).arg(mech.getMaxXmm()));
-        ui->errorWentylatorX->setVisible(true);
-        ret = false;
-    }
+        if (impmmy < 0) {
+            ui->errorWentylatorY->setText(QString("Wyliczona wartość %1 mniejsza od zera").arg(impmmy));
+            ui->errorWentylatorY->setVisible(true);
+            ret = false;
+        }
 
-    if (impmmy < 0) {
-        ui->errorWentylatorY->setText(QString("Wyliczona wartość %1 mniejsza od zera").arg(impmmy));
-        ui->errorWentylatorY->setVisible(true);
-        ret = false;
-    }
+        if (impmmx > (int)mech.getMaxXmm()) {
+            ui->errorWentylatorX->setText(QString("Wyliczona wartość %1 jest większa niż %2").arg(impmmx).arg(mech.getMaxXmm()));
+            ui->errorWentylatorX->setVisible(true);
+            ret = false;
+        }
 
-    if ((unsigned int)impmmy > mech.getMaxYmm()) {
-        ui->errorWentylatorY->setText(QString("Wyliczona wartość %1 jest większa niż %2").arg(impmmy).arg(mech.getMaxYmm()));
-        ui->errorWentylatorY->setVisible(true);
-        ret = false;
+        if (impmmy > (int)mech.getMaxYmm()) {
+            ui->errorWentylatorY->setText(QString("Wyliczona wartość %1 jest większa niż %2").arg(impmmy).arg(mech.getMaxYmm()));
+            ui->errorWentylatorY->setVisible(true);
+            ret = false;
+        }
     }
 
     if (ret) {
@@ -473,15 +506,18 @@ void MiernikPrzeplywu::on_pbUstaw_clicked()
         impy = mech.getImpulsyY(impmmy);
 
         ui->pbUstaw->setEnabled(false);
+        debug(QString("wyliczone wartosci impulsow x=%1 y=%2").arg(impx).arg(impy));
         debugclear();
         if (!connIsOk) {
             ui->statusWentylator->clear();
             ui->statusWentylator->append(addTime("Szukam urządzenia."));
             ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
+            debug(QString("connectToDevice"));
             emit connectToDevice();
         } else {
             //ui->statusWentylator->append(addTime("Kalibruje urządzenie."));
             //emit setPositionHome();
+            debug(QString("connectToDevice"));
             ui->lStatusWiatrak->setText(QString("Ustawiam pozycje %1-%2 mm ....").arg(impmmx).arg(impmmx));
             emit setPosition(impx, impy);
 
@@ -522,6 +558,7 @@ void MiernikPrzeplywu::errorSerial(QString error)
 
 void MiernikPrzeplywu::successOpenDevice(bool open)
 {
+    debug(QString("Open device open = %1").arg(open));
     if (open) {
         ui->statusserial->setText("Sprawdzam sterownik...");
         if (modeWork == WyborMetody::MODE_FUNSET) {
@@ -529,6 +566,8 @@ void MiernikPrzeplywu::successOpenDevice(bool open)
         } else {
             widget->status("Sprawdzam sterownik.");
         }
+        connIsOk = true;
+        debug("CheckDevice");
         emit checkDevice();
 
     } else {
@@ -564,6 +603,7 @@ void MiernikPrzeplywu::deviceName(QString portname)
 
 void MiernikPrzeplywu::controllerOK()
 {
+    debug("controllerOk");
     ui->statusserial->setText("Sterownik OK");
 
     if (modeWork == WyborMetody::MODE_FUNSET) {
@@ -573,7 +613,7 @@ void MiernikPrzeplywu::controllerOK()
         widget->status("Wysyłam konfigurację.");
         widget->setConnected(true);
     }
-
+    debug ("setParams");
     emit setParams(mech.getReverseX(),mech.getReverseY(),
                    mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                    mech.getMaxKrokiX(), mech.getMaxKrokiY());
@@ -581,6 +621,7 @@ void MiernikPrzeplywu::controllerOK()
 
 void MiernikPrzeplywu::setParamsDone()
 {
+    debug("Done params");
     if (modeWork == WyborMetody::MODE_FUNSET) {
         ui->statusWentylator->append(addTime("Konfiguracja ustawiona."));
         ui->statusWentylator->append(addTime("Rozpoczęcie kalibracja urządzenia."));
@@ -638,10 +679,10 @@ void MiernikPrzeplywu::donePosition()
 
 void MiernikPrzeplywu::debug(QString dbg)
 {
-    qDebug() << dbg;
-    ui->debug->append(dbg);
-    if (widget)
-        widget->setDebug(dbg);
+    //qDebug(dbg.toStdString().c_str());
+    //ui->debug->append(dbg);
+    //if (widget)
+    //    widget->setDebug(dbg);
 }
 
 void MiernikPrzeplywu::statusMiernik(QString txt)
@@ -658,7 +699,11 @@ void MiernikPrzeplywu::noweDane()
 {
     WyborMetody::ModeWork actWork = modeWork;
     modeWork = WyborMetody::MODE_SERVICE;
+    sMsg.closeDevice();
+    if (widget)
+        widget->restart();
     on_tabWidget_currentChanged(actWork);
+    sMsg.closeDevice();
 }
 
 void MiernikPrzeplywu::end()

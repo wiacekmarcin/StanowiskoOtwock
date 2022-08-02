@@ -13,11 +13,15 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="ikony.qrc">
+    <normaloff>:/new/prefix1/cnbop.ico</normaloff>:/new/prefix1/cnbop.ico</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="5" column="0">
     <widget class="QRadioButton" name="rbhalfmanual">
      <property name="text">
-      <string>Dane wybierane 
+      <string>Dane wyb&amp;ierane 
 z płaszczyzny</string>
      </property>
     </widget>
@@ -59,7 +63,7 @@ z płaszczyzny</string>
    <item row="3" column="0">
     <widget class="QRadioButton" name="rbmanual">
      <property name="text">
-      <string>Dane wprowadzane
+      <string>Dane &amp;wprowadzane
 ręcznie</string>
      </property>
     </widget>
@@ -86,7 +90,9 @@ ręcznie</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ikony.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

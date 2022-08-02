@@ -33,7 +33,7 @@ void SerialMessage::writeMessage(const QByteArray &writeData)
         return;
     }
 
-    //emit debug(QString("Zapisalem %1").arg(writeData.size()));
+    emit debug(QString("Wyslalem %1").arg(writeData.toHex().toStdString().c_str()));
     //m_timer.start(1000);
 }
 
@@ -400,9 +400,9 @@ bool SerialMessage::checkHead(const QByteArray &arr, uint8_t & cmd, uint8_t & le
 
     if (crc.getCRC() != msgcrc) {
         emit debug(QString("crc = %1x val=%2x").arg(crc.getCRC(), 16).arg(msgcrc,16));
-        qDebug("arr = %s", arr.toHex().toStdString().c_str());
-        qDebug("cmd = %d", cmd);
-        qDebug("len = %d", len);
+        //qDebug("arr = %s", arr.toHex().toStdString().c_str());
+        //qDebug("cmd = %d", cmd);
+        //qDebug("len = %d", len);
         return false;
     }
     //emit debug("Naglowek OK");
@@ -418,9 +418,12 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
     //emit debug(QString("Parse cmd:") + QString(arr.toHex(' ').toStdString().c_str()));
 
     if (!checkHead(arr, cmd, len, data)) {
-        emit debug(QString("CheckHead faild"));
+        emit debug(QString("CheckHead faild %1").arg(arr.toHex(' ').toStdString().c_str()));
         return false;
     }
+
+    if (cmd != MEASVALUE_REP)
+        emit debug(QString("Parse cmd:") + QString(arr.toHex(' ').toStdString().c_str()));
 
     switch (cmd) {
         case WELCOME_REP:
@@ -432,7 +435,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', 'U'};
             for (int i = 0; i < 15; ++i) {
                 if (wzorzec[i] != data[i]) {
-                    qDebug("wzorzec != data");
+                    //qDebug("wzorzec != data");
                     return false;
                 }
             }
@@ -518,17 +521,20 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                         return false;
                 }
             }
-            if (len == 5) {
+            if (len == 9) {
                 unsigned int step;
+                uint32_t posX, posY;
                 switch(data[0]) {
                     case 'P':
                         step = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
-                        emit debug(QString("Zakonczylem pozycjonowanie osi X (kroki = %1)").arg(step));
+                        posX = data[5] << 24 | data[6] << 16 | data[7] << 8 | data[8];
+                        emit debug(QString("Zakonczylem pozycjonowanie osi X (kroki = %1). Pozycja w krokach").arg(step).arg(posX));
                         emit donePositionX(step);
                         return true;
                     case 'G':
                         step = data[1] << 24 | data[2] << 16 | data[3] << 8 | data[4];
-                         emit debug(QString("Zakonczylem pozycjonowanie osi Y (kroki = %1)").arg(step));
+                        posY = data[5] << 24 | data[6] << 16 | data[7] << 8 | data[8];
+                        emit debug(QString("Zakonczylem pozycjonowanie osi Y (kroki = %1). Pozycja w krokach").arg(step).arg(posY));
                         emit donePositionY(step);
                         return true;
                     default:
@@ -567,11 +573,11 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 val2 = (c3 << 8) | (c4);
                 val3 = (c5 << 8) | (c6);
                 val4 = (c7 << 8) | (c8);
-                emit readedFromRadio(val1);
-                qDebug("dane z radia s%x %x %d",c1, c2, val1);
+                //qDebug("dane z radia s%x %x %d",c1, c2, val1);
+
                 (void)val2;(void)val3;(void)val4;
-                emit debug(QString("Odczytana wartosc w mV = %1").arg(val1));
-                
+                //emit debug(QString("Odczytana wartosc w mV = %1").arg(val1));
+                emit readedFromRadio(val1);
                 return true;
             }
             if (len == 12 && data[0] == 'I') {

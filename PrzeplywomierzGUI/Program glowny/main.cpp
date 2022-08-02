@@ -13,37 +13,42 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    WyborMetody m;
-    Ustawienia u;
-    u.read();
+    int ar = 0;
+    do {
 
-    QTranslator qtTranslator;
-    if (qtTranslator.load(QLocale::system(),
-                "qt", "_",
-                QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-    {
-        ///qDebug() << "qtTranslator ok";
-        a.installTranslator(&qtTranslator);
-    }
-
-    QTranslator qtBaseTranslator;
-    if (qtBaseTranslator.load("qtbase_" + QLocale::system().name(),
-                QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-    {
-        //qDebug() << "qtBaseTranslator ok";
-        a.installTranslator(&qtBaseTranslator);
-    }
+        WyborMetody m;
+        Ustawienia u;
+        u.read();
 
 
-    int r = m.exec();
-    //qDebug() << r;
-    if (r == 1) {
-        MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getFileName(),
+        QTranslator qtTranslator;
+        if (qtTranslator.load(QLocale::system(),
+                    "qt", "_",
+                    QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        {
+            //qDebug() << "qtTranslator ok";
+            a.installTranslator(&qtTranslator);
+        }
+
+        QTranslator qtBaseTranslator;
+        if (qtBaseTranslator.load("qtbase_" + QLocale::system().name(),
+                    QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        {
+            //qDebug() << "qtBaseTranslator ok";
+            a.installTranslator(&qtBaseTranslator);
+        }
+
+        int r = m.exec();
+        //qDebug() << r;
+        if (r == 1) {
+        	MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getFileName(),
                             m.getNumberPozMan(), m.getTimeStopManual(),
                            m.getNumberWidth(), m.getNumberHeight(), m.getTimeStopAuto(),
                            m.getPartRolet(), m.getStableTimeCzas(), m.getTimeStopRoleta());
-        w.setUstawienia(&u);
-        w.show();
-        return a.exec();
+        	w.setUstawienia(&u);
+        	w.show();
+        	return a.exec();
+	} else {
+		return 0;
     }
 }

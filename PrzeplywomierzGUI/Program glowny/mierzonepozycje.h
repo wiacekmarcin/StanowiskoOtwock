@@ -63,6 +63,8 @@ public:
 
     void status(const QString & st);
 
+    void restart();
+
 signals:
     void doConnect();
     void setPosition(uint32_t, uint32_t);
@@ -107,8 +109,7 @@ private:
     int actPos;
     Ruch mech;
     Pozycje m_lista;
-    unsigned int actSize;
-    unsigned int actMeasure;
+    unsigned int actCzas;
 
     double avg1;
     unsigned int cnt1;

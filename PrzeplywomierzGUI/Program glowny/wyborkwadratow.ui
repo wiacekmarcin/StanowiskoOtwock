@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Wybór pozycji</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="ikony.qrc">
+    <normaloff>:/new/prefix1/cnbop.ico</normaloff>:/new/prefix1/cnbop.ico</iconset>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" rowspan="4" colspan="3">
     <widget class="QFrame" name="frWyborKw">
@@ -79,7 +83,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ikony.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

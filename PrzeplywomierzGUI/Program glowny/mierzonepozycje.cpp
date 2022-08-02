@@ -4,6 +4,9 @@
 #include <QTimer>
 #include <QMutexLocker>
 #include <QPlainTextEdit>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QTextStream>
 
 #include "mechanika.h"
 
@@ -28,9 +31,13 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     actPos = 0;
     connected = false;
     timer->start(1000);
-    debug("timer Start");
-    ui->pbNoweDane->setEnabled(false);
+
+    ui->pbNoweDane->setVisible(true);
+    //ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
+    ui->debug->setVisible(false);
+    ui->localdebug->setVisible(false);
+
 }
 
 MierzonePozycje::~MierzonePozycje()
@@ -76,7 +83,7 @@ void MierzonePozycje::setList(const Pozycje &pos)
     m_listawynikowa2.clear();
     actStatus = WAIT;
     actPos = 0;
-    ui->pbNoweDane->setEnabled(false);
+    //ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
     ui->pbStart->setEnabled(true);
 }
@@ -105,7 +112,7 @@ void MierzonePozycje::update()
                 emit statusMiernik("Zakonczono ustawianie wszystkich pozycji");
                 ui->status->setText("Zakonczono ustawianie wszystkich pozycji");
                 emit end();
-                //ui->pbStart->setEnabled(false);
+                ui->pbStart->setEnabled(false);
                 ui->pbNoweDane->setEnabled(true);
                 ui->pbZapisz->setEnabled(true);
                 return;
@@ -132,16 +139,15 @@ void MierzonePozycje::update()
             cnt1 = 0;
         } else if (actStatus == MEASURING) {
             ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
-            ui->table->item(actPos, 4)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actSize));
-            debug(QString("Pomiar [%1 s]").arg(actSize));
+            ui->table->item(actPos, 4)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
+            debug(QString("Pomiar [%1 s]").arg(actCzas));
             emit readRadio();
 
-            if (--actMeasure == 0) {
+            if (actCzas == 0) {
                 actStatus = NEXTPOSITION;
-            } /*else {
-                --
-                ;
-            }*/
+            } else {
+                --actCzas;
+            }
         } else if (actStatus == NEXTPOSITION) {
             debug(QString("Ukonczono"));
             ui->status->setText("Zakonczono pomiary");
@@ -154,7 +160,7 @@ void MierzonePozycje::update()
             m_listawynikowa2.append(data);
             ++actPos;
 
-            //ui->table->scrollToItem(ui->table->item(actPos, 0));
+            ui->table->scrollToItem(ui->table->item(actPos, 0));
         }
     }
 }
@@ -194,23 +200,21 @@ void MierzonePozycje::setIsWait(bool value)
 
 void MierzonePozycje::setDebug(const QString & val)
 {
-    ui->debug->append(val);
+    //ui->debug->append(val);
 }
 
 void MierzonePozycje::debug(const QString & val)
 {
-    qDebug("%s",val.toStdString().c_str());
-    ui->localdebug->append(val);
+    //qDebug("%s",val.toStdString().c_str());
+    //ui->localdebug->append(val);
 }
 
 void MierzonePozycje::setValues(const float &val1)
 {
     DaneWynikowe1 data;
     data.x = m_lista[actPos].x;
-    data.y = m_lista[actPos].x;
-    //data.time = m_lista[actPos].time - actSize;
-    //data.time = ++actSize;
-    data.time = m_lista.size()+1;
+    data.y = m_lista[actPos].y;
+    data.time = m_lista[actPos].time - actCzas;
     data.val1 = val1;
     m_listawynikowa1.append(data);
     if ((int)actSize == m_listawynikowa1.size()) {
@@ -224,7 +228,7 @@ void MierzonePozycje::setValue1(const float &val, const QString &unit)
 {
     if (actStatus != MEASURING)
         return;
-
+    setValues(val);
     avg1 = (avg1*cnt1 + val)/(cnt1 + 1);
     ++cnt1;
     ui->table->item(actPos, 3)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit));
@@ -240,30 +244,23 @@ void MierzonePozycje::status(const QString &st)
     ui->status->setText(st);
 }
 
-
-/*
-void MierzonePozycje::on_pbSaveAll_clicked()
+void MierzonePozycje::restart()
 {
-    //TODO
+    actStatus = WAIT;
+    actPos = 0;
+    connected = false;
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
 }
-
-void MierzonePozycje::on_pbSaveAll_pressed()
-{
-    on_pbSaveAll_clicked();
-}
-*/
-
-
-
 
 void MierzonePozycje::on_pbStart_clicked()
 {
-    debug("Start");
-    emit start();
-    if (!connected)
-        emit doConnect();
-    else
-        emit checkDevice();
+    //debug("Start");
+    //emit start();
+    //if (!connected)
+    emit doConnect();
+    //else
+    //    emit checkDevice();
 }
 
 
@@ -271,14 +268,33 @@ void MierzonePozycje::on_pbStart_clicked()
 
 void MierzonePozycje::on_pbNoweDane_clicked()
 {
-    emit noweDane();
-    //ui->pbStart->setEnabled(false);
-    ui->pbZapisz->setEnabled(false);
+    QCoreApplication::exit(1);
 }
 
 
 void MierzonePozycje::on_pbZapisz_clicked()
 {
 
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Zapisanie wyników"), "",
+            tr("Pliki csv (*.csv);;Wszystkie pliki (*)"));
+    if (fileName.isEmpty())
+            return;
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::information(this, tr("Nie można otworzyć pliku"),
+            file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+
+    for (int id = 0; id < m_listawynikowa1.size(); ++id)
+    {
+        DaneWynikowe1 d = m_listawynikowa1.at(id);
+        out << d.x << ";" << d.y << ";" << d.time << ";" << d.val1 << "\n";
+    }
+    file.close();
 }
 

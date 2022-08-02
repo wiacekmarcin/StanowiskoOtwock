@@ -37,6 +37,7 @@ ReczneDodPozycji::ReczneDodPozycji(QWidget *parent, unsigned int pos, unsigned i
 
         cells[item] = posIdx++;
     }
+    ui->pbOk->setEnabled(false);
 
     connect(ui->tbWybrane, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(changeCell1(QTableWidgetItem*)));
 }
@@ -57,17 +58,17 @@ void ReczneDodPozycji::changeCell1(QTableWidgetItem *item)
     unsigned long pos = cells[item];
     //unsigned int rows = pos / 3;
     unsigned int cols = pos % 3;
-
+    ui->pbOk->setEnabled(false);
     switch(cols) {
         case 0:
-            if ((uint)val > maxNumberX)
+            if (val > (int)maxNumberX)
                 item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
             else
                 item->setBackground(QBrush(QColor(Qt::white), Qt::SolidPattern));
         break;
 
         case 1:
-            if ((uint)val > maxNumberY)
+            if (val > (int)maxNumberY)
                 item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
             else
                 item->setBackground(QBrush(QColor(Qt::white), Qt::SolidPattern));
@@ -93,30 +94,57 @@ void ReczneDodPozycji::on_tbWybrane_cellChanged(int row, int column)
     }
 }
 
-void ReczneDodPozycji::on_buttonBox_accepted()
+void ReczneDodPozycji::on_pbSprawdz_clicked()
 {
+    m_lista.clear();
     QString sx, sy, stime;
     bool ok;
-    int time, x, y;
-    for (int r = 0; r < ui->tbWybrane->rowCount(); r++) {
+    int time = 0, x, y;
+    bool valid = true;
+    bool localvalid = true;
+    for (int r = 0; r < ui->tbWybrane->rowCount() ; r++) {
         sx = ui->tbWybrane->item(r, 0)->text();
         sy = ui->tbWybrane->item(r, 1)->text();
         stime = ui->tbWybrane->item(r, 2)->text();
-        if (sx == "" || sy == "" || stime == "")
-            continue;
-
-        time = stime.toInt(&ok);
-        if (!ok || time < 0)
-            continue;
-
+        localvalid = true;
+        QTableWidgetItem * item = ui->tbWybrane->item(r , 0);
         x = sx.toInt(&ok);
-        if (!ok || x < 0 || (uint)x > maxNumberX)
-            continue;
+        if (sx == "" || !ok || x < 0 || x > (int)maxNumberX) {
+            item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
+            valid = false;
+            localvalid = false;
+        }
 
+        item = ui->tbWybrane->item(r , 1);
         y = sy.toInt(&ok);
-        if (!ok || y < 0 || (uint)y > maxNumberX)
-            continue;
+        if (sy == "" || !ok || y < 0 || y > (int)maxNumberY) {
+            item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
+            valid = false;
+            localvalid = false;
+        }
 
-        m_lista.append(time, x, y);
+        item = ui->tbWybrane->item(r , 2);
+        time = stime.toInt(&ok);
+        if (stime == "" || !ok || time < 0) {
+            item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
+            valid = false;
+            localvalid = false;
+        }
+        if (localvalid)
+            m_lista.append(time, x, y);
     }
+    ui->pbOk->setEnabled(valid);
 }
+
+
+void ReczneDodPozycji::on_pbOk_clicked()
+{
+    accept();
+}
+
+
+void ReczneDodPozycji::on_pbAnuluj_clicked()
+{
+    reject();
+}
+

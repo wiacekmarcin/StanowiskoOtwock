@@ -20,7 +20,7 @@
       <item>
        <widget class="QPushButton" name="pbNoweDane">
         <property name="text">
-         <string>Nowe Dane</string>
+         <string>Nowe dane</string>
         </property>
        </widget>
       </item>

@@ -28,7 +28,11 @@ public slots:
 private slots:
     void on_tbWybrane_cellChanged(int row, int column);
 
-    void on_buttonBox_accepted();
+    void on_pbSprawdz_clicked();
+
+    void on_pbOk_clicked();
+
+    void on_pbAnuluj_clicked();
 
 private:
     Ui::ReczneDodPozycji *ui;

@@ -1,7 +1,7 @@
 #include "mechanika.h"
 
 Ruch::Ruch() :
-    impulsyXperMM(24.6891), impulsyYperMM(24.6891), krokiXperMM(100), krokiYperMM(100),
+    impulsyXperMM(24.96), impulsyYperMM(24.96), krokiXperMM(100), krokiYperMM(100),
     maxImpulsyX(0), maxImpulsyY(0), maxKrokiX(0), maxKrokiY(0), maxXmm(0), maxYmm(0),
     wentOffsetX(301),
     wentOffsetY(175.58),
@@ -19,25 +19,25 @@ void Ruch::setPrzestrzen(unsigned int xmm, unsigned int ymm)
 
 void Ruch::setImpusyXPerMM(double imp)
 {
-    impulsyXperMM = imp;
+    //impulsyXperMM = imp;
     calculate();
 }
 
 void Ruch::setImpusyYPerMM(double imp)
 {
-    impulsyYperMM = imp;
+    //impulsyYperMM = imp;
     calculate();
 }
 
 void Ruch::setKrokiXPerMM(double krok)
 {
-    krokiXperMM = krok;
+    //krokiXperMM = krok;
     calculate();
 }
 
 void Ruch::setKrokiYPerMM(double krok)
 {
-    krokiYperMM = krok;
+    //krokiYperMM = krok;
     calculate();
 }
 

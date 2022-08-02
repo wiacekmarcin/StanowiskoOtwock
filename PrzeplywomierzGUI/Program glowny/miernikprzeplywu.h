@@ -74,6 +74,8 @@ private slots:
 
     void on_pbZeruj_clicked();
 
+    void on_pbWybierzStanowisko_clicked();
+
 signals:
     void connectToDevice();
     void checkDevice();

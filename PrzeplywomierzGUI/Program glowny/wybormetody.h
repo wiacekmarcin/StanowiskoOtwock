@@ -124,7 +124,7 @@ private slots:
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
-    bool isValidNumber(QLineEdit * number);
+    bool isValidNumber(QLineEdit * number, int max);
     bool isValidTime(QLineEdit * time);
 
     bool isValidAutoParameters();
@@ -153,7 +153,7 @@ private:
     unsigned int stableTimeRoleta;
     unsigned int timeStopRoleta;
 
-    static constexpr int maxPosition = 1000;
+   // static constexpr int maxPosition = 1000;
     static constexpr int maxTime = 3600;
     static constexpr int minTime = 1;
     static constexpr int maxRolet = 15;
@@ -163,7 +163,7 @@ private:
     QString fileName2;
     bool startWindow;
 
-
+    bool startWindow;
 };
 
 #endif // WYBORMETODY_H
