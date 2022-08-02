@@ -61,6 +61,8 @@ public:
 
     QString getFileName2() const;
 
+    unsigned int getTimeStopRoleta() const;
+
 private slots:
 
     void on_rbfile_toggled(bool checked);
@@ -103,15 +105,21 @@ private slots:
 
     void on_rbRoleta_toggled(bool checked);
 
-    void on_lineEdit_textChanged(const QString &arg1);
-
-    void on_postojEtap_textChanged(const QString &arg1);
-
     void on_rbRoletaDane_toggled(bool checked);
 
     void on_rbRoletaPlik_toggled(bool checked);
 
     void on_pbChooseFile_clicked();
+
+    void on_pbNormaOffsetChange_clicked();
+
+    void on_pbNormaOffsetSave_clicked();
+
+    void on_normaEtapNumber_textChanged(const QString &arg1);
+
+    void on_normaStabTime_textChanged(const QString &arg1);
+
+    void on_NormaIloscProbek_textChanged(const QString &arg1);
 
 protected:
     void chooseFileName();
@@ -125,9 +133,13 @@ protected:
     void reject();
     bool isValidNumberRolety(QLineEdit *number);
     bool isValidPostojRolety(QLineEdit *number);
+    bool isValidIloscRolety(QLineEdit *number);
 
     void visibleRoleta(bool visible);
     void visibleOther(bool visible);
+
+    bool isValidRoletaRB();
+    bool isValidPlaszczynaRB();
 private:
     Ui::WyborMetody *ui;
     MethodInsData  wbMetoda;
@@ -137,8 +149,9 @@ private:
     unsigned int numberPozMan;
     unsigned int numberWidth;
     unsigned int numberHeight;
-    unsigned int partRolet;
-    unsigned int stableTimeCzas;
+    unsigned int etapNrRoleta;
+    unsigned int stableTimeRoleta;
+    unsigned int timeStopRoleta;
 
     static constexpr int maxPosition = 1000;
     static constexpr int maxTime = 3600;
@@ -149,6 +162,8 @@ private:
     QString fileName;
     QString fileName2;
     bool startWindow;
+
+
 };
 
 #endif // WYBORMETODY_H

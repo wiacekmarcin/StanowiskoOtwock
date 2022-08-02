@@ -6,6 +6,8 @@
 #include "wybranyplik.h"
 #include "ustawienia.h"
 #include "mierzonepozycje.h"
+#include "pozycjeroleta.h"
+
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QWidget>
@@ -18,7 +20,8 @@
 MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
                                    WyborMetody::MethodInsData method,
                                    const QString & _filename , unsigned int _manPos, unsigned _manTimeStop,
-                                   unsigned int _widthPoz, unsigned int _heightPoz, unsigned int _autoTimeStop)
+                                   unsigned int _widthPoz, unsigned int _heightPoz, unsigned int _autoTimeStop,
+                                   unsigned int _etapyNr, unsigned int _stableTime, unsigned int _timeMeas)
     : QMainWindow(parent)
     , ui(new Ui::MiernikPrzeplywu)
     , modeWork(mode)
@@ -34,6 +37,9 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     , impx(0)
     , impy(0)
     , lockTab(false)
+    , etapyNr(_etapyNr)
+    , stableTime(_stableTime)
+    , timeMeas(_timeMeas)
 {
     ui->setupUi(this);
     widget = nullptr;
@@ -50,7 +56,11 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     widget1000p->setObjectName(QString::fromUtf8("mierzonepozycje1000P"));
     ui->verticallayoutTab1000p->addWidget(widget1000p);
 
+    widgetRoleta = new PozycjeRoleta(ui->tab_roleta);
+    widgetRoleta->setObjectName(QString::fromUtf8("mierzonepozycjeroleta"));
+    ui->verticalLayoutRoleta->addWidget(widgetRoleta);
     ui->lConneected->setText(QString::fromUtf8("Nie znaleziono"));
+
 
     proceedChooseMethod();
 
@@ -126,9 +136,9 @@ void MiernikPrzeplywu::chooseTab()
         widget = widget1000p;
     }
 
-    if (modeWork != WyborMetody::MODE_FUNSET) {
+    if (modeWork == WyborMetody::MODE_2700 || modeWork == WyborMetody::MODE_1000L || modeWork == WyborMetody::MODE_1000P ) {
         connect(widget, SIGNAL(doConnect()), this, SIGNAL(connectToDevice()));
-        connect(widget, SIGNAL(checkDevice()), this, SIGNAL(checkDevicec()));
+        connect(widget, SIGNAL(checkDevice()), this, SIGNAL(checkDevice()));
         connect(widget, SIGNAL(setPosition(uint32_t,uint32_t)), this, SIGNAL(setPosition(uint32_t,uint32_t)));
         connect(widget, SIGNAL(readRadio()), &sMsg, SLOT(readValueFromRadio()));
         connect(&sMsg, SIGNAL(readedFromRadio(int)), widget, SLOT(readedFromRadio(int)));
@@ -136,6 +146,20 @@ void MiernikPrzeplywu::chooseTab()
         connect(widget, SIGNAL(end()), this, SLOT(end()));
         connect(widget, SIGNAL(start()), this, SLOT(start()));
         connect(widget, SIGNAL(noweDane()), this, SLOT(noweDane()));
+    }
+
+    if (modeWork == WyborMetody::MODE_ROLETA || modeWork == WyborMetody::MODE_ROLETAPLIK) {
+        connect(widgetRoleta, SIGNAL(doConnect()), this, SIGNAL(connectToDevice()));
+        connect(widgetRoleta, SIGNAL(checkDevice()), this, SIGNAL(checkDevice()));
+        connect(widgetRoleta, SIGNAL(setPosition(uint32_t,uint32_t)), this, SIGNAL(setPosition(uint32_t,uint32_t)));
+        connect(widgetRoleta, SIGNAL(readRadio()), &sMsg, SLOT(readValueFromRadio()));
+        connect(&sMsg, SIGNAL(readedFromRadio(int)), widgetRoleta, SLOT(readedFromRadio(int)));
+        connect(widgetRoleta, SIGNAL(statusMiernik(QString)), this, SLOT(statusMiernik(QString)));
+        connect(widgetRoleta, SIGNAL(end()), this, SLOT(end()));
+        connect(widgetRoleta, SIGNAL(start()), this, SLOT(start()));
+        connect(widgetRoleta, SIGNAL(noweDane()), this, SLOT(noweDane()));
+        qDebug() << "setData=" << etapyNr <<  stableTime << timeMeas;
+        widgetRoleta->setData(etapyNr, stableTime, timeMeas);
     }
 }
 

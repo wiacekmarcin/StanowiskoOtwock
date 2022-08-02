@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
     if (r == 1) {
         MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getFileName(),
                             m.getNumberPozMan(), m.getTimeStopManual(),
-                           m.getNumberWidth(), m.getNumberHeight(), m.getTimeStopAuto() /*,
-                           m.getPartRolet(), m.getStableTimeCzas()*/);
+                           m.getNumberWidth(), m.getNumberHeight(), m.getTimeStopAuto(),
+                           m.getPartRolet(), m.getStableTimeCzas(), m.getTimeStopRoleta());
         w.setUstawienia(&u);
         w.show();
         return a.exec();

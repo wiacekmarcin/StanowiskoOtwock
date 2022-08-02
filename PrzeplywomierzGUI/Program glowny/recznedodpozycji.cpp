@@ -55,19 +55,19 @@ void ReczneDodPozycji::changeCell1(QTableWidgetItem *item)
         item->setText("0");
     }
     unsigned long pos = cells[item];
-    unsigned int rows = pos / 3;
+    //unsigned int rows = pos / 3;
     unsigned int cols = pos % 3;
 
     switch(cols) {
         case 0:
-            if (val > maxNumberX)
+            if ((uint)val > maxNumberX)
                 item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
             else
                 item->setBackground(QBrush(QColor(Qt::white), Qt::SolidPattern));
         break;
 
         case 1:
-            if (val > maxNumberY)
+            if ((uint)val > maxNumberY)
                 item->setBackground(QBrush(QColor(Qt::red), Qt::SolidPattern));
             else
                 item->setBackground(QBrush(QColor(Qt::white), Qt::SolidPattern));
@@ -110,11 +110,11 @@ void ReczneDodPozycji::on_buttonBox_accepted()
             continue;
 
         x = sx.toInt(&ok);
-        if (!ok || x < 0 || x > maxNumberX)
+        if (!ok || x < 0 || (uint)x > maxNumberX)
             continue;
 
         y = sy.toInt(&ok);
-        if (!ok || y < 0 || y > maxNumberX)
+        if (!ok || y < 0 || (uint)y > maxNumberX)
             continue;
 
         m_lista.append(time, x, y);

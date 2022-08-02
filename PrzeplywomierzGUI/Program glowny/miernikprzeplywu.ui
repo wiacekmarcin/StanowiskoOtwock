@@ -309,10 +309,11 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tab_roleta">
        <attribute name="title">
-        <string>Rolety</string>
+        <string>Stanowisko 860x1600 (z roletą)</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayoutRoleta"/>
       </widget>
      </widget>
     </item>

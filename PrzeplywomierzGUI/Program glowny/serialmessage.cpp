@@ -589,7 +589,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 emit setParams2();
                 return true;
             }
-
+            return false;
         }
 
         default:

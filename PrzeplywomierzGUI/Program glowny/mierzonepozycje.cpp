@@ -136,7 +136,7 @@ void MierzonePozycje::update()
             debug(QString("Pomiar [%1 s]").arg(actSize));
             emit readRadio();
 
-            if (!actMeasure-- == 0) {
+            if (--actMeasure == 0) {
                 actStatus = NEXTPOSITION;
             } /*else {
                 --
@@ -213,9 +213,9 @@ void MierzonePozycje::setValues(const float &val1)
     data.time = m_lista.size()+1;
     data.val1 = val1;
     m_listawynikowa1.append(data);
-    if (actSize == m_listawynikowa1.size()) {
+    if ((int)actSize == m_listawynikowa1.size()) {
         actStatus = NEXTPOSITION;
-        actMeasure == 0;
+        actMeasure = 0;
     }
 
 }

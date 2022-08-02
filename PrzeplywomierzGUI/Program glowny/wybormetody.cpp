@@ -28,6 +28,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
             ui->rbRoleta->setChecked(false);
             visibleOther(true);
             visibleRoleta(false);
+            ui->gbMethod->setVisible(true);
         break;
         case MODE_1000P:
             ui->rb2700->setChecked(false);
@@ -37,6 +38,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
             ui->rbRoleta->setChecked(false);
             visibleOther(true);
             visibleRoleta(false);
+            ui->gbMethod->setVisible(true);
         break;
         case MODE_1000L:
             ui->rb2700->setChecked(false);
@@ -45,14 +47,18 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
             ui->rbFunSet->setChecked(false);
             visibleOther(true);
             visibleRoleta(false);
+            ui->gbMethod->setVisible(true);
         break;
         case MODE_FUNSET:
             visibleOther(false);
             visibleRoleta(false);
+            ui->gbMethod->setVisible(false);
+            ui->gbMethod->setDisabled(true);
         break;
         case MODE_SERVICE:
             visibleOther(false);
             visibleRoleta(false);
+            ui->gbMethod->setVisible(false);
         break;
         case MODE_ROLETA:
             ui->rb2700->setChecked(false);
@@ -62,6 +68,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
             ui->rbRoleta->setChecked(true);
             visibleOther(false);
             visibleRoleta(true);
+            ui->gbMethod->setVisible(true);
         break;
         case MODE_ROLETAPLIK:
             ui->rb2700->setChecked(false);
@@ -71,12 +78,14 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode) :
             ui->rbRoleta->setChecked(true);
             visibleOther(false);
             visibleRoleta(true);
+            ui->gbMethod->setVisible(true);
     break;
 
     default:
         break;
     }
     startWindow = parent == nullptr;
+    setEnabledContinue(false);
 }
 
 WyborMetody::~WyborMetody()
@@ -219,13 +228,36 @@ bool WyborMetody::isValidPostojRolety(QLineEdit *number)
     return true;
 }
 
+bool WyborMetody::isValidIloscRolety(QLineEdit *number)
+{
+    QString sn = number->text();
+    bool ok;
+    int isn = sn.toInt(&ok);
+    if (!ok) {
+        return false;
+    }
+    if (isn <= 0 || isn > maxTime) {
+        return false;
+    }
+    return true;
+}
+
+
 void WyborMetody::visibleRoleta(bool visible)
 {
+    ui->frRoletaInfo->setVisible(visible);
+    if (visible) {
+        ui->pbNormaOffsetSave->setEnabled(false);
+        ui->pbNormaOffsetChange->setEnabled(true);
+        ui->normaOffsetXEdit->setVisible(false);
+        ui->normaOffsetX->setVisible(true);
+        ui->normaOffsetYEdit->setVisible(false);
+        ui->normaOffsetY->setVisible(true);
+    }
     ui->rbRoletaDane->setVisible(visible);
     ui->rbRoletaPlik->setVisible(visible);
     ui->frRoleta->setVisible(visible);
     ui->frRoletaPlik->setVisible(visible);
-    resize(minimumSizeHint());
 }
 
 void WyborMetody::visibleOther(bool visible)
@@ -236,7 +268,21 @@ void WyborMetody::visibleOther(bool visible)
     ui->frChoiceFile->setVisible(visible);
     ui->frHalfManual->setVisible(visible);
     ui->frManual->setVisible(visible);
-    resize(minimumSizeHint());
+}
+
+bool WyborMetody::isValidRoletaRB()
+{
+    return ui->rbRoletaDane->isChecked() || ui->rbRoletaPlik->isChecked();
+}
+
+bool WyborMetody::isValidPlaszczynaRB()
+{
+    return ui->rbfile->isChecked() || ui->rbmanual->isChecked() || ui->rbhalfmanual->isChecked();
+}
+
+unsigned int WyborMetody::getTimeStopRoleta() const
+{
+    return timeStopRoleta;
 }
 
 QString WyborMetody::getFileName2() const
@@ -246,7 +292,12 @@ QString WyborMetody::getFileName2() const
 
 unsigned int WyborMetody::getPartRolet() const
 {
-    return partRolet;
+    return etapNrRoleta;
+}
+
+unsigned int WyborMetody::getStableTimeCzas() const
+{
+    return stableTimeRoleta;
 }
 
 bool WyborMetody::isValidTime(QLineEdit *time)
@@ -265,14 +316,15 @@ bool WyborMetody::isValidTime(QLineEdit *time)
 
 bool WyborMetody::isValidAutoParameters()
 {
-    return isValidNumber(ui->numberAuto) &&
+    return isValidPlaszczynaRB() &&
+           isValidNumber(ui->numberAuto) &&
            isValidNumber(ui->numberAuto_2) &&
            isValidTime(ui->timeAuto);
 }
 
 bool WyborMetody::isValidManualParameters()
 {
-    return isValidNumber(ui->numberManual) && isValidTime(ui->timeManualDefault);
+    return isValidPlaszczynaRB() && isValidNumber(ui->numberManual) && isValidTime(ui->timeManualDefault);
 }
 
 
@@ -329,7 +381,7 @@ void WyborMetody::on_rbRoleta_toggled(bool checked)
         wbMode = MODE_ROLETA;
         visibleOther(false);
         visibleRoleta(true);
-        setEnabledContinue(false);
+        setEnabledContinue(isValidNumberRolety(ui->normaEtapNumber) && isValidPostojRolety(ui->normaStabTime) && isValidIloscRolety(ui->NormaIloscProbek));
     }
 }
 
@@ -473,28 +525,6 @@ void WyborMetody::on_numberManual_textChanged(const QString &)
     setEnabledContinue(isValidManualParameters());
 }
 
-
-
-void WyborMetody::on_lineEdit_textChanged(const QString &arg1)
-{
-    if (!isValidNumberRolety(ui->lineEdit)) {
-        setEnabledContinue(false);
-        return;
-    }
-    partRolet = arg1.toUInt();
-    setEnabledContinue(true);
-}
-
-void WyborMetody::on_postojEtap_textChanged(const QString &arg1)
-{
-    if (!isValidPostojRolety(ui->lineEdit)) {
-        setEnabledContinue(false);
-        return;
-    }
-    stableTimeCzas = arg1.toUInt();
-    setEnabledContinue(true);
-}
-
 void WyborMetody::on_rbRoletaDane_toggled(bool checked)
 {
     ui->rbRoletaDane->setChecked(checked);
@@ -525,3 +555,69 @@ void WyborMetody::on_pbChooseFile_clicked()
     fileName2 = file;
     ui->wybranyPlikRolety->setText(file);
 }
+
+void WyborMetody::on_pbNormaOffsetChange_clicked()
+{
+    ui->pbNormaOffsetChange->setEnabled(false);
+    ui->pbNormaOffsetSave->setEnabled(true);
+
+    ui->normaOffsetXEdit->setVisible(true);
+    ui->normaOffsetYEdit->setVisible(true);
+
+    ui->normaOffsetXEdit->setText(ui->normaOffsetX->text());
+    ui->normaOffsetYEdit->setText(ui->normaOffsetY->text());
+}
+
+void WyborMetody::on_pbNormaOffsetSave_clicked()
+{
+    ui->pbNormaOffsetChange->setEnabled(true);
+    ui->pbNormaOffsetSave->setEnabled(false);
+
+    ui->normaOffsetXEdit->setVisible(false);
+    ui->normaOffsetYEdit->setVisible(false);
+
+    bool ok;
+    int val = ui->normaOffsetXEdit->text().toInt(&ok);
+    if (ok && val >= 0)
+        ui->normaOffsetX->setText(ui->normaOffsetXEdit->text());
+
+    val = ui->normaOffsetYEdit->text().toInt(&ok);
+    if (ok && val >= 0)
+        ui->normaOffsetY->setText(ui->normaOffsetYEdit->text());
+}
+
+
+void WyborMetody::on_normaEtapNumber_textChanged(const QString &arg1)
+{
+    if (!isValidNumberRolety(ui->normaEtapNumber)) {
+        setEnabledContinue(false);
+        return;
+    }
+    etapNrRoleta = arg1.toUInt();
+    setEnabledContinue(isValidRoletaRB() && isValidPostojRolety(ui->normaStabTime) && isValidIloscRolety(ui->NormaIloscProbek));
+}
+
+
+void WyborMetody::on_normaStabTime_textChanged(const QString &arg1)
+{
+    if (!isValidPostojRolety(ui->normaStabTime)) {
+        setEnabledContinue(false);
+        return;
+    }
+    stableTimeRoleta = arg1.toUInt();
+    setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumber) && isValidIloscRolety(ui->NormaIloscProbek));
+}
+
+
+void WyborMetody::on_NormaIloscProbek_textChanged(const QString &arg1)
+{
+    if (!isValidIloscRolety(ui->NormaIloscProbek)) {
+        setEnabledContinue(false);
+        return;
+    }
+    timeStopRoleta = arg1.toUInt();
+    setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumber) && isValidPostojRolety(ui->normaStabTime));
+}
+
+
+

@@ -29,6 +29,7 @@ SOURCES += \
         main.cpp \
         crc8.cpp \
         mechanika.cpp \
+    pozycjeroleta.cpp \
     serialmessage.cpp \
     ustawienia.cpp \
     wyborkwadratow.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
 HEADERS += \
         crc8.h \
         mechanika.h \
+    pozycjeroleta.h \
     serialmessage.h \
     ustawienia.h \
     wyborkwadratow.h \
@@ -56,6 +58,7 @@ HEADERS += \
     etapyroletdlg.h
 
 FORMS += \
+    pozycjeroleta.ui \
     wybordanych.ui \
     wyborkwadratow.ui \
     wybormetody.ui \

@@ -13,8 +13,9 @@
 class QCloseEvent;
 class MierzonePozycje;
 class QSerialPortInfo;
-
+class PozycjeRoleta;
 class Ustawienia;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MiernikPrzeplywu; }
 QT_END_NAMESPACE
@@ -27,7 +28,8 @@ public:
     MiernikPrzeplywu(QWidget *parent = nullptr, WyborMetody::ModeWork mode = WyborMetody::MODE_SERVICE,
                      WyborMetody::MethodInsData method = WyborMetody::METHOD_NONE,
                      const QString & filename = "", unsigned int manPos = 0, unsigned manTimeStop = 0,
-                     unsigned int widthPoz = 0, unsigned int heightPoz = 0, unsigned int autoTimeStop = 0);
+                     unsigned int widthPoz = 0, unsigned int heightPoz = 0, unsigned int autoTimeStop = 0,
+                     unsigned int etapyNr = 0, unsigned int stableTime = 0, unsigned int timeMeas = 0);
     ~MiernikPrzeplywu();
 
     void closeEvent (QCloseEvent *event);
@@ -89,6 +91,9 @@ private:
     unsigned int autoTimeStop;
     unsigned int widthPos;
     unsigned int heightPos;
+    unsigned int etapyNr;
+    unsigned int stableTime;
+    unsigned int timeMeas;
 
     Pozycje m_lista;
     QString fileName;
@@ -101,6 +106,7 @@ private:
     MierzonePozycje * widget2700;
     MierzonePozycje * widget1000p;
     MierzonePozycje * widget1000l;
+    PozycjeRoleta * widgetRoleta;
 
     SerialMessage sMsg;
     bool connIsOk;
