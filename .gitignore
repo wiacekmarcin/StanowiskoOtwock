@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+
+PrzeplywomierzGUI/Program glowny/.qtc_clangd/*
