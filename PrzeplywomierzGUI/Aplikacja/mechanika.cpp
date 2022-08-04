@@ -5,7 +5,8 @@ Ruch::Ruch() :
     maxImpulsyX(0), maxImpulsyY(0), maxKrokiX(0), maxKrokiY(0), maxXmm(0), maxYmm(0),
     wentOffsetX(301),
     wentOffsetY(175.58),
-    wentKatNach(3.85)
+    wentKatNach(3.85),
+    reverseR(true)
 {
      calculate();
 }
@@ -93,6 +94,17 @@ void Ruch::setReverseX(bool value)
 {
     reverseX = value;
 }
+
+bool Ruch::getReverseR() const
+{
+    return reverseR;
+}
+
+void Ruch::setReverseR(bool value)
+{
+    reverseX = value;
+}
+
 
 double Ruch::getWentKatNach() const
 {

@@ -17,6 +17,9 @@
 #include <QTime>
 
 #include <QDebug>
+
+#define TABVISIBLE 0
+
 MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
                                    WyborMetody::MethodInsData method,
                                    const QString & _filename , unsigned int _manPos, unsigned _manTimeStop,
@@ -31,15 +34,15 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     , autoTimeStop(_autoTimeStop)
     , widthPos(_widthPoz)
     , heightPos(_heightPoz)
+    , etapyNr(_etapyNr)
+    , stableTime(_stableTime)
+    , timeMeas(_timeMeas)
     , fileName(_filename)
     , ust(nullptr)
     , connIsOk(false)
     , impx(0)
     , impy(0)
     , lockTab(false)
-    , etapyNr(_etapyNr)
-    , stableTime(_stableTime)
-    , timeMeas(_timeMeas)
 {
 
     qDebug() << "mode" << (unsigned int)mode;
@@ -85,21 +88,18 @@ MiernikPrzeplywu::MiernikPrzeplywu(QWidget *parent, WyborMetody::ModeWork mode,
     connect(&sMsg, SIGNAL(readedFromRadio(int)), this, SLOT(readedFromRadio(int)));
     connect(&sMsg, SIGNAL(errorReadFromRadio()), this, SLOT(errorReadFromRadio()));
 
+    connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionStatus(SerialMessage::StatusWork)));
+    connect(&sMsg, SIGNAL(errorHome()), this, SLOT(errorHome()));
+
     connect(this, SIGNAL(connectToDevice()), &sMsg, SLOT(connectToSerial()));
     connect(this, SIGNAL(checkDevice()), &sMsg, SLOT(checkController()));
     connect(this, SIGNAL(setPositionHome()), &sMsg, SLOT(setPositionHome()));
     connect(this, SIGNAL(setPosition(uint32_t,uint32_t)), &sMsg, SLOT(setPosition(uint32_t,uint32_t)));
+    connect(this, SIGNAL(setRoletaHome()), &sMsg, SLOT(setRoletaHome()));
+    connect(this, SIGNAL(setRoleta(uint32_t)), &sMsg, SLOT(setRoleta(uint32_t)));
 
-    connect(this, SIGNAL(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)), &sMsg,
-            SLOT(setParams(bool,bool,uint32_t,uint32_t,uint32_t,uint32_t)));
-
-    connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionStatus(SerialMessage::StatusWork)));
-
-    connect(&sMsg, SIGNAL(doneHome()), this, SLOT(doneHome()));
-    connect(&sMsg, SIGNAL(errorHome()), this, SLOT(errorHome()));
-
-
-    connect(&sMsg, SIGNAL(donePosition()), this, SLOT(donePosition()));
+    connect(this, SIGNAL(setParams(bool,bool,bool, uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)), &sMsg,
+            SLOT(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)));
 
     ui->debug->setVisible(false);
     ui->pbZeruj->setVisible(false);
@@ -114,10 +114,13 @@ MiernikPrzeplywu::~MiernikPrzeplywu()
 void MiernikPrzeplywu::chooseTab()
 {
     if (modeWork == WyborMetody::MODE_FUNSET) {
-        //ui->tabWidget->setTabVisible(0, false);
-        //ui->tabWidget->setTabVisible(1, false);
-        //ui->tabWidget->setTabVisible(2, false);
-
+#ifdef TABVISIBLE
+        ui->tabWidget->setTabVisible(0, false);
+        ui->tabWidget->setTabVisible(1, false);
+        ui->tabWidget->setTabVisible(2, false);
+        ui->tabWidget->setTabVisible(3, true);
+        ui->tabWidget->setTabVisible(4, false);
+#endif
         ui->tabWidget->setCurrentIndex(3);
     }
     else if (modeWork == WyborMetody::MODE_SERVICE) {
@@ -616,19 +619,63 @@ void MiernikPrzeplywu::controllerOK()
         widget->setConnected(true);
     }
     debug ("setParams");
-    emit setParams(mech.getReverseX(),mech.getReverseY(),
+    emit setParams(mech.getReverseX(),mech.getReverseY(),mech.getReverseR(),
                    mech.getMaxImpusyX(), mech.getMaxImpusyY(),
-                   mech.getMaxKrokiX(), mech.getMaxKrokiY());
+                   mech.getMaxKrokiX(), mech.getMaxKrokiY(), mech.getMaxKrokiR());
 }
 
 void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
 {
+    switch(work) {
+    case SerialMessage::START_XY:
+        break;
+    case SerialMessage::START_X:
+        break;
+    case SerialMessage::END_X:
+        break;
+    case SerialMessage::START_Y:
+        break;
+    case SerialMessage::END_Y:
+        break;
+    case SerialMessage::END_XY:
+        break;
+    case SerialMessage::START_R:
+        break;
+    case SerialMessage::END_R:
+        break;
+    case SerialMessage::ERROR_XY:
+        break;
+    case SerialMessage::ERROR_R:
+        break;
 
+    }
 }
 
 void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
 {
+    switch(work) {
+    case SerialMessage::START_XY:
+        break;
+    case SerialMessage::START_X:
+        break;
+    case SerialMessage::END_X:
+        break;
+    case SerialMessage::START_Y:
+        break;
+    case SerialMessage::END_Y:
+        break;
+    case SerialMessage::END_XY:
+        break;
+    case SerialMessage::START_R:
+        break;
+    case SerialMessage::END_R:
+        break;
+    case SerialMessage::ERROR_XY:
+        break;
+    case SerialMessage::ERROR_R:
+        break;
 
+    }
 }
 
 void MiernikPrzeplywu::setParamsDone()

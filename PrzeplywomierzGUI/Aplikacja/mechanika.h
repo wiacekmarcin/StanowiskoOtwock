@@ -21,6 +21,7 @@ public:
 
     unsigned long getMaxKrokiX() const { return maxKrokiX; }
     unsigned long getMaxKrokiY() const { return maxKrokiY; }
+    unsigned long getMaxKrokiR() const { return maxKrokiR; }
 
     void setImpusyXPerMM(double impx);
     void setImpusyYPerMM(double impy);
@@ -55,6 +56,9 @@ public:
     bool getReverseY() const;
     void setReverseY(bool value);
 
+    bool getReverseR() const;
+    void setReverseR(bool value);
+
     unsigned int getMaxXmm() const;
     void setMaxXmm(unsigned int value);
 
@@ -79,6 +83,7 @@ private:
 
     unsigned long maxKrokiX;
     unsigned long maxKrokiY;
+    unsigned long maxKrokiR;
 
     unsigned int maxXmm; //maksymalna ilosc mm
     unsigned int maxYmm; //maksymalna ilosc mm
@@ -92,6 +97,7 @@ private:
 
     bool reverseX;
     bool reverseY;
+    bool reverseR;
 };
 
 #endif // MECHANIKA_H

@@ -84,7 +84,11 @@ signals:
     void checkDevice();
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
-    void setParams(bool reverseX, bool reverseY, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY);
+    void setRoletaHome();
+    void setRoleta(uint32_t r);
+    void setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
+                                                                uint32_t maxStepX, uint32_t maxStepY,
+                                                                uint32_t);
 
 
 private:

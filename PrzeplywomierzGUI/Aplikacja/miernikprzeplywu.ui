@@ -115,9 +115,22 @@
      </widget>
     </item>
     <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <widget class="QWidget" name="stanowisko2700_3000">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
+      <widget class="QWidget" name="stanowisko1000_2000prawe"/>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2700">
        <attribute name="title">
