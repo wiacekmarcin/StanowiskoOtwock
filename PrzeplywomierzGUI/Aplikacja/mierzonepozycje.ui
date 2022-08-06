@@ -88,12 +88,6 @@
    <item>
     <widget class="QTableWidget" name="table"/>
    </item>
-   <item>
-    <widget class="QTextEdit" name="localdebug"/>
-   </item>
-   <item>
-    <widget class="QTextEdit" name="debug"/>
-   </item>
   </layout>
  </widget>
  <resources/>

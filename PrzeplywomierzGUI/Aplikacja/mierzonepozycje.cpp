@@ -40,8 +40,6 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     ui->pbNoweDane->setVisible(true);
     //ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
-    ui->debug->setVisible(true);
-    ui->localdebug->setVisible(true);
     started = false;
 }
 
@@ -113,7 +111,7 @@ void MierzonePozycje::setPos()
 
 void MierzonePozycje::update()
 {
-    setDebug(QString("Update %1").arg(actStatus));
+    //debug(QString("Update %1").arg(actStatus));
     switch(actStatus) {
     case WAIT:
     case WAIT_POS:
@@ -123,6 +121,7 @@ void MierzonePozycje::update()
 
     case FIRST_RUN:
     {
+        debug("First run");
         ui->pbNoweDane->setEnabled(false);
         ui->pbZapisz->setEnabled(false);
         actPos = 0;
@@ -132,15 +131,20 @@ void MierzonePozycje::update()
             ui->pbNoweDane->setEnabled(true);
             return;
         }
+        actStatus = WAIT_POS;
+        avg1 = 0;
+        cnt1 = 0;
         setPos();
         return;
     }
     case NEXT_POS:
     {
-        debug(QString("Ukonczono"));
+        debug(QString("Ukonczono pomiary"));
         ui->status->setText("Zakonczono pomiary");
         ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono"));
         ++actPos;
+        avg1 = 0;
+        cnt1 = 0;
 
         if (actPos >= m_lista.size()) {
             actStatus = WAIT;
@@ -148,43 +152,49 @@ void MierzonePozycje::update()
             ui->pbNoweDane->setEnabled(true);
             ui->pbZapisz->setEnabled(true);
             ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
+            setPositionHome();
             return;
         }
         ui->table->scrollToItem(ui->table->item(actPos, 0));
 
         if (actPos % 10 == 0) {
             actStatus = WAIT_HPOS;
+            debug("Set Home pos");
             setPositionHome();
             ui->status->setText("Trwa kalibracja urządzenia");
             return;
         }
 
+        actStatus = WAIT_POS;
         setPos();
         return;
     }
     case NEXT_POS_AFTER_HPOS:
     {
+        qDebug("Nex pos after hpos");
+        actStatus = WAIT_POS;
         setPos();
+
         return;
     }
     case MEASURING:
     {
         ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
         ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
-        debug(QString("Pomiar [%1 s]").arg(actCzas));
+        debug(QString("Pomiar [%1 s] %2").arg(actCzas));
         readRadio();
 
         if (actCzas == 0) {
             actStatus = NEXT_POS;
-        } else {
-            --actCzas;
         }
+        return;
     }
     }
 }
 
 void MierzonePozycje::positionDone(bool home)
 {
+    debug(QString("position Done home=%1").arg(home));
     if (home) {
         if (started && actStatus == WAIT_HPOS) {
             actStatus = NEXT_POS_AFTER_HPOS;
@@ -202,7 +212,14 @@ void MierzonePozycje::positionDone(bool home)
 
 void MierzonePozycje::readedFromRadio(const double &val)
 {
-    setValues(val);
+    debug(QString("Read from radio %1").arg(val));
+    setValue1(val, "m/s");
+    --actCzas;
+}
+
+void MierzonePozycje::errorReadFromRadio()
+{
+    --actCzas;
 }
 
 /*
@@ -211,17 +228,6 @@ void MierzonePozycje::readedFromRadio(int val)
     setValue1(0.01*val, "m/s");
 }
 */
-
-void MierzonePozycje::setDebug(const QString & val)
-{
-    ui->debug->append(val);
-}
-
-void MierzonePozycje::debug(const QString & val)
-{
-    qDebug("%s",val.toStdString().c_str());
-    ui->localdebug->append(val);
-}
 
 const WyborMetodyData &MierzonePozycje::getAllValues() const
 {
@@ -246,8 +252,10 @@ void MierzonePozycje::setValues(const float &val1)
     DaneWynikowe data;
     data.x = m_lista[actPos].x;
     data.y = m_lista[actPos].y;
-    data.time = m_lista[actPos].time - actCzas;
+    data.time = /*m_lista[actPos].time - actCzas;*/cnt1+1;
     data.val1 = val1;
+    avg1 = (cnt1*avg1 + val1)/(cnt1 + 1);
+    cnt1++;
     m_listawynikowa.append(data);
 }
 
@@ -258,7 +266,7 @@ void MierzonePozycje::setValue1(const float &val, const QString &unit)
     setValues(val);
     avg1 = (avg1*cnt1 + val)/(cnt1 + 1);
     ++cnt1;
-    ui->table->item(actPos, 3)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit));
+    ui->table->item(actPos, col_meas)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit));
 }
 
 void MierzonePozycje::setConnected(bool newConnected)
@@ -283,12 +291,15 @@ void MierzonePozycje::restart()
 
 void MierzonePozycje::on_pbStart_clicked()
 {
-    if (getConnect()) {
-        setPositionHome();
-        ui->pbStart->setEnabled(false);
-    } else {
-        connectToDevice();
-    }
+    debug(QString("Start work. Isconnected %1").arg(getConnect()));
+    //if (getConnect()) {
+    //    debug("set home position");
+    //    setPositionHome();
+    //    ui->pbStart->setEnabled(false);
+    //} else {
+    //    debug("connect to device");
+    connectToDevice();
+    //}
 }
 
 

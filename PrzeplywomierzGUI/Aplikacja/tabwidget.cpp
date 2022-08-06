@@ -6,7 +6,7 @@
 TabWidget::TabWidget(QWidget *parent)
     : QWidget{parent}
 {
-
+    isConnect = false;
 }
 
 void TabWidget::setMechanika(const Ruch &m)
@@ -128,7 +128,7 @@ void TabWidget::setRoleta(uint32_t r)
 void TabWidget::debug(const QString &s)
 {
     if (miernikPrzeplywu)
-        miernikPrzeplywu->debug(s);
+        miernikPrzeplywu->debug(addTime(s));
 }
 
 void TabWidget::debugClear()

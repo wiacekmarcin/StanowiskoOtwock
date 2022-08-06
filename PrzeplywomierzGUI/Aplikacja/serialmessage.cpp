@@ -8,7 +8,7 @@
 
 #include <QDebug>
 
-#define SYMULATOR 1
+
 
 #ifdef Q_OS_WIN
 #include <windows.h> // for Sleep
@@ -54,7 +54,9 @@ SerialMessage::~SerialMessage()
 
 void SerialMessage::handleReadyRead()
 {
+    qDebug() << "handelReadyRead";
     QByteArray readData = m_serialPort.readAll();
+    qDebug() << "read " << readData.size();
     emit debug(QString("Odebralem:")+QString(readData.toHex(' ').toStdString().c_str()));
 
     while (readData.size() > 0 ) {
@@ -81,6 +83,8 @@ void SerialMessage::handleReadyRead()
 
 void SerialMessage::serialError(const QSerialPort::SerialPortError &error)
 {
+    if (error == QSerialPort::NoError)
+        return;
     emit errorSerial(QString("Blad %1").arg(error));
 }
 
@@ -237,6 +241,31 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
     setSettings1(reverseX,reverseY,reverseR,maxImpX,maxImpY);
 }
 
+void SerialMessage::connectAndConfigure()
+{
+    connectAndConfigureSlot(NOP_MSG);
+}
+
+void SerialMessage::setMechParams(bool reverseX, bool reverseY, bool reverseR,
+                              uint32_t maxImpX, uint32_t maxImpY,
+                              uint32_t maxStepX, uint32_t maxStepY,
+                              uint32_t maxStepR)
+{
+    memoryreverseX = reverseX;
+    memoryreverseY = reverseY;
+    memoryreverseR = reverseR;
+    memorymaxImpX = maxImpX;
+    memorymaxImpY = maxImpY;
+
+
+    memoryStepX = maxStepX;
+    memoryStepY = maxStepY;
+    memoryStepR = maxStepR;
+
+}
+
+
+
 void SerialMessage::readRadio()
 {
 #ifdef SYMULATOR
@@ -272,12 +301,16 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             for (int i = 0; i < 15; ++i) {
                 if (wzorzec[i] != data[i]) {
                     qDebug("wzorzec != data");
+                    connSerial = false;
+                    emit deviceName("-");
+                    m_serialPort.close();
                     return false;
                 }
             }
 
             emit debug("welcome msg");
             emit controllerOK();
+            connectAndConfigureSlot(WELCOME_REP);
             return true;
         }
         case MOVEHOME_REP:
@@ -422,7 +455,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             //0xa0 CRC8 - req
             //0xbA 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
             //0xb1 'E' CRC8 - error polaczenia z radiem
-            if (len == 1 && data[0] == 'E') {
+            if (len == 2 && data[0] == 'E') {
                 emit errorReadFromRadio();
                 return true;
             }
@@ -453,6 +486,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             }
             if (data[0] == (char)2) {
                 emit setParamsDone();
+                connectAndConfigureSlot(SET_PARAM_REP);
                 return true;
             }
             return false;
@@ -481,24 +515,47 @@ void SerialMessage::response(const QByteArray &s)
     }
 }
 
+void SerialMessage::connectAndConfigureSlot(short response)
+{
+    /*
+    if (response == NOP_MSG) {
+        if (!connSerial)
+        {
+            connectToSerial();
+        }
+    } else {
+        setSettings1(memoryreverseX,memoryreverseY,memoryreverseR,memorymaxImpX,memorymaxImpY);
+    }
+    if (response == WELCOME_REP) {
+        setSettings1(memoryreverseX,memoryreverseY,memoryreverseR,memorymaxImpX,memorymaxImpY);
+    }
+    if (response == SET_PARAM_REP)
+    {
+        emit connectAndConfigureDone();
+    }
+    */
+}
+
 bool SerialMessage::openDevice(const QSerialPortInfo &port)
 {
     m_serialPort.setPort(port);
     portName = port.portName();
     emit deviceName(portName);
 
+    debug("Otwieram port");
     if (!m_serialPort.open(QIODevice::ReadWrite)) {
+        qDebug() << "Nie mozna otworzyc portu";
         emit errorSerial(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(portName).arg(m_serialPort.errorString()));
         return false;
     }
-    connSerial = true;
-
+    debug("Konfigureuje port");
     m_serialPort.setBaudRate(QSerialPort::Baud115200);
     m_serialPort.setDataBits(QSerialPort::Data8);
     m_serialPort.setFlowControl(QSerialPort::NoFlowControl);
     m_serialPort.setParity(QSerialPort::NoParity);
     m_serialPort.setStopBits(QSerialPort::OneStop);
 
+    emit debug("Send welcome message");
     writeMessage(welcomeMsg());
     return true;
 }
@@ -516,16 +573,17 @@ QByteArray SerialMessage::homePositionMsg()
 
 QByteArray SerialMessage::positionMsg(uint32_t x, const uint32_t y)
 {
-    uint8_t tab[8];
-    tab[0] = (y >> 24) & 0xff;
-    tab[1] = (y >> 16) & 0xff;
-    tab[2] = (y >> 8) & 0xff;
-    tab[3] = y & 0xff;
-    tab[4] = (x >> 24) & 0xff;
-    tab[5] = (x >> 16) & 0xff;
-    tab[6] = (x >> 8) & 0xff;
-    tab[7] = x & 0xff;
-    return prepareMessage(POSITION_REQ, tab, 8);
+    uint8_t tab[9];
+    tab[0] = 'P';
+    tab[1] = (y >> 24) & 0xff;
+    tab[2] = (y >> 16) & 0xff;
+    tab[3] = (y >> 8) & 0xff;
+    tab[4] = y & 0xff;
+    tab[5] = (x >> 24) & 0xff;
+    tab[6] = (x >> 16) & 0xff;
+    tab[7] = (x >> 8) & 0xff;
+    tab[8] = x & 0xff;
+    return prepareMessage(POSITION_REQ, tab, 9);
 }
 
 QByteArray SerialMessage::homeRoletaMsg()

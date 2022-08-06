@@ -55,6 +55,12 @@ public:
     int32_t getPosImpY() const;
     int32_t getPosStepR() const;
 
+    void setMechParams(bool reverseX, bool reverseY, bool reverseR,
+                                  uint32_t maxImpX, uint32_t maxImpY,
+                                  uint32_t maxStepX, uint32_t maxStepY,
+                                  uint32_t maxStepR);
+
+
 signals:
     void successOpenDevice(bool);
     void deviceName(QString);
@@ -77,6 +83,7 @@ signals:
     //void timeoutSerial(QString, bool, QString);
 
     void debug(QString);
+    void connectAndConfigureDone();
 
 public slots:
     void handleReadyRead();
@@ -94,6 +101,10 @@ public slots:
                    uint32_t maxStepX, uint32_t maxStepY,
                    uint32_t maxStepR);
 
+
+    void connectAndConfigure();
+
+
     void readRadio();
 
 protected:
@@ -107,7 +118,7 @@ protected:
     //void timeoutWrite(const QString &s);
     //void findPort(const QString &s);
 
-
+    void connectAndConfigureSlot(short response);
 protected:
     bool openDevice(const QSerialPortInfo & port);
 
@@ -154,6 +165,8 @@ private:
     uint32_t posImpX;
     uint32_t posImpY;
     uint32_t posStepR;
+
+    short actPosC2C;
 
 };
 

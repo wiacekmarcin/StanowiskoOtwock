@@ -158,16 +158,9 @@ bool MessageSerial::parseRozkaz()
 void MessageSerial::sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, uint16_t val4)
 {
  
-    unsigned long actMls = millis();
 
-    if (!wasWelcomeMsg)
-        return;
+    //sendRadioDebug(val1);
 
-
-    if (actMls - timeSendRadioVal < 500) 
-        return ;
-    sendRadioDebug(val1);
-    timeSendRadioVal = actMls;
     actWork = NOP;
     uint8_t sendData[9] = {'O', 0, 0, 0, 0, 0, 0, 0, 0};
     sendData[1] = (val1 >> 8 ) & 0xff;
@@ -182,15 +175,12 @@ void MessageSerial::sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, ui
 
 }
 
-void MessageSerial::sendRadioError()
+void MessageSerial::sendRadioError(uint8_t val)
 {
-    unsigned long actMls = millis();
-    
-    if (!wasWelcomeMsg || timeSendRadioVal - actMls < 500)
-        return ;
-    timeSendRadioVal = actMls;
-    uint8_t sendData[1] = {'E'};
-    sendMessage(MEASVALUE_REP, sendData, 1);
+     
+
+    uint8_t sendData[2] = {'E', '0'+val};
+    sendMessage(MEASVALUE_REP, sendData, 2);
  
 }
 

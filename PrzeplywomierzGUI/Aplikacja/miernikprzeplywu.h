@@ -42,6 +42,7 @@ public:
     const WyborMetodyData &getData() const;
 
     void connectToDevice();
+
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
     void setRoletaHome();
@@ -82,7 +83,10 @@ private slots:
     void errorHome();
     void errorHomeRoleta();
 
+    void connectAndConfigureDone();
+
 signals:
+    void connectAndConfigureSig();
     void connectToDeviceSig();
     void setPositionHomeSig();
     void setPositionSig(uint32_t x, uint32_t y);

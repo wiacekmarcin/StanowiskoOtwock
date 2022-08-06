@@ -40,9 +40,6 @@ public:
     void setList(const Pozycje &pos);
 
 
-
-    void setDebug(const QString &val);
-
     void setValues(const float & val1);
     void setValue1(const float & val, const QString & unit);
 
@@ -59,7 +56,7 @@ public:
     //virtual void positionStatus(bool base, SerialMessage::StatusWork work);
     virtual void positionDone(bool base);
     virtual void readedFromRadio(const double &);
-
+    virtual void errorReadFromRadio();
 
     void noweDane();
 
@@ -75,8 +72,6 @@ private slots:
 
     void on_pbZapisz_clicked();
 
-protected:
-    void debug(const QString &val);
 private:
     typedef enum _statusWork {
         WAIT = 0,

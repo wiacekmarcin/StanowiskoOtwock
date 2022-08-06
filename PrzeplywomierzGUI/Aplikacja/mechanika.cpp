@@ -63,6 +63,7 @@ unsigned int Ruch::getMaxYmm() const
 void Ruch::setMaxYmm(unsigned int value)
 {
     maxYmm = value;
+    calculate();
 }
 
 unsigned int Ruch::getMaxXmm() const
@@ -73,6 +74,7 @@ unsigned int Ruch::getMaxXmm() const
 void Ruch::setMaxXmm(unsigned int value)
 {
     maxXmm = value;
+    calculate();
 }
 
 bool Ruch::getReverseY() const

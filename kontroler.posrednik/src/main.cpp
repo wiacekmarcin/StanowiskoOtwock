@@ -13,7 +13,7 @@ void setup()
 #ifndef DEBUG_SERIAL
     msg.init();
 #endif // !DEBUG_SERIAL    
-    
+    delay(2000);
 
     radioInit();
     
@@ -27,7 +27,7 @@ void setup()
     delay(1000);
     digitalWrite(RESET_NANO, HIGH);
 }
-
+//#define DEBUG_SERIAL
 void loop()
 {
 #ifndef DEBUG_SERIAL
@@ -111,26 +111,27 @@ bool work()
             digitalWrite(RESET_NANO, LOW);
             delay(1000);
             digitalWrite(RESET_NANO, HIGH);
+            delay(2000);
             actWork = MessageSerial::NOP;
             return true;
         case MessageSerial::GET_RADIOVAL:
             if (isRadioConnected()) {
                 uint16_t val1;
+                //int8_t try3 = 3;
+                //while (try3 > 0) {
                 if (readRadio(val1)) {
                     msg.sendRadioVal(val1, 0, 0, 0);
-                }
-                else {
-                    msg.sendRadioError();    
+                } else {
+                    msg.sendRadioError(1);
                 }
             } else {
-                msg.sendRadioError();
+                msg.sendRadioError(2);
             }
-            msg.sendRadioError();
             actWork = MessageSerial::NOP;
             return true;
         
         default:
-            Serial.println("UNKNOWN");
+            //Serial.println("UNKNOWN");
         break;
     }
     return true;
