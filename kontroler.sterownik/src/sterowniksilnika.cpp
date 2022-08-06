@@ -64,16 +64,27 @@ volatile bool canMoveY = false;
 
 constexpr uint16_t const freqs[] = {
   2000,
+  1650,
   1225,
+  1050,
   850,
+  740,
   630,
+  560,
   500,
+  455,
   415,
+  385,
   355,
+  328,
   312,
+  295,
   280,
+  265,
   250,
+  242,
   225,
+  212,
   200
 };
  
@@ -175,7 +186,7 @@ bool returnBaseX()
     if (!getHomePosX()) {
         
         while (!getHomePosX() && ++step < gStepMaxX) {
-            stepX(200, 200);
+            stepX(20, 300);
         }
         if (!getHomePosX()) {
             msg.setErrorHomeBack();
@@ -186,7 +197,7 @@ bool returnBaseX()
         uint8_t idx = 200;
         step+=200;
         while (--idx) {
-            stepX(500, 500);
+            stepX(20, 500);
         }
     }
     msg.sendRetHomeXDone(step);
@@ -217,7 +228,7 @@ bool returnBaseY()
     if (!getHomePosY()) {
         
         while (!getHomePosY() && ++step < gImpMaxY) {
-            stepY(300, 300);
+            stepY(20, 300);
         }
         if (!getHomePosX()) {
             msg.setErrorHomeBack();
@@ -229,7 +240,7 @@ bool returnBaseY()
         uint8_t idx = 200;
         step += 200;
         while (--idx) {
-            stepY(1000,1000);
+            stepY(20,500);
         }
     }
     msg.sendRetHomeYDone(step);
