@@ -14,9 +14,20 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     int ar = 0;
+    WyborMetody::ModeWork mode = WyborMetody::MODE_NONE;
+    WyborMetody::MethodInsData method = WyborMetody::METHOD_NONE;
+
+    Ustawienia u;
+    u.read();
+    MiernikPrzeplywu w;
+    w.setUstawienia(&u);
+    qDebug() << "exec";
+    //w.exec();
+    return a.exec();
+/*
     do {
 
-        WyborMetody m;
+        //WyborMetody m(nullptr, mode, method);
         Ustawienia u;
         u.read();
 
@@ -39,18 +50,20 @@ int main(int argc, char *argv[])
         }
 
         int r = m.exec();
-        //qDebug() << r;
+        qDebug() << "1 r=" << r;
         if (r == 1) {
-        	MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getFileName(),
-                            m.getNumberPozMan(), m.getTimeStopManual(),
-                           m.getNumberWidth(), m.getNumberHeight(), m.getTimeStopAuto(),
-                           m.getPartRolet(), m.getStableTimeCzas(), m.getTimeStopRoleta());
+            qDebug() << "Start app\n";
+            MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getData());
         	w.setUstawienia(&u);
         	w.show();
-            ar = a.exec();
+            ar = w.exec();
+            mode = w.getModeWork();
+            method = w.getMethodIns();
+            qDebug() << "1 ar=" << ar << "\n";
         } else {
             ar = 0;
         }
     } while (ar != 0);
     return ar;
+*/
 }

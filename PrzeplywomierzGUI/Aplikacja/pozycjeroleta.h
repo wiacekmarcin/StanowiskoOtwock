@@ -2,19 +2,41 @@
 #define POZYCJEROLETA_H
 
 #include <QWidget>
+#include "tabwidget.h"
+
 class QTimer;
 
 namespace Ui {
 class PozycjeRoleta;
 }
 
-class PozycjeRoleta : public QWidget
+class PozycjeRoleta : public TabWidget
 {
     Q_OBJECT
 
 public:
     explicit PozycjeRoleta(QWidget *parent = nullptr);
     ~PozycjeRoleta();
+
+    void setList(const PozycjeRol & l);
+
+    typedef enum _cols {
+        col_xmm = 0,
+        col_ymm,
+        col_xnorma = 0,
+        col_ynorma,
+        col_etap,
+        col_rmm,
+        col_stableTime,
+        col_measTime,
+        col_measValue,
+        col_action,
+        col_status,
+    } Column;
+
+
+
+
 
     void setData(unsigned short etapNr, unsigned int stableTime, unsigned int cnt);
 
@@ -31,20 +53,8 @@ public:
 
     void status(const QString & st);
 
-signals:
-    void doConnect();
-    void setPosition(uint32_t, uint32_t);
-    void readRadio();
-    void checkDevice();
-    void statusMiernik(QString);
-    void end();
-    void start();
-    void noweDane();
-
 private slots:
     void update();
-
-    void readedFromRadio(int val);
 
     void on_pbStart_clicked();
     void on_pbNoweDane_clicked();
@@ -54,19 +64,19 @@ private slots:
 protected:
     void debug(const QString &val);
 
-    unsigned int setNorma5(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    unsigned int setNorma6(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    unsigned int setNorma7(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    unsigned int setNorma8(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    unsigned int setNorma9(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    unsigned int setNorma10(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma5(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma6(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma7(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma8(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma9(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
+    //unsigned int setNorma10(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
     void createRow(int row, const QString & c1, const QString & c2, const QString & c3, const QString & c4,
                    const QString & c5, const QString & c6, const QString & c7, const QString & c8,
-                   const QString & c9, const QString & c10, const QString & c11);
+                   const QString & c9, const QString & c10);
 
     unsigned int createRoletaRow(unsigned int row, unsigned int nrR, unsigned int rSize, unsigned int stableTime);
     unsigned int createPoint(unsigned int row, unsigned int mmX, unsigned int mmY,
-                             float nX, float nY, unsigned int numer, unsigned int pomiar,
+                             float nX, float nY, unsigned int pomiar,
                              unsigned int nrR, unsigned int rSize);
 private:
     typedef enum _statusWork {

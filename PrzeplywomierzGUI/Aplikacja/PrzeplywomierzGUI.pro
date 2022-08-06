@@ -31,7 +31,9 @@ SOURCES += \
         mechanika.cpp \
     pozycjeroleta.cpp \
     serialmessage.cpp \
+    tabwidget.cpp \
     ustawienia.cpp \
+    wentylator.cpp \
     wyborkwadratow.cpp \
     wybormetody.cpp \
     wybranyplik.cpp \
@@ -47,7 +49,9 @@ HEADERS += \
         mechanika.h \
     pozycjeroleta.h \
     serialmessage.h \
+    tabwidget.h \
     ustawienia.h \
+    wentylator.h \
     wyborkwadratow.h \
     wybormetody.h \
     wybranyplik.h \
@@ -61,6 +65,7 @@ HEADERS += \
 
 FORMS += \
     pozycjeroleta.ui \
+    wentylator.ui \
     wybordanych.ui \
     wyborkwadratow.ui \
     wybormetody.ui \

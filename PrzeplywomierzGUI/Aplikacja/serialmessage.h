@@ -82,7 +82,6 @@ public slots:
     void handleReadyRead();
     void serialError(const QSerialPort::SerialPortError & error);
 
-    void checkController();
     void connectToSerial();
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
@@ -98,8 +97,6 @@ public slots:
     void readRadio();
 
 protected:
-    void sendReset();
-
     void setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY);
     void setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR);
 
@@ -158,7 +155,6 @@ private:
     uint32_t posImpY;
     uint32_t posStepR;
 
-    bool setParamsWork;
 };
 
 #endif // SERIALMESSAGE_H

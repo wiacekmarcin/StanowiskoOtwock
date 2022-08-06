@@ -1,17 +1,17 @@
 #include "pozycjeroleta.h"
 #include "ui_pozycjeroleta.h"
+#include "tabwidget.h"
 
 #include <QTimer>
 #include <QDebug>
 PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
-    QWidget(parent),
+    TabWidget(parent),
     ui(new Ui::PozycjeRoleta)
 {
     ui->setupUi(this);
     QStringList headers;
     headers << QString::fromUtf8("Pozycja X\n[mm]") << QString::fromUtf8("Pozycja Y\n[mm]")
             << QString::fromUtf8("Pozycja X\nwg normy") << QString::fromUtf8("Pozycja Y\nwg normy")
-            << QString::fromUtf8("Numer normy")
             << QString::fromUtf8("Numer etapu")
             << QString::fromUtf8("Wysokość\nrolety [mm]")
             << QString::fromUtf8("Czas\nstabilizacji")
@@ -20,6 +20,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     headers << QString::fromUtf8("Średnia wartość\nczujnik");
     headers << QString::fromUtf8("Akcja");
     headers << QString::fromUtf8("Status");
+
     ui->table->setColumnCount(headers.size());
     ui->table->setHorizontalHeaderLabels(headers);
     ui->table->setAutoScroll(true);
@@ -31,7 +32,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     actStatus = WAIT;
     actPos = 0;
     connected = false;
-    timer->start(1000);
+    //timer->start(1000);
     debug("timer Start");
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
@@ -54,20 +55,118 @@ PozycjeRoleta::~PozycjeRoleta()
     timer->stop();
 }
 
+void PozycjeRoleta::setList(const PozycjeRol &l)
+{
+    ui->table->setRowCount(0);
+    //ui->table->setRowCount(l.size());
+    for (int r = 0; r < l.size(); r++) {
+        PosRoleta p = l.at(r);
+        if (p.measPoint) {
+            createPoint(r, p.mmx, p.mmy, p.nx, p.ny, p.measTime, p.etap, p.mmr);
+        } else {
+            createRoletaRow(r, p.etap, p.mmr, p.stableTime);
+        }
+    }
+}
+
+unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR,
+                                            unsigned int timeStab)
+{
+    createRow(row, QString("-"), QString("-"), QString("-"), QString("-"),
+              QString::number(nrR), QString::number(sizeR), QString::number(timeStab),
+              QString("-"), QString("-"),
+              QString("R"));
+    return row + 1;
+}
+
+unsigned int PozycjeRoleta::createPoint(unsigned int row, unsigned int mmX, unsigned int mmY, float nX, float nY,
+                                        unsigned int pomiar, unsigned int nrR, unsigned int sizeR)
+{
+    createRow(row, QString::number(mmX), QString::number(mmY), QString::number(nX), QString::number(nY),
+              QString::number(nrR), QString::number(sizeR), QString("-"),
+              QString::number(pomiar), QString("?"),
+              QString("P"));
+    return row + 1;
+}
+
+void PozycjeRoleta::createRow(int row, const QString &c1, const QString &c2, const QString &c3,
+                              const QString &c4, const QString &c5, const QString &c6, const QString &c7,
+                              const QString &c8, const QString &c9, const QString &c10)
+{
+    ui->table->setRowCount(row+1);
+    QTableWidgetItem *item;
+    item = new QTableWidgetItem(c1);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    ui->table->setItem(row, 0, item);
+
+    item = new QTableWidgetItem(c2);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    ui->table->setItem(row, 1, item);
+
+    item = new QTableWidgetItem(c3);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    ui->table->setItem(row, 2, item);
+
+    item = new QTableWidgetItem(c4);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    ui->table->setItem(row, 3, item);
+
+    item = new QTableWidgetItem(c5);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    ui->table->setItem(row, 4, item);
+
+   item = new QTableWidgetItem(c6);
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 5, item);
+
+   item = new QTableWidgetItem(c7);
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 6, item);
+
+   item = new QTableWidgetItem(c8);
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 7, item);
+
+   item = new QTableWidgetItem(c9);
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 8, item);
+
+   item = new QTableWidgetItem(c10);
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 9, item);
+
+}
+
+
+
+
+
 void PozycjeRoleta::setData(unsigned short etapNr, unsigned int stableTime, unsigned int cnt)
 {
+    /*
     unsigned int row = 0;
     for (unsigned int e = 1; e <= etapNr; ++e) {
         unsigned int rolS = (unsigned int)m_height*e/etapNr;
         row = createRoletaRow(row, e, rolS, stableTime);
         unsigned int wysokosc = m_height*e/etapNr;
-        row = setNorma5(row, wysokosc, cnt, e, rolS);
-        row = setNorma6(row, wysokosc, cnt, e, rolS);
-        row = setNorma7(row, wysokosc, cnt, e, rolS);
-        row = setNorma8(row, wysokosc, cnt, e, rolS);
-        row = setNorma9(row, wysokosc, cnt, e, rolS);
-        row = setNorma10(row, wysokosc, cnt, e, rolS);
+        //row = setNorma5(row, wysokosc, cnt, e, rolS);
+        //row = setNorma6(row, wysokosc, cnt, e, rolS);
+        //row = setNorma7(row, wysokosc, cnt, e, rolS);
+        //row = setNorma8(row, wysokosc, cnt, e, rolS);
+        //row = setNorma9(row, wysokosc, cnt, e, rolS);
+        //row = setNorma10(row, wysokosc, cnt, e, rolS);
     }
+    */
 }
 
 void PozycjeRoleta::update()
@@ -147,17 +246,12 @@ void PozycjeRoleta::update()
     */
 }
 
-void PozycjeRoleta::readedFromRadio(int val)
-{
-    setValue1(0.01*val, "m/s");
-}
-
 void PozycjeRoleta::debug(const QString &val)
 {
     qDebug("%s",val.toStdString().c_str());
     ui->localdebug->append(val);
 }
-
+/*
 unsigned int PozycjeRoleta::setNorma5(unsigned int row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
 {
     float A = 0;
@@ -303,90 +397,8 @@ unsigned int PozycjeRoleta::setNorma10(unsigned row, unsigned int wysokosc, unsi
     return r;
 }
 
-void PozycjeRoleta::createRow(int row, const QString &c1, const QString &c2, const QString &c3,
-                              const QString &c4, const QString &c5, const QString &c6, const QString &c7,
-                              const QString &c8, const QString &c9, const QString &c10, const QString &c11)
-{
-    ui->table->setRowCount(row+1);
-    QTableWidgetItem *item;
-    item = new QTableWidgetItem(c1);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-    ui->table->setItem(row, 0, item);
+*/
 
-    item = new QTableWidgetItem(c2);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-    ui->table->setItem(row, 1, item);
-
-    item = new QTableWidgetItem(c3);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-    ui->table->setItem(row, 2, item);
-
-    item = new QTableWidgetItem(c4);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-    ui->table->setItem(row, 3, item);
-
-    item = new QTableWidgetItem(c5);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-    ui->table->setItem(row, 4, item);
-
-   item = new QTableWidgetItem(c6);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 5, item);
-
-   item = new QTableWidgetItem(c7);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 6, item);
-
-   item = new QTableWidgetItem(c8);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 7, item);
-
-   item = new QTableWidgetItem(c9);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 8, item);
-
-   item = new QTableWidgetItem(c10);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 9, item);
-
-   item = new QTableWidgetItem(c11);
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 10, item);
-
-   item = new QTableWidgetItem("");
-   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-   ui->table->setItem(row, 11, item);
-}
-
-unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR, unsigned int timeStab)
-{
-    createRow(row, QString("-"), QString("-"), QString("-"), QString("-"), QString("-"),
-              QString::number(nrR), QString::number(sizeR), QString::number(timeStab),
-              QString("-"), QString("-"),
-              QString("R"));
-    return row + 1;
-}
-
-unsigned int PozycjeRoleta::createPoint(unsigned int row, unsigned int mmX, unsigned int mmY, float nX, float nY, unsigned int numer, unsigned int pomiar, unsigned int nrR, unsigned int sizeR)
-{
-    createRow(row, QString::number(mmX), QString::number(mmY), QString::number(nX), QString::number(nY), QString::number(numer),
-              QString::number(nrR), QString::number(sizeR), QString("-"),
-              QString::number(pomiar), QString("?"),
-              QString("P"));
-    return row + 1;
-}
 
 unsigned int PozycjeRoleta::offsetY() const
 {
@@ -436,16 +448,16 @@ void PozycjeRoleta::status(const QString &st)
 void PozycjeRoleta::on_pbStart_clicked()
 {
     debug("Start");
-    emit start();
-    if (!connected)
-        emit doConnect();
-    else
-        emit checkDevice();
+    //emit start();
+    //if (!connected)
+    //    emit doConnect();
+    //else
+    //    emit checkDevice();
 }
 
 void PozycjeRoleta::on_pbNoweDane_clicked()
 {
-    emit noweDane();
+    //emit noweDane();
     //ui->pbStart->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
 }

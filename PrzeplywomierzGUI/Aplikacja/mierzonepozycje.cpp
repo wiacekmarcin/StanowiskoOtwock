@@ -7,11 +7,16 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QDebug>
+
 
 #include "mechanika.h"
+#include "wybranyplik.h"
+#include "wyborkwadratow.h"
+#include "recznedodpozycji.h"
 
 MierzonePozycje::MierzonePozycje(QWidget *parent) :
-    QWidget(parent),
+    TabWidget(parent),
     ui(new Ui::MierzonePozycje)
 {
     ui->setupUi(this);
@@ -30,14 +35,14 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     actStatus = WAIT;
     actPos = 0;
     connected = false;
-    timer->start(1000);
+    timer->setInterval(1000);
 
     ui->pbNoweDane->setVisible(true);
     //ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
-    ui->debug->setVisible(false);
-    ui->localdebug->setVisible(false);
-
+    ui->debug->setVisible(true);
+    ui->localdebug->setVisible(true);
+    started = false;
 }
 
 MierzonePozycje::~MierzonePozycje()
@@ -48,8 +53,6 @@ MierzonePozycje::~MierzonePozycje()
 
 void MierzonePozycje::setList(const Pozycje &pos)
 {
-    debug("Set List");
-    setIsStart(false);
     m_lista = pos;
     ui->table->setRowCount(pos.size());
     for(int r = 0; r < pos.size(); ++r) {
@@ -57,30 +60,29 @@ void MierzonePozycje::setList(const Pozycje &pos)
         item = new QTableWidgetItem(QString::number(pos.at(r).x));
         item->setFlags(item->flags() ^ Qt::ItemIsEditable);
         item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-        ui->table->setItem(r, 0, item);
+        ui->table->setItem(r, col_X, item);
 
         item = new QTableWidgetItem(QString::number(pos.at(r).y));
         item->setFlags(item->flags() ^ Qt::ItemIsEditable);
         item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-        ui->table->setItem(r, 1, item);
+        ui->table->setItem(r, col_Y, item);
 
         item = new QTableWidgetItem(QString::number(pos.at(r).time));
         item->setFlags(item->flags() ^ Qt::ItemIsEditable);
         item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-        ui->table->setItem(r, 2, item);
+        ui->table->setItem(r, col_time, item);
 
         item = new QTableWidgetItem(QString::fromUtf8("--"));
         item->setFlags(item->flags() ^ Qt::ItemIsEditable);
         item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-        ui->table->setItem(r, 3, item);
+        ui->table->setItem(r, col_meas, item);
 
         item = new QTableWidgetItem(QString::fromUtf8("W oczekiwaniu"));
         item->setFlags(item->flags() ^ Qt::ItemIsEditable);
         item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
-        ui->table->setItem(r, 4, item);
+        ui->table->setItem(r, col_status, item);
     }
-    m_listawynikowa1.clear();
-    m_listawynikowa2.clear();
+    m_listawynikowa.clear();
     actStatus = WAIT;
     actPos = 0;
     //ui->pbNoweDane->setEnabled(false);
@@ -88,135 +90,165 @@ void MierzonePozycje::setList(const Pozycje &pos)
     ui->pbStart->setEnabled(true);
 }
 
-
-void MierzonePozycje::setMechanika(const Ruch & m)
+void MierzonePozycje::setPos()
 {
-    mech = m;
-}
+    unsigned int xmm = m_lista.at(actPos).x;
+    unsigned int ymm = m_lista.at(actPos).y;
 
+    actCzas = m_lista.at(actPos).time;
+    ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam pozycję"));
+    uint32_t impx, impy;
+    impx = mech.getImpulsyX(xmm);
+    impy = mech.getImpulsyY(ymm);
+
+    debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+    actStatus = WAIT_POS;
+    ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
+    setPosition(impx, impy);
+    avg1 = 0.0;
+    cnt1 = 0;
+    qDebug("xmm=%d",impx);
+    qDebug("ymm=%d",impy);
+}
 
 void MierzonePozycje::update()
 {
-    if (getIsStart()) {
-        if (getIsWait())
+    setDebug(QString("Update %1").arg(actStatus));
+    switch(actStatus) {
+    case WAIT:
+    case WAIT_POS:
+    case WAIT_HPOS:
+    default:
+        return;
+
+    case FIRST_RUN:
+    {
+        ui->pbNoweDane->setEnabled(false);
+        ui->pbZapisz->setEnabled(false);
+        actPos = 0;
+        if (m_lista.size() == 0) {
+            actStatus = WAIT;
+            timer->stop();
+            ui->pbNoweDane->setEnabled(true);
             return;
+        }
+        setPos();
+        return;
+    }
+    case NEXT_POS:
+    {
+        debug(QString("Ukonczono"));
+        ui->status->setText("Zakonczono pomiary");
+        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono"));
+        ++actPos;
 
-        if (actStatus == WAIT)
+        if (actPos >= m_lista.size()) {
+            actStatus = WAIT;
+            timer->stop();
+            ui->pbNoweDane->setEnabled(true);
+            ui->pbZapisz->setEnabled(true);
+            ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
             return;
+        }
+        ui->table->scrollToItem(ui->table->item(actPos, 0));
 
+        if (actPos % 10 == 0) {
+            actStatus = WAIT_HPOS;
+            setPositionHome();
+            ui->status->setText("Trwa kalibracja urządzenia");
+            return;
+        }
 
-        if (actStatus == POSITIONING) {
-            if (actPos >= m_lista.size()) {
-                setIsStart(false);
-                actStatus = WAIT;
-                emit statusMiernik("Zakonczono ustawianie wszystkich pozycji");
-                ui->status->setText("Zakonczono ustawianie wszystkich pozycji");
-                emit end();
-                ui->pbStart->setEnabled(false);
-                ui->pbNoweDane->setEnabled(true);
-                ui->pbZapisz->setEnabled(true);
-                return;
-            }
+        setPos();
+        return;
+    }
+    case NEXT_POS_AFTER_HPOS:
+    {
+        setPos();
+        return;
+    }
+    case MEASURING:
+    {
+        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
+        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
+        debug(QString("Pomiar [%1 s]").arg(actCzas));
+        readRadio();
 
-            //ustaw na pozycji
-            unsigned int xmm = m_lista.at(actPos).x;
-            unsigned int ymm = m_lista.at(actPos).y;
+        if (actCzas == 0) {
+            actStatus = NEXT_POS;
+        } else {
+            --actCzas;
+        }
+    }
+    }
+}
 
-            actCzas = m_lista.at(actPos).time;
-            ui->table->item(actPos, 4)->setText(QString::fromUtf8("Ustawiam pozycję"));
-            uint32_t impx, impy;
-            impx = mech.getImpulsyX(xmm);
-            impy = mech.getImpulsyY(ymm);
-
-            debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+void MierzonePozycje::positionDone(bool home)
+{
+    if (home) {
+        if (started && actStatus == WAIT_HPOS) {
+            actStatus = NEXT_POS_AFTER_HPOS;
+        } else if (!started && actStatus == WAIT){
+            started = true;
+            actStatus = FIRST_RUN;
+            timer->start();
+        }
+    } else {
+        if (started && actStatus == WAIT_POS) {
             actStatus = MEASURING;
-            emit setPosition(impx, impy);
-            ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
-            setIsWait( true );
-            avg1 = 0.0;
-            cnt1 = 0;
-            qDebug("xmm=%d",impx);
-            qDebug("ymm=%d",impy);
-        } else if (actStatus == MEASURING) {
-            ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
-            ui->table->item(actPos, 4)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
-            debug(QString("Pomiar [%1 s]").arg(actCzas));
-            emit readRadio();
-
-            if (actCzas == 0) {
-                actStatus = NEXTPOSITION;
-            } else {
-                --actCzas;
-            }
-        } else if (actStatus == NEXTPOSITION) {
-            debug(QString("Ukonczono"));
-            ui->status->setText("Zakonczono pomiary");
-            actStatus = POSITIONING;
-            ui->table->item(actPos, 4)->setText(QString::fromUtf8("Ukończono"));
-            DaneWynikowe2 data;
-            data.x = m_lista.at(actPos).x;
-            data.y = m_lista.at(actPos).y;
-            data.val1 = avg1;
-            m_listawynikowa2.append(data);
-            ++actPos;
-
-            ui->table->scrollToItem(ui->table->item(actPos, 0));
         }
     }
 }
 
+void MierzonePozycje::readedFromRadio(const double &val)
+{
+    setValues(val);
+}
+
+/*
 void MierzonePozycje::readedFromRadio(int val)
 {
     setValue1(0.01*val, "m/s");
 }
-
-bool MierzonePozycje::getIsStart()
-{
-    const QMutexLocker locker(&m_mutex);
-    return isStart;
-}
-
-void MierzonePozycje::setIsStart(bool value)
-{
-    debug(QString("Set start %1").arg(value));
-    const QMutexLocker locker(&m_mutex);
-    isStart = value;
-    actStatus = POSITIONING;
-    actPos = 0;
-}
-
-bool MierzonePozycje::getIsWait()
-{
-    const QMutexLocker locker(&m_mutex2);
-    return isWait;
-}
-
-void MierzonePozycje::setIsWait(bool value)
-{
-    debug(QString("Set wait %1").arg(value));
-    const QMutexLocker locker(&m_mutex2);
-    isWait = value;
-}
+*/
 
 void MierzonePozycje::setDebug(const QString & val)
 {
-    //ui->debug->append(val);
+    ui->debug->append(val);
 }
 
 void MierzonePozycje::debug(const QString & val)
 {
-    //qDebug("%s",val.toStdString().c_str());
-    //ui->localdebug->append(val);
+    qDebug("%s",val.toStdString().c_str());
+    ui->localdebug->append(val);
 }
+
+const WyborMetodyData &MierzonePozycje::getAllValues() const
+{
+    return allValues;
+}
+
+void MierzonePozycje::errorSerial(const QString &)
+{
+    ui->pbNoweDane->setEnabled(true);
+    timer->stop();
+    ui->pbZapisz->setEnabled(true);
+    ui->table->item(actPos, col_status)->setText("Błąd sterownika");
+    ui->status->setText("Wystąpił błąd sterownika. Przerywam pracę.");
+}
+
+
+
+
 
 void MierzonePozycje::setValues(const float &val1)
 {
-    DaneWynikowe1 data;
+    DaneWynikowe data;
     data.x = m_lista[actPos].x;
     data.y = m_lista[actPos].y;
     data.time = m_lista[actPos].time - actCzas;
     data.val1 = val1;
-    m_listawynikowa1.append(data);
+    m_listawynikowa.append(data);
 }
 
 void MierzonePozycje::setValue1(const float &val, const QString &unit)
@@ -231,6 +263,7 @@ void MierzonePozycje::setValue1(const float &val, const QString &unit)
 
 void MierzonePozycje::setConnected(bool newConnected)
 {
+    TabWidget::setConnect(newConnected);
     connected = newConnected;
 }
 
@@ -250,12 +283,12 @@ void MierzonePozycje::restart()
 
 void MierzonePozycje::on_pbStart_clicked()
 {
-    //debug("Start");
-    //emit start();
-    //if (!connected)
-    emit doConnect();
-    //else
-    //    emit checkDevice();
+    if (getConnect()) {
+        setPositionHome();
+        ui->pbStart->setEnabled(false);
+    } else {
+        connectToDevice();
+    }
 }
 
 
@@ -285,9 +318,9 @@ void MierzonePozycje::on_pbZapisz_clicked()
 
     QTextStream out(&file);
 
-    for (int id = 0; id < m_listawynikowa1.size(); ++id)
+    for (int id = 0; id < m_listawynikowa.size(); ++id)
     {
-        DaneWynikowe1 d = m_listawynikowa1.at(id);
+        DaneWynikowe d = m_listawynikowa.at(id);
         out << d.x << ";" << d.y << ";" << d.time << ";" << d.val1 << "\n";
     }
     file.close();

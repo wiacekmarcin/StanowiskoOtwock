@@ -8,6 +8,8 @@
 
 #include <QDebug>
 
+#define SYMULATOR 1
+
 #ifdef Q_OS_WIN
 #include <windows.h> // for Sleep
 #endif
@@ -22,22 +24,7 @@ void qSleep(int ms)
 #endif
 }
 
-void SerialMessage::writeMessage(const QByteArray &writeData)
-{
 
-    const qint64 bytesWritten = m_serialPort.write(writeData);
-
-    if (bytesWritten == -1) {
-        emit debug(QObject::tr("Nie mozna zapisac do urzadzenia"));
-        return;
-    } else if (bytesWritten != writeData.size()) {
-        emit debug(QObject::tr("Czesciowy zapis do urzadzenia"));
-        return;
-    }
-
-    //emit debug(QString("Zapisalem %1").arg(writeData.size()));
-    //m_timer.start(1000);
-}
 
 
 
@@ -97,95 +84,131 @@ void SerialMessage::serialError(const QSerialPort::SerialPortError &error)
     emit errorSerial(QString("Blad %1").arg(error));
 }
 
-void SerialMessage::checkController()
-{
-    qDebug() << "checkController";
-    if (setParamsWork) {
-        qDebug() << __FILE__ << __LINE__ << "setParam";
-        setSettings1(memoryreverseX, memoryreverseY, memoryreverseR, memorymaxImpX, memorymaxImpY);
-        setParamsWork = false;
-    }
-}
-
 void SerialMessage::connectToSerial()
 {
-    qDebug() << "Connect to serial";
     const auto serialPortInfos = QSerialPortInfo::availablePorts();
 
     QString description;
     QString manufacturer;
     QString serialNumber;
-    const QString serialNumberKontroler = "D76ED16151514C4B39202020FF012E1C";
+
+#ifdef SYMULATOR
+    qSleep(1000);
+    emit successOpenDevice(true);
+    emit deviceName("com1");
+    return;
+#endif
 
 
     for (const QSerialPortInfo &serialPortInfo : serialPortInfos) {
         description = serialPortInfo.description();
         manufacturer = serialPortInfo.manufacturer();
         serialNumber = serialPortInfo.serialNumber();
-        qDebug() << "D" << description.toStdString().c_str()
-                 << "M" << manufacturer.toStdString().c_str()
-                 << "S" << serialNumber.toStdString().c_str();
 
-       //if (description == "Arduino Nano Every" &&
-       //         manufacturer == "Arduino LLC") {
-       //Pod windowsem jest uniwersalne urzadzenie USB firmy Microsoft
-            if (serialPortInfo.hasVendorIdentifier() && serialPortInfo.hasProductIdentifier()) {
+        if (serialPortInfo.hasVendorIdentifier() && serialPortInfo.hasProductIdentifier()) {
 
-                auto vendorId = serialPortInfo.vendorIdentifier();
-                auto productId = serialPortInfo.productIdentifier();
-                qDebug() << vendorId << " : " << productId;
-                if (vendorId == 6991 && productId == 37382 /*&& serialNumber == serialNumberKontroler*/) {
-                    //if (sendMesgWelcome(serialPortInfo)) {
-                    //    connSerial = true;
-                    //    return;
-                    //}
-                    //TODO otworzmy urzadzenie
-                    //a nastepnie wyslijmy wiadomosc powitalna welcomemsg i asynchronicznie oczekujmy odpowiedzi
-                    emit successOpenDevice(openDevice(serialPortInfo));
-                    return;
-                }
+            auto vendorId = serialPortInfo.vendorIdentifier();
+            auto productId = serialPortInfo.productIdentifier();
+            qDebug() << vendorId << " : " << productId;
+            if (vendorId == 6991 && productId == 37382 /*&& serialNumber == serialNumberKontroler*/) {
+                //if (sendMesgWelcome(serialPortInfo)) {
+                //    connSerial = true;
+                //    return;
+                //}
+                //TODO otworzmy urzadzenie
+                //a nastepnie wyslijmy wiadomosc powitalna welcomemsg i asynchronicznie oczekujmy odpowiedzi
+                emit debug(QString("Znaleziono urządzenie, próbuje go otworzyć"));
+                emit successOpenDevice(openDevice(serialPortInfo));
+                return;
             }
-        //}
-
-
+        }
     }
+    emit debug(QString("Nie znaleziono urządzenia"));
     emit successOpenDevice(false);
 }
 
 void SerialMessage::setPositionHome()
 {
-    emit debug(QString(homePositionMsg().toHex().toStdString().c_str()));
+    emit debug(QString("Ustawiam pozycje startową [") + QString(homePositionMsg().toHex()) + QString("]"));
+#ifdef SYMULATOR
+    qSleep(500);
+    emit homeStatus(START_XY);
+    qSleep(500);
+    emit homeStatus(START_X);
+    qSleep(5000);
+    emit homeStatus(END_X);
+    qSleep(500);
+    emit homeStatus(START_Y);
+    qSleep(5000);
+    emit homeStatus(END_Y);
+    qSleep(500);
+    emit homeStatus(END_XY);
+    return;
+#endif
     writeMessage(homePositionMsg());
 }
 
 void SerialMessage::setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
-    qDebug() << __FILE__ << __LINE__ << "set setttings 1";
-    emit debug(QString(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY).toHex().toStdString().c_str()));
+    QString dbg = QString("Ustawiam pararametry (1) revX=%1 revY=%2 revR=%3, maxImpX=%4 maxImpY=%5 [").arg(reverseX).arg(reverseY).arg(reverseR).arg(maxImpX).arg(maxImpY);
+    dbg += QString(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY).toHex()) + QString("]");
+    emit debug(dbg);
     writeMessage(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY));
 }
 
 void SerialMessage::setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR)
 {
-    qDebug() << __FILE__ << __LINE__ << "set setttings 2";
-    emit debug(QString(settings2Msg(stepMaxX, stepMaxY, stepMaxR).toHex().toStdString().c_str()));
+    QString dbg = QString("Ustawiam pararametry (2) maxStepX=%1 maxStepY=%2 maxStepR=%3 [").arg(stepMaxX).arg(stepMaxY).arg(stepMaxR);
+    dbg += QString(settings2Msg(stepMaxX, stepMaxY, stepMaxR).toHex()) + QString("]");
+    emit debug(dbg);
     writeMessage(settings2Msg(stepMaxX, stepMaxY, stepMaxR));
 }
 
 void SerialMessage::setPosition(uint32_t x, uint32_t y)
 {
-    emit debug(QString(positionMsg(x, y).toHex().toStdString().c_str()));
+    emit debug(QString("Ustawiam pozycje x=%1, y=%2 [").arg(x).arg(y) + QString(positionMsg(x, y).toHex()) + QString("]"));
+#ifdef SYMULATOR
+    qSleep(500);
+    emit positionStatus(START_XY);
+    qSleep(500);
+    emit positionStatus(START_X);
+    qSleep(5000);
+    emit positionStatus(END_X);
+    qSleep(500);
+    emit positionStatus(START_Y);
+    qSleep(5000);
+    emit positionStatus(END_Y);
+    qSleep(500);
+    emit positionStatus(END_XY);
+    return;
+#endif
     writeMessage(positionMsg(x, y));
 }
 
 void SerialMessage::setRoletaHome()
 {
+    emit debug(QString("Ustawiam pozycję bazową rolety [") + QString(homeRoletaMsg().toHex()) + QString("]"));
+#ifdef SYMULATOR
+    qSleep(500);
+    emit homeStatus(START_R);
+    qSleep(5000);
+    emit homeStatus(END_R);
+    return;
+#endif
     emit debug(QString(homeRoletaMsg().toHex().toStdString().c_str()));
     writeMessage(homeRoletaMsg());
 }
 
 void SerialMessage::setRoleta(uint32_t r)
 {
+    emit debug(QString("Ustawiam pozycje rolety r=%1 [").arg(r) + QString(roletaMsg(r).toHex()) + QString("]"));
+#ifdef SYMULATOR
+    qSleep(500);
+    emit positionStatus(START_R);
+    qSleep(5000);
+    emit positionStatus(END_R);
+    return;
+#endif
     emit debug(QString(roletaMsg(r).toHex().toStdString().c_str()));
     writeMessage(roletaMsg(r));
 }
@@ -195,9 +218,6 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxStepX, uint32_t maxStepY,
                               uint32_t maxStepR)
 {
-    qDebug() << __FILE__ << __LINE__ << "Reset";
-    setParamsWork = true;
-
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;
     memoryreverseR = reverseR;
@@ -209,22 +229,243 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
     memoryStepY = maxStepY;
     memoryStepR = maxStepR;
 
-    //sendReset();
+#ifdef SYMULATOR
+    qSleep(500);
+    emit setParamsDone();
+    return;
+#endif
     setSettings1(reverseX,reverseY,reverseR,maxImpX,maxImpY);
 }
 
 void SerialMessage::readRadio()
 {
-    emit debug(QString(measValuesMsg().toHex().toStdString().c_str()));
+#ifdef SYMULATOR
+    qSleep(500);
+    emit readFromRadio(10);
+    return;
+#endif
+    emit debug(QString("Wysyłam żądanie odczytu radia [") + QString(measValuesMsg().toHex()) + QString("]"));
     writeMessage(measValuesMsg());
 }
 
-void SerialMessage::sendReset()
+bool SerialMessage::parseCommand(const QByteArray &arr)
 {
-    qDebug() << __FILE__ << __LINE__ << "Reset";
-    emit debug(QString(welcomeMsg().toHex().toStdString().c_str()));
-    writeMessage(welcomeMsg());
+    uint8_t cmd;
+    uint8_t len;
+    QByteArray data;
+
+    emit debug(QString("Parsuje komende: [") + QString(arr.toHex()) + QString("]"));
+
+    if (!checkHead(arr, cmd, len, data)) {
+        emit debug(QString("Nie poprawny komunikat"));
+        return false;
+    }
+
+    switch (cmd) {
+        case WELCOME_REP:
+        {
+            if (len != 15) {
+                qDebug("len != 15");
+                return false;
+            }
+            uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
+            for (int i = 0; i < 15; ++i) {
+                if (wzorzec[i] != data[i]) {
+                    qDebug("wzorzec != data");
+                    return false;
+                }
+            }
+
+            emit debug("welcome msg");
+            emit controllerOK();
+            return true;
+        }
+        case MOVEHOME_REP:
+        {
+            //set home position
+            //81 S/l/P/d/G/K/R/r/ CRC8 - rep home position
+            //                                S=start, l=start lewoprawo, P=end lewoprawo,
+            //                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
+            if (len == 1) {
+                switch(data[0]) {
+                    case 's':
+                        emit debug("Rozpoczynam pozycjonowanie bazowe");
+                        emit homeStatus(START_XY);
+                        return true;
+                    case 'l':
+                        emit debug("Rozpoczynam pozycjonowanie bazowe osi X");
+                        emit homeStatus(START_X);
+                        return true;
+                    case 'd':
+                        emit debug("Rozpoczynam pozycjonowanie bazowe osi Y");
+                        emit homeStatus(START_Y);
+                        return true;
+                    case 'K':
+                        emit debug("Pozycjonowa bazowe zakończone");
+                        emit homeStatus(END_XY);
+                        return true;
+                    case 'r':
+                        emit debug("Rozpoczynam pozycjonowanie rolety");
+                        emit homeStatus(START_R);
+                        return true;
+                    default:
+                        return false;
+                }
+            } else if (len == 5) {
+                switch(data[0]) {
+                case 'P':
+                    moveStepX = getNumber(data.mid(1, 4));
+                    emit debug(QString("Pozycjonowanie osi X zakończone. Kroki = %1").arg(moveStepX));
+                    emit homeStatus(END_X);
+                    return true;
+                case 'G':
+                    moveStepY = getNumber(data.mid(1, 4));
+                    emit debug(QString("Pozycjonowanie osi Y zakończone. Kroki = %1").arg(moveStepY));
+                    emit homeStatus(END_Y);
+                    return true;
+                case 'R':
+                    moveStepR = getNumber(data.mid(1, 4));
+                    emit debug(QString("Pozycjonowanie rolety zakończone. Kroki = %1").arg(moveStepR));
+                    emit homeStatus(END_R);
+                    return true;
+                default:
+                    return false;
+                }
+            } else if (len == 2) {
+                if (data[0] == 'E' && data[1] == 'P') {
+                    emit debug("Błąd pozycjonowania bazowego");
+                    emit errorHome();
+                    emit homeStatus(ERROR_XY);
+                    return true;
+                } else if (data[0] == 'E' && data[1] == 'R') {
+                    emit debug("Błąd pozycjonowania bazowego rolety");
+                    emit errorHomeRoleta();
+                    emit homeStatus(ERROR_R);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        case POSITION_REP:
+        {
+        // 61 s/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges
+        //                              S=start,
+        //                              l=start lewoprawo,
+        //                              P=end lewoprawo,
+        //                              d=start goradol
+        //                              G=end goradol
+        //                              K=endboth,
+        //                              r - start rolet,
+        //                              R - koniec rolet
+        //62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
+        //69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+        //69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+        //69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
+        if (len == 1) {
+            switch(data[0]) {
+                case 's':
+                    emit debug("Rozpoczynam ustawianie puntku XY");
+                    emit positionStatus(START_XY);
+                    return true;
+                case 'l':
+                    emit debug("Rozpoczynam ustawianie punktu na osi X");
+                    emit positionStatus(START_X);
+                    return true;
+                case 'd':
+                    emit debug("Rozpoczynam ustawianie punktu na osi Y");
+                    emit positionStatus(START_Y);
+                    return true;
+                case 'K':
+                    emit debug("Ustawianie punktu na obu osiach zakończone");
+                    emit positionStatus(END_XY);
+                    return true;
+                case 'r':
+                    emit debug("Ustawienia rolety zakończone");
+                    emit positionStatus(START_R);
+                    return true;
+                default:
+                    return false;
+            }
+        } else if (len == 9) {
+            switch(data[0]) {
+                case 'P':
+                    moveStepX = getNumber(data.mid(1, 4));
+                    posImpX = getNumber(data.mid(5, 4));
+                    emit debug(QString("Ustawianie na osi X zakończone. Kroki = %1. Pozycja = %2 (%3 %)").arg(moveStepX).arg(posImpX).arg(100*posImpX/memorymaxImpX));
+
+                    emit positionStatus(END_X);
+                    return true;
+                case 'G':
+                    moveStepY = getNumber(data.mid(1, 4));
+                    posImpY = getNumber(data.mid(5, 4));
+                    emit debug(QString("Ustawianie na osi Y zakończone. Kroki = %1. Pozycja = %2 (%3 %").arg(moveStepY).arg(posImpY).arg(100*posImpY/memorymaxImpY));
+                    emit positionStatus(END_Y);
+                    return true;
+                case 'R':
+                    moveStepR = getNumber(data.mid(1, 4));
+                    posStepR = getNumber(data.mid(5, 4));
+                    emit debug(QString("Ustawianie rolety zakończone. Kroki = %1. Pozycja = %2 (%3 %").arg(moveStepR).arg(posStepR).arg(100*posStepR/memoryStepR));
+                    emit positionStatus(END_R);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        return false;
+            return false;
+        }
+
+        case MEASVALUE_REP:
+        {
+            //getCzujVal
+            //0xa0 CRC8 - req
+            //0xbA 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
+            //0xb1 'E' CRC8 - error polaczenia z radiem
+            if (len == 1 && data[0] == 'E') {
+                emit errorReadFromRadio();
+                return true;
+            }
+            unsigned int val1, val2, val3, val4;
+            if (len == 9 && data[0] == 'O') {
+                val1 = 0;
+                val2 = 0;
+                val3 = 0;
+                val4 = 0;
+                val1 = data[1] << 8 | data[2];
+                val2 = data[3] << 8 | data[4];
+                val3 = data[5] << 8 | data[6];
+                val4 = data[7] << 8 | data[8];
+
+                (void)val2;(void)val3;(void)val4;
+
+                emit readFromRadio(val1);
+            }
+            return true;
+        }
+
+        case SET_PARAM_REP:
+        {
+            if (data[0] == (char)1) {
+
+                setSettings2(memoryStepX, memoryStepY, memoryStepR);
+                return true;
+            }
+            if (data[0] == (char)2) {
+                emit setParamsDone();
+                return true;
+            }
+            return false;
+        }
+
+        default:
+            emit debug("Nieznana komenda");
+            return false;
+    }
+
+    return false;
 }
+
 
 void SerialMessage::closeDevice()
 {
@@ -258,7 +499,6 @@ bool SerialMessage::openDevice(const QSerialPortInfo &port)
     m_serialPort.setParity(QSerialPort::NoParity);
     m_serialPort.setStopBits(QSerialPort::OneStop);
 
-    //emit checkController();
     writeMessage(welcomeMsg());
     return true;
 }
@@ -368,7 +608,6 @@ QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uin
 
 uint32_t SerialMessage::getNumber(const QByteArray &data)
 {
-    qDebug() << data.toHex().toStdString().c_str();
     return ((data[0] & 0xff) << 24) +  ((data[1] & 0xff) << 16) + ((data[2] & 0xff) << 8) + (data[3] & 0xff);
 }
 
@@ -434,232 +673,14 @@ bool SerialMessage::checkHead(const QByteArray &arr, uint8_t & cmd, uint8_t & le
     unsigned short msgcrc = arr.at(i) & 0xff;
 
     if (crc.getCRC() != msgcrc) {
-        emit debug(QString("crc = %1x val=%2x").arg(crc.getCRC(), 16).arg(msgcrc,16));
+        emit debug(QString("Blędne CRC wiadomości : crc = %1x val=%2x").arg(crc.getCRC(), 16).arg(msgcrc,16));
         return false;
     }
-    emit debug("Naglowek OK");
+    //emit debug("Naglowek OK");
     return true;
 }
 
-bool SerialMessage::parseCommand(const QByteArray &arr)
-{
-    uint8_t cmd;
-    uint8_t len;
-    QByteArray data;
 
-    emit debug(QString("Parse cmd:") + QString(arr.toHex(' ').toStdString().c_str()));
-
-    if (!checkHead(arr, cmd, len, data)) {
-        emit debug(QString("CheckHead faild"));
-        return false;
-    }
-
-    switch (cmd) {
-        case WELCOME_REP:
-        {
-            if (len != 15) {
-                qDebug("len != 15");
-                return false;
-            }
-            uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
-            for (int i = 0; i < 15; ++i) {
-                if (wzorzec[i] != data[i]) {
-                    qDebug("wzorzec != data");
-                    return false;
-                }
-            }
-
-            emit debug("welcome msg");
-            emit controllerOK();
-            checkController();
-            return true;
-        }
-        case MOVEHOME_REP:
-        {
-            //set home position
-            //81 S/l/P/d/G/K/R/r/ CRC8 - rep home position
-            //                                S=start, l=start lewoprawo, P=end lewoprawo,
-            //                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
-            if (len == 1) {
-                switch(data[0]) {
-                    case 's':
-                        emit debug("Starting home-base positioning");
-                        emit homeStatus(START_XY);
-                        return true;
-                    case 'l':
-                        emit debug("Starting X home-base positioning");
-                        emit homeStatus(START_X);
-                        return true;
-                    case 'd':
-                        emit debug("Starting Y home-base positioning");
-                        emit homeStatus(START_Y);
-                        return true;
-                    case 'K':
-                        emit debug("Home-base positioning done");
-                        emit homeStatus(END_XY);
-                        return true;
-                    case 'r':
-                        emit debug("Roleta home-base start");
-                        emit homeStatus(START_R);
-                        return true;
-                    default:
-                        return false;
-                }
-            } else if (len == 5) {
-                switch(data[0]) {
-                case 'P':
-                    moveStepX = getNumber(data.mid(1, 4));
-                    emit debug(QString("Ending X home-base positioning. Steps = %1").arg(moveStepX));
-                    emit homeStatus(END_X);
-                    return true;
-                case 'G':
-                    moveStepY = getNumber(data.mid(1, 4));
-                    emit debug(QString("Ending Y home-base positioning. Steps = %1").arg(moveStepY));
-                    emit homeStatus(END_Y);
-                    return true;
-                case 'R':
-                    moveStepR = getNumber(data.mid(1, 4));
-                    emit debug(QString("Ending Roleta. Steps = %1").arg(moveStepR));
-                    emit homeStatus(END_R);
-                    return true;
-                default:
-                    return false;
-                }
-            } else if (len == 2) {
-                if (data[0] == 'E' && data[1] == 'P') {
-                    emit debug("Error home-base positioning");
-                    emit errorHome();
-                    emit homeStatus(ERROR_XY);
-                    return true;
-                } else if (data[0] == 'E' && data[1] == 'R') {
-                    emit debug("Error roleta home-base positioning");
-                    emit errorHome();
-                    emit homeStatus(ERROR_R);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        case POSITION_REP:
-        {
-        // 61 s/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges
-        //                              S=start,
-        //                              l=start lewoprawo,
-        //                              P=end lewoprawo,
-        //                              d=start goradol
-        //                              G=end goradol
-        //                              K=endboth,
-        //                              r - start rolet,
-        //                              R - koniec rolet
-        //62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
-        //69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-        //69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-        //69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-        if (len == 1) {
-            switch(data[0]) {
-                case 's':
-                    emit debug("Starting positioning");
-                    emit positionStatus(START_XY);
-                    return true;
-                case 'l':
-                    emit debug("Starting X positioning");
-                    emit positionStatus(START_X);
-                    return true;
-                case 'd':
-                    emit debug("Starting Y positioning");
-                    emit positionStatus(START_Y);
-                    return true;
-                case 'K':
-                    emit debug("Positioning done");
-                    emit positionStatus(END_XY);
-                    return true;
-                case 'r':
-                    emit debug("Roleta move start");
-                    emit positionStatus(START_R);
-                    return true;
-                default:
-                    return false;
-            }
-        } else if (len == 9) {
-            switch(data[0]) {
-                case 'P':
-                    moveStepX = getNumber(data.mid(1, 4));
-                    posImpX = getNumber(data.mid(5, 4));
-                    emit debug(QString("Position X done: Steps = %1. Global pos = %2").arg(moveStepX).arg(posImpX));
-
-                    emit homeStatus(END_X);
-                    return true;
-                case 'G':
-                    moveStepY = getNumber(data.mid(1, 4));
-                    posImpY = getNumber(data.mid(5, 4));
-                    emit debug(QString("Position Y done: Steps = %1. Global pos = %2").arg(moveStepY).arg(posImpY));
-                    emit homeStatus(END_Y);
-                    return true;
-                case 'R':
-                    moveStepR = getNumber(data.mid(1, 4));
-                    posStepR = getNumber(data.mid(5, 4));
-                    emit debug(QString("Position R done: Steps = %1. Global pos = %2").arg(moveStepR).arg(posStepR));
-                    emit homeStatus(END_R);
-                    return true;
-                default:
-                    return false;
-            }
-        }
-        return false;
-            return false;
-        }
-
-        case MEASVALUE_REP:
-        {
-            //getCzujVal
-            //0xa0 CRC8 - req
-            //0xbA 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
-            //0xb1 'E' CRC8 - error polaczenia z radiem
-            if (len == 1 && data[0] == 'E') {
-                emit errorReadFromRadio();
-                return true;
-            }
-            unsigned int val1, val2, val3, val4;
-            if (len == 9 && data[0] == 'O') {
-                val1 = 0;
-                val2 = 0;
-                val3 = 0;
-                val4 = 0;
-                val1 = data[1] << 8 | data[2];
-                val2 = data[3] << 8 | data[4];
-                val3 = data[5] << 8 | data[6];
-                val4 = data[7] << 8 | data[8];
-
-                (void)val2;(void)val3;(void)val4;
-
-                emit readFromRadio(val1);
-            }
-            return true;
-        }
-
-        case SET_PARAM_REP:
-        {
-            qDebug() << "setParams reply" << (unsigned int) data[0];
-            if (data[0] == (char)1) {
-
-                setSettings2(memoryStepX, memoryStepY, memoryStepR);
-                return true;
-            }
-            if (data[0] == (char)2) {
-                emit setParamsDone();
-                return true;
-            }
-            return false;
-        }
-
-        default:
-            emit debug("Nieznana komenda");
-            return false;
-    }
-
-    return false;
-}
 
 QByteArray SerialMessage::prepareMessage(uint8_t cmd, uint8_t tab[], uint8_t len)
 {
@@ -677,7 +698,23 @@ QByteArray SerialMessage::prepareMessage(uint8_t cmd, uint8_t tab[], uint8_t len
     //ret.append('U');
     ret.append(arr);
     //ret.append(0xaa);
-    emit debug(QString("Wysylam:")+QString(ret.toHex(' ').data()));
+    //emit debug(QString("Wysylam:")+QString(ret.toHex(' ').data()));
     return ret;
 }
 
+void SerialMessage::writeMessage(const QByteArray &writeData)
+{
+
+    const qint64 bytesWritten = m_serialPort.write(writeData);
+
+    if (bytesWritten == -1) {
+        emit debug(QObject::tr("Nie mozna zapisac do urzadzenia"));
+        return;
+    } else if (bytesWritten != writeData.size()) {
+        emit debug(QObject::tr("Czesciowy zapis do urzadzenia"));
+        return;
+    }
+
+    //emit debug(QString("Zapisalem %1").arg(writeData.size()));
+    //m_timer.start(1000);
+}

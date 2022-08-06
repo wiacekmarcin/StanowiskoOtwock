@@ -11,6 +11,22 @@ namespace Ui {
 class WyborMetody;
 }
 
+struct WyborMetodyData {
+    unsigned int timeStopManual;
+    unsigned int timeStopAuto;
+    unsigned int numberPozMan;
+    unsigned int numberWidth;
+    unsigned int numberHeight;
+    unsigned int etapNrRoleta;
+    unsigned int stableTimeRoleta;
+    unsigned int timeStopRoleta;
+    QString fileName;
+    QString fileName2;
+    unsigned int offsetX;
+    unsigned int offsetY;
+};
+
+
 class WyborMetody : public QDialog
 {
     Q_OBJECT
@@ -29,14 +45,12 @@ public:
         MODE_1000L,                 //przestrzen robocza lewa 1000x2000
         MODE_FUNSET,                //ustawianie wiatraka
         MODE_SERVICE,               //serwis
-        MODE_ROLETA,                 //roleta
-        MODE_ROLETAPLIK
+        MODE_ROLETA,                //roleta
     } ModeWork;
 
 
-    explicit WyborMetody(QWidget *parent = nullptr, ModeWork mode = ModeWork::MODE_2700);
+    explicit WyborMetody(QWidget *parent = nullptr, ModeWork mode = ModeWork::MODE_NONE, MethodInsData method = METHOD_NONE);
     ~WyborMetody();
-
 
 
     ModeWork getWbMode() const;
@@ -62,6 +76,14 @@ public:
     QString getFileName2() const;
 
     unsigned int getTimeStopRoleta() const;
+
+    const WyborMetodyData &getData() const;
+
+    void setWbMetoda(MethodInsData newWbMetoda);
+
+    void setWbMode(ModeWork newWbMode);
+
+    void setData(const WyborMetodyData &newData);
 
 private slots:
 
@@ -121,6 +143,8 @@ private slots:
 
     void on_NormaIloscProbek_textChanged(const QString &arg1);
 
+    void on_rbRoletaDane_clicked();
+
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
@@ -140,18 +164,13 @@ protected:
 
     bool isValidRoletaRB();
     bool isValidPlaszczynaRB();
+    void init();
+    void initMethodPosition();
 private:
     Ui::WyborMetody *ui;
-    MethodInsData  wbMetoda;
+    MethodInsData  wbInsData;
     ModeWork wbMode;
-    unsigned int timeStopManual;
-    unsigned int timeStopAuto;
-    unsigned int numberPozMan;
-    unsigned int numberWidth;
-    unsigned int numberHeight;
-    unsigned int etapNrRoleta;
-    unsigned int stableTimeRoleta;
-    unsigned int timeStopRoleta;
+    WyborMetodyData data;
 
    // static constexpr int maxPosition = 1000;
     static constexpr int maxTime = 3600;
@@ -159,8 +178,7 @@ private:
     static constexpr int maxRolet = 15;
     static constexpr int maxPostoj = 3600;
 
-    QString fileName;
-    QString fileName2;
+
     bool startWindow;
 };
 

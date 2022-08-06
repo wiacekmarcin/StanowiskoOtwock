@@ -5,6 +5,8 @@
 #include <QMutex>
 #include "pozycje.h"
 #include "mechanika.h"
+#include "tabwidget.h"
+#include "wybormetody.h"
 
 #include <QList>
 
@@ -12,7 +14,7 @@ class SerialConnect;
 class QTimer;
 class QPlainTextEdit;
 
-typedef struct DaneWynikowe_1 {
+typedef struct DaneWynikowe {
     unsigned int x;
     unsigned int y;
     unsigned int time;
@@ -20,23 +22,13 @@ typedef struct DaneWynikowe_1 {
     float val2;
     float val3;
     float val4;
-} DaneWynikowe1;
-
-typedef struct DaneWynikowe_2 {
-    unsigned int x;
-    unsigned int y;
-    float val1;
-    float val2;
-    float val3;
-    float val4;
-} DaneWynikowe2;
-
+} DaneWynikowe;
 
 namespace Ui {
 class MierzonePozycje;
 }
 
-class MierzonePozycje : public QWidget
+class MierzonePozycje : public TabWidget
 {
     Q_OBJECT
 
@@ -44,14 +36,10 @@ public:
     explicit MierzonePozycje(QWidget *parent = nullptr);
     ~MierzonePozycje();
 
-    void setList(const Pozycje & pos);
+    bool chooseMethod(const WyborMetody::ModeWork & work, const WyborMetody::MethodInsData & data, const WyborMetodyData &values);
+    void setList(const Pozycje &pos);
 
-    void setMechanika(const Ruch & m);
 
-    bool getIsWait();
-    void setIsWait(bool value);
-    void setIsStart(bool value);
-    bool getIsStart();
 
     void setDebug(const QString &val);
 
@@ -65,14 +53,14 @@ public:
 
     void restart();
 
-signals:
-    void doConnect();
-    void setPosition(uint32_t, uint32_t);
-    void readRadio();
-    void checkDevice();
-    void statusMiernik(QString);
-    void end();
-    void start();
+    const WyborMetodyData &getAllValues() const;
+
+    virtual void errorSerial(const QString &);
+    //virtual void positionStatus(bool base, SerialMessage::StatusWork work);
+    virtual void positionDone(bool base);
+    virtual void readedFromRadio(const double &);
+
+
     void noweDane();
 
 private slots:
@@ -80,7 +68,7 @@ private slots:
     //void on_pbSaveAll_clicked();
     //void on_pbSaveAll_pressed();
 
-    void readedFromRadio(int val);
+
 
     void on_pbStart_clicked();
     void on_pbNoweDane_clicked();
@@ -92,33 +80,51 @@ protected:
 private:
     typedef enum _statusWork {
         WAIT = 0,
-        POSITIONING,
+        FIRST_RUN,
+        NEXT_POS,
+        WAIT_POS,
+        HOME_POS,
+        WAIT_HPOS,
         MEASURING,
-        NEXTPOSITION
+        NEXT_POS_AFTER_HPOS,
     } statusWorkEnum;
 
+    typedef enum _cols {
+        col_X = 0,
+        col_Y,
+        col_time,
+        col_meas,
+        col_status
+    } Column;
 
     Ui::MierzonePozycje *ui;
     QTimer *timer;
 
-    bool isStart;
-    bool isWait;
-    QMutex m_mutex;
-    QMutex m_mutex2;
+    WyborMetody::ModeWork modeWork;
+    WyborMetody::MethodInsData methodIns;
+    WyborMetodyData allValues;
+    Pozycje m_lista;
+    QString fileName;
+    bool started;
+
+
+
+
     short actStatus;
     int actPos;
     Ruch mech;
-    Pozycje m_lista;
+
     unsigned int actCzas;
 
     double avg1;
     unsigned int cnt1;
 
 
-    QList<DaneWynikowe1> m_listawynikowa1;
-    QList<DaneWynikowe2> m_listawynikowa2;
+    QList<DaneWynikowe> m_listawynikowa;
+
 
     bool connected;
+    void setPos();
 };
 
 #endif // MIERZONEPOZYCJE_H
