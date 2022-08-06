@@ -73,13 +73,19 @@ void loop()
 #endif
 }
 
-bool wasWelcomeMsg = false;
-int tryReadRadio = 10;
+
+unsigned long prevmls;
+
+
 bool work()
 {
+#ifdef DEBUG_SERIAL   
     static MessageSerial::Work prevWork = MessageSerial::NOP;
+#endif    
     MessageSerial::Work actWork = msg.getStatusWork();
-    #ifdef DEBUG_SERIAL   
+    
+
+#ifdef DEBUG_SERIAL       
     if (prevWork != actWork) {
      
         Serial.println("ACTWORK=");
@@ -112,10 +118,20 @@ bool work()
             delay(1000);
             digitalWrite(RESET_NANO, HIGH);
             delay(2000);
+            msg.sendWelcomeMsg();
             actWork = MessageSerial::NOP;
             return true;
         case MessageSerial::GET_RADIOVAL:
             if (isRadioConnected()) {
+                unsigned long act = millis();
+                if (act - prevmls < 500)
+                {
+                    msg.sendRadioError(2);
+                    actWork = MessageSerial::NOP;
+                    prevmls = act;
+                    return;
+                }
+                prevmls = act;
                 uint16_t val1;
                 //int8_t try3 = 3;
                 //while (try3 > 0) {

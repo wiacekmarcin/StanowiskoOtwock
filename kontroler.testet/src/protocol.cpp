@@ -107,7 +107,9 @@ bool MessageSerial::parseRozkaz()
     
     switch(rozkaz) {
         case WELCOME_REQ:   //get info 
-        {                         
+        {                          //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
+            uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
+            sendMessage(WELCOME_REP, sendData, 15);
             actWork = WELCOME_MSG;
             return true;
         }
@@ -216,10 +218,4 @@ void MessageSerial::sendRadioDebug(uint16_t val)
     sendMessage(MEASVALUE_REP, sendData, 12);
 }
 
-void MessageSerial::sendWelcomeMsg()
-{
-                                //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
-    uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
-    sendMessage(WELCOME_REP, sendData, 15);
-}
 
