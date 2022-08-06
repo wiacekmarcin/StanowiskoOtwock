@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MiernikPrzeplywu</class>
+ <widget class="QMainWindow" name="MiernikPrzeplywu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1091</width>
+    <height>869</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MiernikPrzeplywu</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="ikony.qrc">
+    <normaloff>:/new/prefix1/cnbop.ico</normaloff>:/new/prefix1/cnbop.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="3" column="0">
+        <widget class="QLabel" name="eStatus">
+         <property name="text">
+          <string>Status pracy czujnika</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="lConneected">
+         <property name="text">
+          <string>Nie wykryto</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lcz1unit">
+         <property name="text">
+          <string>--</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" rowspan="2">
+        <widget class="QLabel" name="ecz1">
+         <property name="text">
+          <string>Czujnik</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="lcz1mv">
+         <property name="text">
+          <string>--</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLabel" name="lStatusRoleta">
+         <property name="text">
+          <string>--</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QLabel" name="lStatusMinor">
+         <property name="text">
+          <string>--</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="statusserial">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QLabel" name="lradio">
+         <property name="text">
+          <string>Nie połączono</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="eKontroler">
+         <property name="text">
+          <string>Konroler silników :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5">
+        <widget class="QLabel" name="eStatusRoleta">
+         <property name="text">
+          <string>Status pracy rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" colspan="2">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="eRadio">
+         <property name="text">
+          <string>Czujnik radiowy :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="4">
+        <widget class="QLabel" name="lStatus">
+         <property name="text">
+          <string>--</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <widget class="QWidget" name="stanowisko2700_3000">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="lstanowisko2700_3000">
+          <property name="text">
+           <string>Stanowisko 2700x3000 mm</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MierzonePozycje" name="widget_2700_3000" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="stanowisko1000_2000prawe">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="lstanowisko1000_2000prawe">
+          <property name="text">
+           <string>Stanowisko 1000x2000 prawe</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MierzonePozycje" name="widget_1000_2000prawe" native="true"/>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="stanowisko1000_2000lewe">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="lStanowisko1000_2000lewe">
+          <property name="text">
+           <string>Stanowisko 1000x2000 mm lewe</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="MierzonePozycje" name="widget_1000_2000lewe" native="true"/>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="wentylator">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="Wentylator" name="widget_wentylator" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="stanowisko860_1600">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QLabel" name="lstanowisko860x1500">
+          <property name="text">
+           <string>Stanowisko 860x1500 mm</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="PozycjeRoleta" name="widget_860_1500" native="true"/>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>331</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="debug"/>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1091</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuWyj_cie">
+    <property name="title">
+     <string>&amp;Wyjście</string>
+    </property>
+   </widget>
+   <addaction name="menuWyj_cie"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionNowy">
+   <property name="text">
+    <string>&amp;Nowy</string>
+   </property>
+  </action>
+  <action name="actionZamknij">
+   <property name="text">
+    <string>&amp;Zamknij</string>
+   </property>
+  </action>
+  <action name="actionWyj_cie">
+   <property name="text">
+    <string>Wyjście</string>
+   </property>
+  </action>
+  <action name="actionZapisz_wyniki">
+   <property name="text">
+    <string>&amp;Zapisz wyniki</string>
+   </property>
+  </action>
+  <action name="actionPo_cz">
+   <property name="text">
+    <string>Połącz</string>
+   </property>
+  </action>
+  <action name="actionPo_cz_2">
+   <property name="text">
+    <string>&amp;Połącz</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MierzonePozycje</class>
+   <extends>QWidget</extends>
+   <header>mierzonepozycje.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PozycjeRoleta</class>
+   <extends>QWidget</extends>
+   <header>pozycjeroleta.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Wentylator</class>
+   <extends>QWidget</extends>
+   <header>wentylator.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="ikony.qrc"/>
+ </resources>
+ <connections/>
+</ui>
