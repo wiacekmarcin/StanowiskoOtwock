@@ -1,0 +1,1783 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Aug  2 22:22:34 2022
+
+# Variables
+
+# 'override' directive
+ 
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+PAPERSIZE = a4
+# environment
+DESKTOP_SESSION = xfce
+# default
+.SHELLFLAGS := -c
+# makefile (from 'Makefile', line 213)
+QMAKE_TARGET = PrzeplywomierzGUI
+# environment
+SNAP_COMMON = /var/snap/code/common
+# environment
+XDG_SESSION_TYPE = x11
+# makefile (from 'Makefile', line 215)
+TARGET = PrzeplywomierzGUI
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+PLATFORMIO_IDE = 2.5.1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# environment
+GDMSESSION = xfce
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny
+# makefile (from 'Makefile', line 39)
+LINK = g++
+# makefile
+SHELL = /bin/sh
+# environment
+SNAP_DATA = /var/snap/code/102
+# environment
+VSCODE_NLS_CONFIG = {"locale":"pl","availableLanguages":{"*":"pl"},"_languagePackId":"cf3bc3cdc28c5de88f031278e7d77ef8.pl","_translationsConfigFile":"/home/marcin/.config/Code/clp/cf3bc3cdc28c5de88f031278e7d77ef8.pl/tcf.json","_cacheRoot":"/home/marcin/.config/Code/clp/cf3bc3cdc28c5de88f031278e7d77ef8.pl","_resolvedLanguagePackCoreLocation":"/home/marcin/.config/Code/clp/cf3bc3cdc28c5de88f031278e7d77ef8.pl/3b889b090b5ad5793f524b5d1d39fda662b96a2a","_corruptedFile":"/home/marcin/.config/Code/clp/cf3bc3cdc28c5de88f031278e7d77ef8.pl/corrupted.info","_languagePackSupport":true}
+# environment
+_ = /snap/code/102/usr/share/code/code
+# makefile (from 'Makefile', line 16)
+CFLAGS = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-xfce:/etc/xdg:/etc/xdg
+# environment
+SNAP_INSTANCE_NAME = code
+# environment
+SNAP_ARCH = amd64
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+IM_CONFIG_PHASE = 2
+# environment
+QT_IM_MODULE = ibus
+# environment
+USERNAME = marcin
+# makefile (from 'Makefile', line 53)
+SOURCES = main.cpp crc8.cpp mechanika.cpp pozycjeroleta.cpp serialmessage.cpp ustawienia.cpp wyborkwadratow.cpp wybormetody.cpp wybranyplik.cpp miernikprzeplywu.cpp pozycje.cpp recznedodpozycji.cpp mierzonepozycje.cpp sterownik.cpp etapyroletdlg.cpp podzialetapurolety.cpp qrc_ikony.cpp moc_pozycjeroleta.cpp moc_serialmessage.cpp moc_wyborkwadratow.cpp moc_wybormetody.cpp moc_wybranyplik.cpp moc_miernikprzeplywu.cpp moc_recznedodpozycji.cpp moc_mierzonepozycje.cpp moc_etapyroletdlg.cpp moc_podzialetapurolety.cpp
+# makefile (from 'Makefile', line 17)
+CXXFLAGS = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+# environment
+MAKELEVEL := 0
+# environment
+MANDATORY_PATH = /usr/share/gconf/xfce.mandatory.path
+# makefile (from 'Makefile', line 19)
+QMAKE = /usr/lib/qt5/bin/qmake
+# environment
+XDG_DATA_DIRS = /usr/share/xfce4:/usr/share/xfce:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop:/usr/share
+# makefile (from 'Makefile', line 23)
+COPY = cp -f
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# environment
+GLADE_PIXMAP_PATH = :
+# environment
+CLUTTER_IM_MODULE = xim
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# makefile (from 'Makefile', line 36)
+COMPRESS = gzip -9f
+# environment
+LC_NAME = pl_PL.UTF-8
+# environment
+VSCODE_CWD = /home/marcin
+# environment
+GSETTINGS_SCHEMA_DIR = /snap/code/102/usr/share/glib-2.0/schemas
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+NO_PROXY = 127.0.0.1
+# makefile (from 'Makefile', line 9)
+MAKEFILE = Makefile
+# environment
+SESSION_MANAGER = local/marcin-Latitude-E5470:@/tmp/.ICE-unix/1782,unix/marcin-Latitude-E5470:/tmp/.ICE-unix/1782
+# makefile (from 'Makefile', line 21)
+CHK_DIR_EXISTS = test -d
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GDK_PIXBUF_MODULE_FILE = /home/marcin/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+# environment
+ 
+TEXTDOMAIN = im-config
+# environment
+SNAP = /snap/code/102
+# environment
+GLADE_CATALOG_PATH = :
+# environment
+SNAP_VERSION = 3b889b09
+# makefile (from 'Makefile', line 42)
+AR = ar cqs
+# environment
+XDG_MENU_PREFIX = xfce-
+# environment
+DISABLE_WAYLAND = 1
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+GDK_PIXBUF_MODULEDIR = /snap/code/102/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+GLADE_MODULE_PATH = :
+# makefile (from 'Makefile', line 30)
+QINSTALL_PROGRAM = /usr/lib/qt5/bin/qmake -install qinstall -exe
+# environment
+LS_COLORS = 
+# environment
+XDG_SESSION_DESKTOP = xfce
+# environment
+SSH_AUTH_SOCK = /tmp/ssh-eLO4hG2l01Kr/agent.1635
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0.0
+# makefile (from 'Makefile', line 37)
+DISTNAME = PrzeplywomierzGUI1.0.0
+# environment
+GTK_IM_MODULE = ibus
+# environment
+SNAP_INSTANCE_KEY = 
+# environment
+PWD = /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny
+# environment
+XDG_SEAT = seat0
+# environment
+SSH_AGENT_PID = 1757
+# makefile (from 'Makefile', line 26)
+INSTALL_FILE = install -m 644 -p
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = XFCE
+# makefile (from 'Makefile', line 24)
+COPY_FILE = cp -f
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/marcin
+# makefile (from 'Makefile', line 44)
+SED = sed
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+VSCODE_CLI = 1
+# makefile (from 'Makefile', line 15)
+DEFINES = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
+ 
+# environment
+VSCODE_CODE_CACHE_PATH = /home/marcin/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+# makefile (from 'Makefile', line 35)
+TAR = tar -cf
+# environment
+LOGNAME = marcin
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+# environment
+SNAP_CONTEXT = UH5TCZRzN-5IzU33wx2yJo26YmfhzUEt0g5f1_80WpWJD69ths2U
+# makefile (from 'Makefile', line 43)
+RANLIB = 
+# automatic
++F = $(notdir $+)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+SNAP_USER_COMMON = /home/marcin/snap/code/common
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 4.1
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# makefile (from 'Makefile', line 22)
+MKDIR = mkdir -p
+# environment
+XDG_VTNR = 2
+# makefile (from 'Makefile', line 38)
+ 
+DISTDIR = /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program\ glowny/.tmp/PrzeplywomierzGUI1.0.0
+# environment
+LC_TIME = pl_PL.UTF-8
+# environment
+SNAP_REAL_HOME = /home/marcin
+# environment
+PLATFORMIO_PATH = /home/marcin/.platformio/penv/bin:/home/marcin/.platformio/penv:/home/marcin/.platformio/python3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+SNAP_USER_DATA = /home/marcin/snap/code/102
+# makefile (from 'Makefile', line 32)
+SYMLINK = ln -f -s
+# environment
+SHLVL = 1
+# makefile (from 'Makefile', line 13)
+CC = gcc
+# environment
+XDG_SESSION_ID = 2
+# environment
+USER = marcin
+# environment
+ 
+SNAP_REVISION = 102
+# environment
+LC_MONETARY = pl_PL.UTF-8
+# makefile
+.DEFAULT_GOAL := first
+# environment
+XDG_CURRENT_DESKTOP = XFCE
+# makefile (from 'Makefile', line 214)
+DESTDIR = 
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = pl_PL.UTF-8
+# makefile (from 'Makefile', line 40)
+LFLAGS = -Wl,-O1
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# makefile (from 'Makefile', line 34)
+MOVE = mv -f
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = pl:en
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-56f04ada-1.69.2-main.sock
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+# makefile (from 'Makefile', line 49)
+OBJECTS_DIR = ./
+# makefile (from 'Makefile', line 29)
+QINSTALL = /usr/lib/qt5/bin/qmake -install qinstall
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# environment
+LC_PAPER = pl_PL.UTF-8
+# makefile (from 'Makefile', line 45)
+STRIP = strip
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+DEFAULTS_PATH = /usr/share/gconf/xfce.default.path
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+ 
+SNAP_COOKIE = UH5TCZRzN-5IzU33wx2yJo26YmfhzUEt0g5f1_80WpWJD69ths2U
+# environment
+LC_NUMERIC = pl_PL.UTF-8
+# automatic
+<F = $(notdir $<)
+# environment
+PLATFORMIO_CALLER = vscode
+# makefile (from 'Makefile', line 14)
+CXX = g++
+# environment
+LC_MEASUREMENT = pl_PL.UTF-8
+# environment
+SNAP_NAME = code
+# environment
+LC_ALL = C
+# makefile (from 'Makefile', line 27)
+INSTALL_PROGRAM = install -m 755 -p
+# makefile (from 'Makefile', line 31)
+DEL_FILE = rm -f
+# environment
+QT4_IM_MODULE = xim
+# makefile (from 'Makefile', line 41)
+LIBS = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5SerialPort -lQt5Core -lGL -lpthread 
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+SNAP_REEXEC = 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# makefile (from 'Makefile', line 18)
+INCPATH = -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtSerialPort -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+# makefile (from 'Makefile', line 28)
+INSTALL_DIR = cp -f -R
+# environment
+WINDOWPATH = 2
+# makefile (from 'Makefile', line 25)
+COPY_DIR = cp -f -R
+ 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+LC_IDENTIFICATION = pl_PL.UTF-8
+# default
+.RECIPEPREFIX := 
+# makefile (from 'Makefile', line 79)
+OBJECTS = main.o crc8.o mechanika.o pozycjeroleta.o serialmessage.o ustawienia.o wyborkwadratow.o wybormetody.o wybranyplik.o miernikprzeplywu.o pozycje.o recznedodpozycji.o mierzonepozycje.o sterownik.o etapyroletdlg.o podzialetapurolety.o qrc_ikony.o moc_pozycjeroleta.o moc_serialmessage.o moc_wyborkwadratow.o moc_wybormetody.o moc_wybranyplik.o moc_miernikprzeplywu.o moc_recznedodpozycji.o moc_mierzonepozycje.o moc_etapyroletdlg.o moc_podzialetapurolety.o
+# makefile (from 'Makefile', line 106)
+DIST = polozenia.txt /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf .qmake.stash /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf PrzeplywomierzGUI.pro crc8.h mechanika.h pozycjeroleta.h serialmessage.h ustawienia.h wyborkwadratow.h wybormetody.h wybranyplik.h miernikprzeplywu.h pozycje.h recznedodpozycji.h mierzonepozycje.h sterownik.h etapyroletdlg.h podzialetapurolety.h main.cpp crc8.cpp mechanika.cpp pozycjeroleta.cpp serialmessage.cpp ustawienia.cpp wyborkwadratow.cpp wybormetody.cpp wybranyplik.cpp miernikprzeplywu.cpp pozycje.cpp recznedodpozycji.cpp mierzonepozycje.cpp sterownik.cpp etapyroletdlg.cpp podzialetapurolety.cpp
+# environment
+LC_ADDRESS = pl_PL.UTF-8
+# environment
+LANG = C
+# makefile (from 'Makefile', line 33)
+DEL_DIR = rmdir
+# environment
+ 
+VSCODE_PID = 2539
+# variable set hash-table stats:
+# Load=171/1024=17%, Rehash=0, Collisions=31/203=15%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2051, inode 6557344): 53 files, no impossibilities.
+
+# 53 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+mierzonepozycje.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_uic_make_all: ui_pozycjeroleta.h ui_wybordanych.h ui_wyborkwadratow.h ui_wybormetody.h ui_wybranyplik.h ui_miernikprzeplywu.h ui_recznedodpozycji.h ui_mierzonepozycje.h ui_etapyroletdlg.h ui_podzialetapurolety.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_miernikprzeplywu.cpp: wybormetody.h pozycje.h mechanika.h serialmessage.h miernikprzeplywu.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 483):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include miernikprzeplywu.h -o moc_miernikprzeplywu.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+ui_pozycjeroleta.h: pozycjeroleta.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := ui_pozycjeroleta.h
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := pozycjeroleta.ui /usr/lib/qt5/bin/uic
+# automatic
+# | := 
+# automatic
+# < := pozycjeroleta.ui
+# automatic
+# ^ := pozycjeroleta.ui /usr/lib/qt5/bin/uic
+# automatic
+# ? := pozycjeroleta.ui /usr/lib/qt5/bin/uic
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'Makefile', line 515):
+	/usr/lib/qt5/bin/uic pozycjeroleta.ui -o ui_pozycjeroleta.h
+
+/usr/lib/x86_64-linux-gnu/libQt5SerialPort.prl:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-14 22:19:01
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+mechanika.cpp:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_pozycjeroleta.cpp: pozycjeroleta.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 452):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include pozycjeroleta.h -o moc_pozycjeroleta.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+ui_wybordanych.h: wybordanych.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 519):
+	/usr/lib/qt5/bin/uic wybordanych.ui -o ui_wybordanych.h
+
+moc_recznedodpozycji.cpp: pozycje.h recznedodpozycji.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 489):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include recznedodpozycji.h -o moc_recznedodpozycji.cpp
+
+compiler_moc_predefs_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+#  recipe to execute (from 'Makefile', line 442):
+	-$(DEL_FILE) moc_predefs.h
+
+ui_mierzonepozycje.h: mierzonepozycje.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 543):
+	/usr/lib/qt5/bin/uic mierzonepozycje.ui -o ui_mierzonepozycje.h
+
+/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+miernikprzeplywu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+ 
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+mierzonepozycje.o: mierzonepozycje.cpp mierzonepozycje.h pozycje.h mechanika.h ui_mierzonepozycje.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 628):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mierzonepozycje.o mierzonepozycje.cpp
+
+PrzeplywomierzGUI.pro:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 14:13:54.69883001
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+ 
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+ui_wybormetody.h: wybormetody.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 527):
+ 
+	/usr/lib/qt5/bin/uic wybormetody.ui -o ui_wybormetody.h
+
+all: Makefile PrzeplywomierzGUI
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+ 
+
+FORCE:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+moc_podzialetapurolety.cpp: podzialetapurolety.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 506):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include podzialetapurolety.h -o moc_podzialetapurolety.cpp
+
+moc_wybranyplik.cpp: pozycje.h wybranyplik.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 474):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include wybranyplik.h -o moc_wybranyplik.cpp
+
+# Not a target:
+wybordanych.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+pozycjeroleta.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wyborkwadratow.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+crc8.o: crc8.cpp crc8.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 572):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o crc8.o crc8.cpp
+
+moc_serialmessage.cpp: serialmessage.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+#  recipe to execute (from 'Makefile', line 457):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include serialmessage.h -o moc_serialmessage.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-14 22:38:34
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+miernikprzeplywu.cpp:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_etapyroletdlg.cpp: etapyroletdlg.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 501):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include etapyroletdlg.h -o moc_etapyroletdlg.cpp
+
+ustawienia.o: ustawienia.cpp ustawienia.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 586):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ustawienia.o ustawienia.cpp
+
+# Not a target:
+podzialetapurolety.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+wybormetody.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_yacc_impl_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+recznedodpozycji.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_podzialetapurolety.o: moc_podzialetapurolety.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 672):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_podzialetapurolety.o moc_podzialetapurolety.cpp
+
+distclean: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+#  recipe to execute (from 'Makefile', line 417):
+	-$(DEL_FILE) $(TARGET) 
+	-$(DEL_FILE) .qmake.stash
+	-$(DEL_FILE) Makefile
+
+# Not a target:
+wyborkwadratow.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+first: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+podzialetapurolety.o: podzialetapurolety.cpp podzialetapurolety.h ui_podzialetapurolety.h
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 639):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o podzialetapurolety.o podzialetapurolety.cpp
+
+wybormetody.o: wybormetody.cpp wybormetody.h ui_wybormetody.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 595):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wybormetody.o wybormetody.cpp
+
+# Not a target:
+etapyroletdlg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_moc_source_make_all:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+recznedodpozycji.o: recznedodpozycji.cpp recznedodpozycji.h pozycje.h ui_recznedodpozycji.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 622):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o recznedodpozycji.o recznedodpozycji.cpp
+
+ 
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+uninstall: FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+Makefile: PrzeplywomierzGUI.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-base.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/qconfig.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mks 
+pecs/features/spec_post.prf .qmake.stash /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf PrzeplywomierzGUI.pro ikony.qrc /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl /usr/lib/x86_64-linux-gnu/libQt5Gui.prl /usr/lib/x86_64-linux-gnu/libQt5SerialPort.prl /usr/lib/x86_64-linux-gnu/libQt5Core.prl
+#  Implicit rule search has not been done.
+#  Last modified 2022-08-02 22:14:54.668262957
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 306):
+	$(QMAKE) -o Makefile PrzeplywomierzGUI.pro -spec linux-g++
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/uic.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+etapyroletdlg.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sterownik.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+etapyroletdlg.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ui_podzialetapurolety.h: podzialetapurolety.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 551):
+	/usr/lib/qt5/bin/uic podzialetapurolety.ui -o ui_podzialetapurolety.h
+
+mocclean: compiler_moc_header_clean compiler_moc_source_clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_rcc_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 434):
+	-$(DEL_FILE) qrc_ikony.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:
+ 
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+compiler_lex_make_all:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/moc.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+compiler_yacc_impl_make_all:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pozycje.o: pozycje.cpp pozycje.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 617):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pozycje.o pozycje.cpp
+
+benchmark: first
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+wybranyplik.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 444):
+	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
+
+# Not a target:
+recznedodpozycji.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_wyborkwadratow.o: moc_wyborkwadratow.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 651):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_wyborkwadratow.o moc_wyborkwadratow.cpp
+
+# Not a target:
+main.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/gcc-base.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+compiler_yacc_decl_make_all:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_moc_header_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 448):
+	-$(DEL_FILE) moc_pozycjeroleta.cpp moc_serialmessage.cpp moc_wyborkwadratow.cpp moc_wybormetody.cpp moc_wybranyplik.cpp moc_miernikprzeplywu.cpp moc_recznedodpozycji.cpp moc_mierzonepozycje.cpp moc_etapyroletdlg.cpp moc_podzialetapurolety.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wybormetody.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+pozycjeroleta.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+moc_miernikprzeplywu.o: moc_miernikprzeplywu.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 660):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_miernikprzeplywu.o moc_miernikprzeplywu.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+serialmessage.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+mechanika.o: mechanika.cpp mechanika.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 575):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mechanika.o mechanika.cpp
+
+# Not a target:
+cnbop.ico:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+moc_recznedodpozycji.o: moc_recznedodpozycji.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 663):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_recznedodpozycji.o moc_recznedodpozycji.cpp
+
+# Not a target:
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_moc_predefs_make_all: moc_predefs.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_glx_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+qrc_ikony.cpp: ikony.qrc /usr/lib/qt5/bin/rcc cnbop.ico
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 438):
+	/usr/lib/qt5/bin/rcc -name ikony ikony.qrc -o qrc_ikony.cpp
+
+ui_wyborkwadratow.h: wyborkwadratow.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 523):
+	/usr/lib/qt5/bin/uic wyborkwadratow.ui -o ui_wyborkwadratow.h
+
+moc_mierzonepozycje.cpp: pozycje.h mechanika.h mierzonepozycje.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 496):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mierzonepozycje.h -o moc_mierzonepozycje.cpp
+
+# Not a target:
+miernikprzeplywu.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/libQt5Core.prl:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+ikony.qrc:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 10:33:22.888297894
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+serialmessage.cpp:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+moc_wybormetody.cpp: wybormetody.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 468):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include wybormetody.h -o moc_wybormetody.cpp
+
+moc_wybranyplik.o: moc_wybranyplik.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 657):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_wybranyplik.o moc_wybranyplik.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+PrzeplywomierzGUI: ui_pozycjeroleta.h ui_wybordanych.h ui_wyborkwadratow.h ui_wybormetody.h ui_wybranyplik.h ui_miernikprzeplywu.h ui_recznedodpozycji.h ui_mierzonepozycje.h ui_etapyroletdlg.h ui_podzialetapurolety.h main.o crc8.o mechanika.o pozycjeroleta.o serialmessage.o ustawienia.o wyborkwadratow.o wybormetody.o wybranyplik.o miernikprzeplywu.o pozycje.o recznedodpozycji.o mierzonepozycje.o sterownik.o etapyroletdlg.o podzialetapurolety.o qrc_ikony.o moc_pozycjeroleta.o moc_serialmessage.o moc_wyborkwadratow.o moc_wybormetody.o moc_wybranyplik.o moc_miernikprzeplywu.o moc_recznedodpozycji.o moc_mierzonepozycje.o moc_etapyroletdlg.o moc_podzialetapurolety.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-08-02 22:14:54.672263014
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  recipe to execute (from 'Makefile', line 222):
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+mierzonepozycje.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/opengl.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+moc_serialmessage.o: moc_serialmessage.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 648):
+ 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_serialmessage.o moc_serialmessage.cpp
+
+ui_miernikprzeplywu.h: miernikprzeplywu.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 535):
+	/usr/lib/qt5/bin/uic miernikprzeplywu.ui -o ui_miernikprzeplywu.h
+
+# Not a target:
+pozycjeroleta.ui:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 10:33:22.892302309
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+miernikprzeplywu.o: miernikprzeplywu.cpp miernikprzeplywu.h wybormetody.h pozycje.h mechanika.h serialmessage.h ui_miernikprzeplywu.h wyborkwadratow.h recznedodpozycji.h wybranyplik.h ustawienia.h mierzonepozycje.h pozycjeroleta.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 614):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o miernikprzeplywu.o miernikprzeplywu.cpp
+
+moc_etapyroletdlg.o: moc_etapyroletdlg.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 669):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_etapyroletdlg.o moc_etapyroletdlg.cpp
+
+compiler_uic_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 512):
+	-$(DEL_FILE) ui_pozycjeroleta.h ui_wybordanych.h ui_wyborkwadratow.h ui_wybormetody.h ui_wybranyplik.h ui_miernikprzeplywu.h ui_recznedodpozycji.h ui_mierzonepozycje.h ui_etapyroletdlg.h ui_podzialetapurolety.h
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_core_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+compiler_yacc_decl_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qrc_ikony.o: qrc_ikony.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 642):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_ikony.o qrc_ikony.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+ui_recznedodpozycji.h: recznedodpozycji.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 539):
+	/usr/lib/qt5/bin/uic recznedodpozycji.ui -o ui_recznedodpozycji.h
+
+# Not a target:
+wybranyplik.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qmake_use.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+crc8.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/unix/thread.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+.qmake.stash:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 13:37:00.094269333
+#  File has been updated.
+#  Successfully updated.
+
+wyborkwadratow.o: wyborkwadratow.cpp wyborkwadratow.h pozycje.h ui_wyborkwadratow.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 591):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wyborkwadratow.o wyborkwadratow.cpp
+
+# Not a target:
+mierzonepozycje.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-14 22:19:01
+#  File has been updated.
+#  Successfully updated.
+
+ 
+# Not a target:
+ustawienia.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qmake: FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 390):
+	@$(QMAKE) -o Makefile PrzeplywomierzGUI.pro -spec linux-g++
+
+ui_wybranyplik.h: wybranyplik.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 531):
+	/usr/lib/qt5/bin/uic wybranyplik.ui -o ui_wybranyplik.h
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-14 22:38:34
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wyborkwadratow.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+crc8.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ui_etapyroletdlg.h: etapyroletdlg.ui /usr/lib/qt5/bin/uic
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 547):
+	/usr/lib/qt5/bin/uic etapyroletdlg.ui -o ui_etapyroletdlg.h
+
+mocables: compiler_moc_header_make_all compiler_moc_source_make_all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_moc_header_make_all: moc_pozycjeroleta.cpp moc_serialmessage.cpp moc_wyborkwadratow.cpp moc_wybormetody.cpp moc_wybranyplik.cpp moc_miernikprzeplywu.cpp moc_recznedodpozycji.cpp moc_mierzonepozycje.cpp moc_etapyroletdlg.cpp moc_podzialetapurolety.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+ustawienia.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+podzialetapurolety.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+wybormetody.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/file_copies.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resources.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+dist: distdir FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 398):
+	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
+ 
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wybranyplik.ui:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_functions.prf:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+etapyroletdlg.o: etapyroletdlg.cpp etapyroletdlg.h ui_etapyroletdlg.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 635):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o etapyroletdlg.o etapyroletdlg.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/g++-unix.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+compiler_rcc_make_all: qrc_ikony.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+/usr/lib/qt5/bin/uic:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+podzialetapurolety.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+ 
+#  File has not been updated.
+
+sterownik.o: sterownik.cpp sterownik.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 631):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sterownik.o sterownik.cpp
+
+wybranyplik.o: wybranyplik.cpp wybranyplik.h pozycje.h ui_wybranyplik.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 600):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o wybranyplik.o wybranyplik.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+compiler_moc_source_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+recznedodpozycji.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+main.o: main.cpp miernikprzeplywu.h wybormetody.h pozycje.h mechanika.h serialmessage.h ustawienia.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 569):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+qmake_all: FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/lib/qt5/bin/rcc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+ 
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+pozycje.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/lib/qt5/bin/moc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+check: first
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+moc_pozycjeroleta.o: moc_pozycjeroleta.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 645):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_pozycjeroleta.o moc_pozycjeroleta.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sterownik.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+compiler_lex_clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+pozycje.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/testcase_targets.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+pozycjeroleta.o: pozycjeroleta.cpp pozycjeroleta.h ui_pozycjeroleta.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 579):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o pozycjeroleta.o pozycjeroleta.cpp
+
+moc_mierzonepozycje.o: moc_mierzonepozycje.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 666):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mierzonepozycje.o moc_mierzonepozycje.cpp
+
+moc_wyborkwadratow.cpp: pozycje.h wyborkwadratow.h moc_predefs.h /usr/lib/qt5/bin/moc
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 463):
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/Program glowny' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSerialPort -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include wyborkwadratow.h -o moc_wyborkwadratow.cpp
+
+distdir: FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 401):
+	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
+	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+ 
+	$(COPY_FILE) --parents ikony.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents crc8.h mechanika.h pozycjeroleta.h serialmessage.h ustawienia.h wyborkwadratow.h wybormetody.h wybranyplik.h miernikprzeplywu.h pozycje.h recznedodpozycji.h mierzonepozycje.h sterownik.h etapyroletdlg.h podzialetapurolety.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp crc8.cpp mechanika.cpp pozycjeroleta.cpp serialmessage.cpp ustawienia.cpp wyborkwadratow.cpp wybormetody.cpp wybranyplik.cpp miernikprzeplywu.cpp pozycje.cpp recznedodpozycji.cpp mierzonepozycje.cpp sterownik.cpp etapyroletdlg.cpp podzialetapurolety.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents pozycjeroleta.ui wybordanych.ui wyborkwadratow.ui wybormetody.ui wybranyplik.ui miernikprzeplywu.ui recznedodpozycji.ui mierzonepozycje.ui etapyroletdlg.ui podzialetapurolety.ui $(DISTDIR)/
+	$(COPY_FILE) --parents gui_pl.ts $(DISTDIR)/
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+serialmessage.o: serialmessage.cpp serialmessage.h crc8.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 583):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o serialmessage.o serialmessage.cpp
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_fb_support_private.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+clean: compiler_clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 412):
+	-$(DEL_FILE) $(OBJECTS)
+	-$(DEL_FILE) *~ core *.core
+
+moc_wybormetody.o: moc_wybormetody.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 654):
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_wybormetody.o moc_wybormetody.cpp
+
+# Not a target:
+mechanika.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf:
+#  Implicit rule search has been done.
+#  Last modified 2018-04-04 06:14:40
+#  File has been updated.
+#  Successfully updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri:
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+install: FORCE
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
+ 
+#  Implicit rule search has been done.
+#  Last modified 2021-08-19 15:17:52
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=213/1024=21%, Rehash=0, Collisions=77/665=12%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 221 / storage = 7750 B / avg = 35 B
+# current buf: size = 8162 B / used = 7750 B / count = 221 / avg = 35 B
+
+# strcache performance: lookups = 694 / hit rate = 68%
+# hash-table stats:
+# Load=221/8192=3%, Rehash=0, Collisions=4/694=1%
+# Finished Make data base on Tue Aug  2 22:22:34 2022
+
+ 

@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/marcin/devel/StanowiskoOtwock/RadioCzujnikWiatru'
+make: Leaving directory '/home/marcin/devel/StanowiskoOtwock/RadioCzujnikWiatru'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

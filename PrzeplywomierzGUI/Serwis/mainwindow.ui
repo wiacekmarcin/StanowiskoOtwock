@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>913</width>
+    <height>721</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Program serwisowy do kontrolera</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="4" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0">
+     <widget class="QGroupBox" name="groupBoxWentylator">
+      <property name="title">
+       <string>Ustawienia współczynników ruchu dla ustawienia wentylatora</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayoutWenty">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lwiatrakkat">
+         <property name="text">
+          <string>Kąt nachylenia lasera</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacerWentylator_1">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2">
+        <widget class="Line" name="linewentylator_1">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacerWentylator_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="lwiatrakx">
+         <property name="text">
+          <string>Przesunięcie lasera
+względem środka tacki</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <spacer name="horizontalSpacerWentylator_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="6">
+        <widget class="Line" name="linewentylator_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <spacer name="horizontalSpacerWentylator_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="8">
+        <widget class="QLabel" name="lwiatraky">
+         <property name="text">
+          <string>Przesunięcie lasera
+względem podłoża</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <spacer name="horizontalSpacerWentylator_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="ewiatrakkat"/>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="ewiatrakx"/>
+       </item>
+       <item row="1" column="8">
+        <widget class="QLineEdit" name="ewiatraky"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pbSaveWentylator">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBoxMechanizm">
+      <property name="title">
+       <string>Ustawienia współczynników</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayoutratio">
+       <item row="0" column="1" rowspan="5">
+        <widget class="Line" name="line_1_pion">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="limp">
+         <property name="text">
+          <string>Ilość impulsów enkodera na 1 mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_impulsy">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="4" rowspan="5">
+        <widget class="Line" name="line_2_pion">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Ilość kroków silnika na 1 mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <spacer name="horizontalSpacer_kroki">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="Line" name="line_1">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" colspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5" colspan="2">
+        <widget class="Line" name="line_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="elewoprawo">
+         <property name="text">
+          <string>Oś X (lewo-prawo)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="eimpX"/>
+       </item>
+       <item row="2" column="5">
+        <widget class="QLineEdit" name="estepX"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="Line" name="line_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2" colspan="2">
+        <widget class="Line" name="line_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="5" colspan="2">
+        <widget class="Line" name="line_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="egoradol">
+         <property name="text">
+          <string>Oś Y (góra-dól)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="eimpY"/>
+       </item>
+       <item row="4" column="5">
+        <widget class="QLineEdit" name="estepY"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="pbSaveRatio">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Ustawienia czujników</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayoutCzujniki">
+       <item row="0" column="0" rowspan="2">
+        <widget class="QCheckBox" name="cbcz1">
+         <property name="text">
+          <string>Czujnik 1</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="lratio1">
+         <property name="text">
+          <string>Wspołczynnik </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="ecz1ratio">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="lunit1">
+         <property name="text">
+          <string>Jednostka</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="ecz1unit">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="maxLength">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pbSaveRadioCzujnik">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="3">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Ustawienia dla rolety</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="4" column="0">
+        <widget class="QLabel" name="lobrot1">
+         <property name="text">
+          <string>1 obrót</string>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="1">
+        <widget class="QLineEdit" name="RolObrot13"/>
+       </item>
+       <item row="13" column="1">
+        <widget class="QLineEdit" name="RolObrot10"/>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLineEdit" name="RolObrot7"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="lobrot2">
+         <property name="text">
+          <string>2 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLineEdit" name="RolObrot9"/>
+       </item>
+       <item row="17" column="0">
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="ldlugoscrolety">
+         <property name="text">
+          <string>Maksymalna długość rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="RolObrot4"/>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="lobrot7">
+         <property name="text">
+          <string>7 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="lobrot3">
+         <property name="text">
+          <string>3 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="RolObrot8"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="roletaImpObrot"/>
+       </item>
+       <item row="15" column="1">
+        <widget class="QLineEdit" name="RolObrot12"/>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="lobrot8">
+         <property name="text">
+          <string>8 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="0">
+        <widget class="QLabel" name="lobrot13">
+         <property name="text">
+          <string>13 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="RolObrot3"/>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="lobrot10">
+         <property name="text">
+          <string>10 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="lobrot5">
+         <property name="text">
+          <string>5 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="dlugoscRolety"/>
+       </item>
+       <item row="15" column="0">
+        <widget class="QLabel" name="lobrot12">
+         <property name="text">
+          <string>12 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="RolObrot1"/>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="lobrot9">
+         <property name="text">
+          <string>9 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="lobrot6">
+         <property name="text">
+          <string>6 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="1">
+        <widget class="QLineEdit" name="RolObrot11"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="limpuslyrolety">
+         <property name="text">
+          <string>Ilość impulsów na 1 obrót</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="lobrot11">
+         <property name="text">
+          <string>11 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="RolObrot6"/>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="RolObrot5"/>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Długość rolety w [mm] po </string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="RolObrot2"/>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="lobrot4">
+         <property name="text">
+          <string>4 obrotach</string>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="0">
+        <widget class="QPushButton" name="pbRoletaSave">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
