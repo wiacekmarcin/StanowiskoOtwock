@@ -62,7 +62,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     connect(this, &MiernikPrzeplywu::readRadioSig, &sMsg, &SerialMessage::readRadio, Qt::QueuedConnection);
     connect(this, &MiernikPrzeplywu::connectAndConfigureSig, &sMsg, &SerialMessage::connectAndConfigure, Qt::QueuedConnection);
 
-    ui->debug->setVisible(true);
+    //ui->debug->setVisible(true);
     /*
     ui->widget_1000_2000lewe->setMiernikPrzeplywu(this);
     ui->widget_1000_2000prawe->setMiernikPrzeplywu(this);
@@ -265,7 +265,7 @@ QString MiernikPrzeplywu::addTime(QString status)
 
 void MiernikPrzeplywu::debugClear()
 {
-    ui->debug->clear();
+    //ui->debug->clear();
 }
 
 void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
@@ -515,7 +515,7 @@ void MiernikPrzeplywu::connectAndConfigureDone()
 
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
-    ui->debug->append(dbg);
+    //ui->debug->append(dbg);
     qDebug() << dbg;
 }
 

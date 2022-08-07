@@ -3,10 +3,6 @@
 #include "../../kontroler_lib/protocol_kontroler.cpp"
 #include "../../kontroler_lib/crc8.cpp"
 
-//10 imp silnika na 1 mm
-#include "platform.h"
-
-//#define DEBUG_SERIAL
 
 MessageSerial::MessageSerial() 
 {
@@ -19,7 +15,6 @@ MessageSerial::MessageSerial()
 void MessageSerial::init() 
 {
     MessageSerialBase::init();
-    Serial1.begin(115200); 
     Serial.begin(115200); 
 }
 
@@ -27,48 +22,27 @@ bool MessageSerial::check(unsigned char c)
 {
     data[posCmd++] = c;
     data[posCmd] = '\0';
-#ifdef DEBUG_SERIAL        
-    Serial.print("NOWY ZNAK=");
-    Serial.println(c, HEX);
-#endif    
+  
     if (posCmd-1 == 0) {    
         crc.restart();
         crc.add(data[0]);
         rozkaz = data[0] >> 4;
         dlugosc = data[0] & 0x0f;
-#ifdef DEBUG_SERIAL            
-        Serial.print("ROZKAZ=");
-        Serial.println(rozkaz,DEC);
-        Serial.print("LEN=");
-        Serial.println(dlugosc, DEC);
-#endif        
         return false;
     }
     
     if (posCmd == dlugosc + 2) {
         uint8_t c = crc.getCRC();
-#ifdef DEBUG_SERIAL            
-        Serial.print("CRC=");
-        Serial.print(c,HEX);
-        Serial.print("==");
-        Serial.println(data[posCmd-1],HEX);
-#endif        
         if (data[posCmd-1] == c) {
             posCmd = 0;
             bool r = parseRozkaz();
             if (!r) {
                 sendError("ZLY ROZKAZ");
-#ifdef DEBUG_SERIAL                    
-                Serial.println("ZLY ROZKAZ");
-#endif                
             }
             return r;
         }
         posCmd = 0;
         sendError("ZLE CRC");
-#ifdef DEBUG_SERIAL            
-        Serial.print("CRC FAILD");
-#endif        
         return false;
 
     }
@@ -79,9 +53,6 @@ bool MessageSerial::check(unsigned char c)
     if (posCmd == MAXLENPROTO) {
         posCmd = 0;
         sendError("ZBYT DUZA WIAD");
-#ifdef DEBUG_SERIAL           
-        Serial.println("ZBYT DUZA WIADOMOSC");
-#endif        
         return false;    
     }
     return false;
@@ -107,28 +78,35 @@ bool MessageSerial::parseRozkaz()
     
     switch(rozkaz) {
         case WELCOME_REQ:   //get info 
-        {                          //1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  
-            uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
-            sendMessage(WELCOME_REP, sendData, 15);
+        {  
             actWork = WELCOME_MSG;
             return true;
         }
 
         case POSITION_REQ: 
         {
-            Serial1.write(data, dlugosc+2);
+            if (dlugosc >= 1 && data[1] == 'P') {
+                sendPosiotionMessages(false);
+            } else if (dlugosc == 1 && data[1] == 'R') {
+                sendRolPositionMessages(false);
+            }
+
             actWork=NOP;
             return true;
         }
         case MOVEHOME_REQ:
         {
-            Serial1.write(data, dlugosc+2);
+            if (dlugosc >= 1 && data[1] == 'P') {
+                sendPosiotionMessages(true);
+            } else if (dlugosc == 1 && data[1] == 'R') {
+                sendRolPositionMessages(true);
+            }
             actWork=NOP;
             return true;
         }
         case SET_PARAM_REQ:
         {
-            Serial1.write(data, dlugosc+2);
+            sendAckSettings(data[1]);
             actWork=NOP;
             return true;
         }
@@ -139,7 +117,9 @@ bool MessageSerial::parseRozkaz()
         }
         case MEASVALUE_REQ:
         {
-            actWork = GET_RADIOVAL;
+            sendRadioVal(0,0,0,0);
+            actWork = NOP;
+
             return true;
         }
         case MEASUNIT_REQ:
@@ -218,4 +198,52 @@ void MessageSerial::sendRadioDebug(uint16_t val)
     sendMessage(MEASVALUE_REP, sendData, 12);
 }
 
+void MessageSerial::sendWelcomeMsg() 
+{
+    uint8_t sendData[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
+    sendMessage(WELCOME_REP, sendData, 15);
+}
 
+void MessageSerial::sendPosiotionMessages(bool home)
+{
+
+    uint8_t sendData1[1] = {'s'};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData1, 1);
+    delay(500);
+
+    uint8_t sendData2[1] = {'l'};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData2, 1);
+    delay(10000);
+
+    uint8_t sendData3[9] = {'P', 0, 0, 0, 0, 0, 0, 0, 0};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData3, home ? 5 : 9);
+    delay(500);
+
+    uint8_t sendData4[1] = {'d'};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData4, 1);
+    delay(10000);
+
+    uint8_t sendData5[9] = {'G', 0, 0, 0, 0, 0, 0, 0, 0};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData5, home ? 5 : 9);
+    delay(500);
+
+    uint8_t sendData6[1] = {'K'};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData6, 1);
+
+}
+
+void MessageSerial::sendRolPositionMessages(bool home) 
+{
+    uint8_t sendData1[1] = {'r'};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData1, 1);
+    delay(5000);
+
+    uint8_t sendData2[9] = {'R', 0, 0, 0, 0, 0, 0, 0, 0};
+    sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData2, home ? 5 : 9);
+}
+
+void MessageSerial::sendAckSettings(uint8_t nr) 
+{
+    uint8_t sendData[1] = {nr};
+    sendMessage(SET_PARAM_REP, sendData, 1);
+}

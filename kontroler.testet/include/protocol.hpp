@@ -30,9 +30,13 @@ class MessageSerial : public MessageSerialBase
     void sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, uint16_t val4);
     void sendRadioError(uint8_t val);
     void sendRadioDebug(uint16_t val);
+
+    void sendWelcomeMsg();
 protected:
 
-
+    void sendPosiotionMessages(bool home);
+    void sendRolPositionMessages(bool home);
+    void sendAckSettings(uint8_t nr);
 
     bool isWork() { 
         return actWork != NOP; 
