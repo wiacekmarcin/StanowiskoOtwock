@@ -397,23 +397,23 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
     switch(work) {
     case SerialMessage::START_XY:
         ui->lStatus->setText("Ustawianie pozycji czujnika...");
-        ui->lStatusMinor->setText("Ustawianie pozycji czujnika.");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie czujnika.",5000);
         break;
     case SerialMessage::START_X:
-        ui->lStatusMinor->setText("Ustawianie pozycji czujnika na osi X.");
-        ui->statusbar->showMessage("Ustawianie pozycji czujnika. Rozpoczynam ustawianie czujnika na osi X.", 5000);
+        ui->lStatusMinor->setText("Oś pozioma.");
+        ui->statusbar->showMessage("Rozpoczynam ustawianie czujnika na osi X.", 5000);
         break;
     case SerialMessage::END_X:
-        ui->lStatusMinor->setText("Czujnik ustawiony na pozycji X.");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji czujnika. Zakończone ustawianie czujnika na osi X.", 5000);
         break;
     case SerialMessage::START_Y:
-        ui->lStatusMinor->setText("Ustawianie pozycji czujnika na osi Y.");
+        ui->lStatusMinor->setText("Oś pionowa");
         ui->statusbar->showMessage("Ustawianie pozycji czujnika. Rozpoczynam ustawianie czujnika na osi Y.", 5000);
         break;
     case SerialMessage::END_Y:
-        ui->lStatusMinor->setText("Czujnik ustawiony na pozycji Y.");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji czujnika. Zakończone ustawianie czujnika na osi Y.", 5000);
         break;
     case SerialMessage::END_XY:
@@ -431,7 +431,7 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
         ui->statusbar->showMessage("Zakończono ustawianie rolety na pozycji.",5000);
         break;
     case SerialMessage::ERROR_XY:
-        ui->lStatus->setText("Błąd pozycjonowania czujnika");
+        ui->lStatusMinor->setText("Błąd pozycjonowania czujnika");
         QMessageBox::critical(this, "Pozycjonowanie czujnika", "Nie udało się ustawić czujnika w pozycji zadanej.");
         return;
     case SerialMessage::ERROR_R:
@@ -446,23 +446,24 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
 {
     switch(work) {
     case SerialMessage::START_XY:
-        ui->lStatus->setText("Ustawianie pozycji bazowej czujnika.");
+        ui->lStatus->setText("Zerowanie pozycji czujnika...");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika.");
         break;
     case SerialMessage::START_X:
-        ui->lStatusMinor->setText("Ustawianie pozycji bazowej czujnika na osi X");
+        ui->lStatusMinor->setText("Oś pozioma.");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika. Rozpoczynam ustawianie czujnika na osi X.", 5000);
         break;
     case SerialMessage::END_X:
-        ui->lStatusMinor->setText("Czujnik ustawiony na pozycji bazowej dla osi X.");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika. Zakończone ustawianie czujnika na pozycji bazowej dla osi X.", 5000);
         break;
     case SerialMessage::START_Y:
-        ui->lStatusMinor->setText("Ustawianie pozycji bazowej czujnika na osi Y.");
+        ui->lStatusMinor->setText("Oś pionowa");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika. Rozpoczynam ustawianie czujnika na pozycji bazowe dla osi Y.", 5000);
         break;
     case SerialMessage::END_Y:
-        ui->lStatusMinor->setText("Czujnik ustawiony na pozycji bazowej dla osi Y.");
+        ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika. Zakończone ustawianie czujnika na pozycji bazowej dla osi Y.", 5000);
         break;
     case SerialMessage::END_XY:
@@ -495,7 +496,7 @@ void MiernikPrzeplywu::setParamsDone()
     debug("Ustawiono parametry.");
     widget->setConnect(true);
     widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-    emit setPositionHome();
+    setPositionHome();
     ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
 }
 

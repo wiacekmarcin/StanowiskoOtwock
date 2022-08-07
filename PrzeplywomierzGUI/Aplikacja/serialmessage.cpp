@@ -274,9 +274,7 @@ SerialMessage::~SerialMessage()
 
 void SerialMessage::handleReadyRead()
 {
-    qDebug() << "handelReadyRead";
     QByteArray readData = m_serialPort.readAll();
-    qDebug() << "read " << readData.size();
     emit debug(QString("Odebralem:")+QString(readData.toHex(' ').toStdString().c_str()));
 
     while (readData.size() > 0 ) {
@@ -333,7 +331,6 @@ void SerialMessage::connectToSerial()
 
             auto vendorId = serialPortInfo.vendorIdentifier();
             auto productId = serialPortInfo.productIdentifier();
-            qDebug() << vendorId << " : " << productId;
             if (vendorId == 6991 && productId == 37382 /*&& serialNumber == serialNumberKontroler*/) {
                 //if (sendMesgWelcome(serialPortInfo)) {
                 //    connSerial = true;
@@ -540,7 +537,7 @@ bool SerialMessage::openDevice(const QSerialPortInfo &port)
 
     debug("Otwieram port");
     if (!m_serialPort.open(QIODevice::ReadWrite)) {
-        qDebug() << "Nie mozna otworzyc portu";
+        emit debug("Nie mozna otworzyc portu");
         emit errorSerial(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(portName).arg(m_serialPort.errorString()));
         return false;
     }
