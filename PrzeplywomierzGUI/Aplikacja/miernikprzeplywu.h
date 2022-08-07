@@ -115,13 +115,10 @@ private:
     Wentylator *  widgetWentylator;
 
     SerialMessage sMsg;
-    bool connIsOk;
+    bool deviceConn;
+    bool deviceReady;
 
-    //uint32_t impx;
-    //uint32_t impy;
-
-    //int impmmx;
-    //int impmmy;
+    bool sendParams;
     void chooseWork();
 };
 #endif // MIERNIKPRZEPLYWU_H

@@ -28,7 +28,9 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     , modeWork(WyborMetody::MODE_NONE)
     , methodIns(WyborMetody::METHOD_NONE)
     , ust(u)
-    , connIsOk(false)
+    , deviceConn(false)
+    , deviceReady(false)
+    , sendParams(false)
 {
     ui->setupUi(this);
     widget = nullptr;
@@ -189,6 +191,7 @@ void MiernikPrzeplywu::calculateMechanika()
         mech.setReverseR(false);
         break;
     }
+    mech.setMaxKrokiR(160000);
     widget->setMechanika(mech);
     sMsg.setMechParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
@@ -325,7 +328,7 @@ void MiernikPrzeplywu::setUstawienia()
 void MiernikPrzeplywu::errorSerial(const QString & error)
 {
     sMsg.closeDevice();
-    connIsOk = false;
+    deviceConn = false;
     ui->statusserial->setText(QString("Błąd : %1").arg(error));
     ui->lStatus->setText("-");
     ui->lStatusMinor->setText("-");
@@ -348,7 +351,7 @@ void MiernikPrzeplywu::successOpenDevice(bool open)
         widget->setStatus("Nie udalo sie otworzyc portu");
         widget->setConnect(false);
         sMsg.closeDevice();
-        connIsOk = false;
+        deviceConn = false;
         widget->setConnect(false);
     }
 }
@@ -357,9 +360,9 @@ void MiernikPrzeplywu::controllerOK()
 {
     debug("controllerOk");
     ui->statusserial->setText("Sterownik OK");
-    connIsOk = true;
-
+    deviceConn = true;
     debug ("setParams");
+    ui->lStatus->setText("Ustawiam parametry...");
     emit setParams(mech.getReverseX(),mech.getReverseY(),mech.getReverseR(),
                    mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                    mech.getMaxKrokiX(), mech.getMaxKrokiY(), mech.getMaxKrokiR());
@@ -494,10 +497,12 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
 void MiernikPrzeplywu::setParamsDone()
 {
     debug("Ustawiono parametry.");
+    sendParams = true;
     widget->setConnect(true);
     widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-    setPositionHome();
     ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
+    setPositionHome();
+
 }
 
 void MiernikPrzeplywu::errorHome()

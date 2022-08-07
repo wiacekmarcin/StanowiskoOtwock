@@ -57,7 +57,6 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
             emit debug("welcome msg");
             emit controllerOK();
-            connectAndConfigureSlot(WELCOME_REP);
             return true;
         }
         case MOVEHOME_REP:
@@ -232,7 +231,6 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             }
             if (data[0] == (char)2) {
                 emit setParamsDone();
-                connectAndConfigureSlot(SET_PARAM_REP);
                 return true;
             }
             return false;
