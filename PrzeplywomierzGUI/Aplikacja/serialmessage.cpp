@@ -456,11 +456,6 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
     setSettings1(reverseX,reverseY,reverseR,maxImpX,maxImpY);
 }
 
-void SerialMessage::connectAndConfigure()
-{
-    connectAndConfigureSlot(NOP_MSG);
-}
-
 void SerialMessage::setMechParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxImpX, uint32_t maxImpY,
                               uint32_t maxStepX, uint32_t maxStepY,
@@ -506,40 +501,23 @@ void SerialMessage::response(const QByteArray &s)
     }
 }
 
-void SerialMessage::connectAndConfigureSlot(short response)
-{
-    /*
-    if (response == NOP_MSG) {
-        if (!connSerial)
-        {
-            connectToSerial();
-        }
-    } else {
-        setSettings1(memoryreverseX,memoryreverseY,memoryreverseR,memorymaxImpX,memorymaxImpY);
-    }
-    if (response == WELCOME_REP) {
-        setSettings1(memoryreverseX,memoryreverseY,memoryreverseR,memorymaxImpX,memorymaxImpY);
-    }
-    if (response == SET_PARAM_REP)
-    {
-        emit connectAndConfigureDone();
-    }
-    */
-}
-
 bool SerialMessage::openDevice(const QSerialPortInfo &port)
 {
+    if (m_serialPort.isOpen()) {
+        emit debug("Send welcome message");
+        writeMessage(welcomeMsg());
+        return true;
+    }
     m_serialPort.setPort(port);
     portName = port.portName();
     emit deviceName(portName);
 
-    debug("Otwieram port");
     if (!m_serialPort.open(QIODevice::ReadWrite)) {
         emit debug("Nie mozna otworzyc portu");
         emit errorSerial(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(portName).arg(m_serialPort.errorString()));
         return false;
     }
-    debug("Konfigureuje port");
+
     m_serialPort.setBaudRate(QSerialPort::Baud115200);
     m_serialPort.setDataBits(QSerialPort::Data8);
     m_serialPort.setFlowControl(QSerialPort::NoFlowControl);

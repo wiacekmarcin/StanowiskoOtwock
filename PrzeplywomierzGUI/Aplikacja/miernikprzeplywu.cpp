@@ -43,7 +43,6 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     connect(&sMsg, &SerialMessage::deviceName, this, &MiernikPrzeplywu::deviceName, Qt::QueuedConnection);
     connect(&sMsg, &SerialMessage::controllerOK, this, &MiernikPrzeplywu::controllerOK, Qt::QueuedConnection);
     connect(&sMsg, &SerialMessage::successOpenDevice, this, &MiernikPrzeplywu::successOpenDevice);
-    connect(&sMsg, &SerialMessage::connectAndConfigureDone, this, &MiernikPrzeplywu::connectAndConfigureDone);
 
     connect(&sMsg, &SerialMessage::setParamsDone, this, &MiernikPrzeplywu::setParamsDone);
 
@@ -64,16 +63,7 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     connect(this, &MiernikPrzeplywu::setRoletaSig, &sMsg, &SerialMessage::setRoleta, Qt::QueuedConnection);
     connect(this, &MiernikPrzeplywu::setParamsSig, &sMsg, &SerialMessage::setParams, Qt::QueuedConnection);
     connect(this, &MiernikPrzeplywu::readRadioSig, &sMsg, &SerialMessage::readRadio, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::connectAndConfigureSig, &sMsg, &SerialMessage::connectAndConfigure, Qt::QueuedConnection);
 
-    //ui->debug->setVisible(true);
-    /*
-    ui->widget_1000_2000lewe->setMiernikPrzeplywu(this);
-    ui->widget_1000_2000prawe->setMiernikPrzeplywu(this);
-    ui->widget_2700_3000->setMiernikPrzeplywu(this);
-    ui->widget_860_1500->setMiernikPrzeplywu(this);
-    ui->widget_wentylator->setMiernikPrzeplywu(this);
-    */
     chooseWork();
 }
 
@@ -148,15 +138,6 @@ void MiernikPrzeplywu::chooseTab()
 
     widget->setMiernikPrzeplywu(this);
 
-    /*
-    if (!chooseMethod(modeWork, methodIns, data)) {
-        qDebug() << "Aplication out";
-        emit QCoreApplication::exit(1);
-        close();
-        exit(1);
-        return;
-    }
-    */
     calculateMechanika();
 }
 void MiernikPrzeplywu::calculateMechanika()
@@ -318,7 +299,6 @@ void MiernikPrzeplywu::setUstawienia()
         mech.setWentKatNach(val7.toDouble());
 
 
-
     mech.calculate();
 }
 
@@ -353,6 +333,7 @@ void MiernikPrzeplywu::successOpenDevice(bool open)
         sMsg.closeDevice();
         deviceConn = false;
         widget->setConnect(false);
+        widget->setIsReady(false);
     }
 }
 
@@ -473,6 +454,11 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
         ui->lStatus->setText("Czujnik ustawiony na pozycji bazowej.");
         ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Czujnik ustawiony na pozycji bazowej.",5000);
+        if (sendParams) {
+            sendParams = false;
+            deviceReady = true;
+            widget->setIsReady(true);
+        }
         widget->positionDone(true);
         break;
     case SerialMessage::START_R:
@@ -513,11 +499,6 @@ void MiernikPrzeplywu::errorHome()
 void MiernikPrzeplywu::errorHomeRoleta()
 {
     debug("ERROR HOME ROLETA");
-}
-
-void MiernikPrzeplywu::connectAndConfigureDone()
-{
-
 }
 
 void MiernikPrzeplywu::debug(const QString & dbg)

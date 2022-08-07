@@ -83,10 +83,7 @@ private slots:
     void errorHome();
     void errorHomeRoleta();
 
-    void connectAndConfigureDone();
-
 signals:
-    void connectAndConfigureSig();
     void connectToDeviceSig();
     void setPositionHomeSig();
     void setPositionSig(uint32_t x, uint32_t y);
@@ -106,6 +103,7 @@ private:
 
     Ustawienia & ust;
     Ruch mech;
+    RoletaRuch mechR;
 
     TabWidget * widget;
     MierzonePozycje * widget2700;

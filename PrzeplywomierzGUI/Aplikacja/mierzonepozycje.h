@@ -43,20 +43,16 @@ public:
     void setValues(const float & val1);
     void setValue1(const float & val, const QString & unit);
 
-    bool getConnected() const;
-    void setConnected(bool newConnected);
-
     void status(const QString & st);
 
     void restart();
 
     const WyborMetodyData &getAllValues() const;
 
-    virtual void errorSerial(const QString &);
-    //virtual void positionStatus(bool base, SerialMessage::StatusWork work);
     virtual void positionDone(bool base);
     virtual void readedFromRadio(const double &);
     virtual void errorReadFromRadio();
+    virtual void setStop();
 
     void noweDane();
 
@@ -76,14 +72,18 @@ private slots:
 
 private:
     typedef enum _statusWork {
-        WAIT = 0,
+        WAIT_FOR_CONN = 0,
+        WAIT,
         FIRST_RUN,
         NEXT_POS,
         WAIT_POS,
         HOME_POS,
         WAIT_HPOS,
-        MEASURING,
+        START_MEASURING,
+        NOW_MEASURING,
+        END_MEASURING,
         NEXT_POS_AFTER_HPOS,
+        DONE
     } statusWorkEnum;
 
     typedef enum _cols {
@@ -107,7 +107,7 @@ private:
 
 
 
-    short actStatus;
+    short actWork;
     int actPos;
     Ruch mech;
 
@@ -116,11 +116,10 @@ private:
     double avg1;
     unsigned int cnt1;
 
+    unsigned int cntErr;
 
     QList<DaneWynikowe> m_listawynikowa;
 
-
-    bool connected;
     void setPos();
 };
 

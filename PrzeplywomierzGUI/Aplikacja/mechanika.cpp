@@ -1,5 +1,8 @@
 #include "mechanika.h"
 
+unsigned int RoletaRuch::obrotStala10xmm[14] = {0, 1013, 1059, 1089, 1124, 1158, 1186, 1219, 1255, 1284, 1321, 1350, 1387, 1419};
+
+
 Ruch::Ruch() :
     impulsyXperMM(24.96), impulsyYperMM(24.96), krokiXperMM(100), krokiYperMM(100),
     maxImpulsyX(0), maxImpulsyY(0), maxKrokiX(0), maxKrokiY(0), maxXmm(0), maxYmm(0),
@@ -8,7 +11,7 @@ Ruch::Ruch() :
     wentKatNach(3.85),
     reverseR(true)
 {
-     calculate();
+
 }
 
 void Ruch::setPrzestrzen(unsigned int xmm, unsigned int ymm)
@@ -53,6 +56,11 @@ void Ruch::calculate()
 
     timeoutX = (unsigned long) 2.05*maxKrokiX + 100; //2000+50 us
     timeoutY = (unsigned long) 2.05*maxKrokiY + 100;
+}
+
+void Ruch::setMaxKrokiR(unsigned long newMaxKrokiR)
+{
+    maxKrokiR = newMaxKrokiR;
 }
 
 unsigned int Ruch::getMaxYmm() const
@@ -159,3 +167,78 @@ void Ruch::setWentOffsetX(double value)
     wentOffsetX = value;
 }
 
+RoletaRuch::RoletaRuch() : krokiPerObrot(12000), maxKroki(13*12000)
+{
+
+}
+
+unsigned int RoletaRuch::getKrokiPerObrot() const
+{
+    return krokiPerObrot;
+}
+
+void RoletaRuch::setKrokiPerObrot(unsigned int newKrokiPerObrot)
+{
+    krokiPerObrot = newKrokiPerObrot;
+}
+
+unsigned long RoletaRuch::podniescMM(unsigned int mm)
+{
+    unsigned short n = 0;
+
+    if (mm > maxMM) {
+        return maxKroki;
+    }
+
+    unsigned long MM = 10*mm;
+    unsigned long obwod;
+    while (n < 13) {
+        obwod = obrotStala10xmm[n+1];
+        if (MM < obwod) {
+            return krokiPerObrot*n + (unsigned long)(12000*MM/obwod);
+        }
+        MM -= obwod;
+        ++n;
+    }
+    return maxKroki;
+}
+
+unsigned int RoletaRuch::getMaxMM() const
+{
+    return maxMM;
+}
+
+void RoletaRuch::setMaxMM(unsigned int newMaxMM)
+{
+    maxMM = newMaxMM;
+}
+
+unsigned long RoletaRuch::getMaxKroki() const
+{
+    return maxKroki;
+}
+
+void RoletaRuch::setMaxKroki(unsigned long newMaxKroki)
+{
+    maxKroki = newMaxKroki;
+}
+
+unsigned int RoletaRuch::getOffsetX() const
+{
+    return offsetX;
+}
+
+void RoletaRuch::setOffsetX(unsigned int newOffsetX)
+{
+    offsetX = newOffsetX;
+}
+
+unsigned int RoletaRuch::getOffsetY() const
+{
+    return offsetY;
+}
+
+void RoletaRuch::setOffsetY(unsigned int newOffsetY)
+{
+    offsetY = newOffsetY;
+}

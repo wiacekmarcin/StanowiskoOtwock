@@ -83,7 +83,6 @@ signals:
     //void timeoutSerial(QString, bool, QString);
 
     void debug(QString);
-    void connectAndConfigureDone();
 
 public slots:
     void handleReadyRead();
@@ -102,9 +101,6 @@ public slots:
                    uint32_t maxStepR);
 
 
-    void connectAndConfigure();
-
-
     void readRadio();
 
 protected:
@@ -118,7 +114,6 @@ protected:
     //void timeoutWrite(const QString &s);
     //void findPort(const QString &s);
 
-    void connectAndConfigureSlot(short response);
 protected:
     bool openDevice(const QSerialPortInfo & port);
 

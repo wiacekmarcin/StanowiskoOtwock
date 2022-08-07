@@ -27,7 +27,11 @@ void TabWidget::setConnect(bool newIsConnect)
 void TabWidget::setConnect(bool newIsConnect, const QString &error)
 {
     isConnect = newIsConnect;
-    emit debug(addTime(error));
+    if (!isConnect) {
+        isReady = false;
+        setStop();
+    }
+    debug(addTime(error));
 }
 
 const Ruch &TabWidget::getMechanika() const
@@ -65,9 +69,9 @@ void TabWidget::setInsData(const WyborMetody::MethodInsData & newInsData)
     insData = newInsData;
 }
 
-void TabWidget::errorSerial(const QString &)
+void TabWidget::errorSerial(const QString &err)
 {
-
+    setConnect(false, err);
 }
 
 void TabWidget::readedFromRadio(const double &)
@@ -152,6 +156,16 @@ void TabWidget::readRadio()
 QString TabWidget::addTime(const QString& status)
 {
     return QString("[%1] %2").arg(QTime::currentTime().toString("HH:mm:ss.zzz")).arg(status);
+}
+
+bool TabWidget::getIsReady() const
+{
+    return isReady;
+}
+
+void TabWidget::setIsReady(bool newIsReady)
+{
+    isReady = newIsReady;
 }
 
 void TabWidget::setMiernikPrzeplywu(MiernikPrzeplywu *newMiernikPrzeplywu)

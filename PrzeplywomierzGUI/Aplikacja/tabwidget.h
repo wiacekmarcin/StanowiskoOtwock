@@ -34,7 +34,7 @@ public:
     WyborMetody::MethodInsData getInsData() const;
     void setInsData(const WyborMetody::MethodInsData &newInsData);
 
-    virtual void errorSerial(const QString &);
+
     virtual void positionStatus(bool base, SerialMessage::StatusWork work);
     virtual void positionDone(bool base);
 
@@ -42,7 +42,9 @@ public:
     virtual void errorReadFromRadio();
 
     virtual void setStatus(const QString & st);
+    virtual void setStop();
 
+    void errorSerial(const QString &err);
     void connectToDevice();
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
@@ -58,6 +60,9 @@ public:
 
     void setMiernikPrzeplywu(MiernikPrzeplywu *newMiernikPrzeplywu);
 
+    bool getIsReady() const;
+    void setIsReady(bool newIsReady);
+
 protected:
     bool isConnect;
     Ruch mech;
@@ -68,6 +73,8 @@ protected:
     QString addTime(const QString &status);
 
     MiernikPrzeplywu * miernikPrzeplywu;
+
+    bool isReady;
 };
 
 #endif // TABWIDGET_H
