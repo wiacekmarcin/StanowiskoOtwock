@@ -72,6 +72,8 @@ private slots:
 
     void on_pbZapisz_clicked();
 
+    void on_pbRestart_clicked();
+
 private:
     typedef enum _statusWork {
         WAIT = 0,

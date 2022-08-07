@@ -22,16 +22,18 @@
 
 #define TABVISIBLE 0
 
-MiernikPrzeplywu::MiernikPrzeplywu()
+MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     : QMainWindow(NULL)
     , ui(new Ui::MiernikPrzeplywu)
     , modeWork(WyborMetody::MODE_NONE)
     , methodIns(WyborMetody::METHOD_NONE)
-    , ust(nullptr)
+    , ust(u)
     , connIsOk(false)
 {
     ui->setupUi(this);
     widget = nullptr;
+
+    setUstawienia();
 
     connect(&sMsg, &SerialMessage::errorSerial, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
     connect(&sMsg, &SerialMessage::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
@@ -219,7 +221,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(wp.getList());
             return true;
         } else if (methodIns == WyborMetody::METHOD_SQUERE) {
-            WyborKwadratow wk(this, values.numberWidth, values.numberWidth, values.timeStopAuto, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
+            WyborKwadratow wk(this, values.numberWidth, values.numberHeight, values.timeStopAuto, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
                                                                modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
             int r = wk.exec();
             if (r == 0) {
@@ -282,34 +284,33 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
     }
 }
 
-void MiernikPrzeplywu::setUstawienia(Ustawienia *u)
+void MiernikPrzeplywu::setUstawienia()
 {
-    ust = u;
-    auto val1 = ust->getImpulsyXperMM();
+    auto val1 = ust.getImpulsyXperMM();
     if (!val1.isEmpty())
         mech.setImpusyXPerMM(val1.toUInt());
 
-    auto val2 = ust->getImpulsyYperMM();
+    auto val2 = ust.getImpulsyYperMM();
     if (!val2.isEmpty())
         mech.setImpusyYPerMM(val2.toUInt());
 
-    auto val3 = ust->getKrokiXperMM();
+    auto val3 = ust.getKrokiXperMM();
     if (!val3.isEmpty())
         mech.setKrokiXPerMM(val3.toUInt());
 
-    auto val4 = ust->getKrokiYperMM();
+    auto val4 = ust.getKrokiYperMM();
     if (!val4.isEmpty())
         mech.setKrokiYPerMM(val4.toUInt());
 
-    auto val5 = ust->getOffsetX();
+    auto val5 = ust.getOffsetX();
     if (!val5.isEmpty())
         mech.setWentOffsetX(val5.toDouble());
 
-    auto val6 = ust->getOffsetY();
+    auto val6 = ust.getOffsetY();
     if (!val6.isEmpty())
         mech.setWentOffsetY(val6.toDouble());
 
-    auto val7 = ust->getKatnachylenia();
+    auto val7 = ust.getKatnachylenia();
     if (!val7.isEmpty())
         mech.setWentKatNach(val7.toDouble());
 
@@ -371,9 +372,9 @@ void MiernikPrzeplywu::readedFromRadio(int value)
 {
     debug(QString("Read radio %1").arg(value));
     ui->lradio->setText(QString("Widoczny"));
-    ui->lcz1mv->setText(QString::number(ust->getRatioCzujnik1().toDouble()*value, 'g', 4));
-    ui->lcz1unit->setText(ust->getUnitCzujnik1());
-    widget->readedFromRadio(ust->getRatioCzujnik1().toDouble()*value);
+    ui->lcz1mv->setText(QString::number(ust.getRatioCzujnik1().toDouble()*value, 'g', 4));
+    ui->lcz1unit->setText(ust.getUnitCzujnik1());
+    widget->readedFromRadio(ust.getRatioCzujnik1().toDouble()*value);
 }
 
 void MiernikPrzeplywu::errorReadFromRadio()
@@ -570,16 +571,20 @@ WyborMetody::ModeWork MiernikPrzeplywu::getModeWork() const
 {
     return modeWork;
 }
-/*
+
 void MiernikPrzeplywu::noweDane()
 {
-    WyborMetody::ModeWork actWork = modeWork;
-    modeWork = WyborMetody::MODE_SERVICE;
+    //WyborMetody::ModeWork actWork = modeWork;
+    //modeWork = WyborMetody::MODE_SERVICE;
+    qDebug() << __FILE__ << __LINE__;
     sMsg.closeDevice();
+    //QCoreApplication::exit(1);
+    //exit(1);
     //if (widget)
     //    widget->restart();
     //on_tabWidget_currentChanged(actWork);
     //sMsg.closeDevice();
+    chooseWork();
 }
-*/
+
 

@@ -13,15 +13,23 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    int ar = 0;
-    WyborMetody::ModeWork mode = WyborMetody::MODE_NONE;
-    WyborMetody::MethodInsData method = WyborMetody::METHOD_NONE;
+    //int ar = 0;
+    //WyborMetody::ModeWork mode = WyborMetody::MODE_NONE;
+    //WyborMetody::MethodInsData method = WyborMetody::METHOD_NONE;
 
     Ustawienia u;
     u.read();
-    MiernikPrzeplywu w;
-    w.setUstawienia(&u);
-    qDebug() << "exec";
+
+
+    //do {
+        MiernikPrzeplywu w(u);
+        //ar = w.exec();
+        //qDebug() << "exec" << ar;
+        //mode = w.getModeWork();
+        //method = w.getMethodIns();
+    //} while (ar != 0);
+    //return ar;
+
     //w.exec();
     return a.exec();
 /*

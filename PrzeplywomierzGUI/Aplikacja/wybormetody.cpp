@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
+#include <QDebug>
 
 WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData ins) :
     QDialog(parent),
@@ -37,7 +38,8 @@ WyborMetody::~WyborMetody()
 
 void WyborMetody::init()
 {
-    on_rbfile_toggled(true);
+    qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
+    on_rbfile_toggled(false);
     on_rbmanual_toggled(false);
     on_rbhalfmanual_toggled(false);
     setEnabledContinue(false);
@@ -104,18 +106,6 @@ void WyborMetody::init()
             visibleRoleta(true);
             ui->gbMethod->setVisible(true);
         break;
-/*
-        case MODE_ROLETAPLIK:
-            ui->rb2700->setChecked(false);
-            ui->rb1000p->setChecked(false);
-            ui->rb1000l->setChecked(false);
-            ui->rbFunSet->setChecked(false);
-            ui->rbRoleta->setChecked(true);
-            visibleOther(false);
-            visibleRoleta(true);
-            ui->gbMethod->setVisible(true);
-            break;
-*/
     default:
         break;
     }
@@ -124,15 +114,25 @@ void WyborMetody::init()
 
 void WyborMetody::initMethodPosition()
 {
+    qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
     switch(wbInsData)
     {
     case METHOD_FILE:
+        ui->rbmanual->setChecked(false);
+        ui->rbhalfmanual->setChecked(false);
+        ui->rbfile->setChecked(true);
         on_rbfile_toggled(true);
         break;
     case METHOD_MANUAL:
+        ui->rbhalfmanual->setChecked(false);
+        ui->rbfile->setChecked(false);
+        ui->rbmanual->setChecked(true);
         on_rbmanual_toggled(true);
         break;
     case METHOD_SQUERE:
+        ui->rbmanual->setChecked(false);
+        ui->rbfile->setChecked(false);
+        ui->rbhalfmanual->setChecked(true);
         on_rbhalfmanual_toggled(true);
         break;
     default:
@@ -148,6 +148,7 @@ void WyborMetody::on_rbfile_toggled(bool checked)
     ui->frManual->setDisabled(checked);
     if (checked) {
         wbInsData = METHOD_FILE;
+        setEnabledContinue(!getFileName().isEmpty());
     } else {
         return;
     }
@@ -290,7 +291,6 @@ bool WyborMetody::isValidIloscRolety(QLineEdit *number)
     return true;
 }
 
-
 void WyborMetody::visibleRoleta(bool visible)
 {
     ui->frRoletaInfo->setVisible(visible);
@@ -336,7 +336,6 @@ void WyborMetody::setData(const WyborMetodyData &newData)
 void WyborMetody::setWbMode(ModeWork newWbMode)
 {
     wbMode = newWbMode;
-
 }
 
 void WyborMetody::setWbMetoda(MethodInsData newWbMetoda)
@@ -464,8 +463,9 @@ void WyborMetody::on_timeManualDefault_editingFinished()
     setEnabledContinue(isValidManualParameters());
 }
 
-void WyborMetody::on_buttonBox_rejected()
+void WyborMetody::reject()
 {
+    qDebug() << __FILE__ << __LINE__ << __FUNCTION__;
     QMessageBox::StandardButton resBtn = QMessageBox::Yes;
     resBtn = QMessageBox::question( this, "Przeplywomierz",
                                         tr("Czy jesteś pewny?\n"),
@@ -474,15 +474,7 @@ void WyborMetody::on_buttonBox_rejected()
 
     if (resBtn == QMessageBox::Yes) {
         QCoreApplication::exit(0);
-    } else {
-        //QDialog::accept();
     }
-}
-
-void WyborMetody::reject()
-{
-    on_buttonBox_rejected();
-
 }
 
 unsigned int WyborMetody::getNumberHeight() const

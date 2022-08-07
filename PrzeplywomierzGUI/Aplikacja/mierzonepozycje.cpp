@@ -14,6 +14,7 @@
 #include "wybranyplik.h"
 #include "wyborkwadratow.h"
 #include "recznedodpozycji.h"
+#include "miernikprzeplywu.h"
 
 MierzonePozycje::MierzonePozycje(QWidget *parent) :
     TabWidget(parent),
@@ -37,10 +38,10 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     connected = false;
     timer->setInterval(1000);
 
-    ui->pbNoweDane->setVisible(true);
-    //ui->pbNoweDane->setEnabled(false);
+    ui->pbRestart->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
     started = false;
+    adjustSize();
 }
 
 MierzonePozycje::~MierzonePozycje()
@@ -237,9 +238,9 @@ const WyborMetodyData &MierzonePozycje::getAllValues() const
 void MierzonePozycje::errorSerial(const QString &)
 {
     ui->pbNoweDane->setEnabled(true);
+    ui->pbRestart->setEnabled(true);
     timer->stop();
     ui->pbZapisz->setEnabled(true);
-    ui->table->item(actPos, col_status)->setText("Błąd sterownika");
     ui->status->setText("Wystąpił błąd sterownika. Przerywam pracę.");
 }
 
@@ -307,7 +308,8 @@ void MierzonePozycje::on_pbStart_clicked()
 
 void MierzonePozycje::on_pbNoweDane_clicked()
 {
-    QCoreApplication::exit(1);
+    if (miernikPrzeplywu)
+        TabWidget::miernikPrzeplywu->noweDane();
 }
 
 
@@ -335,5 +337,11 @@ void MierzonePozycje::on_pbZapisz_clicked()
         out << d.x << ";" << d.y << ";" << d.time << ";" << d.val1 << "\n";
     }
     file.close();
+}
+
+
+void MierzonePozycje::on_pbRestart_clicked()
+{
+
 }
 

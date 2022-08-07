@@ -18,16 +18,16 @@
     <widget class="QWidget" name="widget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pbNoweDane">
+       <widget class="QPushButton" name="pbStart">
         <property name="text">
-         <string>Nowe dane</string>
+         <string>Start</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pbStart">
+       <widget class="QPushButton" name="pbRestart">
         <property name="text">
-         <string>Start</string>
+         <string>Restart</string>
         </property>
        </widget>
       </item>
@@ -48,6 +48,13 @@
        <widget class="QPushButton" name="pbZapisz">
         <property name="text">
          <string>Zapisz Dane</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbNoweDane">
+        <property name="text">
+         <string>Nowe dane</string>
         </property>
        </widget>
       </item>

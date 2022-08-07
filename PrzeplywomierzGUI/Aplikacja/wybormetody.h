@@ -107,8 +107,6 @@ private slots:
 
     void on_timeManualDefault_editingFinished();
 
-    void on_buttonBox_rejected();
-
     void on_timeAuto_editingFinished();
 
     void on_numberAuto_editingFinished();

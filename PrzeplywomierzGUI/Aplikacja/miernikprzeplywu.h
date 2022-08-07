@@ -27,12 +27,10 @@ class MiernikPrzeplywu : public QMainWindow
     Q_OBJECT
 
 public:
-    MiernikPrzeplywu();
+    MiernikPrzeplywu(Ustawienia & ust);
     ~MiernikPrzeplywu();
 
     void closeEvent (QCloseEvent *event);
-
-    void setUstawienia(Ustawienia * u);
 
     bool chooseMethod(const WyborMetody::ModeWork &modeWork, const WyborMetody::MethodInsData &methodIns, const WyborMetodyData &values);
     WyborMetody::ModeWork getModeWork() const;
@@ -52,6 +50,7 @@ public:
                                                                 uint32_t maxStepR);
     void readRadio();
 
+    void noweDane();
 public slots:
     void debug(const QString &);
     void debugClear();
@@ -64,6 +63,7 @@ protected:
     QString addTime(QString status);
 
 
+    void setUstawienia();
 private slots:
 
 
@@ -104,7 +104,7 @@ private:
     WyborMetody::MethodInsData methodIns;
     WyborMetodyData data;
 
-    Ustawienia * ust;
+    Ustawienia & ust;
     Ruch mech;
 
     TabWidget * widget;
