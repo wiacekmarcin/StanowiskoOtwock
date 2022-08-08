@@ -99,6 +99,11 @@ void TabWidget::setStatus(const QString &)
 
 }
 
+void TabWidget::setStop()
+{
+
+}
+
 void TabWidget::connectToDevice()
 {
     if (miernikPrzeplywu)

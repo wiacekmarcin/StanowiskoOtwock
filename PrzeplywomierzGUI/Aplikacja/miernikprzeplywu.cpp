@@ -31,6 +31,7 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     , deviceConn(false)
     , deviceReady(false)
     , sendParams(false)
+    , checkRadio(false)
 {
     ui->setupUi(this);
     widget = nullptr;
@@ -355,9 +356,17 @@ void MiernikPrzeplywu::controllerOK()
 void MiernikPrzeplywu::readedFromRadio(int value)
 {
     debug(QString("Read radio %1").arg(value));
-    ui->lradio->setText(QString("Widoczny"));
+    if (checkRadio) {
+        checkRadio = false;
+        widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
+        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
+        ui->lradio->setText(QString("Widoczny"));
+        setPositionHome();
+        return;
+    }
     ui->lcz1mv->setText(QString::number(ust.getRatioCzujnik1().toDouble()*value, 'g', 4));
     ui->lcz1unit->setText(ust.getUnitCzujnik1());
+    ui->lStatusMinor->setText("Trwa pomiar....");
     widget->readedFromRadio(ust.getRatioCzujnik1().toDouble()*value);
 }
 
@@ -367,7 +376,12 @@ void MiernikPrzeplywu::errorReadFromRadio()
     ui->lradio->setText(QString("Błąd odczytu"));
     ui->lcz1mv->setText("---");
     ui->lcz1unit->setText("---");
-    widget->errorReadFromRadio();
+    if (checkRadio) {
+        checkRadio = false;
+        setPositionHome();
+    } else {
+        widget->errorReadFromRadio();
+    }
 }
 
 void MiernikPrzeplywu::deviceName(QString portname)
@@ -382,6 +396,8 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
     case SerialMessage::START_XY:
         ui->lStatus->setText("Ustawianie pozycji czujnika...");
         ui->lStatusMinor->setText("--");
+        ui->lcz1mv->setText("--");
+        ui->lcz1unit->setText("--");
         ui->statusbar->showMessage("Ustawianie czujnika.",5000);
         break;
     case SerialMessage::START_X:
@@ -433,6 +449,8 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
         ui->lStatus->setText("Zerowanie pozycji czujnika...");
         ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Ustawianie pozycji bazowej czujnika.");
+        ui->lcz1mv->setText("--");
+        ui->lcz1unit->setText("--");
         break;
     case SerialMessage::START_X:
         ui->lStatusMinor->setText("Oś pozioma.");
@@ -485,9 +503,17 @@ void MiernikPrzeplywu::setParamsDone()
     debug("Ustawiono parametry.");
     sendParams = true;
     widget->setConnect(true);
-    widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-    ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
-    setPositionHome();
+
+    if (modeWork == WyborMetody::MODE_FUNSET) {
+        widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
+        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
+        setPositionHome();
+    } else {
+        widget->setStatus(QString("Zakończono konfigurację urządzenia. Sprawdzam połączenie z modułem radiowym"));
+        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Sprawdzam połączenie z modułem radiowym...."));
+        checkRadio = true;
+        readRadio();
+    }
 
 }
 

@@ -117,6 +117,7 @@ private:
     bool deviceReady;
 
     bool sendParams;
+    bool checkRadio;
     void chooseWork();
 };
 #endif // MIERNIKPRZEPLYWU_H

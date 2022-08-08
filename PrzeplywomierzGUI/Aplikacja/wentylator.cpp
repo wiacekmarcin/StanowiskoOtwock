@@ -83,6 +83,11 @@ void Wentylator::positionDone(bool home)
     }
 }
 
+void Wentylator::setStop()
+{
+
+}
+
 bool Wentylator::sprawdz()
 {
     QString sx = ui->leX->text();

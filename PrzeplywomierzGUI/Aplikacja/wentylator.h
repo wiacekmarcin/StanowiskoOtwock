@@ -18,6 +18,7 @@ public:
     bool chooseMethod(const WyborMetody::ModeWork & work, const WyborMetody::MethodInsData & data, const WyborMetodyData &values);
 
     virtual void positionDone(bool home);
+    virtual void setStop();
 protected:
     void ustaw();
     bool sprawdz();

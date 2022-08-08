@@ -39,8 +39,6 @@ public:
     bool chooseMethod(const WyborMetody::ModeWork & work, const WyborMetody::MethodInsData & data, const WyborMetodyData &values);
     void setList(const Pozycje &pos);
 
-
-    void setValues(const float & val1);
     void setValue1(const float & val, const QString & unit);
 
     void status(const QString & st);
