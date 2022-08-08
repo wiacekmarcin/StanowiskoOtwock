@@ -6,12 +6,11 @@
 #include <QMessageBox>
 #include <QDebug>
 
-WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData ins) :
+WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns) :
     QDialog(parent),
     ui(new Ui::WyborMetody),
-    wbInsData(ins),
+    wbInsData(dataIns),
     wbMode(mode)
-
 {
     data.timeStopManual = 0;
     data.timeStopAuto = 0;
@@ -333,6 +332,17 @@ void WyborMetody::setData(const WyborMetodyData &newData)
     data = newData;
 }
 
+void WyborMetody::setUstawienia(Ustawienia *u)
+{
+    ust = u;
+    ui->normaOffsetX->setText(u->getRolOffsetX());
+    ui->normaOffsetXEdit->setText(u->getRolOffsetX());
+    ui->normaOffsetY->setText(u->getRolOffsetY());
+    ui->normaOffsetYEdit->setText(u->getRolOffsetY());
+    data.offsetX = u->getRolOffsetX().toUInt();
+    data.offsetY = u->getRolOffsetY().toUInt();
+}
+
 void WyborMetody::setWbMode(ModeWork newWbMode)
 {
     wbMode = newWbMode;
@@ -646,13 +656,19 @@ void WyborMetody::on_pbNormaOffsetSave_clicked()
     if (ok && val >= 0) {
         ui->normaOffsetX->setText(ui->normaOffsetXEdit->text());
         data.offsetX = val;
+    } else {
+        return;
     }
 
     val = ui->normaOffsetYEdit->text().toInt(&ok);
     if (ok && val >= 0) {
         ui->normaOffsetY->setText(ui->normaOffsetYEdit->text());
         data.offsetY = val;
+    } else {
+        return;
     }
+    ust->setRolOffsetX(QString::number(data.offsetX));
+    ust->setRolOffsetY(QString::number(data.offsetY));
 }
 
 

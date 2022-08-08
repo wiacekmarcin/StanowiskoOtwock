@@ -440,13 +440,15 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;
     memoryreverseR = reverseR;
-    memorymaxImpX = maxImpX;
-    memorymaxImpY = maxImpY;
+    //memorymaxImpX = maxImpX;
+    //memorymaxImpY = maxImpY;
 
+    memorymaxImpX = 300000L;
+    memorymaxImpY = 300000L;
 
-    memoryStepX = maxStepX;
-    memoryStepY = maxStepY;
-    memoryStepR = maxStepR;
+    memoryStepX = 300000L;
+    memoryStepY = 300000L;
+    memoryStepR = 300000L;
 
 #ifdef SYMULATOR
     qSleep(500);
@@ -464,13 +466,19 @@ void SerialMessage::setMechParams(bool reverseX, bool reverseY, bool reverseR,
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;
     memoryreverseR = reverseR;
-    memorymaxImpX = maxImpX;
-    memorymaxImpY = maxImpY;
+    memorymaxImpX = 700000L;
+    memorymaxImpY = 700000L;
+    //memorymaxImpX = maxImpX;
+    //memorymaxImpY = maxImpY;
 
 
-    memoryStepX = maxStepX;
-    memoryStepY = maxStepY;
-    memoryStepR = maxStepR;
+    //memoryStepX = maxStepX;
+    //memoryStepY = maxStepY;
+    //memoryStepR = maxStepR;
+
+    memoryStepX = 700000L;
+    memoryStepY = 700000L;
+    memoryStepR = 700000L;
 
 }
 

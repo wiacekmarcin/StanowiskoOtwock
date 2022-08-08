@@ -80,6 +80,7 @@ void MiernikPrzeplywu::chooseWork()
     do {
         qDebug() << "New wyborMethody";
         WyborMetody m(this, modeWork, methodIns);
+        m.setUstawienia(&ust);
         int r = m.exec();
         if (r == 0) {
             QApplication::quit();
@@ -230,9 +231,13 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         PozycjeRoleta * w = static_cast<PozycjeRoleta*>(widget);
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
+            qDebug()<< __FILE__ << __LINE__ <<
+                       values.etapNrRoleta << values.timeStopRoleta <<
+                       values.stableTimeRoleta << 1500 << 850 <<
+                       values.offsetX << values.offsetY;
             PodzialEtapuRolety * pdr = new PodzialEtapuRolety(this, values.etapNrRoleta, values.timeStopRoleta,
-                                                              values.stableTimeRoleta, 1500, 850,
-                                                              values.offsetX, values.offsetY);
+                                  values.stableTimeRoleta, 1500, 870,
+                                  values.offsetX, values.offsetY);
             int r = pdr->exec();
             if (r == 0) {
                 return false;

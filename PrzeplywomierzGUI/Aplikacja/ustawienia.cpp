@@ -44,6 +44,10 @@ void Ustawienia::read()
     rolReadN(11);
     rolReadN(12);
     rolReadN(13);
+
+    rolOffsetX = settings.value("roleta_offset_x").toString();
+    rolOffsetY = settings.value("roleta_offset_y").toString();
+
 }
 
 #define rolWriteN(N) settings.setValue("rol_obrot"#N, QVariant::fromValue(rolObrot##N))
@@ -62,7 +66,7 @@ void Ustawienia::write()
 
     settings.setValue("katnachylenia", QVariant::fromValue(katnachylenia));
     settings.setValue("offsetx", QVariant::fromValue(offsetX));
-    settings.setValue("offsetY", QVariant::fromValue(offsetY));
+    settings.setValue("offsety", QVariant::fromValue(offsetY));
 
     settings.setValue("rol_dlugoscMM", QVariant::fromValue(rolDlugosc));
     settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
@@ -80,6 +84,9 @@ void Ustawienia::write()
     rolWriteN(11);
     rolWriteN(12);
     rolWriteN(13);
+
+    settings.setValue("rol_offset_x", QVariant::fromValue(offsetX));
+    settings.setValue("rol_offset_y", QVariant::fromValue(offsetY));
 
 }
 
@@ -206,12 +213,35 @@ void Ustawienia::setRolStepObrot(const QString &newRolImpObrot)
     settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
 }
 
+QString Ustawienia::getRolOffsetX() const
+{
+    return rolOffsetX;
+}
+
+void Ustawienia::setRolOffsetX(const QString &value)
+{
+    rolOffsetX = value;
+    settings.setValue("roleta_offset_x", QVariant::fromValue(rolOffsetX));
+
+}
+
+QString Ustawienia::getRolOffsetY() const
+{
+    return rolOffsetY;
+}
+
+void Ustawienia::setRolOffsetY(const QString &value)
+{
+    rolOffsetY = value;
+    settings.setValue("roleta_offset_y", QVariant::fromValue(rolOffsetY));
+}
+
 #define RolObrotDefN(N) \
-const QString &Ustawienia::getRolObrot##N() const \
+    const QString &Ustawienia::getRolObrot##N() const \
 {\
     return rolObrot##N;\
-}\
-void Ustawienia::setRolObrot##N(const QString &newRolObrot##N)\
+    }\
+    void Ustawienia::setRolObrot##N(const QString &newRolObrot##N)\
 {\
     rolObrot##N = newRolObrot##N;\
     settings.setValue("rol_obrot"#N, QVariant::fromValue(rolObrot##N));\

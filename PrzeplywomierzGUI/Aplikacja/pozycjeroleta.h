@@ -130,6 +130,7 @@ private:
     unsigned int ymm;
 
     QList<DaneWynikoweRoleta> m_listawynikowa;
+    RoletaRuch rolRuch;
 };
 
 #endif // POZYCJEROLETA_H

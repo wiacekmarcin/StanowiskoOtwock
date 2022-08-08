@@ -67,6 +67,12 @@ public:
     RolObrotN(12)
     RolObrotN(13)
 
+    QString getRolOffsetX() const;
+    void setRolOffsetX(const QString &value);
+
+    QString getRolOffsetY() const;
+    void setRolOffsetY(const QString &value);
+
 private:
     QSettings settings;
 
@@ -103,6 +109,8 @@ private:
     QString rolObrot12;
     QString rolObrot13;
 
+    QString rolOffsetX;
+    QString rolOffsetY;
 };
 
 #endif // USTAWIENIA_H

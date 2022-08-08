@@ -234,9 +234,10 @@ void PozycjeRoleta::update()
         }
         stableTime = ui->table->item(actPos, col_stableTime)->text().toUInt();
         unsigned int rmm = ui->table->item(actPos, col_rmm)->text().toUInt();
+        debug(QString("Ustawiam rolete na %1 mm").arg(rmm));
         actWork = ROLETAWAIT;
         ui->status->setText("Ustawiam wysokość rolety");
-        setRoleta(rmm);
+        setRoleta(rolRuch.podniescMM(rmm));
 
         return;
     }
@@ -273,17 +274,20 @@ void PozycjeRoleta::update()
             unsigned int rmm = ui->table->item(actPos, col_rmm)->text().toUInt();
             actWork = ROLETAWAIT;
             ui->status->setText("Ustawiam wysokość rolety");
-            setRoleta(rmm);
+            debug(QString("Ustawiam wysokośc rolety na %1 mm").arg(rmm));
+            setRoleta(rolRuch.podniescMM(rmm));
         } else if (ui->table->item(actPos, col_action)->text() == QString("P")) {
             ui->status->setText("Ustawiam pozycje czujnika");
             xmm = ui->table->item(actPos, col_xmm)->text().toUInt();
             ymm = ui->table->item(actPos, col_ymm)->text().toUInt();
             actCzas = ui->table->item(actPos, col_measTime)->text().toUInt();
+            debug(QString("Ustawiam pozycje %1 %2").arg(xmm).arg(ymm));
             actWork = WAIT_POS;
             setPos();
         }
         return;
     }
+/*
     case NEXT_POS_AFTER_HPOS:
     {
         debug("actWork NEXT_POS_AFTER_HPOS");
@@ -292,6 +296,7 @@ void PozycjeRoleta::update()
         setPos();
         return;
     }
+*/
     case START_MEASURING:
     {
         debug("actWork START_MEASURING");
@@ -418,6 +423,8 @@ void PozycjeRoleta::readedFromRadio(const double &val)
 
 void PozycjeRoleta::errorReadFromRadio()
 {
+    setValue1(0, "m/s");
+    /*
     debug(QString("Read Error %1").arg(cntErr + 1));
     if (++cntErr > 3) {
         timer->stop();
@@ -426,6 +433,7 @@ void PozycjeRoleta::errorReadFromRadio()
     } else {
         readRadio();
     }
+    */
 }
 
 void PozycjeRoleta::setStop()

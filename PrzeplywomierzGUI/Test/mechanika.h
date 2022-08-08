@@ -52,11 +52,12 @@ private:
     unsigned long timeoutX; //ilosc czasu potrzebnego w ms na ruch liczony maks ilosc krokow razy 2ms
     unsigned long timeoutY;
 };
-
+/*
 #define ObrotN(N) void setObrot##N(const QString & obr##N) { obrotStala10xmm[N]=10*obr##N.toUInt(); }\
     unsigned int getObrotx10##N() const { return obrotStala10xmm[N]; } \
     float getObrot##N() const { return 0.1*obrotStala10xmm[N]; }
-
+*/
+#define ObrotN(N)
 class RoletaRuch {
 public:
     RoletaRuch();

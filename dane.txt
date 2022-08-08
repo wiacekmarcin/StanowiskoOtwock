@@ -1,0 +1,405 @@
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI zakończone kodem 0
+
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+../Aplikacja/miernikprzeplywu.cpp 234 3 15 5 1500 850 115 1752
+../Aplikacja/podzialetapurolety.cpp 24 115 1752
+SetInit 3 1500 870 15 5
+ofsset 115 1752
+appendPoints REtap= 0  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 463 ) =  1714
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 356 ) =  1607
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 250 ) =  1502
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 144 ) =  1396
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 37 ) =  1289
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 463 ) =  1714
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 356 ) =  1607
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 250 ) =  1502
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 144 ) =  1396
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 37 ) =  1289
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 463 ) =  1714
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 356 ) =  1607
+nx= 0 ( 435 ) =  550
+ny= 0 ( 250 ) =  1502
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 144 ) =  1396
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 37 ) =  1289
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 463 ) =  1714
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 356 ) =  1607
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 250 ) =  1502
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 144 ) =  1396
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 37 ) =  1289
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 463 ) =  1714
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 356 ) =  1607
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 250 ) =  1502
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 144 ) =  1396
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 37 ) =  1289
+appendPoints REtap= 1  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1000
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 926 ) =  1677
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 712 ) =  1463
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 500 ) =  1252
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 288 ) =  1040
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 74 ) =  826
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 926 ) =  1677
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 712 ) =  1463
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 500 ) =  1252
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 288 ) =  1040
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 74 ) =  826
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 926 ) =  1677
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 712 ) =  1463
+nx= 0 ( 435 ) =  550
+ny= 0 ( 500 ) =  1252
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 288 ) =  1040
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 74 ) =  826
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 926 ) =  1677
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 712 ) =  1463
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 500 ) =  1252
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 288 ) =  1040
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 74 ) =  826
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 926 ) =  1677
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 712 ) =  1463
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 500 ) =  1252
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 288 ) =  1040
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 74 ) =  826
+appendPoints REtap= 2  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 750 ) =  1002
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 432 ) =  684
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 111 ) =  363
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 750 ) =  1002
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 432 ) =  684
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 111 ) =  363
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 1389 ) =  1640
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 1068 ) =  1319
+nx= 0 ( 435 ) =  550
+ny= 0 ( 750 ) =  1002
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 432 ) =  684
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 111 ) =  363
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 750 ) =  1002
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 432 ) =  684
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 111 ) =  363
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 750 ) =  1002
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 432 ) =  684
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 111 ) =  363
+Start work. Isconnected 0
+"Open device open = 1"
+"Znaleziono urządzenie, próbuje go otworzyć"
+"DeviceName = ttyACM0"
+"Send welcome message"
+"Odebralem:2f 4b 4f 4e 54 52 4f 4c 45 52 57 49 41 54 52 32 dc"
+"Parsuje komende: [2f4b4f4e54524f4c4552574941545232dc]"
+"welcome msg"
+"controllerOk"
+"setParams"
+"Ustawiam pararametry (1) revX=1 revY=0 revR=1, maxImpX=21216 maxImpY=37440 [3a0105000052e000009240a7]"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:41 01 49"
+"Parsuje komende: [410149]"
+"Ustawiam pararametry (2) maxStepX=85000 maxStepY=150000 maxStepR=160000 [3d0200014c08000249f00002710053]"
+"Ustawiono parametry."
+"Odebralem:41 02 40"
+"Parsuje komende: [410240]"
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork WAIT_FOR_CONN
+"Read radio 0"
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+"Ustawiam pozycje startową [715000]"
+"Odebralem:81 73 fd"
+"Parsuje komende: [8173fd]"
+"Rozpoczynam pozycjonowanie bazowe"
+"Odebralem:81 6c"
+"Odebralem:a0"
+"Parsuje komende: [816ca0]"
+"Rozpoczynam pozycjonowanie bazowe osi X"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:85 50 00 00 2d 19 93"
+"Parsuje komende: [855000002d1993]"
+"Pozycjonowanie osi X zakończone. Kroki = 11545"
+actWork WAIT_FOR_CONN
+"Odebralem:81 64 98"
+"Parsuje komende: [816498]"
+"Rozpoczynam pozycjonowanie bazowe osi Y"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:85 47 00"
+"Odebralem:00 93 08 66"
+"Parsuje komende: [85470000930866]"
+"Pozycjonowanie osi Y zakończone. Kroki = 37640"
+position Done home=1
+"Odebralem:81 4b 55"
+"Parsuje komende: [814b55]"
+"Pozycjonowa bazowe zakończone"
+actWork WAIT_FOR_CONN
+"Ustawiam pozycję bazową rolety [71520e]"
+"71520e"
+"Odebralem:81 72 fa"
+"Parsuje komende: [8172fa]"
+"Rozpoczynam pozycjonowanie rolety"
+"Odebralem:85 52 00 00 00 00 5f"
+"Parsuje komende: [8552000000005f]"
+"Pozycjonowanie rolety zakończone. Kroki = 0"
+actWork FIRST_RUN
+Row count 78
+is row R = R
+"Ustawiam pozycje rolety r=500 [5552000001f48c]"
+"5552000001f48c"
+"Odebralem:61 72 b9"
+"Parsuje komende: [6172b9]"
+"Ustawienia rolety zakończone"
+"Odebralem:69 52 00 00 01 f5 00"
+"Odebralem:00 01 f5 34"
+"Parsuje komende: [6952000001f5000001f534]"
+"Ustawianie rolety zakończone. Kroki = 501. Pozycja = 501 (0 %"
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1714) => (22963,42781)
+"Ustawiam pozycje x=22963, y=42781 [59500000a71d000059b305]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 02 49 f0 00"
+"Odebralem:02 49 f0 78"
+"Parsuje komende: [6947000249f0000249f078]"
+"Ustawianie na osi Y zakończone. Kroki = 150000. Pozycja = 150000 (400 %"
+actWork WAIT...
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...

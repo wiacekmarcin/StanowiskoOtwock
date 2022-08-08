@@ -186,7 +186,7 @@ bool returnBaseX()
     if (!getHomePosX()) {
         
         while (!getHomePosX() && ++step < gStepMaxX) {
-            stepX(20, 300);
+            stepX(50, 400);
         }
         if (!getHomePosX()) {
             msg.setErrorHomeBack();
@@ -197,7 +197,7 @@ bool returnBaseX()
         uint8_t idx = 200;
         step+=200;
         while (--idx) {
-            stepX(20, 500);
+            stepX(50, 1000);
         }
     }
     msg.sendRetHomeXDone(step);
@@ -228,7 +228,7 @@ bool returnBaseY()
     if (!getHomePosY()) {
         
         while (!getHomePosY() && ++step < gImpMaxY) {
-            stepY(20, 300);
+            stepY(50, 400);
         }
         if (!getHomePosX()) {
             msg.setErrorHomeBack();
@@ -240,7 +240,7 @@ bool returnBaseY()
         uint8_t idx = 200;
         step += 200;
         while (--idx) {
-            stepY(20,500);
+            stepY(50,1000);
         }
     }
     msg.sendRetHomeYDone(step);
@@ -270,7 +270,7 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            stepR(20, 200);
+            stepR(50, 200);
         }
         if (!getHomePosR()) {
             msg.setErrorRoletaHomeBack();
@@ -287,7 +287,7 @@ bool returnBaseR()
         uint16_t idx = 500;
         step += 500;
         while (--idx) {
-            stepR(20,500);
+            stepR(50,500);
         }
     }
 #ifdef DEBUG
@@ -483,11 +483,11 @@ void setPosY(uint32_t pos)
 
     if (gMoveImpY < 2*sizeImpuls + 10) {
         while(gMoveImpY >= 0 && ++step < gStepMaxY) {
-            stepY(20,500);
+            stepY(50,500);
         }
     } else {
         while(gMoveImpY >= 0 && ++step < gStepMaxY) {
-            stepY(20,delayPulse(imps - gMoveImpY, imps));
+            stepY(50,delayPulse(imps - gMoveImpY, imps));
         }
     }
 #ifdef DEBUG    
@@ -546,11 +546,11 @@ void setPosX(uint32_t pos)
 
     if (gMoveImpX < 2*sizeImpuls + 10) {
         while(gMoveImpX >= 0 && step++ < gStepMaxX) {
-            stepX(20, 500);
+            stepX(50, 500);
         }
     } else {
         while(gMoveImpX >= 0 && step++ < gStepMaxX) {
-            stepX(20, delayPulse(imps - gMoveImpX, imps));
+            stepX(50, delayPulse(imps - gMoveImpX, imps));
         }
     }
 
@@ -618,12 +618,12 @@ void setPosR(uint32_t pos)
 
     if (gMoveStepR < 2*sizeImpuls + 10) {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-            stepR(20,250);
+            stepR(50,250);
             --gMoveStepR;
         }
     } else {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-            stepR(20,delayPulse(imps - gMoveStepR, imps));
+            stepR(50,delayPulse(imps - gMoveStepR, imps));
             --gMoveStepR;
         }
     }

@@ -1,0 +1,5869 @@
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI zakończone kodem 0
+
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+../Aplikacja/miernikprzeplywu.cpp 234 3 15 5 1500 850 115 1752
+../Aplikacja/podzialetapurolety.cpp 24 115 1752
+SetInit 3 1500 870 15 5
+ofsset 115 1752
+appendPoints REtap= 0  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 463 ) =  1714
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 356 ) =  1607
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 250 ) =  1502
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 144 ) =  1396
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 37 ) =  1289
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 463 ) =  1714
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 356 ) =  1607
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 250 ) =  1502
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 144 ) =  1396
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 37 ) =  1289
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 463 ) =  1714
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 356 ) =  1607
+nx= 0 ( 435 ) =  550
+ny= 0 ( 250 ) =  1502
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 144 ) =  1396
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 37 ) =  1289
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 463 ) =  1714
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 356 ) =  1607
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 250 ) =  1502
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 144 ) =  1396
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 37 ) =  1289
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 463 ) =  1714
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 356 ) =  1607
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 250 ) =  1502
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 144 ) =  1396
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 37 ) =  1289
+appendPoints REtap= 1  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1000
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 926 ) =  1677
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 712 ) =  1463
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 500 ) =  1252
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 288 ) =  1040
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 74 ) =  826
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 926 ) =  1677
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 712 ) =  1463
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 500 ) =  1252
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 288 ) =  1040
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 74 ) =  826
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 926 ) =  1677
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 712 ) =  1463
+nx= 0 ( 435 ) =  550
+ny= 0 ( 500 ) =  1252
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 288 ) =  1040
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 74 ) =  826
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 926 ) =  1677
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 712 ) =  1463
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 500 ) =  1252
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 288 ) =  1040
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 74 ) =  826
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 926 ) =  1677
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 712 ) =  1463
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 500 ) =  1252
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 288 ) =  1040
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 74 ) =  826
+appendPoints REtap= 2  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 750 ) =  1002
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 432 ) =  684
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 111 ) =  363
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 750 ) =  1002
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 432 ) =  684
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 111 ) =  363
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 1389 ) =  1640
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 1068 ) =  1319
+nx= 0 ( 435 ) =  550
+ny= 0 ( 750 ) =  1002
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 432 ) =  684
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 111 ) =  363
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 750 ) =  1002
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 432 ) =  684
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 111 ) =  363
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 750 ) =  1002
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 432 ) =  684
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 111 ) =  363
+Start work. Isconnected 0
+"Open device open = 1"
+"Znaleziono urządzenie, próbuje go otworzyć"
+"DeviceName = ttyACM0"
+"Send welcome message"
+"Odebralem:2f 4b 4f 4e 54 52 4f 4c 45 52 57 49 41 54 52 32 dc"
+"Parsuje komende: [2f4b4f4e54524f4c4552574941545232dc]"
+"welcome msg"
+"controllerOk"
+"setParams"
+"Ustawiam pararametry (1) revX=1 revY=0 revR=1, maxImpX=21216 maxImpY=37440 [3a0105000052e000009240a7]"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:41 01 49"
+"Parsuje komende: [410149]"
+"Ustawiam pararametry (2) maxStepX=85000 maxStepY=150000 maxStepR=160000 [3d0200014c08000249f00002710053]"
+"Ustawiono parametry."
+"Odebralem:41 02 40"
+"Parsuje komende: [410240]"
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork WAIT_FOR_CONN
+"Read radio 0"
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+"Ustawiam pozycje startową [715000]"
+"Odebralem:81 73 fd"
+"Parsuje komende: [8173fd]"
+"Rozpoczynam pozycjonowanie bazowe"
+"Odebralem:81 6c"
+"Odebralem:a0"
+"Parsuje komende: [816ca0]"
+"Rozpoczynam pozycjonowanie bazowe osi X"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:85 50 00 00 2d 19 93"
+"Parsuje komende: [855000002d1993]"
+"Pozycjonowanie osi X zakończone. Kroki = 11545"
+actWork WAIT_FOR_CONN
+"Odebralem:81 64 98"
+"Parsuje komende: [816498]"
+"Rozpoczynam pozycjonowanie bazowe osi Y"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:85 47 00"
+"Odebralem:00 93 08 66"
+"Parsuje komende: [85470000930866]"
+"Pozycjonowanie osi Y zakończone. Kroki = 37640"
+position Done home=1
+"Odebralem:81 4b 55"
+"Parsuje komende: [814b55]"
+"Pozycjonowa bazowe zakończone"
+actWork WAIT_FOR_CONN
+"Ustawiam pozycję bazową rolety [71520e]"
+"71520e"
+"Odebralem:81 72 fa"
+"Parsuje komende: [8172fa]"
+"Rozpoczynam pozycjonowanie rolety"
+"Odebralem:85 52 00 00 00 00 5f"
+"Parsuje komende: [8552000000005f]"
+"Pozycjonowanie rolety zakończone. Kroki = 0"
+actWork FIRST_RUN
+Row count 78
+is row R = R
+"Ustawiam pozycje rolety r=500 [5552000001f48c]"
+"5552000001f48c"
+"Odebralem:61 72 b9"
+"Parsuje komende: [6172b9]"
+"Ustawienia rolety zakończone"
+"Odebralem:69 52 00 00 01 f5 00"
+"Odebralem:00 01 f5 34"
+"Parsuje komende: [6952000001f5000001f534]"
+"Ustawianie rolety zakończone. Kroki = 501. Pozycja = 501 (0 %"
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1714) => (22963,42781)
+"Ustawiam pozycje x=22963, y=42781 [59500000a71d000059b305]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 02 49 f0 00"
+"Odebralem:02 49 f0 78"
+"Parsuje komende: [6947000249f0000249f078]"
+"Ustawianie na osi Y zakończone. Kroki = 150000. Pozycja = 150000 (400 %"
+actWork WAIT...
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI zakończone kodem 0
+
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+../Aplikacja/miernikprzeplywu.cpp 234 3 15 10 1500 850 115 1752
+../Aplikacja/podzialetapurolety.cpp 24 115 1752
+SetInit 3 1500 870 15 10
+ofsset 115 1752
+appendPoints REtap= 0  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 463 ) =  1714
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 356 ) =  1607
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 250 ) =  1502
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 144 ) =  1396
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 37 ) =  1289
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 463 ) =  1714
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 356 ) =  1607
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 250 ) =  1502
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 144 ) =  1396
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 37 ) =  1289
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 463 ) =  1714
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 356 ) =  1607
+nx= 0 ( 435 ) =  550
+ny= 0 ( 250 ) =  1502
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 144 ) =  1396
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 37 ) =  1289
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 463 ) =  1714
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 356 ) =  1607
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 250 ) =  1502
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 144 ) =  1396
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 37 ) =  1289
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 463 ) =  1714
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 356 ) =  1607
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 250 ) =  1502
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 144 ) =  1396
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 37 ) =  1289
+appendPoints REtap= 1  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1000
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 926 ) =  1677
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 712 ) =  1463
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 500 ) =  1252
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 288 ) =  1040
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 74 ) =  826
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 926 ) =  1677
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 712 ) =  1463
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 500 ) =  1252
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 288 ) =  1040
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 74 ) =  826
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 926 ) =  1677
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 712 ) =  1463
+nx= 0 ( 435 ) =  550
+ny= 0 ( 500 ) =  1252
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 288 ) =  1040
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 74 ) =  826
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 926 ) =  1677
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 712 ) =  1463
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 500 ) =  1252
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 288 ) =  1040
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 74 ) =  826
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 926 ) =  1677
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 712 ) =  1463
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 500 ) =  1252
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 288 ) =  1040
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 74 ) =  826
+appendPoints REtap= 2  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 750 ) =  1002
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 432 ) =  684
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 111 ) =  363
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 750 ) =  1002
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 432 ) =  684
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 111 ) =  363
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 1389 ) =  1640
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 1068 ) =  1319
+nx= 0 ( 435 ) =  550
+ny= 0 ( 750 ) =  1002
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 432 ) =  684
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 111 ) =  363
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 750 ) =  1002
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 432 ) =  684
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 111 ) =  363
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 750 ) =  1002
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 432 ) =  684
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 111 ) =  363
+Start work. Isconnected 0
+"Open device open = 1"
+"Znaleziono urządzenie, próbuje go otworzyć"
+"DeviceName = ttyACM0"
+"Send welcome message"
+"Odebralem:2f 4b 4f 4e 54 52 4f 4c 45 52 57 49 41 54 52 32 dc"
+"Parsuje komende: [2f4b4f4e54524f4c4552574941545232dc]"
+"welcome msg"
+"controllerOk"
+"setParams"
+"Ustawiam pararametry (1) revX=1 revY=0 revR=1, maxImpX=21216 maxImpY=37440 [3a0105000052e000009240a7]"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:41 01 49"
+"Parsuje komende: [410149]"
+"Ustawiam pararametry (2) maxStepX=85000 maxStepY=150000 maxStepR=160000 [3d0200014c08000249f00002710053]"
+"Odebralem:41"
+"Ustawiono parametry."
+"Odebralem:02 40"
+"Parsuje komende: [410240]"
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork WAIT_FOR_CONN
+"Read radio 0"
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+"Ustawiam pozycje startową [715000]"
+"Odebralem:81 73 fd"
+"Parsuje komende: [8173fd]"
+"Rozpoczynam pozycjonowanie bazowe"
+"Odebralem:81 6c a0 85 50 00"
+"Parsuje komende: [816ca0]"
+"Rozpoczynam pozycjonowanie bazowe osi X"
+"Odebralem:00 00 00 9b"
+"Parsuje komende: [8550000000009b]"
+"Pozycjonowanie osi X zakończone. Kroki = 0"
+"Odebralem:81"
+"Odebralem:64 98 85 47 00 00 00 00 80"
+"Parsuje komende: [816498]"
+"Rozpoczynam pozycjonowanie bazowe osi Y"
+"Parsuje komende: [85470000000080]"
+"Pozycjonowanie osi Y zakończone. Kroki = 0"
+actWork WAIT_FOR_CONN
+position Done home=1
+"Odebralem:81 4b 55"
+"Parsuje komende: [814b55]"
+"Pozycjonowa bazowe zakończone"
+actWork WAIT_FOR_CONN
+"Ustawiam pozycję bazową rolety [71520e]"
+"71520e"
+"Odebralem:81 72"
+"Odebralem:fa"
+"Parsuje komende: [8172fa]"
+"Rozpoczynam pozycjonowanie rolety"
+"Odebralem:85 52 00 00 00 00 5f"
+"Parsuje komende: [8552000000005f]"
+"Pozycjonowanie rolety zakończone. Kroki = 0"
+actWork FIRST_RUN
+Row count 78
+is row R = R
+"Ustawiam pozycje rolety r=500 [5552000001f48c]"
+"5552000001f48c"
+"Odebralem:61 72 b9"
+"Parsuje komende: [6172b9]"
+"Ustawienia rolety zakończone"
+"Odebralem:69 52 00 00 01 f5 00"
+"Odebralem:00 01 f5 34"
+"Parsuje komende: [6952000001f5000001f534]"
+"Ustawianie rolety zakończone. Kroki = 501. Pozycja = 501 (0 %"
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1714) => (22963,42781)
+"Ustawiam pozycje x=22963, y=42781 [59500000a71d000059b305]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 02 49 f0"
+"Odebralem:00 02 49 f0 78"
+"Parsuje komende: [6947000249f0000249f078]"
+"Ustawianie na osi Y zakończone. Kroki = 150000. Pozycja = 150000 (400 %"
+actWork WAIT...
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 01 4c 09 00 01 4c"
+"Odebralem:09 11"
+"Parsuje komende: [695000014c0900014c0911]"
+"Ustawianie na osi X zakończone. Kroki = 85001. Pozycja = 85001 (400 %)"
+actWork WAIT...
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1607) => (22963,40110)
+"Ustawiam pozycje x=22963, y=40110 [595000009cae000059b3f3]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61"
+"Odebralem:64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 2a c0"
+"Odebralem:00 02 74 b0 76"
+"Parsuje komende: [694700002ac0000274b076]"
+"Ustawianie na osi Y zakończone. Kroki = 10944. Pozycja = 160944 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 00 1c ee 00"
+"Odebralem:01 68 f7 3a"
+"Parsuje komende: [695000001cee000168f73a]"
+"Ustawianie na osi X zakończone. Kroki = 7406. Pozycja = 92407 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1502) => (22963,37489)
+"Ustawiam pozycje x=22963, y=37489 [595000009271000059b317]"
+"Odebralem:61"
+"Odebralem:73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 22 00 02 4b 8e"
+"Odebralem:72"
+"Parsuje komende: [69470000292200024b8e72]"
+"Ustawianie na osi Y zakończone. Kroki = 10530. Pozycja = 150414 (401 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00"
+"Odebralem:09 00 01 68 ee 12"
+"Parsuje komende: [695000000009000168ee12]"
+"Ustawianie na osi X zakończone. Kroki = 9. Pozycja = 92398 (435 %)"
+"Odebralem:61 4b"
+position Done home=0
+"Odebralem:16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1396) => (22963,34844)
+"Ustawiam pozycje x=22963, y=34844 [59500000881c000059b3cc]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 72"
+"Odebralem:00 02 22 1c 37"
+"Parsuje komende: [6947000029720002221c37]"
+"Ustawianie na osi Y zakończone. Kroki = 10610. Pozycja = 139804 (373 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 08 00"
+"Odebralem:01 68 f6 38"
+"Parsuje komende: [695000000008000168f638]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 92406 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1289) => (22963,32173)
+"Ustawiam pozycje x=22963, y=32173 [595000007dad000059b3dd]"
+"Odebralem:61"
+"Odebralem:73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00"
+"Odebralem:00 29 d8 00 01 f8 44 13"
+"Parsuje komende: [6947000029d80001f84413]"
+"Ustawianie na osi Y zakończone. Kroki = 10712. Pozycja = 129092 (344 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 09 00 01 68"
+"Odebralem:ed 1b"
+"Parsuje komende: [695000000009000168ed1b]"
+"Ustawianie na osi X zakończone. Kroki = 9. Pozycja = 92397 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1714) => (18320,42781)
+"Ustawiam pozycje x=18320, y=42781 [59500000a71d000047906d]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61"
+"Odebralem:64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69"
+"Odebralem:47 00 00 a6 0f 00 02 9e 53 78"
+"Parsuje komende: [69470000a60f00029e5378]"
+"Ustawianie na osi Y zakończone. Kroki = 42511. Pozycja = 171603 (458 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 00 48 f0 00 01"
+"Odebralem:1f fd e9"
+"Parsuje komende: [6950000048f000011ffde9]"
+"Ustawianie na osi X zakończone. Kroki = 18672. Pozycja = 73725 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1607) => (18320,40110)
+"Ustawiam pozycje x=18320, y=40110 [595000009cae000047909b]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69"
+"Odebralem:47 00 00 29 ae 00 02 74 a5 98"
+"Parsuje komende: [6947000029ae000274a598]"
+"Ustawianie na osi Y zakończone. Kroki = 10670. Pozycja = 160933 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69"
+"Odebralem:50 00 00 00 11 00 01 1f ec fe"
+"Parsuje komende: [69500000001100011fecfe]"
+"Ustawianie na osi X zakończone. Kroki = 17. Pozycja = 73708 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1502) => (18320,37489)
+"Ustawiam pozycje x=18320, y=37489 [595000009271000047907f]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00"
+"Odebralem:00 29 11 00 02 4b 94 c4"
+"Parsuje komende: [69470000291100024b94c4]"
+"Ustawianie na osi Y zakończone. Kroki = 10513. Pozycja = 150420 (401 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 07 00 01 1f f3 da"
+"Parsuje komende: [69500000000700011ff3da]"
+"Ustawianie na osi X zakończone. Kroki = 7. Pozycja = 73715 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [15 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1396) => (18320,34844)
+"Ustawiam pozycje x=18320, y=34844 [59500000881c00004790a4]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI zakończone kodem 0
+
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+../Aplikacja/miernikprzeplywu.cpp 234 3 3 10 1500 850 115 1752
+../Aplikacja/podzialetapurolety.cpp 24 115 1752
+SetInit 3 1500 870 3 10
+ofsset 115 1752
+appendPoints REtap= 0  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 463 ) =  1714
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 356 ) =  1607
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 250 ) =  1502
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 144 ) =  1396
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 37 ) =  1289
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 463 ) =  1714
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 356 ) =  1607
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 250 ) =  1502
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 144 ) =  1396
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 37 ) =  1289
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 463 ) =  1714
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 356 ) =  1607
+nx= 0 ( 435 ) =  550
+ny= 0 ( 250 ) =  1502
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 144 ) =  1396
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 37 ) =  1289
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 463 ) =  1714
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 356 ) =  1607
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 250 ) =  1502
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 144 ) =  1396
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 37 ) =  1289
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 463 ) =  1714
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 356 ) =  1607
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 250 ) =  1502
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 144 ) =  1396
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 37 ) =  1289
+appendPoints REtap= 1  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1000
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 926 ) =  1677
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 712 ) =  1463
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 500 ) =  1252
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 288 ) =  1040
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 74 ) =  826
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 926 ) =  1677
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 712 ) =  1463
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 500 ) =  1252
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 288 ) =  1040
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 74 ) =  826
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 926 ) =  1677
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 712 ) =  1463
+nx= 0 ( 435 ) =  550
+ny= 0 ( 500 ) =  1252
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 288 ) =  1040
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 74 ) =  826
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 926 ) =  1677
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 712 ) =  1463
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 500 ) =  1252
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 288 ) =  1040
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 74 ) =  826
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 926 ) =  1677
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 712 ) =  1463
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 500 ) =  1252
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 288 ) =  1040
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 74 ) =  826
+appendPoints REtap= 2  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 750 ) =  1002
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 432 ) =  684
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 111 ) =  363
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 750 ) =  1002
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 432 ) =  684
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 111 ) =  363
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 1389 ) =  1640
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 1068 ) =  1319
+nx= 0 ( 435 ) =  550
+ny= 0 ( 750 ) =  1002
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 432 ) =  684
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 111 ) =  363
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 750 ) =  1002
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 432 ) =  684
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 111 ) =  363
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 750 ) =  1002
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 432 ) =  684
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 111 ) =  363
+Start work. Isconnected 0
+"Open device open = 0"
+"Znaleziono urządzenie, próbuje go otworzyć"
+"DeviceName = ttyACM0"
+"[17:10:55.914] [17:10:55.914] Blad 2"
+"[17:10:55.914] [17:10:55.914] Blad 2"
+"Nie mozna otworzyc portu"
+"[17:10:55.914] [17:10:55.914] Nie mozna otworzyc urzadzenia ttyACM0, error  Permission error while locking the device"
+"[17:10:55.914] [17:10:55.914] Nie mozna otworzyc urzadzenia ttyACM0, error  Permission error while locking the device"
+/home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI zakończone kodem 0
+
+Uruchamianie /home/marcin/devel/StanowiskoOtwock/PrzeplywomierzGUI/build-PrzeplywomierzGUI-Desktop-Debug/PrzeplywomierzGUI...
+timer Start
+chooseWork() -1 -1
+New wyborMethody
+../Aplikacja/miernikprzeplywu.cpp 234 3 20 5 1500 850 115 1752
+../Aplikacja/podzialetapurolety.cpp 24 115 1752
+SetInit 3 1500 870 20 5
+ofsset 115 1752
+appendPoints REtap= 0  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 463 ) =  1714
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 356 ) =  1607
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 250 ) =  1502
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 144 ) =  1396
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 37 ) =  1289
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 463 ) =  1714
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 356 ) =  1607
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 250 ) =  1502
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 144 ) =  1396
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 37 ) =  1289
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 463 ) =  1714
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 356 ) =  1607
+nx= 0 ( 435 ) =  550
+ny= 0 ( 250 ) =  1502
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 144 ) =  1396
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 37 ) =  1289
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 463 ) =  1714
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 356 ) =  1607
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 250 ) =  1502
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 144 ) =  1396
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 37 ) =  1289
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 463 ) =  1714
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 356 ) =  1607
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 250 ) =  1502
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 144 ) =  1396
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 37 ) =  1289
+appendPoints REtap= 1  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1000
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 926 ) =  1677
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 712 ) =  1463
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 500 ) =  1252
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 288 ) =  1040
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 74 ) =  826
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 926 ) =  1677
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 712 ) =  1463
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 500 ) =  1252
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 288 ) =  1040
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 74 ) =  826
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 926 ) =  1677
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 712 ) =  1463
+nx= 0 ( 435 ) =  550
+ny= 0 ( 500 ) =  1252
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 288 ) =  1040
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 74 ) =  826
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 926 ) =  1677
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 712 ) =  1463
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 500 ) =  1252
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 288 ) =  1040
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 74 ) =  826
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 926 ) =  1677
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 712 ) =  1463
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 500 ) =  1252
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 288 ) =  1040
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 74 ) =  826
+appendPoints REtap= 2  Norma[x,y] =  5 ,  5
+offset 115 1752
+Wysokosc 1500
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.426 ( 805.62 ) =  920
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.426 ( 805.62 ) =  920
+ny= 0 ( 750 ) =  1002
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.212 ( 432 ) =  684
+nx= -0.426 ( 805.62 ) =  920
+ny= 0.426 ( 111 ) =  363
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.426 ( 1389 ) =  1640
+nx= -0.212 ( 619.44 ) =  734
+ny= -0.212 ( 1068 ) =  1319
+nx= -0.212 ( 619.44 ) =  734
+ny= 0 ( 750 ) =  1002
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.212 ( 432 ) =  684
+nx= -0.212 ( 619.44 ) =  734
+ny= 0.426 ( 111 ) =  363
+nx= 0 ( 435 ) =  550
+ny= -0.426 ( 1389 ) =  1640
+nx= 0 ( 435 ) =  550
+ny= -0.212 ( 1068 ) =  1319
+nx= 0 ( 435 ) =  550
+ny= 0 ( 750 ) =  1002
+nx= 0 ( 435 ) =  550
+ny= 0.212 ( 432 ) =  684
+nx= 0 ( 435 ) =  550
+ny= 0.426 ( 111 ) =  363
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.212 ( 250.56 ) =  365
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.212 ( 250.56 ) =  365
+ny= 0 ( 750 ) =  1002
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.212 ( 432 ) =  684
+nx= 0.212 ( 250.56 ) =  365
+ny= 0.426 ( 111 ) =  363
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.426 ( 1389 ) =  1640
+nx= 0.426 ( 64.38 ) =  179
+ny= -0.212 ( 1068 ) =  1319
+nx= 0.426 ( 64.38 ) =  179
+ny= 0 ( 750 ) =  1002
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.212 ( 432 ) =  684
+nx= 0.426 ( 64.38 ) =  179
+ny= 0.426 ( 111 ) =  363
+Start work. Isconnected 0
+"Open device open = 1"
+"Znaleziono urządzenie, próbuje go otworzyć"
+"DeviceName = ttyACM0"
+"Send welcome message"
+"Odebralem:2f 4b 4f 4e 54 52 4f 4c 45 52 57 49 41 54 52 32 dc"
+"Parsuje komende: [2f4b4f4e54524f4c4552574941545232dc]"
+"welcome msg"
+"controllerOk"
+"setParams"
+"Ustawiam pararametry (1) revX=1 revY=0 revR=1, maxImpX=21216 maxImpY=37440 [3a0105000052e000009240a7]"
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+actWork WAIT_FOR_CONN
+"Odebralem:41 01 49"
+"Parsuje komende: [410149]"
+"Ustawiam pararametry (2) maxStepX=85000 maxStepY=150000 maxStepR=160000 [3d0200014c08000249f00002710053]"
+"Ustawiono parametry."
+"Odebralem:41 02 40"
+"Parsuje komende: [410240]"
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork WAIT_FOR_CONN
+"Read radio 0"
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+"Ustawiam pozycje startową [715000]"
+"Odebralem:81 73 fd"
+"Parsuje komende: [8173fd]"
+"Rozpoczynam pozycjonowanie bazowe"
+"Odebralem:81 6c"
+"Odebralem:a0"
+"Parsuje komende: [816ca0]"
+"Rozpoczynam pozycjonowanie bazowe osi X"
+actWork WAIT_FOR_CONN
+"Odebralem:85 50 00 00 09 26 d4"
+"Parsuje komende: [855000000926d4]"
+"Pozycjonowanie osi X zakończone. Kroki = 2342"
+"Odebralem:81 64 98"
+"Parsuje komende: [816498]"
+"Rozpoczynam pozycjonowanie bazowe osi Y"
+actWork WAIT_FOR_CONN
+"Odebralem:85 47"
+"Odebralem:00 00 07 7e 96"
+"Parsuje komende: [85470000077e96]"
+"Pozycjonowanie osi Y zakończone. Kroki = 1918"
+actWork WAIT_FOR_CONN
+position Done home=1
+"Odebralem:81 4b 55"
+"Parsuje komende: [814b55]"
+"Pozycjonowa bazowe zakończone"
+actWork WAIT_FOR_CONN
+"Ustawiam pozycję bazową rolety [71520e]"
+"71520e"
+"Odebralem:81"
+"Odebralem:72 fa"
+"Parsuje komende: [8172fa]"
+"Rozpoczynam pozycjonowanie rolety"
+"Odebralem:85 52 00 00 00 00 5f"
+"Parsuje komende: [8552000000005f]"
+"Pozycjonowanie rolety zakończone. Kroki = 0"
+actWork FIRST_RUN
+Row count 78
+is row R = R
+"Ustawiam pozycje rolety r=500 [5552000001f48c]"
+"5552000001f48c"
+"Odebralem:61 72 b9"
+"Parsuje komende: [6172b9]"
+"Ustawienia rolety zakończone"
+"Odebralem:69 52 00 00 01"
+"Odebralem:f5 00 00 01 f5 34"
+"Parsuje komende: [6952000001f5000001f534]"
+"Ustawianie rolety zakończone. Kroki = 501. Pozycja = 501 (0 %"
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork WAIT2STABLE
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1714) => (22963,42781)
+"Ustawiam pozycje x=22963, y=42781 [59500000a71d000059b305]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 02 49 f0"
+"Odebralem:00 02 49 f0 78"
+"Parsuje komende: [6947000249f0000249f078]"
+"Ustawianie na osi Y zakończone. Kroki = 150000. Pozycja = 150000 (400 %"
+actWork WAIT...
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 01 4c"
+"Odebralem:09 00 01 4c 09 11"
+"Parsuje komende: [695000014c0900014c0911]"
+"Ustawianie na osi X zakończone. Kroki = 85001. Pozycja = 85001 (400 %)"
+actWork WAIT...
+"Odebralem:61 4b"
+position Done home=0
+"Odebralem:16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1607) => (22963,40110)
+"Ustawiam pozycje x=22963, y=40110 [595000009cae000059b3f3]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 2a ca 00 02 74 ba"
+"Odebralem:9d"
+"Parsuje komende: [694700002aca000274ba9d]"
+"Ustawianie na osi Y zakończone. Kroki = 10954. Pozycja = 160954 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 00 1c e5 00"
+"Odebralem:01 68 ee ca"
+"Parsuje komende: [695000001ce5000168eeca]"
+"Ustawianie na osi X zakończone. Kroki = 7397. Pozycja = 92398 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1502) => (22963,37489)
+"Ustawiam pozycje x=22963, y=37489 [595000009271000059b317]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64"
+"Odebralem:db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 24 00 02"
+"Odebralem:4b 96 71"
+"Parsuje komende: [69470000292400024b9671]"
+"Ustawianie na osi Y zakończone. Kroki = 10532. Pozycja = 150422 (401 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 08 00 01 68"
+"Odebralem:e6 48"
+"Parsuje komende: [695000000008000168e648]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 92390 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1396) => (22963,34844)
+"Ustawiam pozycje x=22963, y=34844 [59500000881c000059b3cc]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 76 00 02 22 20 0c"
+"Parsuje komende: [694700002976000222200c]"
+"Ustawianie na osi Y zakończone. Kroki = 10614. Pozycja = 139808 (373 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 08 00 01 68 ee 70"
+"Parsuje komende: [695000000008000168ee70]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 92398 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (920,1289) => (22963,32173)
+"Ustawiam pozycje x=22963, y=32173 [595000007dad000059b3dd]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61"
+"Odebralem:64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69"
+"Odebralem:47 00 00 29 e4 00 01 f8 3c bc"
+"Parsuje komende: [6947000029e40001f83cbc]"
+"Ustawianie na osi Y zakończone. Kroki = 10724. Pozycja = 129084 (344 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50"
+"Odebralem:00 00 00 08 00 01 68 e6 48"
+"Parsuje komende: [695000000008000168e648]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 92390 (435 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1714) => (18320,42781)
+"Ustawiam pozycje x=18320, y=42781 [59500000a71d000047906d]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00"
+"Odebralem:a5 f9 00 02 9e 35 74"
+"Parsuje komende: [69470000a5f900029e3574]"
+"Ustawianie na osi Y zakończone. Kroki = 42489. Pozycja = 171573 (458 %"
+"Odebralem:61"
+"Odebralem:6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 00 48 f2 00 01"
+"Odebralem:1f f4 12"
+"Parsuje komende: [6950000048f200011ff412]"
+"Ustawianie na osi X zakończone. Kroki = 18674. Pozycja = 73716 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1607) => (18320,40110)
+"Ustawiam pozycje x=18320, y=40110 [595000009cae000047909b]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 b4 00 02 74 81"
+"Odebralem:8b"
+"Parsuje komende: [6947000029b4000274818b]"
+"Ustawianie na osi Y zakończone. Kroki = 10676. Pozycja = 160897 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 51 00 01 1f a3 dc"
+"Parsuje komende: [69500000005100011fa3dc]"
+"Ustawianie na osi X zakończone. Kroki = 81. Pozycja = 73635 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"errorReadFromRadio"
+"Odebralem:a2 45 31 13"
+"Parsuje komende: [a2453113]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1502) => (18320,37489)
+"Ustawiam pozycje x=18320, y=37489 [595000009271000047907f]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 16"
+"Odebralem:00 02 4b 6b 1e"
+"Parsuje komende: [69470000291600024b6b1e]"
+"Ustawianie na osi Y zakończone. Kroki = 10518. Pozycja = 150379 (401 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50"
+"Odebralem:00 00 00 09 00 01 1f ac 12"
+"Parsuje komende: [69500000000900011fac12]"
+"Ustawianie na osi X zakończone. Kroki = 9. Pozycja = 73644 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1396) => (18320,34844)
+"Ustawiam pozycje x=18320, y=34844 [59500000881c00004790a4]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00"
+"Odebralem:00 29 7a 00 02 21 f1 9c"
+"Parsuje komende: [69470000297a000221f19c]"
+"Ustawianie na osi Y zakończone. Kroki = 10618. Pozycja = 139761 (373 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00"
+"Odebralem:00 08 00 01 1f a4 48"
+"Parsuje komende: [69500000000800011fa448]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 73636 (347 %)"
+"Odebralem:61"
+position Done home=0
+"Odebralem:4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (734,1289) => (18320,32173)
+"Ustawiam pozycje x=18320, y=32173 [595000007dad00004790b5]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 e0 00 01"
+"Odebralem:f8 11 f0"
+"Parsuje komende: [6947000029e00001f811f0]"
+"Ustawianie na osi Y zakończone. Kroki = 10720. Pozycja = 129041 (344 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 08 00 01 1f"
+"Odebralem:ac 70"
+"Parsuje komende: [69500000000800011fac70]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 73644 (347 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (550,1714) => (13728,42781)
+"Ustawiam pozycje x=13728, y=42781 [59500000a71d000035a075]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 a6 1c"
+"Odebralem:00 02 9e 2d 91"
+"Parsuje komende: [69470000a61c00029e2d91]"
+"Ustawianie na osi Y zakończone. Kroki = 42524. Pozycja = 171565 (458 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00 00"
+"Odebralem:48 0a 00 00 d7 a2 89"
+"Parsuje komende: [69500000480a0000d7a289]"
+"Ustawianie na osi X zakończone. Kroki = 18442. Pozycja = 55202 (260 %)"
+"Odebralem:61"
+position Done home=0
+"Odebralem:4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (550,1607) => (13728,40110)
+"Ustawiam pozycje x=13728, y=40110 [595000009cae000035a083]"
+"Odebralem:61 73"
+"Odebralem:be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 b0 00"
+"Odebralem:02 74 7d fe"
+"Parsuje komende: [6947000029b00002747dfe]"
+"Ustawianie na osi Y zakończone. Kroki = 10672. Pozycja = 160893 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00"
+"Odebralem:00 00 50 00 00 d7 52 49"
+"Parsuje komende: [6950000000500000d75249]"
+"Ustawianie na osi X zakończone. Kroki = 80. Pozycja = 55122 (259 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (550,1502) => (13728,37489)
+"Ustawiam pozycje x=13728, y=37489 [595000009271000035a067]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00"
+"Odebralem:29 1a 00 02 4b 63 b0"
+"Parsuje komende: [69470000291a00024b63b0]"
+"Ustawianie na osi Y zakończone. Kroki = 10522. Pozycja = 150371 (401 %"
+"Odebralem:61"
+"Odebralem:6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 09 00 00 d7 5b"
+"Odebralem:f7"
+"Parsuje komende: [6950000000090000d75bf7]"
+"Ustawianie na osi X zakończone. Kroki = 9. Pozycja = 55131 (259 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (550,1396) => (13728,34844)
+"Ustawiam pozycje x=13728, y=34844 [59500000881c000035a0bc]"
+"Odebralem:61 73"
+"Odebralem:be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47"
+"Odebralem:00 00 29 7a 00 02 21 e9 d4"
+"Parsuje komende: [69470000297a000221e9d4]"
+"Ustawianie na osi Y zakończone. Kroki = 10618. Pozycja = 139753 (373 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00"
+"Odebralem:00 00 08 00 00 d7 53 ad"
+"Parsuje komende: [6950000000080000d753ad]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 55123 (259 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (550,1289) => (13728,32173)
+"Ustawiam pozycje x=13728, y=32173 [595000007dad000035a0ad]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64"
+"Odebralem:db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00"
+"Odebralem:29 e1 00 01 f8 08 dd"
+"Parsuje komende: [6947000029e10001f808dd]"
+"Ustawianie na osi Y zakończone. Kroki = 10721. Pozycja = 129032 (344 %"
+"Odebralem:61"
+"Odebralem:6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00 08"
+"Odebralem:00 00 d7 5b 95"
+"Parsuje komende: [6950000000080000d75b95]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 55131 (259 %)"
+"Odebralem:61 4b"
+position Done home=0
+"Odebralem:16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (365,1714) => (9110,42781)
+"Ustawiam pozycje x=9110, y=42781 [59500000a71d00002396de]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61"
+"Odebralem:64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 a6 24 00 02 9e 2c"
+"Odebralem:d9"
+"Parsuje komende: [69470000a62400029e2cd9]"
+"Ustawianie na osi Y zakończone. Kroki = 42532. Pozycja = 171564 (458 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 50 00"
+"Odebralem:00 48 5f 00 00 8e fc b2"
+"Parsuje komende: [69500000485f00008efcb2]"
+"Ustawianie na osi X zakończone. Kroki = 18527. Pozycja = 36604 (172 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (365,1607) => (9110,40110)
+"Ustawiam pozycje x=9110, y=40110 [595000009cae0000239628]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 d4 00 02"
+"Odebralem:74 58 26"
+"Parsuje komende: [6947000029d40002745826]"
+"Ustawianie na osi Y zakończone. Kroki = 10708. Pozycja = 160856 (429 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00 00"
+"Odebralem:57 00 00 8e a5 1a"
+"Parsuje komende: [69500000005700008ea51a]"
+"Ustawianie na osi X zakończone. Kroki = 87. Pozycja = 36517 (172 %)"
+"Odebralem:61"
+position Done home=0
+"Odebralem:4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (365,1502) => (9110,37489)
+"Ustawiam pozycje x=9110, y=37489 [59500000927100002396cc]"
+"Odebralem:61 73"
+"Odebralem:be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00 00 29 18"
+"Odebralem:00 02 4b 40 9d"
+"Parsuje komende: [69470000291800024b409d]"
+"Ustawianie na osi Y zakończone. Kroki = 10520. Pozycja = 150336 (401 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69"
+"Odebralem:50 00 00 00 09 00 00 8e ae 83"
+"Parsuje komende: [69500000000900008eae83]"
+"Ustawianie na osi X zakończone. Kroki = 9. Pozycja = 36526 (172 %)"
+position Done home=0
+"Odebralem:61 4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (365,1396) => (9110,34844)
+"Ustawiam pozycje x=9110, y=34844 [59500000881c0000239617]"
+"Odebralem:61"
+"Odebralem:73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47 00"
+"Odebralem:00 29 7a 00 02 21 c6 19"
+"Parsuje komende: [69470000297a000221c619]"
+"Ustawianie na osi Y zakończone. Kroki = 10618. Pozycja = 139718 (373 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00"
+"Odebralem:00 08 00 00 8e a6 d9"
+"Parsuje komende: [69500000000800008ea6d9]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 36518 (172 %)"
+"Odebralem:61"
+position Done home=0
+"Odebralem:4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"
+actWork NOW_MEASURING
+actWork END_MEASURING
+actWork NEXT_POS
+Szukam kolejnej pozycji
+impulsy (365,1289) => (9110,32173)
+"Ustawiam pozycje x=9110, y=32173 [595000007dad0000239606]"
+"Odebralem:61 73 be"
+"Parsuje komende: [6173be]"
+"Rozpoczynam ustawianie puntku XY"
+"Odebralem:61 64 db"
+"Parsuje komende: [6164db]"
+"Rozpoczynam ustawianie punktu na osi Y"
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+actWork WAIT...
+"Odebralem:69 47"
+"Odebralem:00 00 29 e5 00 01 f7 e1 00"
+"Parsuje komende: [6947000029e50001f7e100]"
+"Ustawianie na osi Y zakończone. Kroki = 10725. Pozycja = 128993 (344 %"
+"Odebralem:61 6c e3"
+"Parsuje komende: [616ce3]"
+"Rozpoczynam ustawianie punktu na osi X"
+"Odebralem:69 50 00 00"
+"Odebralem:00 08 00 00 8e ae e1"
+"Parsuje komende: [69500000000800008eaee1]"
+"Ustawianie na osi X zakończone. Kroki = 8. Pozycja = 36526 (172 %)"
+"Odebralem:61"
+position Done home=0
+"Odebralem:4b 16"
+"Parsuje komende: [614b16]"
+"Ustawianie punktu na obu osiach zakończone"
+actWork START_MEASURING
+actWork NOW_MEASURING
+Pomiar [20 s]
+"Wysyłam żądanie odczytu radia [90f9]"
+"Read radio 0"
+Read from radio 0
+"Odebralem:a9 4f 00 00 00 00 00 00 00 00 3d"
+"Parsuje komende: [a94f00000000000000003d]"

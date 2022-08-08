@@ -1,6 +1,8 @@
 #ifndef WYBORMETODY_H
 #define WYBORMETODY_H
 
+#include "ustawienia.h"
+
 #include <QDialog>
 
 class QLineEdit;
@@ -85,6 +87,7 @@ public:
 
     void setData(const WyborMetodyData &newData);
 
+    void setUstawienia(Ustawienia *u);
 private slots:
 
     void on_rbfile_toggled(bool checked);
@@ -174,11 +177,12 @@ private:
     static constexpr int maxTime = 3600;
     static constexpr int minTime = 1;
     static constexpr int maxRolet = 15;
-    static constexpr int maxRolet = 2;
+    static constexpr int minRolet = 2;
     static constexpr int maxPostoj = 3600;
 
 
     bool startWindow;
-};
 
+    Ustawienia * ust;
+};
 #endif // WYBORMETODY_H

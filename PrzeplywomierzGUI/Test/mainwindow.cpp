@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     rr.setKrokiPerObrot(ust.getRolStepObrot().toUInt());
     rr.setMaxMM(ust.getRolDlugosc().toUInt());
     rr.setMaxKroki(160000);
-
+/*
     rr.setObrot1(ust.getRolObrot1());
     rr.setObrot2(ust.getRolObrot2());
     rr.setObrot3(ust.getRolObrot3());
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
     rr.setObrot11(ust.getRolObrot11());
     rr.setObrot12(ust.getRolObrot12());
     rr.setObrot13(ust.getRolObrot13());
-
+*/
     ui->maxImpx->setText("750000");
     ui->maxImpY->setText("750000");
 

@@ -3,7 +3,7 @@
 
 #include <QLabel>
 #include <QSpinBox>
-
+#include <QDebug>
 
 PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow_, unsigned int iloscProbek_,
                                        unsigned int czasStablizacji_, unsigned int maxR_, unsigned int width_,
@@ -21,6 +21,7 @@ PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow_, 
         jedenWidget(e);
     }
 
+    qDebug() << __FILE__ << __LINE__ << offsetX_ << offsetY_;
     pozycje.setInit(nrEtapow_, maxR_, width_, iloscProbek_, czasStablizacji_);
     pozycje.setOffset(offsetX_, offsetY_);
 }

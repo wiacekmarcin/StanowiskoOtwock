@@ -1,5 +1,5 @@
 #include "pozycje.h"
-
+#include <QDebug>
 Pozycje::Pozycje()
  : QList<Pos>()
 {
@@ -87,26 +87,34 @@ void PozycjeRol::appendRoletaEtap(unsigned int roletaEtap)
 
 void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsigned int yNorma)
 {
+    qDebug() << "appendPoints REtap=" << roletaEtap << " Norma[x,y] = " << xNorma << ", " << yNorma;
+    qDebug() << "offset" << offsetX << offsetY;
     float wysokosc = maxR*(roletaEtap+1)/maxEtap;
+    qDebug() << "Wysokosc" << wysokosc;
     for (unsigned int i = 0; i < xNorma; ++i ) {
         for (unsigned int j = 0; j < yNorma; ++j ) {
             PosRoleta p;
             p.nx = norma[xNorma-5][i];
             p.ny = norma[yNorma-5][j];
             p.mmx = width * (0.5 - p.nx) + offsetX;
-            p.mmy = wysokosc * (0.5 - p.ny) + offsetY;
+            p.mmy = wysokosc * (0.5 - p.ny) + (offsetY-wysokosc);
             p.mmr = (unsigned int)wysokosc;
             p.etap = roletaEtap+1;
             p.stableTime = 0;
             p.measTime = measTime;
             p.measPoint = true;
             append(p);
+            qDebug() << "nx=" << p.nx << "(" << (width * (0.5 - p.nx)) << ") = " << p.mmx;
+            qDebug() << "ny=" << p.ny << "(" << (wysokosc * (0.5 - p.ny)) << ") = " << p.mmy;
         }
     }
 }
 
-void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_, unsigned int width_, unsigned int measTime_, unsigned int stableTime_)
+void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_,
+                         unsigned int width_, unsigned int measTime_,
+                         unsigned int stableTime_)
 {
+    qDebug() << "SetInit" << maxEtap_ << maxR_ << width_ << measTime_ << stableTime_;
     maxEtap = maxEtap_;
     maxR = maxR_;
     measTime = measTime_;
@@ -116,6 +124,7 @@ void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_, unsigned int
 
 void PozycjeRol::setOffset(unsigned int offSetX_, unsigned int offSetY_)
 {
+    qDebug() << "ofsset" << offSetX_ << offSetY_;
     offsetX = offSetX_;
     offsetY = offSetY_;
 }

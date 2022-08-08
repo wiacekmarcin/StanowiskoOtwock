@@ -1,6 +1,7 @@
 #include "mechanika.h"
+#include <QDebug>
 
-unsigned int RoletaRuch::obrotStala10xmm[14] = {0, 1013, 1059, 1089, 1124, 1158, 1186, 1219, 1255, 1284, 1321, 1350, 1387, 1419};
+unsigned int RoletaRuch::obrotStala10xmm[14] = {1000, 1020, 1075, 1114, 1152, 1185, 1240, 1278, 1342, 1401, 1425, 1465, 1503, 1516};
 
 
 Ruch::Ruch() :
@@ -71,20 +72,25 @@ void RoletaRuch::setKrokiPerObrot(unsigned int newKrokiPerObrot)
 
 unsigned long RoletaRuch::podniescMM(unsigned int mm)
 {
+    qDebug() << "mm=" << mm << "maxMM" << maxMM;
     unsigned short n = 0;
-
+    maxMM = 1600;
     if (mm > maxMM) {
         return maxKroki;
     }
 
     unsigned long MM = 10*mm;
     unsigned long obwod;
+    unsigned int prevobwod = 1000;
     while (n < 13) {
+        qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
         obwod = obrotStala10xmm[n+1];
         if (MM < obwod) {
-            return krokiPerObrot*n + (unsigned long)(12000*MM/obwod);
+            qDebug() << "Return=" << (12000*n + (unsigned long)(12000*MM/obwod));
+            return 12000*n + (unsigned long)(12000*MM/obwod) + 500*mm/1500;
         }
         MM -= obwod;
+        prevobwod = obwod;
         ++n;
     }
     return maxKroki;
