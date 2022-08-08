@@ -10,6 +10,17 @@ namespace Ui {
 class PozycjeRoleta;
 }
 
+typedef struct _daneWynikoweR {
+    QString nrEtap;
+    QString x;
+    QString y;
+    QString nx;
+    QString ny;
+    unsigned int time;
+    float val1;
+} DaneWynikoweRoleta;
+
+
 class PozycjeRoleta : public TabWidget
 {
     Q_OBJECT
@@ -23,7 +34,7 @@ public:
     typedef enum _cols {
         col_xmm = 0,
         col_ymm,
-        col_xnorma = 0,
+        col_xnorma,
         col_ynorma,
         col_etap,
         col_rmm,
@@ -34,12 +45,6 @@ public:
         col_status,
     } Column;
 
-
-
-
-
-    void setData(unsigned short etapNr, unsigned int stableTime, unsigned int cnt);
-
     unsigned int offsetX() const;
     void setOffsetX(unsigned int newOffsetX);
 
@@ -48,10 +53,16 @@ public:
 
     void setValue1(const float & val, const QString & unit);
 
-    bool getConnected() const;
-    void setConnected(bool newConnected);
-
     void status(const QString & st);
+
+    virtual void positionDone(bool base);
+    virtual void roletaDone(bool base);
+    virtual void readedFromRadio(const double &);
+    virtual void errorReadFromRadio();
+    virtual void setStop();
+
+protected :
+    void setPos();
 
 private slots:
     void update();
@@ -61,15 +72,11 @@ private slots:
 
     void on_pbZapisz_clicked();
 
+    void on_pbRestart_clicked();
+
 protected:
     void debug(const QString &val);
 
-    //unsigned int setNorma5(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    //unsigned int setNorma6(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    //unsigned int setNorma7(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    //unsigned int setNorma8(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    //unsigned int setNorma9(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
-    //unsigned int setNorma10(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize);
     void createRow(int row, const QString & c1, const QString & c2, const QString & c3, const QString & c4,
                    const QString & c5, const QString & c6, const QString & c7, const QString & c8,
                    const QString & c9, const QString & c10);
@@ -80,23 +87,33 @@ protected:
                              unsigned int nrR, unsigned int rSize);
 private:
     typedef enum _statusWork {
-        WAIT = 0,
+        WAIT_FOR_CONN = 0,
+        WAIT,
+        FIRST_RUN,
+        NEXT_POS,
+        WAIT_POS,
+        HOME_POS,
+        WAIT_HPOS,
+        START_MEASURING,
+        NOW_MEASURING,
+        END_MEASURING,
+        NEXT_POS_AFTER_HPOS,
+        DONE,
         MOVEROLETA,
         WAIT2STABLE,
-        POSITIONING,
-        MEASURING,
-        NEXTPOSITION,
         ROLETA,
-        ROLETAWAIT
+        ROLETAWAIT,
+        ROLETA_HOME,
+        ROLETA_HOMEWAIT,
     } statusWorkEnum;
 
 private:
     Ui::PozycjeRoleta *ui;
     QTimer *timer;
 
-    short actStatus;
+    short actWork;
     int actPos;
-    bool connected;
+    unsigned int actCzas;
 
     unsigned int m_width;
     unsigned int m_height;
@@ -106,6 +123,13 @@ private:
 
     double avg1;
     unsigned int cnt1;
+    unsigned int cntErr;
+    unsigned int stableTime;
+
+    unsigned int xmm;
+    unsigned int ymm;
+
+    QList<DaneWynikoweRoleta> m_listawynikowa;
 };
 
 #endif // POZYCJEROLETA_H

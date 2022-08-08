@@ -33,11 +33,12 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     ui->table->horizontalHeader()->setStretchLastSection(true);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    actWork = WAIT;
+    actWork = WAIT_FOR_CONN;
     actPos = 0;
     timer->setInterval(1000);
 
-    ui->pbRestart->setEnabled(false);
+    //ui->pbRestart->setEnabled(false);
+    ui->pbRestart->setVisible(false);
     ui->pbZapisz->setEnabled(false);
     started = false;
     adjustSize();
@@ -86,6 +87,7 @@ void MierzonePozycje::setList(const Pozycje &pos)
     //ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
     ui->pbStart->setEnabled(true);
+    adjustSize();
 }
 
 void MierzonePozycje::setPos()
@@ -168,12 +170,13 @@ void MierzonePozycje::update()
             timer->stop();
             ui->pbNoweDane->setEnabled(true);
             ui->pbZapisz->setEnabled(true);
+            ui->pbRestart->setEnabled(true);
             ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
             setPositionHome();
             return;
         }
         ui->table->scrollToItem(ui->table->item(actPos, 0));
-
+/*
         if (actPos % 100 == 0) {
             actWork = WAIT_HPOS;
             debug("Set Home pos");
@@ -181,7 +184,7 @@ void MierzonePozycje::update()
             ui->status->setText("Trwa kalibracja urządzenia");
             return;
         }
-
+*/
         actWork = WAIT_POS;
         actCzas = m_lista.at(actPos).time;
         setPos();
@@ -266,6 +269,10 @@ void MierzonePozycje::setStop()
 {
     timer->stop();
     actWork = DONE;
+    ui->pbRestart->setEnabled(true);
+    ui->pbNoweDane->setEnabled(true);
+    if (m_listawynikowa.size() > 0)
+        ui->pbZapisz->setEnabled(true);
 }
 
 
@@ -305,24 +312,24 @@ void MierzonePozycje::restart()
 
 void MierzonePozycje::on_pbStart_clicked()
 {
+    m_listawynikowa.clear();
     debug(QString("Start work. Isconnected %1").arg(getConnect()));
     setIsReady(false);
     actWork = WAIT_FOR_CONN;
     actPos = 0;
     timer->start();
     ui->pbStart->setEnabled(false);
+    ui->pbRestart->setEnabled(false);
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
     connectToDevice();
 }
-
-
-
 
 void MierzonePozycje::on_pbNoweDane_clicked()
 {
     if (miernikPrzeplywu)
         TabWidget::miernikPrzeplywu->noweDane();
 }
-
 
 void MierzonePozycje::on_pbZapisz_clicked()
 {
@@ -350,7 +357,6 @@ void MierzonePozycje::on_pbZapisz_clicked()
     file.close();
 }
 
-
 void MierzonePozycje::on_pbRestart_clicked()
 {
     for (int i = 0; i < ui->table->rowCount(); i++) {
@@ -358,5 +364,7 @@ void MierzonePozycje::on_pbRestart_clicked()
          ui->table->item(i, col_status)->setText("Oczekiwanie");
     }
     ui->pbRestart->setEnabled(false);
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
 }
 

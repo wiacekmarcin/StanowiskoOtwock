@@ -1,9 +1,13 @@
 #include "pozycjeroleta.h"
+#include "miernikprzeplywu.h"
 #include "ui_pozycjeroleta.h"
 #include "tabwidget.h"
 
 #include <QTimer>
 #include <QDebug>
+#include <QFileDialog>
+#include <QMessageBox>
+
 PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     TabWidget(parent),
     ui(new Ui::PozycjeRoleta)
@@ -28,11 +32,11 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     ui->table->resizeColumnsToContents();
     ui->table->horizontalHeader()->setStretchLastSection(true);
     timer = new QTimer(this);
+    timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    actStatus = WAIT;
+    actWork = WAIT_FOR_CONN;
     actPos = 0;
-    connected = false;
-    //timer->start(1000);
+
     debug("timer Start");
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
@@ -45,8 +49,9 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
 
     avg1 = 0.0;
     cnt1 = 0;
-    ui->localdebug->setVisible(false);
-    ui->debug->setVisible(false);
+    cntErr = 0;
+    ui->pbRestart->setVisible(false);
+    adjustSize();
 }
 
 PozycjeRoleta::~PozycjeRoleta()
@@ -67,6 +72,7 @@ void PozycjeRoleta::setList(const PozycjeRol &l)
             createRoletaRow(r, p.etap, p.mmr, p.stableTime);
         }
     }
+    adjustSize();
 }
 
 unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR,
@@ -145,259 +151,194 @@ void PozycjeRoleta::createRow(int row, const QString &c1, const QString &c2, con
    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
    ui->table->setItem(row, 9, item);
 
+   item = new QTableWidgetItem(QString("Oczekiwanie"));
+   item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+   item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+   ui->table->setItem(row, 10, item);
 }
 
-
-
-
-
-void PozycjeRoleta::setData(unsigned short etapNr, unsigned int stableTime, unsigned int cnt)
+void PozycjeRoleta::setPos()
 {
-    /*
-    unsigned int row = 0;
-    for (unsigned int e = 1; e <= etapNr; ++e) {
-        unsigned int rolS = (unsigned int)m_height*e/etapNr;
-        row = createRoletaRow(row, e, rolS, stableTime);
-        unsigned int wysokosc = m_height*e/etapNr;
-        //row = setNorma5(row, wysokosc, cnt, e, rolS);
-        //row = setNorma6(row, wysokosc, cnt, e, rolS);
-        //row = setNorma7(row, wysokosc, cnt, e, rolS);
-        //row = setNorma8(row, wysokosc, cnt, e, rolS);
-        //row = setNorma9(row, wysokosc, cnt, e, rolS);
-        //row = setNorma10(row, wysokosc, cnt, e, rolS);
-    }
-    */
+    ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam pozycję"));
+    uint32_t impx, impy;
+    impx = mech.getImpulsyX(xmm);
+    impy = mech.getImpulsyY(ymm);
+
+    debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+    actWork = WAIT_POS;
+    ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
+    setPosition(impx, impy);
+    avg1 = 0.0;
+    cnt1 = 0;
 }
 
 void PozycjeRoleta::update()
 {
-    /*
-    if (getIsStart()) {
-        if (getIsWait())
-            return;
+    //debug(QString("Update %1").arg(actWork));
+    switch(actWork) {
+    case WAIT:
+    case WAIT_POS:
+    case WAIT_HPOS:
+    case ROLETA_HOMEWAIT:
+    case ROLETAWAIT:
+    default:
+        debug("actWork WAIT...");
+        return;
 
-        if (actStatus == WAIT)
-            return;
-    void doneHome();
-
-        if (actStatus == POSITIONING) {
-            if (actPos >= ui->table->rowCount()) {
-                setIsStart(false);
-                actStatus = WAIT;
-                emit statusMiernik("Zakonczono ustawianie wszystkich pozycji");
-                ui->status->setText("Zakonczono ustawianie wszystkich pozycji");
-                emit end();
-                ui->pbStart->setEnabled(false);
-                ui->pbNoweDane->setEnabled(true);
-                ui->pbZapisz->setEnabled(true);
-                return;
-            }
-
-            //ustaw na pozycji
-            unsigned int xmm = ui->table->item(actPos,0)->text().toUInt();
-            unsigned int ymm = ui->table->item(actPos,1)->text().toUInt();
-
-            actCzas = ui->table->item(actPos,8)->text().toUInt();
-            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Ustawiam pozycję"));
-            uint32_t impx, impy;
-            impx = mech.getImpulsyX(xmm);
-            impy = mech.getImpulsyY(ymm);
-
-            debug(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
-            actStatus = MEASURING;
-            emit setPosition(impx, impy);
-            ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
-            setIsWait( true );
-            avg1 = 0.0;
-            cnt1 = 0;
-            qDebug("xmm=%d",impx);
-            qDebug("ymm=%d",impy);
-        } else if (actStatus == MEASURING) {
-            ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(ui->table->item(actPos,0)->text()).arg(ui->table->item(actPos,1)->text()).arg(avg1));
-            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas));
-            debug(QString("Pomiar [%1 s]").arg(actCzas));
-            emit readRadio();
-
-            if (actCzas == 0) {
-                actStatus = NEXTPOSITION;
-            } else {
-                --actCzas;
-            }
-        } else if (actStatus == NEXTPOSITION) {
-            debug(QString("Ukonczono"));
-            ui->status->setText("Zakonczono pomiary");
-
-            ui->table->item(actPos, 11)->setText(QString::fromUtf8("Ukończono"));
-            ++actPos;
-            ui->table->scrollToItem(ui->table->item(actPos, 0));
-            if (actPos < ui->table->rowCount()) {
-                if (ui->table->item(actPos, 10)->text() ==QString("P")) {
-                    actStatus = POSITIONING;
-                } else {
-                    actStatus = MOVEROLETA;
-                }
-            } else {
-                actStatus = WAIT;
-            }
-        } else if (actStatus == MOVEROLETA) {
-            emit
+    case WAIT_FOR_CONN:
+    {
+        debug("actWork WAIT_FOR_CONN");
+        if (getConnect() && getIsReady()) {
+            actWork = ROLETA_HOME;
+            ui->status->setText("Oczekiwanie na zamknięcie rolety");
         }
+        return;
     }
-    */
+    case DONE:
+    {
+        debug("actWork DONE");
+        timer->stop();
+        ui->pbStart->setEnabled(true);
+        ui->pbRestart->setEnabled(true);
+        ui->pbZapisz->setEnabled(true);
+        return;
+    }
+    case ROLETA_HOME:
+    {
+        actWork = ROLETA_HOMEWAIT;
+        setRoletaHome();
+        return;
+    }
+    case FIRST_RUN:
+    {
+        debug("actWork FIRST_RUN");
+        ui->pbNoweDane->setEnabled(false);
+        ui->pbZapisz->setEnabled(false);
+        actPos = 0;
+        debug(QString("Row count %1").arg(ui->table->rowCount()));
+        if (ui->table->rowCount() == 0) {
+            actWork = DONE;
+            timer->stop();
+            ui->pbNoweDane->setEnabled(true);
+            return;
+        }
+
+        avg1 = 0;
+        cnt1 = 0;
+        debug(QString("is row R = %1").arg(ui->table->item(actPos, col_action)->text()));
+        if (ui->table->item(actPos, col_action)->text() != QString("R")) {
+            actWork = DONE;
+            timer->stop();
+            ui->pbNoweDane->setEnabled(true);
+            return;
+        }
+        stableTime = ui->table->item(actPos, col_stableTime)->text().toUInt();
+        unsigned int rmm = ui->table->item(actPos, col_rmm)->text().toUInt();
+        actWork = ROLETAWAIT;
+        ui->status->setText("Ustawiam wysokość rolety");
+        setRoleta(rmm);
+
+        return;
+    }
+    case NEXT_POS:
+    {
+        debug("actWork NEXT_POS");
+        debug(QString("Szukam kolejnej pozycji"));
+        ui->status->setText("Przechodzę do kolejnej pozycji z listy");
+        ++actPos;
+
+        if (actPos >= ui->table->rowCount()) {
+            actWork = DONE;
+            timer->stop();
+            ui->pbNoweDane->setEnabled(true);
+            ui->pbZapisz->setEnabled(true);
+            ui->pbRestart->setEnabled(true);
+            ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
+            setPositionHome();
+            return;
+        }
+        ui->table->scrollToItem(ui->table->item(actPos, 0));
+/*
+        if (actPos % 100 == 0) {
+            actWork = WAIT_HPOS;
+            debug("Set Home pos");
+            setPositionHome();
+            ui->status->setText("Trwa kalibracja urządzenia");
+            --actPos;
+            return;
+        }
+*/
+        if (ui->table->item(actPos, col_action)->text() == QString("R")) {
+            stableTime = ui->table->item(actPos, col_stableTime)->text().toUInt();
+            unsigned int rmm = ui->table->item(actPos, col_rmm)->text().toUInt();
+            actWork = ROLETAWAIT;
+            ui->status->setText("Ustawiam wysokość rolety");
+            setRoleta(rmm);
+        } else if (ui->table->item(actPos, col_action)->text() == QString("P")) {
+            ui->status->setText("Ustawiam pozycje czujnika");
+            xmm = ui->table->item(actPos, col_xmm)->text().toUInt();
+            ymm = ui->table->item(actPos, col_ymm)->text().toUInt();
+            actCzas = ui->table->item(actPos, col_measTime)->text().toUInt();
+            actWork = WAIT_POS;
+            setPos();
+        }
+        return;
+    }
+    case NEXT_POS_AFTER_HPOS:
+    {
+        debug("actWork NEXT_POS_AFTER_HPOS");
+        actWork = WAIT_POS;
+        //actCzas = m_lista.at(actPos).time;
+        setPos();
+        return;
+    }
+    case START_MEASURING:
+    {
+        debug("actWork START_MEASURING");
+        avg1 = 0.0;
+        cnt1 = 0;
+        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Rozpoczynam pomiary").arg(xmm).arg(ymm));
+        actWork = NOW_MEASURING;
+        return;
+    }
+    case NOW_MEASURING:
+    {
+        debug("actWork NOW_MEASURING");
+        if (actCzas == cnt1) {
+            actWork = END_MEASURING;
+            ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono pomiary."));
+            return;
+        }
+        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(xmm).arg(ymm).arg(avg1));
+        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas-cnt1));
+        debug(QString("Pomiar [%1 s]").arg(actCzas));
+        readRadio();
+        return;
+    }
+    case END_MEASURING:
+    {
+        debug("actWork END_MEASURING");
+        actWork = NEXT_POS;
+        return;
+    }
+    case WAIT2STABLE:
+        debug("actWork WAIT2STABLE");
+        ui->status->setText("Czekam na stabilizacje.");
+        if (stableTime == 0) {
+            actWork = NEXT_POS;
+            ui->table->item(actPos, col_status)->setText("Oczekiwanie na stabilazacje zakończone");
+        } else {
+            ui->table->item(actPos, col_status)->setText(QString("Czekam na stabilizację, zostało %1 s").arg(stableTime));
+            --stableTime;
+        }
+        return;
+    }
 }
 
 void PozycjeRoleta::debug(const QString &val)
 {
     qDebug("%s",val.toStdString().c_str());
-    ui->localdebug->append(val);
 }
-/*
-unsigned int PozycjeRoleta::setNorma5(unsigned int row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0;
-    float B = 0.212;
-    float C = 0.426;
-
-    float norma[5] = {-C, -B, A, B, C};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 5; ++i ) {
-        for (short j = 0; j < 5; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 5, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-
-    //[(-0.426, 0.426), (-0.426, 0.212), (-0.426, 0), (-0.426, -0.212), (-0.426, -0.426)
-    //(-0.212, 0.426), (-0.212, 0.212), (-0.212, 0), (-0.212, -0.212), (-0.212 -0.426)
-    //(0, 0.426), (0, 0.212), (0, 0), (0, -0.212), (0 -0.426)
-    //(0.212, 0.426), (0.212, 0.212), (0.212, 0), (0.212, -0.212), (0.212 -0.426)
-    //(0.426, 0.426), (0.426, 0.212), (0.426, 0), (0.426, -0.212), (0.426, -0.426)
-
-}
-
-unsigned int PozycjeRoleta::setNorma6(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0.063;
-    float B = 0.265;
-    float C = 0.439;
-
-    float norma[6] = {-C, -B, -A, A, B, C};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 6; ++i ) {
-        for (short j = 0; j < 6; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 6, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-}
-
-unsigned int PozycjeRoleta::setNorma7(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0.0;
-    float B = 0.134;
-    float C = 0.297;
-    float D = 0.447;
-
-    float norma[7] = {-D, -C, -B, A, B, C, D};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 7; ++i ) {
-        for (short j = 0; j < 7; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 7, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-}
-
-unsigned int PozycjeRoleta::setNorma8(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0.098;
-    float B = 0.278;
-    float C = 0.416;
-    float D = 0.490;
-
-    float norma[8] = {-D, -C, -B, -A, A, B, C, D};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 8; ++i ) {
-        for (short j = 0; j < 8; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 8, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-}
-
-unsigned int PozycjeRoleta::setNorma9(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0.0;
-    float B = 0.171;
-    float C = 0.321;
-    float D = 0.433;
-    float E = 0.492;
-
-    float norma[9] = {-E, -D, -C, -B, A, B, C, D, E};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 9; ++i ) {
-        for (short j = 0; j < 9; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 9, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-}
-
-unsigned int PozycjeRoleta::setNorma10(unsigned row, unsigned int wysokosc, unsigned int pomiary, unsigned int nrR, unsigned int rSize)
-{
-    float A = 0.078;
-    float B = 0.227;
-    float C = 0.354;
-    float D = 0.446;
-    float E = 0.494;
-
-    float norma[10] = {-E, -D, -C, -B, -A, A, B, C, D, E};
-
-    unsigned int r = row;
-
-    for (short i = 0; i < 10; ++i ) {
-        for (short j = 0; j < 10; ++j ) {
-            float px = 0.5 - norma[i];
-            float py = 0.5 - norma[j];
-            unsigned mmX = m_width * px + m_offsetX;
-            unsigned mmY = wysokosc * py + m_offsetY;
-            r = createPoint(r, mmX, mmY, norma[i], norma[j], 10, pomiary, nrR, rSize);
-        }
-    }
-    return r;
-}
-
-*/
 
 
 unsigned int PozycjeRoleta::offsetY() const
@@ -410,19 +351,22 @@ void PozycjeRoleta::setOffsetY(unsigned int newOffsetY)
     m_offsetY = newOffsetY;
 }
 
-void PozycjeRoleta::setValue1(const float &val, const QString &unit)
+void PozycjeRoleta::setValue1(const float &val1, const QString &unit1)
 {
-    if (actStatus != MEASURING)
+    if (actWork != NOW_MEASURING)
         return;
-
-    avg1 = (avg1*cnt1 + val)/(cnt1 + 1);
-    ++cnt1;
-    ui->table->item(actPos, 10)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit));
-}
-
-bool PozycjeRoleta::getConnected() const
-{
-    return connected;
+    DaneWynikoweRoleta data;
+    data.x = ui->table->item(actPos, col_xmm)->text();
+    data.y = ui->table->item(actPos, col_ymm)->text();
+    data.nx = ui->table->item(actPos, col_xnorma)->text();
+    data.ny = ui->table->item(actPos, col_ynorma)->text();
+    data.nrEtap = ui->table->item(actPos, col_etap)->text();
+    data.time = cnt1+1;
+    data.val1 = val1;
+    avg1 = (cnt1*avg1 + val1)/(cnt1 + 1);
+    cnt1++;
+    m_listawynikowa.append(data);
+    ui->table->item(actPos, col_measValue)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit1));
 }
 
 unsigned int PozycjeRoleta::offsetX() const
@@ -435,35 +379,121 @@ void PozycjeRoleta::setOffsetX(unsigned int newOffsetX)
     m_offsetX = newOffsetX;
 }
 
-void PozycjeRoleta::setConnected(bool newConnected)
-{
-    connected = newConnected;
-}
-
 void PozycjeRoleta::status(const QString &st)
 {
     ui->status->setText(st);
 }
 
+void PozycjeRoleta::positionDone(bool home)
+{
+    debug(QString("position Done home=%1").arg(home));
+    if (home) {
+        if (actWork == WAIT_HPOS) {
+            actWork = NEXT_POS_AFTER_HPOS;
+        } else if (actWork == WAIT){
+            actWork = FIRST_RUN;
+        }
+    } else {
+        if (actWork == WAIT_POS) {
+            actWork = START_MEASURING;
+        }
+    }
+}
+
+void PozycjeRoleta::roletaDone(bool home)
+{
+    if (home) {
+        actWork = FIRST_RUN;
+    } else {
+        actWork = WAIT2STABLE;
+    }
+}
+
+void PozycjeRoleta::readedFromRadio(const double &val)
+{
+    debug(QString("Read from radio %1").arg(val));
+    cntErr = 0;
+    setValue1(val, "m/s");
+}
+
+void PozycjeRoleta::errorReadFromRadio()
+{
+    debug(QString("Read Error %1").arg(cntErr + 1));
+    if (++cntErr > 3) {
+        timer->stop();
+        actWork = DONE;
+        ui->status->setText(QString("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));
+    } else {
+        readRadio();
+    }
+}
+
+void PozycjeRoleta::setStop()
+{
+    timer->stop();
+    actWork = DONE;
+    ui->pbRestart->setEnabled(true);
+    ui->pbNoweDane->setEnabled(true);
+    if (m_listawynikowa.size() > 0)
+        ui->pbZapisz->setEnabled(true);
+}
+
 void PozycjeRoleta::on_pbStart_clicked()
 {
-    debug("Start");
-    //emit start();
-    //if (!connected)
-    //    emit doConnect();
-    //else
-    //    emit checkDevice();
+    m_listawynikowa.clear();
+    debug(QString("Start work. Isconnected %1").arg(getConnect()));
+    setIsReady(false);
+    actWork = WAIT_FOR_CONN;
+    actPos = 0;
+    timer->start();
+    ui->pbStart->setEnabled(false);
+    ui->pbRestart->setEnabled(false);
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
+    connectToDevice();
 }
 
 void PozycjeRoleta::on_pbNoweDane_clicked()
 {
-    //emit noweDane();
-    //ui->pbStart->setEnabled(false);
-    ui->pbZapisz->setEnabled(false);
+    if (miernikPrzeplywu)
+        TabWidget::miernikPrzeplywu->noweDane();
 }
 
 
 void PozycjeRoleta::on_pbZapisz_clicked()
 {
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Zapisanie wyników"), "",
+            tr("Pliki csv (*.csv);;Wszystkie pliki (*)"));
+    if (fileName.isEmpty())
+            return;
+    QFile file(fileName);
 
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::information(this, tr("Nie można otworzyć pliku"),
+            file.errorString());
+        return;
+    }
+
+    QTextStream out(&file);
+
+
+    for (int id = 0; id < m_listawynikowa.size(); ++id)
+    {
+        DaneWynikoweRoleta d = m_listawynikowa.at(id);
+        out << d.nrEtap << ";" << d.x << ";" << d.nx << ";" << d.y << ";" << d.ny << ";" << d.time << ";" << d.val1 << "\n";
+    }
+    file.close();
 }
+
+void PozycjeRoleta::on_pbRestart_clicked()
+{
+    for (int i = 0; i < ui->table->rowCount(); i++) {
+         ui->table->item(i, col_measValue)->setText("-");
+         ui->table->item(i, col_status)->setText("Oczekiwanie");
+    }
+    ui->pbRestart->setEnabled(false);
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
+}
+

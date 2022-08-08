@@ -37,6 +37,7 @@ public:
 
     virtual void positionStatus(bool base, SerialMessage::StatusWork work);
     virtual void positionDone(bool base);
+    virtual void roletaDone(bool base);
 
     virtual void readedFromRadio(const double &);
     virtual void errorReadFromRadio();

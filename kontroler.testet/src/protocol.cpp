@@ -87,7 +87,7 @@ bool MessageSerial::parseRozkaz()
         {
             if (dlugosc >= 1 && data[1] == 'P') {
                 sendPosiotionMessages(false);
-            } else if (dlugosc == 1 && data[1] == 'R') {
+            } else if (dlugosc >= 1 && data[1] == 'R') {
                 sendRolPositionMessages(false);
             }
 
@@ -98,7 +98,7 @@ bool MessageSerial::parseRozkaz()
         {
             if (dlugosc >= 1 && data[1] == 'P') {
                 sendPosiotionMessages(true);
-            } else if (dlugosc == 1 && data[1] == 'R') {
+            } else if (dlugosc >= 1 && data[1] == 'R') {
                 sendRolPositionMessages(true);
             }
             actWork=NOP;

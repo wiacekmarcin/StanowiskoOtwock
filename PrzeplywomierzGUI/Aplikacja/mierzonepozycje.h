@@ -14,14 +14,11 @@ class SerialConnect;
 class QTimer;
 class QPlainTextEdit;
 
-typedef struct DaneWynikowe {
+typedef struct _daneWynikowe {
     unsigned int x;
     unsigned int y;
     unsigned int time;
     float val1;
-    float val2;
-    float val3;
-    float val4;
 } DaneWynikowe;
 
 namespace Ui {

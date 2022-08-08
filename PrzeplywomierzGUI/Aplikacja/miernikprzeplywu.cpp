@@ -429,6 +429,7 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
     case SerialMessage::END_R:
         ui->lStatusRoleta->setText("Roleta ustawiona.");
         ui->statusbar->showMessage("Zakończono ustawianie rolety na pozycji.",5000);
+        widget->roletaDone(false);
         break;
     case SerialMessage::ERROR_XY:
         ui->lStatusMinor->setText("Błąd pozycjonowania czujnika");
@@ -480,12 +481,13 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
         widget->positionDone(true);
         break;
     case SerialMessage::START_R:
-        ui->lStatus->setText("Ustawianie rolety na pozycji bazowej.");
+        ui->lStatusRoleta->setText("Ustawianie rolety na pozycji bazowej.");
         ui->statusbar->showMessage("Ustawianie rolety na pozycji bazowej.",5000);
         break;
     case SerialMessage::END_R:
-        ui->lStatus->setText("Roleta ustawiona na pozycji bazowej.");
+        ui->lStatusRoleta->setText("Roleta ustawiona na pozycji bazowej.");
         ui->statusbar->showMessage("Zakończono ustawianie rolety na pozycji bazowej.",5000);
+        widget->roletaDone(true);
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, QString("Kalibracja urządzenia"),

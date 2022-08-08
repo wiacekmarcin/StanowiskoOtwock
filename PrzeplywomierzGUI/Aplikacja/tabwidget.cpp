@@ -94,6 +94,11 @@ void TabWidget::positionDone(bool )
 
 }
 
+void TabWidget::roletaDone(bool base)
+{
+
+}
+
 void TabWidget::setStatus(const QString &)
 {
 

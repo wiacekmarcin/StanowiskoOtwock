@@ -563,12 +563,13 @@ QByteArray SerialMessage::homeRoletaMsg()
 
 QByteArray SerialMessage::roletaMsg(uint32_t r)
 {
-    uint8_t tab[4];
-    tab[0] = (r >> 24) & 0xff;
-    tab[1] = (r >> 16) & 0xff;
-    tab[2] = (r >> 8) & 0xff;
-    tab[3] = r & 0xff;
-    return prepareMessage(POSITION_REQ, tab, 4);
+    uint8_t tab[5];
+    tab[0] = 'R';
+    tab[1] = (r >> 24) & 0xff;
+    tab[2] = (r >> 16) & 0xff;
+    tab[3] = (r >> 8) & 0xff;
+    tab[4] = r & 0xff;
+    return prepareMessage(POSITION_REQ, tab, 5);
 }
 
 QByteArray SerialMessage::measValuesMsg()
