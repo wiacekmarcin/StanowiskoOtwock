@@ -38,7 +38,7 @@ WyborMetody::~WyborMetody()
 
 void WyborMetody::init()
 {
-    qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
+    //qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
     on_rbfile_toggled(false);
     on_rbmanual_toggled(false);
     on_rbhalfmanual_toggled(false);
@@ -114,7 +114,7 @@ void WyborMetody::init()
 
 void WyborMetody::initMethodPosition()
 {
-    qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
+    //qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
     switch(wbInsData)
     {
     case METHOD_FILE:
@@ -465,7 +465,7 @@ void WyborMetody::on_timeManualDefault_editingFinished()
 
 void WyborMetody::reject()
 {
-    qDebug() << __FILE__ << __LINE__ << __FUNCTION__;
+    //qDebug() << __FILE__ << __LINE__ << __FUNCTION__;
     QMessageBox::StandardButton resBtn = QMessageBox::Yes;
     resBtn = QMessageBox::question( this, "Przeplywomierz",
                                         tr("Czy jesteś pewny?\n"),
