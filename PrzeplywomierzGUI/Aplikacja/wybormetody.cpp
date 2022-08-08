@@ -257,7 +257,7 @@ bool WyborMetody::isValidNumberRolety(QLineEdit *number)
     if (!ok) {
         return false;
     }
-    if (isn <= 0 || isn > maxRolet) {
+    if (isn < minRolet || isn > maxRolet) {
         return false;
     }
     return true;
