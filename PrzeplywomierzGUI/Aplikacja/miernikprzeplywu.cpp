@@ -360,7 +360,7 @@ void MiernikPrzeplywu::readedFromRadio(int value)
         checkRadio = false;
         widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
         ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
-        ui->lradio->setText(QString("Widoczny"));
+    ui->lradio->setText(QString("Widoczny"));
         setPositionHome();
         return;
     }
@@ -505,9 +505,9 @@ void MiernikPrzeplywu::setParamsDone()
     widget->setConnect(true);
 
     if (modeWork == WyborMetody::MODE_FUNSET) {
-        widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
-        setPositionHome();
+    widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
+    ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
+    setPositionHome();
     } else {
         widget->setStatus(QString("Zakończono konfigurację urządzenia. Sprawdzam połączenie z modułem radiowym"));
         ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Sprawdzam połączenie z modułem radiowym...."));
