@@ -422,18 +422,18 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxStepX, uint32_t maxStepY,
                               uint32_t maxStepR)
 {
+    qDebug() << maxImpX << maxImpY << "|" << maxStepX << maxStepY << maxStepR;
+
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;
     memoryreverseR = reverseR;
-    //memorymaxImpX = maxImpX;
-    //memorymaxImpY = maxImpY;
+    memorymaxImpX = maxImpX;
+    memorymaxImpY = maxImpY;
 
-    memorymaxImpX = 300000L;
-    memorymaxImpY = 300000L;
 
-    memoryStepX = 300000L;
-    memoryStepY = 300000L;
-    memoryStepR = 300000L;
+    memoryStepX = maxStepX;
+    memoryStepY = maxStepY;
+    memoryStepR = maxStepR;
 
 #ifdef SYMULATOR
     qSleep(500);
@@ -451,19 +451,14 @@ void SerialMessage::setMechParams(bool reverseX, bool reverseY, bool reverseR,
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;
     memoryreverseR = reverseR;
-    memorymaxImpX = 700000L;
-    memorymaxImpY = 700000L;
-    //memorymaxImpX = maxImpX;
-    //memorymaxImpY = maxImpY;
+    memorymaxImpX = maxImpX;
+    memorymaxImpY = maxImpY;
 
 
-    //memoryStepX = maxStepX;
-    //memoryStepY = maxStepY;
-    //memoryStepR = maxStepR;
+    memoryStepX = maxStepX;
+    memoryStepY = maxStepY;
+    memoryStepR = maxStepR;
 
-    memoryStepX = 700000L;
-    memoryStepY = 700000L;
-    memoryStepR = 700000L;
 
 }
 
@@ -594,6 +589,7 @@ QByteArray SerialMessage::measUnitMsg(short index, const float &ratio, QString &
 
 QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
+    qDebug() << __FILE__ << __LINE__ << maxImpX << maxImpY;
     uint8_t tab[10];
     tab[0] = 0x01;
     tab[1] = (reverseX ? 0x01 : 0x00) | (reverseY ? 0x02 : 0x00) | (reverseR ? 0x04 : 0x00) ;

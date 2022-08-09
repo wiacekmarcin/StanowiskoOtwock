@@ -1,7 +1,7 @@
 #include "protocol.hpp"
 
 //#define DEBUG
-
+//#define FULLDEBUG
 #include "../../kontroler_lib/protocol_kontroler.cpp"
 
 //10 imp silnika na 1 mm
@@ -45,7 +45,7 @@ bool MessageSerial::check(unsigned char c)
 {
     data[posCmd++] = c;
     data[posCmd] = '\0';
-#ifdef DEBUG        
+#ifdef FULLDEBUG        
     Serial.print("NOWY ZNAK=");
     Serial.println(c, HEX);
 #endif    
@@ -54,7 +54,7 @@ bool MessageSerial::check(unsigned char c)
         crc.add(data[0]);
         rozkaz = data[0] >> 4;
         dlugosc = data[0] & 0x0f;
-#ifdef DEBUG            
+#ifdef FULLDEBUG            
         Serial.print("ROZKAZ=");
         Serial.println(rozkaz,DEC);
         Serial.print("LEN=");
@@ -65,7 +65,7 @@ bool MessageSerial::check(unsigned char c)
     
     if (posCmd == dlugosc + 2) {
         uint8_t c = crc.getCRC();
-#ifdef DEBUG            
+#ifdef FULLDEBUG            
         Serial.print("CRC=");
         Serial.print(c,HEX);
         Serial.print("==");
@@ -76,7 +76,7 @@ bool MessageSerial::check(unsigned char c)
             bool r = parseRozkaz();
             if (!r) {
                 sendError("ZLY ROZKAZ");
-#ifdef DEBUG                    
+#ifdef FULLDEBUG                    
                 Serial.println("ZLY ROZKAZ");
 #endif                
             }
@@ -84,7 +84,7 @@ bool MessageSerial::check(unsigned char c)
         }
         posCmd = 0;
         sendError("ZLE CRC");
-#ifdef DEBUG            
+#ifdef FULLDEBUG            
         Serial.print("CRC FAILD");
 #endif        
         return false;
@@ -97,7 +97,7 @@ bool MessageSerial::check(unsigned char c)
     if (posCmd == MAXLENPROTO) {
         posCmd = 0;
         sendError("ZBYT DUZA WIAD");
-#ifdef DEBUG           
+#ifdef FULLDEBUG           
         Serial.println("ZBYT DUZA WIADOMOSC");
 #endif        
         return false;    
@@ -210,10 +210,10 @@ bool MessageSerial::parseRozkaz()
                 }
 
 #ifdef DEBUG 
-                Serial.print("MAXX=");
+                Serial.print("MAXIMPX=");
                 Serial.println(maxX, DEC);
 
-                Serial.print("MAXY=");
+                Serial.print("MAXIMPY=");
                 Serial.println(maxY, DEC);
 #endif
                 gImpMaxX = maxX;
@@ -238,13 +238,13 @@ bool MessageSerial::parseRozkaz()
                     maxR = (maxR << 8) + (data[10+i] & 0xff);
                 }
 #ifdef DEBUG
-                Serial.print("MAXX=");
+                Serial.print("MAXSTE{X=");
                 Serial.println(maxX, DEC);
 
-                Serial.print("MAXY=");
+                Serial.print("MAXSTEPY=");
                 Serial.println(maxY, DEC);
 
-                Serial.print("MAXR=");
+                Serial.print("MAXSTEPR=");
                 Serial.println(maxR, DEC);
 #endif
                 gStepMaxX = maxX;

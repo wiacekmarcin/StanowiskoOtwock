@@ -149,7 +149,7 @@ void MiernikPrzeplywu::calculateMechanika()
 {
     switch(modeWork) {
     case WyborMetody::MODE_ROLETA:
-        mech.setPrzestrzen(850, 1500);
+        mech.setPrzestrzen(1200, 2000);
         mech.setReverseY(false);
         mech.setReverseX(true);
         mech.setReverseR(true);

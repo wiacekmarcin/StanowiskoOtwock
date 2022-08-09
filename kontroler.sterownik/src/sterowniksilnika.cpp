@@ -2,7 +2,8 @@
 #include <Arduino.h>
 #include "protocol.hpp"
 
-//#define DEBUG
+//#define DEBUGSIL
+
 #define OKNO_SILNIK_PRAWA
 uint32_t gImpMaxX = 291000L;
 uint32_t gImpMaxY = 301000L;
@@ -184,11 +185,20 @@ bool returnBaseX()
 #endif
 
     if (!getHomePosX()) {
-        
+#ifdef DEBUGSIL
+        Serial.println("Poza krancowka X");
+#endif
         while (!getHomePosX() && ++step < gStepMaxX) {
             stepX(50, 400);
         }
+
         if (!getHomePosX()) {
+#ifdef DEBUGSIL
+            Serial.print("Za duzo krokow");
+            Serial.print(step, DEC);
+            Serial.print(" > ");
+            Serial.println(gStepMaxX);
+#endif
             msg.setErrorHomeBack();
             //attachEnkoderX(false);
             return false;
@@ -226,11 +236,21 @@ bool returnBaseY()
 
 
     if (!getHomePosY()) {
+#ifdef DEBUGSIL
+        Serial.println("Poza krancowka Y");
+#endif
         
-        while (!getHomePosY() && ++step < gImpMaxY) {
+        while (!getHomePosY() && ++step < gStepMaxY) {
             stepY(50, 400);
         }
-        if (!getHomePosX()) {
+
+        if (!getHomePosY()) {
+#ifdef DEBUGSIL
+            Serial.print("Za duzo krokow Y");
+            Serial.print(step, DEC);
+            Serial.print(" > ");
+            Serial.println(gStepMaxY);
+#endif
             msg.setErrorHomeBack();
             //attachEnkoderY(false);
             return false;

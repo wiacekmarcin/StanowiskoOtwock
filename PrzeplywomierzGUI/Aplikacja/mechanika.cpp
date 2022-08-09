@@ -25,25 +25,25 @@ void Ruch::setPrzestrzen(unsigned int xmm, unsigned int ymm)
 
 void Ruch::setImpusyXPerMM(double imp)
 {
-    //impulsyXperMM = imp;
+    impulsyXperMM = imp;
     calculate();
 }
 
 void Ruch::setImpusyYPerMM(double imp)
 {
-    //impulsyYperMM = imp;
+    impulsyYperMM = imp;
     calculate();
 }
 
 void Ruch::setKrokiXPerMM(double krok)
 {
-    //krokiXperMM = krok;
+    krokiXperMM = krok;
     calculate();
 }
 
 void Ruch::setKrokiYPerMM(double krok)
 {
-    //krokiYperMM = krok;
+    krokiYperMM = krok;
     calculate();
 }
 
