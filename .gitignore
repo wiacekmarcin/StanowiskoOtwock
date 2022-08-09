@@ -54,9 +54,11 @@ PrzeplywomierzGUI/Program glowny/*
 PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI.pro.user*
 PrzeplywomierzGUI/Test/moc_*
 PrzeplywomierzGUI/Test/ui_*
+PrzeplywomierzGUI/Test/Makefile
 PrzeplywomierzGUI/Aplikacja/moc_*
 PrzeplywomierzGUI/Aplikacja/ui_*
+PrzeplywomierzGUI/Aplikacja/Makefile
 PrzeplywomierzGUI/Serwis/moc_*
 PrzeplywomierzGUI/Serwis/ui_*
-
-
+PrzeplywomierzGUI/Serwis/Makefile
+PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI.pro.user
