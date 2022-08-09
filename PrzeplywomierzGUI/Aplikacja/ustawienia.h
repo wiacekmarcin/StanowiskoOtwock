@@ -1,15 +1,16 @@
 #ifndef USTAWIENIA_H
 #define USTAWIENIA_H
 
+#include <QObject>
 #include <QString>
 #include <QSettings>
 
 Q_DECLARE_METATYPE(long double)
 
-#define RolObrotN(N) const QString &getRolObrot##N() const; void setRolObrot##N(const QString &newRolObrot##N);
-
-class Ustawienia
+class Ustawienia : public QObject
 {
+    Q_OBJECT
+
 public:
     Ustawienia();
 
@@ -40,11 +41,11 @@ public:
     QString getKatnachylenia() const;
     void setKatnachylenia(const QString &value);
 
-    QString getOffsetX() const;
-    void setOffsetX(const QString &value);
+    QString getWentOffsetX() const;
+    void setWentOffsetX(const QString &value);
 
-    QString getOffsetY() const;
-    void setOffsetY(const QString &value);
+    QString getWentOffsetY() const;
+    void setWentOffsetY(const QString &value);
 
     const QString &getRolDlugosc() const;
     void setRolDlugosc(const QString &newRolDlugosc);
@@ -52,26 +53,53 @@ public:
     const QString &getRolStepObrot() const;
     void setRolStepObrot(const QString &newRolImpObrot);
 
+    const QString &getRolObrot1() const;
+    void setRolObrot1(const QString &newRolObrot1);
 
-    RolObrotN(1)
-    RolObrotN(2)
-    RolObrotN(3)
-    RolObrotN(4)
-    RolObrotN(5)
-    RolObrotN(6)
-    RolObrotN(7)
-    RolObrotN(8)
-    RolObrotN(9)
-    RolObrotN(10)
-    RolObrotN(11)
-    RolObrotN(12)
-    RolObrotN(13)
+    const QString &getRolObrot2() const;
+    void setRolObrot2(const QString &newRolObrot2);
+
+    const QString &getRolObrot3() const;
+    void setRolObrot3(const QString &newRolObrot3);
+
+    const QString &getRolObrot4() const;
+    void setRolObrot4(const QString &newRolObrot4);
+
+    const QString &getRolObrot5() const;
+    void setRolObrot5(const QString &newRolObrot5);
+
+    const QString &getRolObrot6() const;
+    void setRolObrot6(const QString &newRolObrot6);
+
+    const QString &getRolObrot7() const;
+    void setRolObrot7(const QString &newRolObrot7);
+
+    const QString &getRolObrot8() const;
+    void setRolObrot8(const QString &newRolObrot8);
+
+    const QString &getRolObrot9() const;
+    void setRolObrot9(const QString &newRolObrot9);
+
+    const QString &getRolObrot10() const;
+    void setRolObrot10(const QString &newRolObrot10);
+
+    const QString &getRolObrot11() const;
+    void setRolObrot11(const QString &newRolObrot11);
+
+    const QString &getRolObrot12() const;
+    void setRolObrot12(const QString &newRolObrot12);
+
+    const QString &getRolObrot13() const;
+    void setRolObrot13(const QString &newRolObrot13);
 
     QString getRolOffsetX() const;
     void setRolOffsetX(const QString &value);
 
     QString getRolOffsetY() const;
     void setRolOffsetY(const QString &value);
+
+    const QString &getRolkrokiperMM() const;
+    void setRolkrokiperMM(const QString &newRolkrokiperMM);
 
 private:
     QSettings settings;
@@ -90,8 +118,8 @@ private:
     QString krokiYperMM;
 
     QString katnachylenia;
-    QString offsetX;
-    QString offsetY;
+    QString wentOffsetX;
+    QString wentOffsetY;
 
     QString rolDlugosc;
     QString rolStepObrot;
@@ -111,6 +139,7 @@ private:
 
     QString rolOffsetX;
     QString rolOffsetY;
+    QString rolkrokiperMM;
 };
 
 #endif // USTAWIENIA_H

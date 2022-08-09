@@ -82,7 +82,7 @@ wentylatora</string>
            <widget class="QRadioButton" name="rbRoleta">
             <property name="text">
              <string>Praca z roletą
-860x1600 [mm]</string>
+870x1500 [mm]</string>
             </property>
            </widget>
           </item>
@@ -781,7 +781,7 @@ na podstawie normy</string>
                 </size>
                </property>
                <property name="text">
-                <string>Plik powinien zawierać następujące dane oddzielone przecinkiem : współrzędne szerokość i wysokość wyrażone w jednostce [środek obszary to 0, lewa lub dolna krawędż to -0.5, a prawa lub górna krawędź to 0.5], czas postoju, nr etapu [0 to specjalna wartość, od 1 do 15]</string>
+                <string>Plik powinien zawierać następujące dane oddzielone przecinkiem : nr etapu [ od 2 do 15], współrzędne szerokość i wysokość wyrażone w jednostce [środek obszary to 0, lewa lub dolna krawędż to -0.5, a prawa lub górna krawędź to 0.5], czas postoju</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
@@ -840,6 +840,89 @@ na podstawie normy</string>
                   <string/>
                  </property>
                 </widget>
+               </item>
+              </layout>
+             </item>
+                          <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <item>
+                <widget class="QLabel" name="label_21">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Ilość etapów:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="normaEtapNumberFile">
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="maxLength">
+                  <number>20</number>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_21">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_61">
+               <item>
+                <widget class="QLabel" name="label_101">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Czas stabilizacji [s]:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="normaStabTimeFile">
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_51">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </item>

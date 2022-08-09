@@ -51,7 +51,8 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     cnt1 = 0;
     cntErr = 0;
     ui->pbRestart->setVisible(false);
-    adjustSize();
+    //adjustSize();
+    ui->table->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
 }
 
 PozycjeRoleta::~PozycjeRoleta()

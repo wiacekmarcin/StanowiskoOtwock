@@ -4,6 +4,7 @@
 #include "wyborkwadratow.h"
 #include "recznedodpozycji.h"
 #include "wybranyplik.h"
+#include "wybranypliknorma.h"
 #include "ustawienia.h"
 #include "mierzonepozycje.h"
 #include "pozycjeroleta.h"
@@ -22,12 +23,11 @@
 
 #define TABVISIBLE 0
 
-MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
+MiernikPrzeplywu::MiernikPrzeplywu()
     : QMainWindow(NULL)
     , ui(new Ui::MiernikPrzeplywu)
     , modeWork(WyborMetody::MODE_NONE)
     , methodIns(WyborMetody::METHOD_NONE)
-    , ust(u)
     , deviceConn(false)
     , deviceReady(false)
     , sendParams(false)
@@ -36,7 +36,7 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     ui->setupUi(this);
     widget = nullptr;
 
-    setUstawienia();
+    //setUstawienia();
 
     connect(&sMsg, &SerialMessage::errorSerial, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
     connect(&sMsg, &SerialMessage::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
@@ -65,7 +65,9 @@ MiernikPrzeplywu::MiernikPrzeplywu(Ustawienia &u)
     connect(this, &MiernikPrzeplywu::setParamsSig, &sMsg, &SerialMessage::setParams, Qt::QueuedConnection);
     connect(this, &MiernikPrzeplywu::readRadioSig, &sMsg, &SerialMessage::readRadio, Qt::QueuedConnection);
 
+    showMaximized();
     chooseWork();
+
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
@@ -79,8 +81,8 @@ void MiernikPrzeplywu::chooseWork()
     hide();
     do {
         qDebug() << "New wyborMethody";
-        WyborMetody m(this, modeWork, methodIns);
-        m.setUstawienia(&ust);
+        WyborMetody m(this, modeWork, methodIns, ust);
+
         int r = m.exec();
         if (r == 0) {
             QApplication::quit();
@@ -231,18 +233,25 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         PozycjeRoleta * w = static_cast<PozycjeRoleta*>(widget);
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
-            qDebug()<< __FILE__ << __LINE__ <<
-                       values.etapNrRoleta << values.timeStopRoleta <<
-                       values.stableTimeRoleta << 1500 << 850 <<
-                       values.offsetX << values.offsetY;
-            PodzialEtapuRolety * pdr = new PodzialEtapuRolety(this, values.etapNrRoleta, values.timeStopRoleta,
+
+            PodzialEtapuRolety pdr(this, values.etapNrRoleta, values.timeStopRoleta,
                                   values.stableTimeRoleta, 1500, 870,
                                   values.offsetX, values.offsetY);
-            int r = pdr->exec();
+            int r = pdr.exec();
             if (r == 0) {
                 return false;
             }
-            w->setList(pdr->getLista());
+            w->setList(pdr.getLista());
+            return true;
+        } else if (methodIns == WyborMetody::METHOD_FILE) {
+            qDebug() << "alloha" << values.stableTimeRoleta;
+            WybranyPlikNorma wpn(this, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
+                                 1500, 870, values.offsetX, values.offsetY);
+            int r = wpn.exec();
+            if (r == 0) {
+                return  false;
+            }
+            w->setList(wpn.getList());
             return true;
         }
     }
@@ -276,6 +285,9 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
 
 void MiernikPrzeplywu::setUstawienia()
 {
+    ust.read();
+    //mech.setUstawienia(ust);
+
     auto val1 = ust.getImpulsyXperMM();
     if (!val1.isEmpty())
         mech.setImpusyXPerMM(val1.toUInt());
@@ -292,11 +304,11 @@ void MiernikPrzeplywu::setUstawienia()
     if (!val4.isEmpty())
         mech.setKrokiYPerMM(val4.toUInt());
 
-    auto val5 = ust.getOffsetX();
+    auto val5 = ust.getWentOffsetX();
     if (!val5.isEmpty())
         mech.setWentOffsetX(val5.toDouble());
 
-    auto val6 = ust.getOffsetY();
+    auto val6 = ust.getWentOffsetY();
     if (!val6.isEmpty())
         mech.setWentOffsetY(val6.toDouble());
 

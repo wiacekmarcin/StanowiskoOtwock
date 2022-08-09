@@ -17,12 +17,9 @@ int main(int argc, char *argv[])
     //WyborMetody::ModeWork mode = WyborMetody::MODE_NONE;
     //WyborMetody::MethodInsData method = WyborMetody::METHOD_NONE;
 
-    Ustawienia u;
-    u.read();
-
-
     //do {
-        MiernikPrzeplywu w(u);
+        MiernikPrzeplywu w;
+        w.show();
         //ar = w.exec();
         //qDebug() << "exec" << ar;
         //mode = w.getModeWork();

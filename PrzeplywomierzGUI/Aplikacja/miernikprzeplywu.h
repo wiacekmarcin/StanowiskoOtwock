@@ -27,7 +27,7 @@ class MiernikPrzeplywu : public QMainWindow
     Q_OBJECT
 
 public:
-    MiernikPrzeplywu(Ustawienia & ust);
+    explicit MiernikPrzeplywu();
     ~MiernikPrzeplywu();
 
     void closeEvent (QCloseEvent *event);
@@ -101,7 +101,7 @@ private:
     WyborMetody::MethodInsData methodIns;
     WyborMetodyData data;
 
-    Ustawienia & ust;
+    Ustawienia ust;
     Ruch mech;
     RoletaRuch mechR;
 

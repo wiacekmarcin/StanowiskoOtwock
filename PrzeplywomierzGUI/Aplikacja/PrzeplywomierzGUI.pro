@@ -37,12 +37,11 @@ SOURCES += \
     wyborkwadratow.cpp \
     wybormetody.cpp \
     wybranyplik.cpp \
+    wybranypliknorma.cpp \
     miernikprzeplywu.cpp \
     pozycje.cpp \
     recznedodpozycji.cpp \
     mierzonepozycje.cpp \
-    sterownik.cpp \
-    etapyroletdlg.cpp \
     podzialetapurolety.cpp
 HEADERS += \
         crc8.h \
@@ -55,12 +54,11 @@ HEADERS += \
     wyborkwadratow.h \
     wybormetody.h \
     wybranyplik.h \
+    wybranypliknorma.h \
     miernikprzeplywu.h \
     pozycje.h \
     recznedodpozycji.h \
     mierzonepozycje.h \
-    sterownik.h \
-    etapyroletdlg.h \
     podzialetapurolety.h
 
 FORMS += \
@@ -70,10 +68,10 @@ FORMS += \
     wyborkwadratow.ui \
     wybormetody.ui \
     wybranyplik.ui \
+    wybranypliknorma.ui \
     miernikprzeplywu.ui \
     recznedodpozycji.ui \
     mierzonepozycje.ui \
-    etapyroletdlg.ui \
     podzialetapurolety.ui
 
 DISTFILES += \

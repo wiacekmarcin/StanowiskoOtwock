@@ -41,7 +41,8 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     ui->pbRestart->setVisible(false);
     ui->pbZapisz->setEnabled(false);
     started = false;
-    adjustSize();
+
+    ui->table->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
 }
 
 MierzonePozycje::~MierzonePozycje()

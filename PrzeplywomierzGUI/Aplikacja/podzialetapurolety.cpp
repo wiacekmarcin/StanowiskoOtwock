@@ -16,6 +16,7 @@ PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow_, 
     maxR(maxR_)
 {
     ui->setupUi(this);
+    setWindowTitle("Przepływomierz - wybór norm dla każdego etapu.");
 
     for (unsigned int e = 0; e < nrEtapow; ++e) {
         jedenWidget(e);

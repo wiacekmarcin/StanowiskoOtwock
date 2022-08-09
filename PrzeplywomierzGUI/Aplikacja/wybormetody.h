@@ -51,7 +51,9 @@ public:
     } ModeWork;
 
 
-    explicit WyborMetody(QWidget *parent = nullptr, ModeWork mode = ModeWork::MODE_NONE, MethodInsData method = METHOD_NONE);
+    explicit WyborMetody(QWidget *parent, ModeWork mode,
+                         MethodInsData method,
+                         Ustawienia & u);
     ~WyborMetody();
 
 
@@ -146,6 +148,10 @@ private slots:
 
     void on_rbRoletaDane_clicked();
 
+    void on_normaEtapNumberFile_textChanged(const QString &arg1);
+
+    void on_normaStabTimeFile_textChanged(const QString &arg1);
+
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
@@ -183,6 +189,6 @@ private:
 
     bool startWindow;
 
-    Ustawienia * ust;
+    Ustawienia & ust;
 };
 #endif // WYBORMETODY_H

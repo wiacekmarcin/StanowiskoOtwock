@@ -6,11 +6,12 @@
 #include <QMessageBox>
 #include <QDebug>
 
-WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns) :
+WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns, Ustawienia & u ) :
     QDialog(parent),
     ui(new Ui::WyborMetody),
     wbInsData(dataIns),
-    wbMode(mode)
+    wbMode(mode),
+    ust(u)
 {
     data.timeStopManual = 0;
     data.timeStopAuto = 0;
@@ -28,6 +29,18 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns) 
     ui->setupUi(this);
 
     init();
+    showMaximized();
+
+    QString ox = ust.getRolOffsetX();
+    QString oy = ust.getRolOffsetY();
+
+    qDebug() << __FILE__ << __LINE__ <<  ox << oy;
+    ui->normaOffsetX->setText(ox);
+    ui->normaOffsetXEdit->setText(ox);
+    ui->normaOffsetY->setText(oy);
+    ui->normaOffsetYEdit->setText(oy);
+    data.offsetX = ox.toUInt();
+    data.offsetY = oy.toUInt();
 }
 
 WyborMetody::~WyborMetody()
@@ -142,10 +155,13 @@ void WyborMetody::initMethodPosition()
 
 void WyborMetody::on_rbfile_toggled(bool checked)
 {
-    ui->frChoiceFile->setDisabled(!checked);
-    ui->frHalfManual->setDisabled(checked);
-    ui->frManual->setDisabled(checked);
     if (checked) {
+        ui->frManual->setDisabled(true);
+        ui->frHalfManual->setDisabled(true);
+        ui->frChoiceFile->setDisabled(false);
+        ui->rbmanual->setChecked(false);
+        ui->rbhalfmanual->setChecked(false);
+        ui->rbfile->setChecked(true);
         wbInsData = METHOD_FILE;
         setEnabledContinue(!getFileName().isEmpty());
     } else {
@@ -157,10 +173,14 @@ void WyborMetody::on_rbfile_toggled(bool checked)
 
 void WyborMetody::on_rbmanual_toggled(bool checked)
 {
-    ui->frManual->setDisabled(!checked);
-    ui->frHalfManual->setDisabled(checked);
-    ui->frChoiceFile->setDisabled(checked);
+
     if (checked) {
+        ui->frManual->setDisabled(false);
+        ui->frHalfManual->setDisabled(true);
+        ui->frChoiceFile->setDisabled(true);
+        ui->rbmanual->setChecked(true);
+        ui->rbhalfmanual->setChecked(false);
+        ui->rbfile->setChecked(false);
         short ok = 0;
         if (isValidNumber(ui->numberManual, 1000)) {
             data.numberPozMan = ui->numberManual->text().toUInt();
@@ -180,10 +200,13 @@ void WyborMetody::on_rbmanual_toggled(bool checked)
 
 void WyborMetody::on_rbhalfmanual_toggled(bool checked)
 {
-    ui->frHalfManual->setDisabled(!checked);
-    ui->frManual->setDisabled(checked);
-    ui->frChoiceFile->setDisabled(checked);
     if (checked) {
+        ui->frManual->setDisabled(true);
+        ui->frHalfManual->setDisabled(false);
+        ui->frChoiceFile->setDisabled(true);
+        ui->rbmanual->setChecked(false);
+        ui->rbhalfmanual->setChecked(true);
+        ui->rbfile->setChecked(false);
         short ok = 0;
         if (isValidNumber(ui->numberAuto, 20)) {
             data.numberWidth = ui->numberAuto->text().toUInt();
@@ -332,17 +355,6 @@ void WyborMetody::setData(const WyborMetodyData &newData)
     data = newData;
 }
 
-void WyborMetody::setUstawienia(Ustawienia *u)
-{
-    ust = u;
-    ui->normaOffsetX->setText(u->getRolOffsetX());
-    ui->normaOffsetXEdit->setText(u->getRolOffsetX());
-    ui->normaOffsetY->setText(u->getRolOffsetY());
-    ui->normaOffsetYEdit->setText(u->getRolOffsetY());
-    data.offsetX = u->getRolOffsetX().toUInt();
-    data.offsetY = u->getRolOffsetY().toUInt();
-}
-
 void WyborMetody::setWbMode(ModeWork newWbMode)
 {
     wbMode = newWbMode;
@@ -422,6 +434,7 @@ void WyborMetody::on_rb2700_toggled(bool checked)
         visibleOther(true);
         visibleRoleta(false);
         wbMode = MODE_2700;
+        on_rbfile_toggled(true);
     }
 }
 
@@ -431,6 +444,7 @@ void WyborMetody::on_rb1000l_toggled(bool checked)
         visibleOther(true);
         visibleRoleta(false);
         wbMode = MODE_1000L;
+        on_rbfile_toggled(true);
     }
 }
 
@@ -440,6 +454,7 @@ void WyborMetody::on_rb1000p_toggled(bool checked)
         visibleOther(true);
         visibleRoleta(false);
         wbMode = MODE_1000P;
+        on_rbfile_toggled(true);
     }
 }
 
@@ -459,7 +474,7 @@ void WyborMetody::on_rbRoleta_toggled(bool checked)
         wbMode = MODE_ROLETA;
         visibleOther(false);
         visibleRoleta(true);
-        setEnabledContinue(isValidNumberRolety(ui->normaEtapNumber) && isValidPostojRolety(ui->normaStabTime) && isValidIloscRolety(ui->NormaIloscProbek));
+        on_rbRoletaDane_toggled(true);
     }
 }
 
@@ -600,22 +615,28 @@ void WyborMetody::on_numberManual_textChanged(const QString &)
 
 void WyborMetody::on_rbRoletaDane_toggled(bool checked)
 {
-    ui->rbRoletaDane->setChecked(checked);
-    ui->rbRoletaPlik->setChecked(!checked);
-    ui->frRoleta->setDisabled(!checked);
-    ui->frRoletaPlik->setDisabled(checked);
-    wbMode = MODE_ROLETA;
-    wbInsData = METHOD_MANUAL;
+    if (checked) {
+        ui->rbRoletaDane->setChecked(checked);
+        ui->rbRoletaPlik->setChecked(!checked);
+        ui->frRoleta->setDisabled(!checked);
+        ui->frRoletaPlik->setDisabled(checked);
+        wbMode = MODE_ROLETA;
+        wbInsData = METHOD_MANUAL;
+        setEnabledContinue(isValidRoletaRB() && isValidPostojRolety(ui->normaStabTime) && isValidIloscRolety(ui->NormaIloscProbek));
+    }
 }
 
 void WyborMetody::on_rbRoletaPlik_toggled(bool checked)
 {
-    ui->rbRoletaDane->setChecked(!checked);
-    ui->rbRoletaPlik->setChecked(checked);
-    ui->frRoleta->setDisabled(checked);
-    ui->frRoletaPlik->setDisabled(!checked);
-    wbMode = MODE_ROLETA;
-    wbInsData = METHOD_FILE;
+    if (checked) {
+        ui->rbRoletaDane->setChecked(!checked);
+        ui->rbRoletaPlik->setChecked(checked);
+        ui->frRoleta->setDisabled(checked);
+        ui->frRoletaPlik->setDisabled(!checked);
+        wbMode = MODE_ROLETA;
+        wbInsData = METHOD_FILE;
+        setEnabledContinue(isValidRoletaRB() && !ui->wybranyPlikRolety->text().isEmpty());
+    }
 }
 
 void WyborMetody::on_pbChooseFile_clicked()
@@ -667,8 +688,8 @@ void WyborMetody::on_pbNormaOffsetSave_clicked()
     } else {
         return;
     }
-    ust->setRolOffsetX(QString::number(data.offsetX));
-    ust->setRolOffsetY(QString::number(data.offsetY));
+    ust.setRolOffsetX(QString::number(data.offsetX));
+    ust.setRolOffsetY(QString::number(data.offsetY));
 }
 
 
@@ -710,6 +731,27 @@ void WyborMetody::on_rbRoletaDane_clicked()
 }
 
 
+void WyborMetody::on_normaEtapNumberFile_textChanged(const QString &arg1)
+{
+    if (!isValidNumberRolety(ui->normaEtapNumberFile)) {
+        setEnabledContinue(false);
+        return;
+    }
+    data.etapNrRoleta = arg1.toUInt();
+    setEnabledContinue(isValidRoletaRB() && isValidPostojRolety(ui->normaStabTimeFile) && !ui->wybranyPlikRolety->text().isEmpty());
+}
 
 
+void WyborMetody::on_normaStabTimeFile_textChanged(const QString &arg1)
+{
+    qDebug() << data.stableTimeRoleta << arg1;
+    if (!isValidPostojRolety(ui->normaStabTimeFile)) {
+        setEnabledContinue(false);
+        return;
+    }
+    qDebug() << "ok";
+    data.stableTimeRoleta = arg1.toUInt();
+    qDebug() << data.stableTimeRoleta;
+    setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumberFile) && !ui->wybranyPlikRolety->text().isEmpty());
+}
 

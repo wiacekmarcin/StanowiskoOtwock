@@ -44,6 +44,7 @@ public:
     void setInit(unsigned int maxEtap_, unsigned int maxR_ , unsigned int width_, unsigned int measTime, unsigned int stableTime);
     void setOffset(unsigned int offSetX_, unsigned int offSetY_);
 
+    void appendPoint(unsigned int roletaEtap, float xNorma, float yNorma, unsigned int measTime);
 private:
     void initNorma(unsigned int norma, float * normasrc);
 
