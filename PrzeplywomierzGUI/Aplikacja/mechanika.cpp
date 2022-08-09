@@ -186,7 +186,7 @@ void RoletaRuch::setKrokiPerObrot(unsigned int newKrokiPerObrot)
 
 unsigned long RoletaRuch::podniescMM(unsigned int mm)
 {
-    qDebug() << "mm=" << mm << "maxMM" << maxMM;
+    //qDebug() << "mm=" << mm << "maxMM" << maxMM;
     unsigned short n = 0;
     maxMM = 1600;
     if (mm > maxMM) {
@@ -197,10 +197,10 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
     unsigned long obwod;
     unsigned int prevobwod = 1000;
     while (n < 13) {
-        qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
+        //qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
         obwod = obrotStala10xmm[n+1];
         if (MM < obwod) {
-            qDebug() << "Return=" << (12000*n + (unsigned long)(12000*MM/obwod));
+            //qDebug() << "Return=" << (12000*n + (unsigned long)(12000*MM/obwod));
             return 12000*n + (unsigned long)(12000*MM/obwod) + 500*mm/1500;
         }
         MM -= obwod;

@@ -26,13 +26,13 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         case WELCOME_REP:
         {
             if (len != 15) {
-                qDebug("len != 15");
+                //qDebug("len != 15");
                 return false;
             }
             uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
             for (int i = 0; i < 15; ++i) {
                 if (wzorzec[i] != data[i]) {
-                    qDebug("wzorzec != data");
+                    //qDebug("wzorzec != data");
                     connSerial = false;
                     emit deviceName("-");
                     m_serialPort.close();
@@ -422,7 +422,7 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxStepX, uint32_t maxStepY,
                               uint32_t maxStepR)
 {
-    qDebug() << maxImpX << maxImpY << "|" << maxStepX << maxStepY << maxStepR;
+    //qDebug() << maxImpX << maxImpY << "|" << maxStepX << maxStepY << maxStepR;
 
     memoryreverseX = reverseX;
     memoryreverseY = reverseY;

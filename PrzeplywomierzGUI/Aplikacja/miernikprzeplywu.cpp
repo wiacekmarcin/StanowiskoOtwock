@@ -77,10 +77,10 @@ MiernikPrzeplywu::~MiernikPrzeplywu()
 
 void MiernikPrzeplywu::chooseWork()
 {
-    qDebug() << "chooseWork()" << modeWork << methodIns;
+    //qDebug() << "chooseWork()" << modeWork << methodIns;
     hide();
     do {
-        qDebug() << "New wyborMethody";
+        //qDebug() << "New wyborMethody";
         WyborMetody m(this, modeWork, methodIns, ust);
 
         int r = m.exec();
@@ -244,7 +244,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(pdr.getLista());
             return true;
         } else if (methodIns == WyborMetody::METHOD_FILE) {
-            qDebug() << "alloha" << values.stableTimeRoleta;
+            //qDebug() << "alloha" << values.stableTimeRoleta;
             WybranyPlikNorma wpn(this, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
                                  1500, 870, values.offsetX, values.offsetY);
             int r = wpn.exec();
@@ -377,10 +377,11 @@ void MiernikPrzeplywu::readedFromRadio(int value)
         checkRadio = false;
         widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
         ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
-    ui->lradio->setText(QString("Widoczny"));
+        ui->lradio->setText(QString("Widoczny"));
         setPositionHome();
         return;
     }
+    ui->lradio->setText(QString("Widoczny"));
     ui->lcz1mv->setText(QString::number(ust.getRatioCzujnik1().toDouble()*value, 'g', 4));
     ui->lcz1unit->setText(ust.getUnitCzujnik1());
     ui->lStatusMinor->setText("Trwa pomiar....");

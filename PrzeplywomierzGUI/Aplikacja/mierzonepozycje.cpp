@@ -257,7 +257,7 @@ void MierzonePozycje::readedFromRadio(const double &val)
 void MierzonePozycje::errorReadFromRadio()
 {
     debug(QString("Read Error %1").arg(cntErr + 1));
-    if (++cntErr > 3) {
+    if (++cntErr > 10) {
         timer->stop();
         actWork = DONE;
         ui->status->setText(QString("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));

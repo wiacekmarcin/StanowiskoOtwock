@@ -51,3 +51,12 @@ kontroler.testet/.vscode/dryrun.log
 kontroler.testet/.vscode/extensions.json
 kontroler.testet/.vscode/targets.log
 PrzeplywomierzGUI/Program glowny/*
+PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI.pro.user*
+PrzeplywomierzGUI/Test/moc_*
+PrzeplywomierzGUI/Test/ui_*
+PrzeplywomierzGUI/Aplikacja/moc_*
+PrzeplywomierzGUI/Aplikacja/ui_*
+PrzeplywomierzGUI/Serwis/moc_*
+PrzeplywomierzGUI/Serwis/ui_*
+
+

@@ -72,7 +72,7 @@ PozycjeRol::PozycjeRol(unsigned int maxEtap_, unsigned int maxR_, unsigned int m
 
 void PozycjeRol::appendRoletaEtap(unsigned int roletaEtap)
 {
-    qDebug() << "roletaetap" << stableTime;
+    //qDebug() << "roletaetap" << stableTime;
     PosRoleta p;
     p.mmx = 0;
     p.mmy = 0;
@@ -88,10 +88,10 @@ void PozycjeRol::appendRoletaEtap(unsigned int roletaEtap)
 
 void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsigned int yNorma)
 {
-    qDebug() << "appendPoints REtap=" << roletaEtap << " Norma[x,y] = " << xNorma << ", " << yNorma;
-    qDebug() << "offset" << offsetX << offsetY;
+    //qDebug() << "appendPoints REtap=" << roletaEtap << " Norma[x,y] = " << xNorma << ", " << yNorma;
+    //qDebug() << "offset" << offsetX << offsetY;
     float wysokosc = maxR*(roletaEtap+1)/maxEtap;
-    qDebug() << "Wysokosc" << wysokosc;
+    //qDebug() << "Wysokosc" << wysokosc;
     for (unsigned int i = 0; i < xNorma; ++i ) {
         for (unsigned int j = 0; j < yNorma; ++j ) {
             PosRoleta p;
@@ -113,7 +113,7 @@ void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_,
                          unsigned int width_, unsigned int measTime_,
                          unsigned int stableTime_)
 {
-    qDebug() << "SetInit" << maxEtap_ << maxR_ << width_ << measTime_ << stableTime_;
+    //qDebug() << "SetInit" << maxEtap_ << maxR_ << width_ << measTime_ << stableTime_;
     maxEtap = maxEtap_;
     maxR = maxR_;
     measTime = measTime_;
@@ -123,7 +123,7 @@ void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_,
 
 void PozycjeRol::setOffset(unsigned int offSetX_, unsigned int offSetY_)
 {
-    qDebug() << "ofsset" << offSetX_ << offSetY_;
+    //qDebug() << "ofsset" << offSetX_ << offSetY_;
     offsetX = offSetX_;
     offsetY = offSetY_;
 }
@@ -131,8 +131,8 @@ void PozycjeRol::setOffset(unsigned int offSetX_, unsigned int offSetY_)
 void PozycjeRol::appendPoint(unsigned int roletaEtap, float xNorma, float yNorma, unsigned int mt)
 {
     float wysokosc = maxR*(roletaEtap+1)/maxEtap;
-    qDebug() << "Wysokosc" << wysokosc;
-    qDebug() << "offset" << offsetX << offsetY;
+    //qDebug() << "Wysokosc" << wysokosc;
+    //qDebug() << "offset" << offsetX << offsetY;
     PosRoleta p;
     p.nx = xNorma;
     p.ny = yNorma;

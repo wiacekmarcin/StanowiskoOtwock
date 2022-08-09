@@ -744,14 +744,14 @@ void WyborMetody::on_normaEtapNumberFile_textChanged(const QString &arg1)
 
 void WyborMetody::on_normaStabTimeFile_textChanged(const QString &arg1)
 {
-    qDebug() << data.stableTimeRoleta << arg1;
+    //qDebug() << data.stableTimeRoleta << arg1;
     if (!isValidPostojRolety(ui->normaStabTimeFile)) {
         setEnabledContinue(false);
         return;
     }
-    qDebug() << "ok";
+    //qDebug() << "ok";
     data.stableTimeRoleta = arg1.toUInt();
-    qDebug() << data.stableTimeRoleta;
+    //qDebug() << data.stableTimeRoleta;
     setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumberFile) && !ui->wybranyPlikRolety->text().isEmpty());
 }
 
