@@ -7,6 +7,8 @@
 #include "pozycje.h"
 #include "wybormetody.h"
 #include "serialmessage.h"
+#include <QMutex>
+
 
 class MiernikPrzeplywu;
 
@@ -17,10 +19,6 @@ public:
     explicit TabWidget(QWidget *parent = nullptr);
 
     void setMechanika(const Ruch & m);
-
-    bool getConnect() const;
-    void setConnect(bool newIsConnect);
-    void setConnect(bool newIsConnect, const QString & error);
 
     const Ruch &getMechanika() const;
 
@@ -44,8 +42,9 @@ public:
 
     virtual void setStatus(const QString & st);
     virtual void setStop();
+    virtual void setStart();
+    virtual void setError();
 
-    void errorSerial(const QString &err);
     void connectToDevice();
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
@@ -53,11 +52,8 @@ public:
     void setRoleta(uint32_t r);
     void debug(const QString &);
     void debugClear();
-    void setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
-                                                                uint32_t maxStepX, uint32_t maxStepY,
-                                                                uint32_t maxStepR);
     void readRadio();
-
+    void setClose(bool afterBase);
 
     void setMiernikPrzeplywu(MiernikPrzeplywu *newMiernikPrzeplywu);
 
@@ -65,7 +61,6 @@ public:
     void setIsReady(bool newIsReady);
 
 protected:
-    bool isConnect;
     Ruch mech;
     WyborMetody::ModeWork modeWork;
     WyborMetody::MethodInsData insData;
@@ -76,6 +71,7 @@ protected:
     MiernikPrzeplywu * miernikPrzeplywu;
 
     bool isReady;
+    QMutex * mutex;
 };
 
 #endif // TABWIDGET_H

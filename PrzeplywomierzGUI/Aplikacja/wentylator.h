@@ -15,7 +15,6 @@ public:
     explicit Wentylator(QWidget *parent = nullptr);
     ~Wentylator();
     void setConnect(bool val, const QString &error);
-    bool chooseMethod(const WyborMetody::ModeWork & work, const WyborMetody::MethodInsData & data, const WyborMetodyData &values);
 
     virtual void positionDone(bool home);
     virtual void setStop();

@@ -34,7 +34,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns, 
     QString ox = ust.getRolOffsetX();
     QString oy = ust.getRolOffsetY();
 
-    qDebug() << __FILE__ << __LINE__ <<  ox << oy;
+    //qDebug() << __FILE__ << __LINE__ <<  ox << oy;
     ui->normaOffsetX->setText(ox);
     ui->normaOffsetXEdit->setText(ox);
     ui->normaOffsetY->setText(oy);

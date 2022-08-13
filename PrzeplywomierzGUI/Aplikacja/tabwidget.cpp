@@ -3,35 +3,18 @@
 
 #include "miernikprzeplywu.h"
 
+#include <QMutexLocker>
+
 TabWidget::TabWidget(QWidget *parent)
     : QWidget{parent}
 {
-    isConnect = false;
+    isReady = false;
+    mutex = new QMutex();
 }
 
 void TabWidget::setMechanika(const Ruch &m)
 {
     mech = m;
-}
-
-bool TabWidget::getConnect() const
-{
-    return isConnect;
-}
-
-void TabWidget::setConnect(bool newIsConnect)
-{
-    isConnect = newIsConnect;
-}
-
-void TabWidget::setConnect(bool newIsConnect, const QString &error)
-{
-    isConnect = newIsConnect;
-    if (!isConnect) {
-        isReady = false;
-        setStop();
-    }
-    debug(addTime(error));
 }
 
 const Ruch &TabWidget::getMechanika() const
@@ -69,9 +52,19 @@ void TabWidget::setInsData(const WyborMetody::MethodInsData & newInsData)
     insData = newInsData;
 }
 
-void TabWidget::errorSerial(const QString &err)
+void TabWidget::positionStatus(bool base, SerialMessage::StatusWork work)
 {
-    setConnect(false, err);
+
+}
+
+void TabWidget::positionDone(bool base)
+{
+
+}
+
+void TabWidget::roletaDone(bool base)
+{
+
 }
 
 void TabWidget::readedFromRadio(const double &)
@@ -84,27 +77,23 @@ void TabWidget::errorReadFromRadio()
 
 }
 
-void TabWidget::positionStatus(bool , SerialMessage::StatusWork )
-{
-
-}
-
-void TabWidget::positionDone(bool )
-{
-
-}
-
-void TabWidget::roletaDone(bool base)
-{
-
-}
-
-void TabWidget::setStatus(const QString &)
+void TabWidget::setStatus(const QString &st)
 {
 
 }
 
 void TabWidget::setStop()
+{
+
+}
+
+void TabWidget::setStart()
+{
+
+}
+
+
+void TabWidget::setError()
 {
 
 }
@@ -142,7 +131,7 @@ void TabWidget::setRoleta(uint32_t r)
 void TabWidget::debug(const QString &s)
 {
     if (miernikPrzeplywu)
-        miernikPrzeplywu->debug(addTime(s));
+        miernikPrzeplywu->debug(s);
 }
 
 void TabWidget::debugClear()
@@ -151,16 +140,16 @@ void TabWidget::debugClear()
         miernikPrzeplywu->debugClear();
 }
 
-void TabWidget::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
-{
-    if (miernikPrzeplywu)
-        miernikPrzeplywu->setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
-}
-
 void TabWidget::readRadio()
 {
     if (miernikPrzeplywu)
         miernikPrzeplywu->readRadio();
+}
+
+void TabWidget::setClose(bool afterBase)
+{
+    if (miernikPrzeplywu)
+        miernikPrzeplywu->setClose(afterBase);
 }
 
 QString TabWidget::addTime(const QString& status)
@@ -170,11 +159,13 @@ QString TabWidget::addTime(const QString& status)
 
 bool TabWidget::getIsReady() const
 {
+    QMutexLocker locker(mutex);
     return isReady;
 }
 
 void TabWidget::setIsReady(bool newIsReady)
 {
+    QMutexLocker locker(mutex);
     isReady = newIsReady;
 }
 

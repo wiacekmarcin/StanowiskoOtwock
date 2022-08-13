@@ -122,7 +122,7 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
     case SerialMessage::START_XY:
         qDebug() << "start both";
         ui->cbPosStart->setChecked(true);
-        ui->pbUstaw->setEnabled(false);
+        //ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
         qDebug() << "start lewoprawo";
@@ -147,7 +147,7 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
     case SerialMessage::END_XY:
         qDebug() << "Koniec pozycjoowanie";
         ui->cbPosKoniec->setChecked(true);
-        ui->pbUstaw->setEnabled(true);
+        //ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
         qDebug() << "Poczatek bazowania";
@@ -162,7 +162,7 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Pozycja X/Y", "Nie udało się ustawić pozycji");
-        ui->pbUstaw->setEnabled(true);
+        //ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::ERROR_R:
         //ui->pbRoletaUstaw->setEnabled(true);
@@ -179,7 +179,7 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
     case SerialMessage::START_XY:
         qDebug() << "Start home";
         ui->cbHomeStart->setChecked(true);
-        ui->pbHome->setEnabled(false);
+        //ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
         qDebug() << "Start X";
@@ -202,7 +202,7 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
     case SerialMessage::END_XY:
         qDebug() << "Koniec Baza";
         ui->cbHomeKoniec->setChecked(true);
-        ui->pbHome->setEnabled(true);
+        //ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
         qDebug() << "Start R";
@@ -217,7 +217,7 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Powrót do pozycji startowej", "Nie udało się ustawić pozycji bazowej");
-        ui->pbHome->setEnabled(true);
+        //ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::ERROR_R:
         break;
@@ -238,8 +238,8 @@ void MainWindow::readFromRadio(int val)
 
 void MainWindow::errorSerial(QString error)
 {
-    ui->pbHome->setEnabled(false);
-    ui->pbUstaw->setEnabled(false);
+    //ui->pbHome->setEnabled(false);
+    //ui->pbUstaw->setEnabled(false);
 
     ui->pbFindSerial->setEnabled(true);
     ui->errorserial->setText(error);
@@ -270,8 +270,8 @@ void MainWindow::deviceName(QString portname)
 void MainWindow::controllerOK()
 {
     ui->statusserial->setText("Sterownik OK");
-    ui->pbHome->setEnabled(true);
-    ui->pbUstaw->setEnabled(true);
+    //ui->pbHome->setEnabled(true);
+    //ui->pbUstaw->setEnabled(true);
 }
 
 void MainWindow::setParamsDone()

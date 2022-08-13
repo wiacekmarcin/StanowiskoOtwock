@@ -30,7 +30,9 @@ SOURCES += \
         crc8.cpp \
         mechanika.cpp \
     pozycjeroleta.cpp \
+    rs232.cpp \
     serialmessage.cpp \
+    serialdevice.cpp \
     tabwidget.cpp \
     ustawienia.cpp \
     wentylator.cpp \
@@ -47,7 +49,9 @@ HEADERS += \
         crc8.h \
         mechanika.h \
     pozycjeroleta.h \
+    rs232.h \
     serialmessage.h \
+    serialdevice.h \
     tabwidget.h \
     ustawienia.h \
     wentylator.h \
@@ -78,3 +82,13 @@ DISTFILES += \
     polozenia.txt
 
 RESOURCES += ikony.qrc
+
+win32 {
+     !contains(QMAKE_TARGET.arch, x86_64) {
+        LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
+        LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
+    } else {
+        LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
+        LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
+    }
+}

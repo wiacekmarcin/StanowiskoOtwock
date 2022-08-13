@@ -21,19 +21,6 @@ Wentylator::~Wentylator()
     delete ui;
 }
 
-void Wentylator::setConnect(bool val, const QString & error)
-{
-    TabWidget::setConnect(val);
-    ui->statusWentylator->append(addTime("Nie udało się połączyć z urządzeniem. Błąd : %1").arg(error));
-    ui->pbUstaw->setEnabled(true);
-    ui->lStatusWiatrak->setText("Błąd");
-}
-
-bool Wentylator::chooseMethod(const WyborMetody::ModeWork &mode, const WyborMetody::MethodInsData &, const WyborMetodyData &)
-{
-    return mode == WyborMetody::MODE_FUNSET;
-}
-
 void Wentylator::ustaw()
 {
     if(sprawdz()) {
@@ -47,7 +34,7 @@ void Wentylator::ustaw()
 
 void Wentylator::pbUstaw_clicked()
 {
-    if (!getConnect()) {
+    if (true /*!getConnect()*/) {
         ui->statusWentylator->clear();
         ui->statusWentylator->append(addTime("Szukam urządzenia."));
         ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
@@ -62,7 +49,7 @@ void Wentylator::pbUstaw_clicked()
 
 void Wentylator::pbZeruj_clicked()
 {
-    if (getConnect()) {
+    if (true /*getConnect()*/) {
         ui->statusWentylator->append(addTime("Kalibruje urządzenie."));
         setPositionHome();
     } else {

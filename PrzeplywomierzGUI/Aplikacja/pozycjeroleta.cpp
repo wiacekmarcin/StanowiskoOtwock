@@ -186,15 +186,6 @@ void PozycjeRoleta::update()
         debug("actWork WAIT...");
         return;
 
-    case WAIT_FOR_CONN:
-    {
-        debug("actWork WAIT_FOR_CONN");
-        if (getConnect() && getIsReady()) {
-            actWork = ROLETA_HOME;
-            ui->status->setText("Oczekiwanie na zamknięcie rolety");
-        }
-        return;
-    }
     case DONE:
     {
         debug("actWork DONE");
@@ -202,12 +193,6 @@ void PozycjeRoleta::update()
         ui->pbStart->setEnabled(true);
         ui->pbRestart->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
-        return;
-    }
-    case ROLETA_HOME:
-    {
-        actWork = ROLETA_HOMEWAIT;
-        setRoletaHome();
         return;
     }
     case FIRST_RUN:
@@ -447,7 +432,7 @@ void PozycjeRoleta::setStop()
 void PozycjeRoleta::on_pbStart_clicked()
 {
     m_listawynikowa.clear();
-    debug(QString("Start work. Isconnected %1").arg(getConnect()));
+    debug(QString("Start work."));
     setIsReady(false);
     actWork = WAIT_FOR_CONN;
     actPos = 0;
