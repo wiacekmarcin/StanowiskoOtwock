@@ -3,10 +3,13 @@
 
 #include <QString>
 
+#include "ustawienia.h"
 class Ruch
 {
 public:
     Ruch();
+
+    void setUstawienia(Ustawienia &ust);
 
     void setPrzestrzen(unsigned int xmm, unsigned int ymm);
 
@@ -110,19 +113,14 @@ class RoletaRuch {
 public:
     RoletaRuch();
 
-    ObrotN(1)
-    ObrotN(2)
-    ObrotN(3)
-    ObrotN(4)
-    ObrotN(5)
-    ObrotN(6)
-    ObrotN(7)
-    ObrotN(8)
-    ObrotN(9)
-    ObrotN(10)
-    ObrotN(11)
-    ObrotN(12)
-    ObrotN(13)
+    void setUstawienia(Ustawienia & ust);
+
+    void setImpPerObrot(unsigned short obr, const QString & impls);
+
+    void setObrot(unsigned int obr, float value);
+
+    unsigned int getObrotx10(unsigned int obr) const { return obrotStala10xmm[obr]; }
+    float getObrot(unsigned int obr) const { return 0.1*obrotStala10xmm[obr]; }
 
     unsigned int getKrokiPerObrot() const;
     void setKrokiPerObrot(unsigned int newKrokiPerObrot);
@@ -144,8 +142,12 @@ public:
     unsigned int getOffsetY() const;
     void setOffsetY(unsigned int newOffsetY);
 
+    void calculate();
+
 private:
-    static unsigned int obrotStala10xmm[14];
+
+    static constexpr int maxObrot = 30;
+    static unsigned int obrotStala10xmm[maxObrot];
     unsigned int krokiPerObrot;
     unsigned int maxMM;
     unsigned long maxKroki;

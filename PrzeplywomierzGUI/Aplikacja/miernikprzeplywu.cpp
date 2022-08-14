@@ -39,7 +39,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
 
     sMsg.setThread(&thSterownik);
 
-    //setUstawienia();
+    setUstawienia();
 
     connect(&sMsg, &SerialDevice::error, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
     connect(&sMsg, &SerialDevice::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
@@ -280,38 +280,11 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
 void MiernikPrzeplywu::setUstawienia()
 {
     ust.read();
-    //mech.setUstawienia(ust);
-
-    auto val1 = ust.getImpulsyXperMM();
-    if (!val1.isEmpty())
-        mech.setImpusyXPerMM(val1.toUInt());
-
-    auto val2 = ust.getImpulsyYperMM();
-    if (!val2.isEmpty())
-        mech.setImpusyYPerMM(val2.toUInt());
-
-    auto val3 = ust.getKrokiXperMM();
-    if (!val3.isEmpty())
-        mech.setKrokiXPerMM(val3.toUInt());
-
-    auto val4 = ust.getKrokiYperMM();
-    if (!val4.isEmpty())
-        mech.setKrokiYPerMM(val4.toUInt());
-
-    auto val5 = ust.getWentOffsetX();
-    if (!val5.isEmpty())
-        mech.setWentOffsetX(val5.toDouble());
-
-    auto val6 = ust.getWentOffsetY();
-    if (!val6.isEmpty())
-        mech.setWentOffsetY(val6.toDouble());
-
-    auto val7 = ust.getKatnachylenia();
-    if (!val7.isEmpty())
-        mech.setWentKatNach(val7.toDouble());
-
+    mech.setUstawienia(ust);
+    mechR.setUstawienia(ust);
 
     mech.calculate();
+    mechR.calculate();
 }
 
 

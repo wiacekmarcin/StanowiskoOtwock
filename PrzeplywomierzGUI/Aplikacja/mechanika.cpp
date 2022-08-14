@@ -2,8 +2,18 @@
 #include <QDebug>
 
 //unsigned int RoletaRuch::obrotStala10xmm[14] = {0, 1013, 1059, 1089, 1124, 1158, 1186, 1219, 1255, 1284, 1321, 1350, 1387, 1419};
-unsigned int RoletaRuch::obrotStala10xmm[14] = {1000, 1020, 1075, 1114, 1152, 1185, 1240, 1278, 1342, 1401, 1425, 1465, 1503, 1516};
-
+/*unsigned int RoletaRuch::obrotStala10xmm[21] = {1000, 1020, 1075, 1114, 1152, 1185,
+                                                1240, 1278, 1342, 1401, 1425, 1465,
+                                                1503, 1516, 1516, 1516, 1516, 1516,
+                                                1516, 1516, 1516};
+*/
+unsigned int RoletaRuch::obrotStala10xmm[maxObrot] = {1020, 1075, 1114, 1152, 1185,
+                                                1240, 1278, 1342, 1401, 1425,
+                                                1465, 1503, 1516,    0,    0,
+                                                   0,    0,    0,    0,    0,
+                                                   0,    0,    0,    0,    0,
+                                                   0,    0,    0,    0,    0
+                                                };
 
 Ruch::Ruch() :
     impulsyXperMM(24.96), impulsyYperMM(24.96), krokiXperMM(100), krokiYperMM(100),
@@ -14,6 +24,52 @@ Ruch::Ruch() :
     reverseR(true)
 {
 
+}
+
+void Ruch::setUstawienia(Ustawienia &ust)
+{
+    QString val1 = ust.getImpulsyXperMM();
+    if (!val1.isEmpty())
+        setImpusyXPerMM(val1.toUInt());
+    else
+        ust.setImpulsyXperMM(QString::number(impulsyXperMM));
+
+    QString val2 = ust.getImpulsyYperMM();
+    if (!val2.isEmpty())
+        setImpusyYPerMM(val2.toUInt());
+    else
+        ust.setImpulsyYperMM(QString::number(impulsyYperMM));
+
+    QString val3 = ust.getKrokiXperMM();
+    if (!val3.isEmpty())
+        setKrokiXPerMM(val3.toUInt());
+    else
+        ust.setKrokiXperMM(QString::number(krokiXperMM));
+
+    QString val4 = ust.getKrokiYperMM();
+    if (!val4.isEmpty())
+        setKrokiYPerMM(val4.toUInt());
+    else
+        ust.setKrokiYperMM(QString::number(krokiYperMM));
+
+    QString val5 = ust.getWentOffsetX();
+    if (!val5.isEmpty())
+        setWentOffsetX(val5.toDouble());
+    else
+        ust.setWentOffsetX(QString::number(wentOffsetX));
+
+
+    QString val6 = ust.getWentOffsetY();
+    if (!val6.isEmpty())
+        setWentOffsetY(val6.toDouble());
+    else
+        ust.setWentOffsetX(QString::number(wentOffsetY));
+
+    QString val7 = ust.getKatnachylenia();
+    if (!val7.isEmpty())
+        setWentKatNach(val7.toDouble());
+    else
+        ust.setKatnachylenia(QString::number(wentKatNach));
 }
 
 void Ruch::setPrzestrzen(unsigned int xmm, unsigned int ymm)
@@ -169,9 +225,65 @@ void Ruch::setWentOffsetX(double value)
     wentOffsetX = value;
 }
 
-RoletaRuch::RoletaRuch() : krokiPerObrot(12000), maxKroki(13*12000)
+RoletaRuch::RoletaRuch() :
+    krokiPerObrot(12000),
+    maxMM(1600),
+    maxKroki(13*12000)
 {
 
+}
+
+void RoletaRuch::setUstawienia(Ustawienia &ust)
+{
+    QString val1 = ust.getRolDlugosc();
+    if (!val1.isEmpty())
+        maxMM = (val1.toUInt());
+    else
+        ust.setRolDlugosc(QString::number(maxMM));
+
+    QString val2 = ust.getRolStepObrot();
+    if (!val2.isEmpty())
+        krokiPerObrot = (val2.toUInt());
+    else
+        ust.setRolStepObrot(QString::number(krokiPerObrot));
+
+    QString val3 = ust.getRolOffsetX();
+    if (!val3.isEmpty())
+        offsetX = (val3.toUInt());
+    else
+        ust.setRolOffsetX(QString::number(offsetX));
+
+    QString val4 = ust.getRolOffsetY();
+    if (!val4.isEmpty())
+        offsetX = (val4.toUInt());
+    else
+        ust.setRolOffsetX(QString::number(offsetY));
+
+    QString val;
+    for (short i = 0; i < maxObrot; i++) {
+        val = ust.getRolObrot(i);
+        qDebug() << val;
+        if (!val.isEmpty()) {
+            setImpPerObrot(i, val);
+        } else {
+            ust.setRolObrot(i, QString::number(getObrot(i)));
+        }
+    }
+}
+
+void RoletaRuch::setImpPerObrot(unsigned short obr, const QString & impls)
+{
+    bool ok;
+    float value = impls.toFloat(&ok);
+    if (!impls.isEmpty() && ok)
+        setObrot(obr, value);
+    else
+        setObrot(obr, 0);
+}
+
+void RoletaRuch::setObrot(unsigned int obr, float value)
+{
+    obrotStala10xmm[obr] = (unsigned int) 10*value;
 }
 
 unsigned int RoletaRuch::getKrokiPerObrot() const
@@ -193,46 +305,29 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
         return maxKroki;
     }
 
+    unsigned long steps = 0L;
     unsigned long MM = 10*mm;
     unsigned long obwod;
-    unsigned int prevobwod = 1000;
-    while (n < 13) {
+
+    while (n < maxObrot) {
         //qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
-        obwod = obrotStala10xmm[n+1];
+        obwod = obrotStala10xmm[n];
         if (MM < obwod) {
             //qDebug() << "Return=" << (12000*n + (unsigned long)(12000*MM/obwod));
-            return 12000*n + (unsigned long)(12000*MM/obwod) + 500*mm/1500;
+            return steps + (unsigned long)(krokiPerObrot*MM/obwod) + 500*mm/1500; //ostatnie to stala...
+        } else if (obwod == 0) {
+            return steps;
+        } else {
+            steps += krokiPerObrot;
+            if (steps > maxKroki)
+                return maxKroki;
         }
-        MM -= obwod;
-        prevobwod = obwod;
-        ++n;
-    }
-    return maxKroki;
 
-
-/*
-
-
-
-
-    unsigned short n = 0;
-
-    if (mm > maxMM) {
-        return maxKroki;
-    }
-
-    unsigned long MM = 10*mm;
-    unsigned long obwod;
-    while (n < 13) {
-        obwod = obrotStala10xmm[n+1];
-        if (MM < obwod) {
-            return krokiPerObrot*n + (unsigned long)(12000*MM/obwod);
-        }
         MM -= obwod;
         ++n;
     }
     return maxKroki;
-    */
+
 }
 
 unsigned int RoletaRuch::getMaxMM() const
@@ -273,4 +368,15 @@ unsigned int RoletaRuch::getOffsetY() const
 void RoletaRuch::setOffsetY(unsigned int newOffsetY)
 {
     offsetY = newOffsetY;
+}
+
+void RoletaRuch::calculate()
+{
+    maxKroki = krokiPerObrot;
+    for (short i = 0; i < maxObrot; i++) {
+        if (obrotStala10xmm[i] > 0)
+            maxKroki += krokiPerObrot;
+        else
+            break;
+    }
 }
