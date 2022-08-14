@@ -85,6 +85,7 @@ protected:
     void errorHome();
     void errorPosition();
     void errorHomeRoleta();
+    void errorRoleta();
     void errorReadFromRadio();
     void positionHome();
     void roletaHome();

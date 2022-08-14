@@ -464,32 +464,32 @@ void SerialDevice::setRoletaJobLocal(bool home)
     auto rp = s.getParseReply();
     auto actSt = s.getPosWork();
     if (rp != orp) {
-        emit setPositionDone(home, false, actSt);
+        emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt != SerialMessage::START_R) {
-            emit setPositionDone(home, false, actSt);
+            emit setPositionDone(false, home, actSt);
             return;
         }   
-        emit setPositionDone(home, true, actSt);
+        emit setPositionDone(true, home, actSt);
     }
 
     s = write(QByteArray(), 100, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
-        emit setPositionDone(home, false, actSt);
+        emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt == SerialMessage::ERROR_R) {
-            emit setPositionDone(home, false, actSt);
+            emit setPositionDone(false, home, actSt);
             return;
         }
         if (actSt != SerialMessage::END_R) {
-            emit setPositionDone(home, false, actSt);
+            emit setPositionDone(false, home, actSt);
             return;
         }   
-        emit setPositionDone(home, true, actSt);
+        emit setPositionDone(true, home, actSt);
     }
 }
 

@@ -337,13 +337,13 @@ void MiernikPrzeplywu::setPositionDone(bool success, bool home, int w)
         if (work == SerialMessage::ERROR_XY) {
              home ? errorHome() : errorPosition();
         } else if (work == SerialMessage::ERROR_R) {
-            errorHomeRoleta();
+            home ? errorHomeRoleta() : errorRoleta();
         } else {
             home ? homeStatus(work) : positionStatus(work);
         }
     } else {
         if (work == SerialMessage::START_R || work == SerialMessage::END_R || work == SerialMessage::ERROR_R) {
-            errorHomeRoleta();
+            home ? errorHomeRoleta() : errorRoleta();
         } else {
             home ? errorHome() : errorPosition();
         }
@@ -625,20 +625,34 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
 void MiernikPrzeplywu::errorHome()
 {
     DEBUG("ERROR HOME");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie bazowe", "Nie udało się ustawić pozycji bazowej dla czujnika");
 }
 
 void MiernikPrzeplywu::errorPosition()
 {
     DEBUG("ERROR POS");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie", "Nie udało się ustawić pozycji dla czujnika");
 }
 
 void MiernikPrzeplywu::errorHomeRoleta()
 {
     DEBUG("ERROR HOME ROLETA");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie bazowe rolety", "Nie udało się ustawić pozycji bazowej dla rolety");
 }
 
+void MiernikPrzeplywu::errorRoleta()
+{
+    DEBUG("ERROR ROLETA");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie rolety", "Nie udało się ustawić pozycji dla rolety");
+}
+
+
 void MiernikPrzeplywu::debug(const QString & dbg)
-{\
+{
     //ui->debug->append(dbg);
     qDebug() << addTime(dbg);
 }
