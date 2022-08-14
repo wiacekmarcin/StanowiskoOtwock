@@ -18,9 +18,11 @@ public:
 
     virtual void positionDone(bool home);
     virtual void setStop();
+    virtual void setError();
+
 protected:
-    void ustaw();
     bool sprawdz();
+    void addStatus(const QString & log);
 protected slots:
     void pbUstaw_clicked();
     void pbZeruj_clicked();

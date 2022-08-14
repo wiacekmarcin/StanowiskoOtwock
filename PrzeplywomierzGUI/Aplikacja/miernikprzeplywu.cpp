@@ -479,7 +479,7 @@ void MiernikPrzeplywu::errorReadFromRadio()
 void MiernikPrzeplywu::positionHome()
 {
     DEBUG(QString("POSITION HOME %1").arg(firstRun));
-    if (firstRun) {
+    if (firstRun && modeWork != WyborMetody::MODE_FUNSET) {
         if (modeWork == WyborMetody::MODE_ROLETA) {
             ui->lStatusRoleta->setText(QString("Ustawiam roletę w pozycji bazowej"));
             widget->setStatus(QString("Trwa zerowanie rolety"));
