@@ -18,12 +18,12 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     QStringList headers;
     headers << QString::fromUtf8("Pozycja X\n[mm]") << QString::fromUtf8("Pozycja Y\n[mm]")
             << QString::fromUtf8("Pozycja X\nwg normy") << QString::fromUtf8("Pozycja Y\nwg normy")
-            << QString::fromUtf8("Numer etapu")
+            << QString::fromUtf8("Numer\netapu")
             << QString::fromUtf8("Wysokość\nrolety [mm]")
-            << QString::fromUtf8("Czas\nstabilizacji")
-            << QString::fromUtf8("Czas pomiaru\n[s]");
+            << QString::fromUtf8("Czas [s]\nstabilizacji")
+            << QString::fromUtf8("Czas [s]\npomiaru");
 
-    headers << QString::fromUtf8("Średnia wartość\nczujnik");
+    headers << QString::fromUtf8("Średnia wartość\nczujnika");
     headers << QString::fromUtf8("Akcja");
     headers << QString::fromUtf8("Status");
 
@@ -259,10 +259,6 @@ void PozycjeRoleta::update()
 
         if (actPos >= ui->table->rowCount()) {
             actWork = END;
-            timer->stop();
-            ui->pbNoweDane->setEnabled(true);
-            ui->pbZapisz->setEnabled(true);
-            ui->pbRestart->setEnabled(true);
             ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
             setPositionHome();
             return;

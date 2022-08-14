@@ -183,7 +183,7 @@ private:
     static constexpr int maxTime = 3600;
     static constexpr int minTime = 1;
     static constexpr int maxRolet = 15;
-    static constexpr int minRolet = 2;
+    static constexpr int minRolet = 1;
     static constexpr int maxPostoj = 3600;
 
 
