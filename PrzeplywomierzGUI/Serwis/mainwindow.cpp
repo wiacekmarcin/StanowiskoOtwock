@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#define setRolObrot(N, R, M) auto val##N = ust.getRolObrot##R(); ui->RolObrot##R->setText(val##N == "" ? QString::number(M) : val##N)
-
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -31,37 +29,45 @@ MainWindow::MainWindow(QWidget *parent) :
     auto val7 = ust.getKatnachylenia();
     ui->ewiatrakkat->setText(val7 == "" ? "3.73" : val7);
 
-    auto val8 = ust.getOffsetX();
+    auto val8 = ust.getWentOffsetX();
     ui->ewiatrakx->setText(val8 == "" ? "301" : val8);
 
-    auto val9 = ust.getOffsetY();
+    auto val9 = ust.getWentOffsetY();
     ui->ewiatraky->setText(val9 == "" ? "656,8" : val9);
 
     auto val10 = ust.getRolDlugosc();
-    ui->dlugoscRolety->setText(val10 == "" ? "1700" : val10);
+    ui->dlugoscRolety->setText(val10 == "" ? "1600" : val10);
 
     auto val11 = ust.getRolStepObrot();
     ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
 
-//101.3, 105.9, 108.9, 112.4, 115.8, 118.6, 121.9, 125.5, 128.4, 132.1, 135, 138.7, 141.9
 
+    for (short i = 0 ; i < 30 ; ++i) {
+        QLabel * lobrot = new QLabel(ui->scrollArea);
+        lobrot->setObjectName(QString::fromUtf8("lobrot")+QString::number(i));
+        lobrot->setText(QString("%1 obrót").arg(i+1));
+        ui->gridLayout_3->addWidget(lobrot, 4 + i, 0, 1, 1);
 
-    setRolObrot(12, 1, 101.3);
-    setRolObrot(13, 2, 101.3+105.9);
-    setRolObrot(14, 3, 101.3+105.9+108.9);
-    setRolObrot(15, 4, 101.3+105.9+108.9+112.4);
-    setRolObrot(16, 5, 101.3+105.9+108.9+112.4+115.8);
-    setRolObrot(17, 6, 101.3+105.9+108.9+112.4+115.8+118.6);
-    setRolObrot(18, 7, 101.3+105.9+108.9+112.4+115.8+118.6+121.9);
-    setRolObrot(19, 8, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5);
-    setRolObrot(20, 8, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5+128.4);
-    setRolObrot(21, 9, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5+128.4+123.1);
-    setRolObrot(22, 10, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5+128.4+123.1+135);
-    setRolObrot(23, 11, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5+128.4+123.1+135+138.7);
-    setRolObrot(24, 12, 101.3+105.9+108.9+112.4+115.8+118.6+121.9+125.5+128.4+123.1+135+138.7+141.9);
+        QLineEdit *RolObrot = new QLineEdit(ui->scrollArea);
+        RolObrotTab[i] = RolObrot;
+        RolObrot->setObjectName(QString::fromUtf8("RolObrot")+QString::number(i));
+        ui->gridLayout_3->addWidget(RolObrot, 4 + i, 1, 1, 1);
 
-    ui->lobrot13->setVisible(false);
-    ui->RolObrot13->setVisible(false);
+        RolObrot->setText(ust.getRolObrot(i));
+        qDebug() << ust.getRolObrot(i);
+    }
+
+    QFrame * line_7 = new QFrame(ui->scrollArea);
+    line_7->setObjectName(QString::fromUtf8("line_7"));
+    line_7->setFrameShape(QFrame::HLine);
+    line_7->setFrameShadow(QFrame::Sunken);
+
+    ui->gridLayout_3->addWidget(line_7, 34, 0, 2, 1);
+
+    QPushButton * pbRoletaSave = new QPushButton(ui->scrollArea);
+    pbRoletaSave->setObjectName(QString::fromUtf8("pbRoletaSave"));
+    pbRoletaSave->setText(QCoreApplication::translate("MainWindow", "Zapisz", nullptr));
+    ui->gridLayout_3->addWidget(pbRoletaSave, 35, 0, 1, 1);
 
     on_pbSaveRadioCzujnik_clicked();
     on_pbSaveRatio_clicked();
@@ -91,24 +97,14 @@ void MainWindow::on_pbSaveRatio_clicked()
 void MainWindow::on_pbSaveWentylator_clicked()
 {
     ust.setKatnachylenia(ui->ewiatrakkat->text());
-    ust.setOffsetX(ui->ewiatrakx->text());
-    ust.setOffsetY(ui->ewiatraky->text());
+    ust.setWentOffsetX(ui->ewiatrakx->text());
+    ust.setWentOffsetY(ui->ewiatraky->text());
 }
 
 void MainWindow::on_pbRoletaSave_clicked()
 {
-    ust.setRolObrot1(ui->RolObrot1->text());
-    ust.setRolObrot2(ui->RolObrot2->text());
-    ust.setRolObrot3(ui->RolObrot3->text());
-    ust.setRolObrot4(ui->RolObrot4->text());
-    ust.setRolObrot5(ui->RolObrot5->text());
-    ust.setRolObrot6(ui->RolObrot6->text());
-    ust.setRolObrot7(ui->RolObrot7->text());
-    ust.setRolObrot8(ui->RolObrot8->text());
-    ust.setRolObrot9(ui->RolObrot9->text());
-    ust.setRolObrot10(ui->RolObrot10->text());
-    ust.setRolObrot11(ui->RolObrot11->text());
-    ust.setRolObrot12(ui->RolObrot12->text());
-    ust.setRolObrot13(ui->RolObrot13->text());
+    for (short i = 0 ; i < 30; ++i) {
+        ust.setRolObrot(i, RolObrotTab[i]->text());
+    }
 }
 

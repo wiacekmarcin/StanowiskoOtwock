@@ -6,6 +6,7 @@
 namespace Ui {
 class MainWindow;
 }
+class QLineEdit;
 
 class MainWindow : public QMainWindow
 {
@@ -29,6 +30,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Ustawienia ust;
+    QLineEdit *RolObrotTab[30];
 };
 
 #endif // MAINWINDOW_H

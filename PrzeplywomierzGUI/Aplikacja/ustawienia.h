@@ -24,7 +24,6 @@ public:
     QString getUnitCzujnik1() const;
     void setUnitCzujnik1(const QString &value);
 
-
     QString getImpulsyXperMM() const;
     void setImpulsyXperMM(const QString &value);
 
@@ -36,7 +35,6 @@ public:
 
     QString getKrokiYperMM() const;
     void setKrokiYperMM(const QString &value);
-
 
     QString getKatnachylenia() const;
     void setKatnachylenia(const QString &value);
