@@ -15,9 +15,10 @@ void Pozycje::append(unsigned int time, unsigned int x, unsigned int y)
     QList::append(a);
 }
 
-PozycjeRol::PozycjeRol(unsigned int maxEtap_, unsigned int maxR_, unsigned int measTime_, unsigned int stableTime_,
+PozycjeRol::PozycjeRol(bool reverse, unsigned int maxEtap_, unsigned int maxR_, unsigned int measTime_, unsigned int stableTime_,
                        unsigned int width_, unsigned int offsetX_, unsigned int offsetY_)
     : QList<PosRoleta>(),
+      reverseX(reverse),
       maxEtap(maxEtap_),
       maxR(maxR_),
       measTime(measTime_),
@@ -97,7 +98,8 @@ void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsi
             PosRoleta p;
             p.nx = norma[xNorma-5][i];
             p.ny = norma[yNorma-5][j];
-            p.mmx = width * (0.5 - p.nx) + offsetX;
+
+            p.mmx = (reverseX) ? (offsetX - width * (0.5 - p.nx) ) : ( offsetX + width * (0.5 - p.nx) );
             p.mmy = wysokosc * (0.5 - p.ny) + (offsetY-wysokosc);
             p.mmr = (unsigned int)wysokosc;
             p.etap = roletaEtap+1;
@@ -121,9 +123,10 @@ void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_,
     width = width_;
 }
 
-void PozycjeRol::setOffset(unsigned int offSetX_, unsigned int offSetY_)
+void PozycjeRol::setOffset(bool reverse, unsigned int offSetX_, unsigned int offSetY_)
 {
     //qDebug() << "ofsset" << offSetX_ << offSetY_;
+    reverseX = reverse;
     offsetX = offSetX_;
     offsetY = offSetY_;
 }

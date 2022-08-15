@@ -16,7 +16,7 @@
 #include "recznedodpozycji.h"
 #include "miernikprzeplywu.h"
 
-#define DEBUG(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+#define DEBUGMPZ(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
 
 MierzonePozycje::MierzonePozycje(QWidget *parent) :
     TabWidget(parent),
@@ -107,7 +107,7 @@ void MierzonePozycje::setPos()
     impx = mech.getImpulsyX(xmm);
     impy = mech.getImpulsyY(ymm);
 
-    DEBUG(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+    DEBUGMPZ(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
     actWork = WAIT_POS;
     ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
     setPosition(impx, impy);
@@ -117,7 +117,7 @@ void MierzonePozycje::setPos()
 
 void MierzonePozycje::update()
 {
-    //DEBUG(QString("Update %1").arg(actWork));
+    //DEBUGMPZ(QString("Update %1").arg(actWork));
     if (!getIsReady())
         return;
 
@@ -126,12 +126,12 @@ void MierzonePozycje::update()
     case WAIT_POS:
     case WAIT_HPOS:
     default:
-        DEBUG("actWork WAIT...");
+        DEBUGMPZ("actWork WAIT...");
         return;
 
     case WAIT_FOR_READY:
     {
-        DEBUG("actWork WAIT_FOR_READY");
+        DEBUGMPZ("actWork WAIT_FOR_READY");
         ui->pbNoweDane->setEnabled(false);
         ui->pbZapisz->setEnabled(false);
         ui->pbStart->setEnabled(false);
@@ -142,14 +142,14 @@ void MierzonePozycje::update()
 
     case DONE:
     {
-        DEBUG("actWork DONE");
+        DEBUGMPZ("actWork DONE");
         timer->stop();
         return;
     }
 
     case END:
     {
-        DEBUG("actWork END");
+        DEBUGMPZ("actWork END");
         timer->stop();
         ui->pbNoweDane->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
@@ -162,7 +162,7 @@ void MierzonePozycje::update()
 
     case FIRST_RUN:
     {
-        DEBUG("actWork FIRST_RUN");
+        DEBUGMPZ("actWork FIRST_RUN");
         actPos = 0;
         if (m_lista.size() == 0) {
             actWork = DONE;
@@ -179,8 +179,8 @@ void MierzonePozycje::update()
     }
     case NEXT_POS:
     {
-        DEBUG("actWork NEXT_POS");
-        DEBUG(QString("Szukam kolejnej pozycji"));
+        DEBUGMPZ("actWork NEXT_POS");
+        DEBUGMPZ(QString("Szukam kolejnej pozycji"));
         ui->status->setText("Przechodzę do kolejnej pozycji z listy");
         ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono"));
         ++actPos;
@@ -195,7 +195,7 @@ void MierzonePozycje::update()
 /*
         if (actPos % 100 == 0) {
             actWork = WAIT_HPOS;
-            DEBUG("Set Home pos");
+            DEBUGMPZ("Set Home pos");
             setPositionHome();
             ui->status->setText("Trwa kalibracja urządzenia");
             return;
@@ -209,7 +209,7 @@ void MierzonePozycje::update()
     /*
     case NEXT_POS_AFTER_HPOS:
     {
-        DEBUG("actWork NEXT_POS_AFTER_HPOS");
+        DEBUGMPZ("actWork NEXT_POS_AFTER_HPOS");
         actWork = WAIT_POS;
         actCzas = m_lista.at(actPos).time;
         setPos();
@@ -218,7 +218,7 @@ void MierzonePozycje::update()
     */
     case START_MEASURING:
     {
-        DEBUG("actWork START_MEASURING");
+        DEBUGMPZ("actWork START_MEASURING");
         avg1 = 0.0;
         cnt1 = 0;
         ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Rozpoczynam pomiary").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y));
@@ -227,7 +227,7 @@ void MierzonePozycje::update()
     }
     case NOW_MEASURING:
     {
-        DEBUG("actWork NOW_MEASURING");
+        DEBUGMPZ("actWork NOW_MEASURING");
         if (actCzas == cnt1) {
             actWork = END_MEASURING;
             ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono pomiary."));
@@ -235,13 +235,13 @@ void MierzonePozycje::update()
         }
         ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
         ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas-cnt1));
-        DEBUG(QString("Pomiar [%1 s]").arg(actCzas));
+        DEBUGMPZ(QString("Pomiar [%1 s]").arg(actCzas));
         readRadio();
         return;
     }
     case END_MEASURING:
     {
-        DEBUG("actWork END_MEASURING");
+        DEBUGMPZ("actWork END_MEASURING");
         actWork = NEXT_POS;
         return;
     }
@@ -250,7 +250,7 @@ void MierzonePozycje::update()
 
 void MierzonePozycje::positionDone(bool home)
 {
-    DEBUG(QString("position Done home=%1").arg(home));
+    DEBUGMPZ(QString("position Done home=%1").arg(home));
     if (home) {
         /*
         if (actWork == WAIT_HPOS) {
@@ -268,7 +268,7 @@ void MierzonePozycje::positionDone(bool home)
 
 void MierzonePozycje::readedFromRadio(const double &val)
 {
-    DEBUG(QString("Read from radio %1").arg(val));
+    DEBUGMPZ(QString("Read from radio %1").arg(val));
     cntErr = 0;
     setValue1(val, "m/s");
 
@@ -276,7 +276,7 @@ void MierzonePozycje::readedFromRadio(const double &val)
 
 void MierzonePozycje::errorReadFromRadio()
 {
-    DEBUG(QString("Read Error %1").arg(cntErr + 1));
+    DEBUGMPZ(QString("Read Error %1").arg(cntErr + 1));
     if (++cntErr > 10) {
         timer->stop();
         actWork = DONE;
@@ -340,7 +340,7 @@ void MierzonePozycje::restart()
 void MierzonePozycje::on_pbStart_clicked()
 {
     m_listawynikowa.clear();
-    DEBUG(QString("Start work. "));
+    DEBUGMPZ(QString("Start work. "));
     actWork = WAIT_FOR_READY;
     actPos = 0;
     ui->pbStart->setEnabled(false);
@@ -384,7 +384,7 @@ void MierzonePozycje::on_pbZapisz_clicked()
 
 void MierzonePozycje::on_pbRestart_clicked()
 {
-    DEBUG(QString("ReStart work. "));
+    DEBUGMPZ(QString("ReStart work. "));
     for (int i = 0; i < ui->table->rowCount(); i++) {
          ui->table->item(i, col_meas)->setText("-");
          ui->table->item(i, col_status)->setText("Oczekiwanie");

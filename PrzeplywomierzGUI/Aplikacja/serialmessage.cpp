@@ -294,7 +294,7 @@ QByteArray SerialMessage::welcomeMsg()
 
 QByteArray SerialMessage::setPositionHome(bool roleta)
 {
-    uint8_t tab[1] = { roleta ? 'R' : 'P' };
+    uint8_t tab[1] = { roleta ? (uint8_t)'R' : (uint8_t)'P' };
     return prepareMessage(MOVEHOME_REQ, tab, 1);
 }
 

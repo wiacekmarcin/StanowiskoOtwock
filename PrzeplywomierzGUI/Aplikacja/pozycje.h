@@ -37,18 +37,19 @@ typedef struct _posR {
 class PozycjeRol : public QList<PosRoleta>
 {
 public:
-    PozycjeRol(unsigned int maxEtap_ = 0, unsigned int maxR_ = 0, unsigned int measTime = 0, unsigned int stableTime = 0,
+    PozycjeRol(bool reverse = false, unsigned int maxEtap_ = 0, unsigned int maxR_ = 0, unsigned int measTime = 0, unsigned int stableTime = 0,
                unsigned int width_ = 0, unsigned int offsetX_ = 0, unsigned int offsetY_ = 0);
     void appendRoletaEtap(unsigned int roletaEtap);
     void appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsigned int yNorma);
     void setInit(unsigned int maxEtap_, unsigned int maxR_ , unsigned int width_, unsigned int measTime, unsigned int stableTime);
-    void setOffset(unsigned int offSetX_, unsigned int offSetY_);
+    void setOffset(bool reverse, unsigned int offSetX_, unsigned int offSetY_);
 
     void appendPoint(unsigned int roletaEtap, float xNorma, float yNorma, unsigned int measTime);
 private:
     void initNorma(unsigned int norma, float * normasrc);
 
 private:
+    bool reverseX;
     unsigned int maxEtap;
     unsigned int maxR;
     unsigned int measTime;

@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
 
 
-    for (short i = 0 ; i < 30 ; ++i) {
+    for (short i = 0 ; i < Ustawienia::getMaxRolObrot() ; ++i) {
         QLabel * lobrot = new QLabel(ui->scrollArea);
         lobrot->setObjectName(QString::fromUtf8("lobrot")+QString::number(i));
         lobrot->setText(QString("%1 obrót").arg(i+1));
@@ -103,7 +103,7 @@ void MainWindow::on_pbSaveWentylator_clicked()
 
 void MainWindow::on_pbRoletaSave_clicked()
 {
-    for (short i = 0 ; i < 30; ++i) {
+    for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {
         ust.setRolObrot(i, RolObrotTab[i]->text());
     }
 }

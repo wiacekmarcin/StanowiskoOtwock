@@ -23,9 +23,6 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MiernikPrzeplywu; }
 QT_END_NAMESPACE
 
-
-#define DEBUG(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
-
 class MiernikPrzeplywu : public QMainWindow
 {
     Q_OBJECT

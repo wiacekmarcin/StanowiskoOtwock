@@ -5,15 +5,17 @@
 #include <QSpinBox>
 #include <QDebug>
 
-PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow_, unsigned int iloscProbek_,
+PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, bool reverse, unsigned int nrEtapow_, unsigned int iloscProbek_,
                                        unsigned int czasStablizacji_, unsigned int maxR_, unsigned int width_,
                                        unsigned int offsetX_, unsigned int offsetY_) :
     QDialog(parent),
     ui(new Ui::PodzialEtapuRolety),
+    reverseX(reverse),
     nrEtapow(nrEtapow_),
     iloscProbek(iloscProbek_),
     czasStablizacji(czasStablizacji_),
-    maxR(maxR_)
+    maxR(maxR_),
+    pozycje(reverse, nrEtapow, maxR, iloscProbek, czasStablizacji, width_, offsetX_, offsetY_)
 {
     ui->setupUi(this);
     setWindowTitle("Przepływomierz - wybór norm dla każdego etapu.");
@@ -24,7 +26,7 @@ PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow_, 
 
     qDebug() << __FILE__ << __LINE__ << offsetX_ << offsetY_;
     pozycje.setInit(nrEtapow_, maxR_, width_, iloscProbek_, czasStablizacji_);
-    pozycje.setOffset(offsetX_, offsetY_);
+    pozycje.setOffset(reverse, offsetX_, offsetY_);
 }
 
 

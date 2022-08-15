@@ -52,17 +52,17 @@ void TabWidget::setInsData(const WyborMetody::MethodInsData & newInsData)
     insData = newInsData;
 }
 
-void TabWidget::positionStatus(bool base, SerialMessage::StatusWork work)
+void TabWidget::positionStatus(bool, SerialMessage::StatusWork)
 {
 
 }
 
-void TabWidget::positionDone(bool base)
+void TabWidget::positionDone(bool)
 {
 
 }
 
-void TabWidget::roletaDone(bool base)
+void TabWidget::roletaDone(bool)
 {
 
 }

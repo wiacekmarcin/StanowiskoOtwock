@@ -6,14 +6,15 @@
 #include <QMessageBox>
 #include <QTextStream>
 
-WybranyPlikNorma::WybranyPlikNorma(QWidget *parent, const QString &file, unsigned int maxNumber, unsigned int maxNumber2,
-                                   unsigned int maxR, unsigned int width,
+WybranyPlikNorma::WybranyPlikNorma(QWidget *parent, bool reverse, const QString &file, unsigned int maxNumber,
+                                   unsigned int maxNumber2, unsigned int maxR, unsigned int width,
                                    unsigned int offsetx, unsigned int offsety) :
     QDialog(parent),
     ui(new Ui::WybranyPlikNorma),
     filename(file),
     etapMax(maxNumber),
-    timeStable(maxNumber2)
+    timeStable(maxNumber2),
+    m_lista(reverse, etapMax, maxR, 0, timeStable, width, offsetx, offsety)
 {
     ui->setupUi(this);
     ui->lfilename->setText(file);
@@ -28,7 +29,7 @@ WybranyPlikNorma::WybranyPlikNorma(QWidget *parent, const QString &file, unsigne
 
 
     m_lista.setInit(etapMax, maxR , width, 0, timeStable);
-    m_lista.setOffset(offsetx, offsety);
+    m_lista.setOffset(reverse, offsetx, offsety);
 
     prevNorma = -1;
     parseFile();

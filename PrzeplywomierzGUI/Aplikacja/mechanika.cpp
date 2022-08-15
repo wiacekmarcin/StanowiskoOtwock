@@ -7,7 +7,7 @@
                                                 1503, 1516, 1516, 1516, 1516, 1516,
                                                 1516, 1516, 1516};
 */
-unsigned int RoletaRuch::obrotStala10xmm[maxObrot] = {1020, 1075, 1114, 1152, 1185,
+unsigned int RoletaRuch::obrotStala10xmm[Ustawienia::getMaxRolObrot()] = {1020, 1075, 1114, 1152, 1185,
                                                 1240, 1278, 1342, 1401, 1425,
                                                 1465, 1503, 1516,    0,    0,
                                                    0,    0,    0,    0,    0,
@@ -233,6 +233,11 @@ RoletaRuch::RoletaRuch() :
 
 }
 
+void RoletaRuch::setReverse(bool rev)
+{
+    reverse = rev;
+}
+
 void RoletaRuch::setUstawienia(Ustawienia &ust)
 {
     QString val1 = ust.getRolDlugosc();
@@ -247,20 +252,33 @@ void RoletaRuch::setUstawienia(Ustawienia &ust)
     else
         ust.setRolStepObrot(QString::number(krokiPerObrot));
 
-    QString val3 = ust.getRolOffsetX();
+    QString val3 = ust.getRolOffsetX_P();
     if (!val3.isEmpty())
-        offsetX = (val3.toUInt());
+        offsetX_P = (val3.toUInt());
     else
-        ust.setRolOffsetX(QString::number(offsetX));
+        ust.setRolOffsetX_P(QString::number(offsetX_P));
 
-    QString val4 = ust.getRolOffsetY();
+    QString val4 = ust.getRolOffsetY_P();
     if (!val4.isEmpty())
-        offsetX = (val4.toUInt());
+        offsetY_P = (val4.toUInt());
     else
-        ust.setRolOffsetX(QString::number(offsetY));
+        ust.setRolOffsetX_P(QString::number(offsetY_P));
+
+    QString val5 = ust.getRolOffsetX_L();
+    if (!val5.isEmpty())
+        offsetX_L = (val3.toUInt());
+    else
+        ust.setRolOffsetX_P(QString::number(offsetX_L));
+
+    QString val6 = ust.getRolOffsetY_L();
+    if (!val4.isEmpty())
+        offsetY_L = (val6.toUInt());
+    else
+        ust.setRolOffsetX_P(QString::number(offsetY_L));
+
 
     QString val;
-    for (short i = 0; i < maxObrot; i++) {
+    for (short i = 0; i < Ustawienia::getMaxRolObrot(); i++) {
         val = ust.getRolObrot(i);
         qDebug() << val;
         if (!val.isEmpty()) {
@@ -309,7 +327,7 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
     unsigned long MM = 10*mm;
     unsigned long obwod;
 
-    while (n < maxObrot) {
+    while (n < Ustawienia::getMaxRolObrot()) {
         //qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
         obwod = obrotStala10xmm[n];
         if (MM < obwod) {
@@ -350,33 +368,59 @@ void RoletaRuch::setMaxKroki(unsigned long newMaxKroki)
     maxKroki = newMaxKroki;
 }
 
-unsigned int RoletaRuch::getOffsetX() const
+unsigned int RoletaRuch::getOffsetX_P() const
 {
-    return offsetX;
+    return offsetX_P;
 }
 
-void RoletaRuch::setOffsetX(unsigned int newOffsetX)
+void RoletaRuch::setOffsetX_P(unsigned int newOffsetX)
 {
-    offsetX = newOffsetX;
+    offsetX_P = newOffsetX;
 }
 
-unsigned int RoletaRuch::getOffsetY() const
+unsigned int RoletaRuch::getOffsetY_P() const
 {
-    return offsetY;
+    return offsetY_P;
 }
 
-void RoletaRuch::setOffsetY(unsigned int newOffsetY)
+void RoletaRuch::setOffsetY_P(unsigned int newOffsetY)
 {
-    offsetY = newOffsetY;
+    offsetY_P = newOffsetY;
 }
+
+unsigned int RoletaRuch::getOffsetX_L() const
+{
+    return offsetX_L;
+}
+
+void RoletaRuch::setOffsetX_L(unsigned int newOffsetX)
+{
+    offsetX_L = newOffsetX;
+}
+
+unsigned int RoletaRuch::getOffsetY_L() const
+{
+    return offsetY_L;
+}
+
+void RoletaRuch::setOffsetY_L(unsigned int newOffsetY)
+{
+    offsetY_L = newOffsetY;
+}
+
 
 void RoletaRuch::calculate()
 {
     maxKroki = krokiPerObrot;
-    for (short i = 0; i < maxObrot; i++) {
+    for (short i = 0; i < Ustawienia::getMaxRolObrot(); i++) {
         if (obrotStala10xmm[i] > 0)
             maxKroki += krokiPerObrot;
         else
             break;
     }
+}
+
+bool RoletaRuch::getReverse() const
+{
+    return reverse;
 }

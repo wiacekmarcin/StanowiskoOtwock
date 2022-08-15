@@ -297,14 +297,14 @@ public:
      * @param r - ilość krokow
      * @return bajty reprezentujące wiadomość
      */
-    static QByteArray SerialMessage::setRoleta(uint32_t r);
+    static QByteArray setRoleta(uint32_t r);
     /*************************************************************/
     
     /** 
      * @brief measValueMsg - wiadomosc do pobrania wartosci z radia 
      * @return bajty reprezentujące wiadomość
      */
-    static QByteArray SerialMessage::measValuesMsg();
+    static QByteArray measValuesMsg();
     
     /**
      * @brief measUnitMsg - konfiguruje wyswietalny tekst na czujniku
@@ -314,7 +314,7 @@ public:
      * @param unit - jednostka wyswietlana
      * @return QByteArray 
      */
-    static QByteArray SerialMessage::measUnitMsg(short index, const float &ratio, QString &unit);
+    static QByteArray measUnitMsg(short index, const float &ratio, QString &unit);
 
     /**
      * @brief getParseReply zwraca typ sparsowanej wiadomości

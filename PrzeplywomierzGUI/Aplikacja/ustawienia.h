@@ -54,18 +54,32 @@ public:
     const QString &getRolObrot(unsigned short obr) const;
     void setRolObrot(unsigned short obr, const QString &newRolObrot1);
 
-    QString getRolOffsetX() const;
-    void setRolOffsetX(const QString &value);
+    QString getRolOffsetX_P() const;
+    void setRolOffsetX_P(const QString &value);
 
-    QString getRolOffsetY() const;
-    void setRolOffsetY(const QString &value);
+    QString getRolOffsetY_P() const;
+    void setRolOffsetY_P(const QString &value);
+
+    QString getRolOffsetX_L() const;
+    void setRolOffsetX_L(const QString &value);
+
+    QString getRolOffsetY_L() const;
+    void setRolOffsetY_L(const QString &value);
 
     const QString &getRolkrokiperMM() const;
     void setRolkrokiperMM(const QString &newRolkrokiperMM);
 
+    const QString &getNormaRoletaWidth() const;
+    void setNormaRoletaWidth(const QString &newNormaRoletaWidth);
+
+    const QString &getNormaRoletaHeight() const;
+    void setNormaRoletaHeight(const QString &newNormaRoletaHeight);
+
+    static constexpr int getMaxRolObrot() { return maxObrot; }
+
 private:
     QSettings settings;
-
+    static constexpr int maxObrot = 30;
     static char appnazwa[];
     static char firmnazwa[];
 
@@ -85,11 +99,16 @@ private:
 
     QString rolDlugosc;
     QString rolStepObrot;
-    QString rolObrot[30];
+    QString rolObrot[maxObrot];
 
-    QString rolOffsetX;
-    QString rolOffsetY;
+    QString rolOffsetX_P;
+    QString rolOffsetY_P;
+    QString rolOffsetX_L;
+    QString rolOffsetY_L;
     QString rolkrokiperMM;
+
+    QString normaRoletaWidth;
+    QString normaRoletaHeight;
 };
 
 #endif // USTAWIENIA_H
