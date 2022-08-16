@@ -77,7 +77,7 @@ void TabWidget::errorReadFromRadio()
 
 }
 
-void TabWidget::setStatus(const QString &st)
+void TabWidget::setStatus(const QString &)
 {
 
 }

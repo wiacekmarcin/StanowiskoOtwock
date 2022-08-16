@@ -72,7 +72,9 @@ void MiernikPrzeplywu::chooseWork()
     do {
         //qDebug() << "New wyborMethody";
         hide();
-        WyborMetody m(this, modeWork, methodIns, ust);
+        WyborMetody::ModeWork prevWork = modeWork;
+        modeWork = WyborMetody::MODE_NONE;
+        WyborMetody m(this, prevWork, methodIns, ust, sMsg);
 
         int r = m.exec();
         if (r == 0) {
@@ -232,6 +234,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
     if (modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL) {
         PozycjeRoleta * w = static_cast<PozycjeRoleta*>(widget);
         bool reverse = modeWork == WyborMetody::MODE_ROLETAL;
+
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
 
@@ -316,6 +319,9 @@ void MiernikPrzeplywu::setPositionDone(bool success, bool home, int w)
 {
     DEBUGMP(QString("positionDone ok=%1 home=%2 w=%3").arg(success).arg(home).arg(w));
     SerialMessage::StatusWork work = static_cast<SerialMessage::StatusWork>(w);
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     if (success) {
         if (work == SerialMessage::ERROR_XY) {
              home ? errorHome() : errorPosition();
@@ -335,6 +341,9 @@ void MiernikPrzeplywu::setPositionDone(bool success, bool home, int w)
 
 void MiernikPrzeplywu::successOpenDevice(bool open, bool openErr, bool conf, bool confErr, bool sett, bool settErr)
 {
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     DEBUGMP(QString("Open device open = %1, configure = %2 sett = %3 [openErr = %4, configureErr = %5, settErr = %6]").arg(open).arg(conf).arg(sett).
                                 arg(openErr).arg(confErr).arg(settErr));
     if (!open && !openErr && !conf && !confErr && !sett && !settErr) {
@@ -357,22 +366,30 @@ void MiernikPrzeplywu::successOpenDevice(bool open, bool openErr, bool conf, boo
         ui->lradio->setText("--");
     } else if (!open && openErr && !conf && !confErr && !sett && !settErr) {
         ui->lConneected->setText("Nie udało się znaleźć sterownika");
-        widget->setIsReady(false);
-        widget->setError();
+        if (widget != nullptr) {
+            widget->setIsReady(false);
+            widget->setError();
+        }
     } else if (open && !openErr && !conf && !confErr && !sett && !settErr) {
         ui->lConneected->setText(QString("%1 - Znaleziono port. Trwa konfiguracja sterownika").arg(m_portName));
     } else if (open && openErr && !conf && !confErr && !sett && !settErr) {
         ui->lConneected->setText(QString("%1 - Znaleziono sterownik,  ale problem z otwarciem").arg(m_portName));
-        widget->setIsReady(false);
-        widget->setError();
+        if (widget != nullptr) {
+            widget->setIsReady(false);
+            widget->setError();
+        }
     } else if (open && !openErr && conf && confErr && !sett && !settErr) {
         ui->lConneected->setText(QString("%1 - Znaleziono sterownik, problem z konfiguracją").arg(m_portName));
-        widget->setIsReady(false);
-        widget->setError();
+        if (widget != nullptr) {
+            widget->setIsReady(false);
+            widget->setError();
+        }
     } else if (open && !openErr && conf && !confErr && sett && settErr) {
         ui->lConneected->setText(QString("%1 - Znaleziono sterownik, problem z ustawieniami").arg(m_portName));
-        widget->setIsReady(false);
-        widget->setError();
+        if (widget != nullptr) {
+            widget->setIsReady(false);
+            widget->setError();
+        }
     } else if (open && !openErr && conf && !confErr && sett && !settErr) {
         //wszystko OK
         ui->lcz1mv->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
@@ -395,6 +412,10 @@ void MiernikPrzeplywu::setParamsDone(bool success)
 
     if (!success)
         return;
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     widget->setIsReady(false);
     widget->setStart();
     firstRun = true;
@@ -417,6 +438,9 @@ void MiernikPrzeplywu::setParamsDone(bool success)
 
 void MiernikPrzeplywu::readedFromRadio(bool sucess, int val1, int, int, int)
 {
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     DEBUGMP(QString("Read radio %1 [%2]").arg(sucess).arg(val1));
     if (!sucess) {
         errorReadFromRadio();
@@ -441,6 +465,9 @@ void MiernikPrzeplywu::readedFromRadio(bool sucess, int val1, int, int, int)
 
 void MiernikPrzeplywu::errorReadFromRadio()
 {
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     DEBUGMP(QString("errorReadFromRadio"));
     ui->lradio->setText(QString("Błąd odczytu"));
     ui->lcz1mv->setText("---");
@@ -493,6 +520,9 @@ void MiernikPrzeplywu::roletaHome()
 
 void MiernikPrzeplywu::deviceName(const QString & portname)
 {
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     DEBUGMP(QString("DeviceName = %1").arg(portname));
     m_portName = portname;
     ui->lConneected->setText(QString("%1 - Znaleziono port. Trwa konfiguracja").arg(m_portName));

@@ -1,6 +1,7 @@
 #include "rs232.h"
-#ifdef SYMULATOR
-#else
+
+#define SYMULATORSERIAL
+#ifndef SYMULATORSERIAL
 #include <initguid.h>
 #include <windows.h>
 #include <Setupapi.h>
@@ -10,12 +11,11 @@
 #include <string.h>
 
 
-#include <QDebug>
+
 
 #define RS232_PORTNR  32
 
-#ifdef SYMULATOR
-#else
+#ifndef SYMULATORSERIAL
 HANDLE Cport[RS232_PORTNR];
 #endif
 
@@ -33,7 +33,7 @@ char mode_str[128];
 #include <QDebug>
 int RS232_OpenComport(int comport_number, int baudrate, const char *mode, int flowctrl)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     (void)baudrate;
     (void)mode;
@@ -219,7 +219,7 @@ https://docs.microsoft.com/en-us/windows/desktop/api/winbase/ns-winbase-_dcb
 
 int RS232_PollComport(int comport_number, unsigned char *buf, int size)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     (void)buf;
     (void)size;
@@ -242,7 +242,7 @@ int RS232_PollComport(int comport_number, unsigned char *buf, int size)
 
 int RS232_SendByte(int comport_number, unsigned char byte)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     (void)byte;
     return 0;
@@ -263,7 +263,7 @@ int RS232_SendByte(int comport_number, unsigned char byte)
 
 int RS232_SendBuf(int comport_number, unsigned char *buf, int size)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     (void)buf;
     (void)size;
@@ -283,7 +283,8 @@ int RS232_SendBuf(int comport_number, unsigned char *buf, int size)
 
 void RS232_CloseComport(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
+    qDebug() << __FILE__ << __LINE__;
     (void)comport_number;
 #else
   CloseHandle(Cport[comport_number]);
@@ -296,7 +297,7 @@ http://msdn.microsoft.com/en-us/library/windows/desktop/aa363258%28v=vs.85%29.as
 
 int RS232_IsDCDEnabled(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     return 0;
 #else
@@ -312,7 +313,7 @@ int RS232_IsDCDEnabled(int comport_number)
 
 int RS232_IsRINGEnabled(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     return 0;
 #else
@@ -328,7 +329,7 @@ int RS232_IsRINGEnabled(int comport_number)
 
 int RS232_IsCTSEnabled(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     return 0;
 #else
@@ -344,7 +345,7 @@ int RS232_IsCTSEnabled(int comport_number)
 
 int RS232_IsDSREnabled(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     return 0;
 #else
@@ -360,7 +361,7 @@ int RS232_IsDSREnabled(int comport_number)
 
 void RS232_enableDTR(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   EscapeCommFunction(Cport[comport_number], SETDTR);
@@ -370,7 +371,7 @@ void RS232_enableDTR(int comport_number)
 
 void RS232_disableDTR(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   EscapeCommFunction(Cport[comport_number], CLRDTR);
@@ -380,7 +381,7 @@ void RS232_disableDTR(int comport_number)
 
 void RS232_enableRTS(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   EscapeCommFunction(Cport[comport_number], SETRTS);
@@ -390,7 +391,7 @@ void RS232_enableRTS(int comport_number)
 
 void RS232_disableRTS(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   EscapeCommFunction(Cport[comport_number], CLRRTS);
@@ -403,7 +404,7 @@ https://msdn.microsoft.com/en-us/library/windows/desktop/aa363428%28v=vs.85%29.a
 
 void RS232_flushRX(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   PurgeComm(Cport[comport_number], PURGE_RXCLEAR | PURGE_RXABORT);
@@ -413,7 +414,7 @@ void RS232_flushRX(int comport_number)
 
 void RS232_flushTX(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   PurgeComm(Cport[comport_number], PURGE_TXCLEAR | PURGE_TXABORT);
@@ -423,7 +424,7 @@ void RS232_flushTX(int comport_number)
 
 void RS232_flushRXTX(int comport_number)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
 #else
   PurgeComm(Cport[comport_number], PURGE_RXCLEAR | PURGE_RXABORT);
@@ -433,7 +434,7 @@ void RS232_flushRXTX(int comport_number)
 
 void RS232_cputs(int comport_number, const char *text)  /* sends a string to serial port */
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)comport_number;
     (void)text;
 #else
@@ -445,7 +446,7 @@ void RS232_cputs(int comport_number, const char *text)  /* sends a string to ser
 /* return index in comports matching to device name or -1 if not found */
 int RS232_GetPortnr(const char *devname)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)devname;
     return 0;
 #else
@@ -475,7 +476,7 @@ int RS232_GetPortnr(const char *devname)
 
 void GetComPortUsb(char *pszComePort, const char * vid, const char * pid)
 {
-#ifdef SYMULATOR
+#ifdef SYMULATORSERIAL
     (void)pszComePort;
     (void)vid;
     (void)pid;

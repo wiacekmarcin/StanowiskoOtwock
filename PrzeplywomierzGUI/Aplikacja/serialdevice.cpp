@@ -5,6 +5,8 @@
 #include "rs232.h"
 #include <QDebug>
 
+#define DEBUGSER(X) debugFun(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+
 SerialWorker::SerialWorker(SerialDevice * device):
     QThread(nullptr),
     sd(device)
@@ -24,13 +26,15 @@ SerialWorker::~SerialWorker()
     mutex.unlock();
 }
 
-void SerialWorker::command(Task curr)
+bool SerialWorker::command(Task curr)
 {
-    DEBUG(QString("New command %1").arg(curr));
+    DEBUGSER(QString("New command %1").arg(curr));
     const QMutexLocker locker(&mutex);
-
+    if (!runWorker)
+        return false;
     actTask = curr;
     newTask.wakeOne();
+    return true;
 }
 
 void SerialWorker::setStop()
@@ -41,7 +45,7 @@ void SerialWorker::setStop()
     
     newTask.wakeOne();
     mutex.unlock();
-    wait();
+    //wait();
 }
 
 void SerialWorker::run()
@@ -51,7 +55,7 @@ void SerialWorker::run()
     mutex.unlock();
     short nrTrying = 0;
     bool quit = false;
-    debug(QString("actTask = %1").arg(actTask));
+    DEBUGSER(QString("actTask = %1").arg(actTask));
     do {
         switch(zadanie) {
         case IDLE:
@@ -135,8 +139,13 @@ void SerialWorker::run()
         mutex.unlock();
     } while (!quit);
     
-   qDebug() << "return SerialWorker::run()";
+   DEBUGSER("SerialWorker::run() quit");
    this->quit();
+}
+
+void SerialWorker::debugFun(const QString &s)
+{
+    emit debug(s);
 }
 
 SerialWorker::Task SerialWorker::getActTask()
@@ -177,7 +186,7 @@ SerialDevice::~SerialDevice()
 void SerialDevice::setThread(QThread *trh)
 {
     m_worker.moveToThread(trh);
-    m_worker.start();
+    //m_worker.start();
 }
 
 void SerialDevice::setStop()
@@ -187,7 +196,14 @@ void SerialDevice::setStop()
 
 void SerialDevice::connectToDevice()
 {
-    m_worker.command(SerialWorker::CONNECT);
+    if (m_connected) {
+
+    } else {
+        m_worker.start();
+        if (!m_worker.command(SerialWorker::CONNECT)) {
+            emit kontrolerConfigured(false, true, false, false, false, false);
+        }
+    }
 }
 
 void SerialDevice::setParams(bool reverseX, bool reverseY, bool reverseR,
@@ -243,14 +259,43 @@ void SerialDevice::readRadio()
 
 SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentWaitWriteTimeout, int currentReadWaitTimeout)
 {
+
     SerialMessage msg;
     msg.setInvalidReply();
     
+#ifdef SERIALLINUX
+    if (currentRequest.size() > 0) {
+        DEBUGSER("Sending bytes....");
+        int sendBytes = m_serialPort.write(currentRequest);
+        if (!m_serialPort.waitForBytesWritten(currentWaitWriteTimeout)) {
+            qDebug() << "Timeout write";
+            emit error(QString("Timeout Write"));
+            return msg;
+        }
+        DEBUGSER(QString("Write %1 bytes").arg(sendBytes));
+    }
+
+    QByteArray responseData;
+    DEBUGSER(QString("Wait for read"));
+    if (m_serialPort.waitForReadyRead(currentReadWaitTimeout)) {
+        responseData = m_serialPort.readAll();
+        while (m_serialPort.waitForReadyRead(10))
+            responseData += m_serialPort.readAll();
+        DEBUGSER(QString("Read %1").arg(responseData.size()));
+        return parseMessage(responseData);
+    } else {
+        DEBUGSER(QString("Error for read"));
+        emit error(QString("Timeout Read"));
+        return msg;
+    }
+#else
+
     if (currentRequest.size() > 0)
     {
 
-        DEBUG(QString("write [%1]").arg(currentRequest.toHex().constData()));
-        RS232_SendBuf(m_portNr, (unsigned char*)currentRequest.constData(), currentRequest.size());
+        DEBUGSER(QString("write [%1]").arg(currentRequest.toHex().constData()));
+        int sendBytes = RS232_SendBuf(m_portNr, (unsigned char*)currentRequest.constData(), currentRequest.size());
+        DEBUGSER(QString("write %1 bytes").arg(sendBytes));
         QThread::currentThread()->msleep(currentWaitWriteTimeout);
     }
     unsigned char recvBuffor[20];
@@ -259,6 +304,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     do {
 
         rc = RS232_PollComport(m_portNr, recvBuffor, 20);
+        DEBUGSER(QString("recv %1 bytes").arg(rc));
         if (rc == 0) {
             readTimeout -= 50;
             QThread::currentThread()->msleep(50);
@@ -268,13 +314,14 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         emit error(QString("Timeout"));
     }
     QByteArray responseData((const char*)recvBuffor, rc);
-    DEBUG(QString("read [%1]").arg(responseData.toHex().constData()));
+    DEBUGSER(QString("read [%1]").arg(responseData.toHex().constData()));
     return parseMessage(responseData);
+#endif
 }
 
 bool SerialDevice::configureDeviceJob()
 {
-    DEBUG(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
+    DEBUGSER(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
     .arg(m_maxImpX).arg(m_maxImpY).arg(m_maxStepX).arg(m_maxStepY).arg(m_maxStepR));
 
     auto s = write(SerialMessage::welcomeMsg(), 100, 6000).getParseReply();
@@ -316,7 +363,7 @@ bool SerialDevice::configureDeviceJob()
 
 void SerialDevice::setParamsJob()
 {
-    DEBUG(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
+    DEBUGSER(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
     .arg(m_maxImpX).arg(m_maxImpY).arg(m_maxStepX).arg(m_maxStepY).arg(m_maxStepR));
 
     auto s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
@@ -439,9 +486,9 @@ void SerialDevice::setPosJobLocal(bool home)
 
 void SerialDevice::setHomeJob()
 {
-    DEBUG(QString("Ustaw pozycje startowa dla czujnika"));
+    DEBUGSER(QString("Ustaw pozycje startowa dla czujnika"));
     setPosJobLocal(true);
-    DEBUG(QString("setHomeJob - waitForClose = %1").arg(waitForClose));
+    DEBUGSER(QString("setHomeJob - waitForClose = %1").arg(waitForClose));
     if (waitForClose) {
         waitForClose = false;
         closeDevice();
@@ -450,7 +497,7 @@ void SerialDevice::setHomeJob()
 
 void SerialDevice::setPosJob()
 {
-    DEBUG(QString("Ustaw pozycje x=%1 y=%2").arg(m_impX).arg(m_impY));
+    DEBUGSER(QString("Ustaw pozycje x=%1 y=%2").arg(m_impX).arg(m_impY));
     setPosJobLocal(false);
 }
 
@@ -495,19 +542,19 @@ void SerialDevice::setRoletaJobLocal(bool home)
 
 void SerialDevice::setRoletaHomeJob()
 {
-    DEBUG(QString("Ustaw pozycje startowa dla rolety"));
+    DEBUGSER(QString("Ustaw pozycje startowa dla rolety"));
     setRoletaJobLocal(true);
 }
 
 void SerialDevice::setRoletaJob()
 {
-    DEBUG(QString("Ustaw pozycje rolety x=%1").arg(m_stepR));
+    DEBUGSER(QString("Ustaw pozycje rolety x=%1").arg(m_stepR));
     setRoletaJobLocal(false);
 }
 
 void SerialDevice::readRadioJob()
 {
-    DEBUG(QString("Pobieram dane z radia"));
+    DEBUGSER(QString("Pobieram dane z radia"));
     auto s = write(SerialMessage::measValuesMsg(),
               100, 1000);
 
@@ -523,10 +570,29 @@ void SerialDevice::readRadioJob()
 
 bool SerialDevice::openDevice()
 {
-    DEBUG(QString("Otwieram urządzenia %1").arg(m_portName));
+#ifdef SERIALLINUX
+    m_serialPort.setPort(QSerialPortInfo(m_portName));
+
+    emit deviceName(m_serialPort.portName());
+
+    if (!m_serialPort.open(QIODevice::ReadWrite)) {
+        emit error(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(m_portName).arg(m_serialPort.errorString()));
+        return false;
+    }
+
+    m_serialPort.setBaudRate(QSerialPort::Baud115200);
+    m_serialPort.setDataBits(QSerialPort::Data8);
+    m_serialPort.setFlowControl(QSerialPort::NoFlowControl);
+    m_serialPort.setParity(QSerialPort::NoParity);
+    m_serialPort.setStopBits(QSerialPort::OneStop);
+
+    emit kontrolerConfigured(true, false, true, false, false, false);
+    return true;
+#else
+    DEBUGSER(QString("Otwieram urządzenia %1").arg(m_portName));
     char mode[]={'8','O','1',0};
     if (RS232_OpenComport(m_portNr, 115200, mode, 0)) {
-        DEBUG(QString("Error open Port"));
+        DEBUGSER(QString("Error open Port"));
         m_connected = false;
         emit kontrolerConfigured(true, true, false, false, false, false);
         return false;
@@ -549,7 +615,7 @@ bool SerialDevice::openDevice()
 
     emit kontrolerConfigured(true, false, true, false, false, false);
     return true;
-
+#endif
 }
 
 SerialMessage SerialDevice::parseMessage(const QByteArray &reply)
@@ -561,29 +627,38 @@ SerialMessage SerialDevice::parseMessage(const QByteArray &reply)
 
 void SerialDevice::closeDevice(bool afterBase)
 {
-    DEBUG(QString("close device %1").arg(afterBase));
+    DEBUGSER(QString("close device %1").arg(afterBase));
     if (!afterBase) {
         closeDevice();
     } else {
         waitForClose = true;
         if (m_worker.getActTask() != SerialWorker::SET_HOME) {
-            DEBUG(QString("Close now"));
+            DEBUGSER(QString("Close now"));
             closeDevice();
         } else {
-            DEBUG(QString("Waiting for close"));
+            DEBUGSER(QString("Waiting for close"));
         }
     }
 }
 
 void SerialDevice::closeDevice()
 {
-    DEBUG("CLOSE DEVICE");
+    DEBUGSER("CLOSING DEVICE");
     //setStop();
+#ifdef SERIALLINUX
+    m_serialPort.close();
+#else
     RS232_CloseComport(m_portNr);
+#endif
     m_connected = false;
     m_configured = false;
     emit kontrolerConfigured(false, false, false, false, false, false);
+    DEBUGSER("CLOSE DEVICE");
+}
 
+void SerialDevice::debugFun(const QString &log)
+{
+    emit debug(log);
 }
 
 void SerialDevice::connectToSerialJob()
@@ -595,7 +670,7 @@ void SerialDevice::connectToSerialJob()
     QString systemLocation = "";
     bool findDevice = false;
     m_configured = false;
-    DEBUG(QString("Szukam urządzenia"));
+    DEBUGSER(QString("Szukam urządzenia"));
     emit kontrolerConfigured(false, false, false, false, false, false);
 
     const auto serialPortInfos = QSerialPortInfo::availablePorts();
@@ -604,18 +679,18 @@ void SerialDevice::connectToSerialJob()
         description = serialPortInfo.description();
         manufacturer = serialPortInfo.manufacturer();
         serialNumber = serialPortInfo.serialNumber();
-        DEBUG(QString("Znaleziono : DESC ") + description + QString(" MENU ") + manufacturer + QString(" SERIAL") + serialNumber);
+        DEBUGSER(QString("Znaleziono : DESC ") + description + QString(" MENU ") + manufacturer + QString(" SERIAL") + serialNumber);
 
         if (serialPortInfo.hasVendorIdentifier() && serialPortInfo.hasProductIdentifier()) {
             auto vendorId = serialPortInfo.vendorIdentifier();
             auto productId = serialPortInfo.productIdentifier();
-            DEBUG(QString("Znaleziono kandydata"));
+            DEBUGSER(QString("Znaleziono kandydata"));
             if (vendorId == 6991 && productId == 37382 /* && serialNumber == serialNumberKontroler */) {
                 m_portName = serialPortInfo.portName();
                 emit deviceName(m_portName);
                 emit kontrolerConfigured(true, false, false, false, false, false);
                 systemLocation = serialPortInfo.systemLocation();
-                DEBUG(QString("Znaleziono urządzenie"));
+                DEBUGSER(QString("Znaleziono urządzenie"));
                 findDevice = true;
             }
         }
@@ -625,14 +700,17 @@ void SerialDevice::connectToSerialJob()
         return;
     }
 
-
+#ifndef SERIALLINUX
     m_portNr = -1;
     //GetComPortUsb(bufPortName,"1B4F","9206");
     m_portNr = RS232_GetPortnr(m_portName.toStdString().c_str());
 
     if (m_portNr == -1)
         return;
+#endif
+    DEBUGSER("openDevice");
     m_connected = openDevice();
+
     if (m_connected) {
         insertParams();
     }

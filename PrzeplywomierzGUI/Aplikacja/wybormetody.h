@@ -1,6 +1,7 @@
 #ifndef WYBORMETODY_H
 #define WYBORMETODY_H
 
+#include "serialdevice.h"
 #include "ustawienia.h"
 
 #include <QDialog>
@@ -56,7 +57,7 @@ public:
 
     explicit WyborMetody(QWidget *parent, ModeWork mode,
                          MethodInsData method,
-                         Ustawienia & u);
+                         Ustawienia & u, SerialDevice & sdev);
     ~WyborMetody();
 
 
@@ -159,6 +160,8 @@ private slots:
 
     void on_pbNormaCancel_clicked();
 
+    void on_pbNornaSet_clicked();
+
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
@@ -197,5 +200,6 @@ private:
     bool startWindow;
 
     Ustawienia & ust;
+    SerialDevice & sd;
 };
 #endif // WYBORMETODY_H

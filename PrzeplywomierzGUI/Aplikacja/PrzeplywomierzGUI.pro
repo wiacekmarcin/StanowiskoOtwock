@@ -30,6 +30,7 @@ SOURCES += \
         crc8.cpp \
         mechanika.cpp \
     pozycjeroleta.cpp \
+    pozycjonowanieoffsetunormy.cpp \
     rs232.cpp \
     serialmessage.cpp \
     serialdevice.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
         crc8.h \
         mechanika.h \
     pozycjeroleta.h \
+    pozycjonowanieoffsetunormy.h \
     rs232.h \
     serialmessage.h \
     serialdevice.h \
@@ -67,6 +69,7 @@ HEADERS += \
 
 FORMS += \
     pozycjeroleta.ui \
+    pozycjonowanieoffsetunormy.ui \
     wentylator.ui \
     wybordanych.ui \
     wyborkwadratow.ui \

@@ -5,12 +5,13 @@
 extern "C" {
 #endif
 
-//#define SYMULATOR 1
+#define SYMULATOR 1
 
 #include <stdio.h>
 #include <string.h>
 
 #ifdef SYMULATOR
+
 #else
 #include <windows.h>
 #endif

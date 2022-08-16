@@ -1,17 +1,20 @@
 #include "wybormetody.h"
 #include "ui_wybormetody.h"
+#include "pozycjonowanieoffsetunormy.h"
 
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
 #include <QDebug>
 
-WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns, Ustawienia & u ) :
+WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns,
+                         Ustawienia & u, SerialDevice & sdev ) :
     QDialog(parent),
     ui(new Ui::WyborMetody),
     wbInsData(dataIns),
     wbMode(mode),
-    ust(u)
+    ust(u),
+    sd(sdev)
 {
     data.timeStopManual = 0;
     data.timeStopAuto = 0;
@@ -849,5 +852,16 @@ void WyborMetody::on_pbNormaCancel_clicked()
     ui->normaOffsetYEditL->setVisible(false);
     ui->normaOffsetXEditP->setVisible(false);
     ui->normaOffsetYEditP->setVisible(false);
+}
+
+
+void WyborMetody::on_pbNornaSet_clicked()
+{
+    unsigned int offsetX = wbMode == MODE_ROLETAL ? ui->normaOffsetXL->text().toUInt() : ui->normaOffsetXP->text().toUInt();
+    unsigned int offsetY = wbMode == MODE_ROLETAL ? ui->normaOffsetYL->text().toUInt() : ui->normaOffsetYP->text().toUInt();
+    PozycjonowanieOffsetuNormy * dlg = new PozycjonowanieOffsetuNormy(ust, &sd, wbMode == MODE_ROLETAL,
+                                            offsetX, offsetY, this);
+    dlg->exec();
+    delete dlg;
 }
 

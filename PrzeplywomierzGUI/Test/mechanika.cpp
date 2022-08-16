@@ -81,7 +81,7 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
 
     unsigned long MM = 10*mm;
     unsigned long obwod;
-    unsigned int prevobwod = 1000;
+
     while (n < 13) {
         qDebug() << "MM=" << MM << " obwod=" << obrotStala10xmm[n+1];
         obwod = obrotStala10xmm[n+1];
@@ -90,7 +90,6 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
             return 12000*n + (unsigned long)(12000*MM/obwod) + 500*mm/1500;
         }
         MM -= obwod;
-        prevobwod = obwod;
         ++n;
     }
     return maxKroki;

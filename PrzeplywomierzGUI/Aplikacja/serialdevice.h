@@ -11,7 +11,7 @@
 #include "serialmessage.h"
 #include "ustawienia.h"
 
-#define DEBUG(X) emit debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+#define SERIALLINUX
 
 class SerialDevice;
 class QThread;
@@ -58,7 +58,7 @@ public:
      * @param task - nowe zadanie IDLE, CONNECT, CONFIGURE, RESET, SET_PARAMS, SET_POSITION, SET_HOME, SET_CYCLE,
      * SET_STEPS, SET_ECHO2
      */
-    void command(Task task);
+    bool command(Task task);
 
     /**
      * @brief setStop
@@ -78,6 +78,8 @@ protected:
      * Fukcja workera
      */
     void run();
+
+    void debugFun(const QString &s);
 
 
 private:
@@ -186,13 +188,13 @@ signals:
      * @brief error wystąpił bład
      * @param s info o błędzie
      */
-    void error(const QString &s);
+    void error(QString s);
 
     /**
      * @brief debug Informacje debugowe
      * @param d
      */
-    void debug(const QString &d);
+    void debug(QString d);
 
     /**
      * @brief setParamsDone - ustawianie parametrów zakończone
@@ -216,7 +218,7 @@ signals:
      * @brief zwraca nazwe urzadzenia
      * @param name nazwa urzadzenia
      */
-    void deviceName(const QString & name);
+    void deviceName(QString name);
 
     /**
      * @brief setPositionDone - ustawianie pozycji zakończone
@@ -242,6 +244,9 @@ protected:
      * @brief closeDevice zamyka urzadzenia
      */
     void closeDevice();
+
+    void debugFun(const QString & fun);
+
     /*********************  JOBY ******************************************/
 protected:
     friend class SerialWorker;
@@ -334,6 +339,10 @@ private:
 
     /* Zmienne pomocnicze do komunikacji z sterownikiem */
     uint32_t m_impX, m_impY, m_stepR;
+
+#ifdef SERIALLINUX
+    QSerialPort m_serialPort;
+#endif
 };
 
 
