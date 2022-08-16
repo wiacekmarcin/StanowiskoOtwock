@@ -44,13 +44,13 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
     connect(ui->rb10, &QRadioButton::clicked, this, &PozycjonowanieOffsetuNormy::rb10_clicked);
     connect(ui->rb100, &QRadioButton::clicked, this, &PozycjonowanieOffsetuNormy::rb100_clicked);
 
-    connect(sDev, &SerialDevice::kontrolerConfigured, this, &PozycjonowanieOffsetuNormy::successOpenDevice);
+    //connect(sDev, &SerialDevice::kontrolerConfigured, this, &PozycjonowanieOffsetuNormy::successOpenDevice);
 
-    connect(sDev, &SerialDevice::setParamsDone, this, &PozycjonowanieOffsetuNormy::setParamsDone);
-    connect(sDev, &SerialDevice::setPositionDone, this, &PozycjonowanieOffsetuNormy::setPositionDone);
+    //connect(sDev, &SerialDevice::setParamsDone, this, &PozycjonowanieOffsetuNormy::setParamsDone);
+    //connect(sDev, &SerialDevice::setPositionDone, this, &PozycjonowanieOffsetuNormy::setPositionDone);
 
-    connect(sDev, &SerialDevice::error, this, &PozycjonowanieOffsetuNormy::errorSerial, Qt::QueuedConnection);
-    connect(sDev, &SerialDevice::debug, this, &PozycjonowanieOffsetuNormy::debug, Qt::QueuedConnection);
+    //connect(sDev, &SerialDevice::error, this, &PozycjonowanieOffsetuNormy::errorSerial, Qt::QueuedConnection);
+    //connect(sDev, &SerialDevice::debug, this, &PozycjonowanieOffsetuNormy::debug, Qt::QueuedConnection);
 
 
     sDev->connectToDevice();

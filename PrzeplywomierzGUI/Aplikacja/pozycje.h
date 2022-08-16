@@ -23,8 +23,8 @@ private:
 };
 
 typedef struct _posR {
-    unsigned int mmx;
-    unsigned int mmy;
+    int mmx;
+    int mmy;
     float nx;
     float ny;
     unsigned short etap;

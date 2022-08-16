@@ -70,7 +70,7 @@ private slots:
 
     void errorSerial(const QString &);
     void setPositionDone(bool success, bool home, int work);
-    void successOpenDevice(bool succ, bool succErr, bool conf, bool confErr, bool sett, bool ettErr);
+    void kontrolerConfigured(bool success, int state);
     void readedFromRadio(bool sucess, int val1 , int val2, int val3, int val4);
     void deviceName(const QString &);
     void setParamsDone(bool success);
@@ -89,6 +89,12 @@ protected:
 
 
 private:
+
+    void chooseWork();
+    void enableStatusWidget(bool enable);
+
+private:
+
     Ui::MiernikPrzeplywu *ui;
     WyborMetody::ModeWork modeWork;
     WyborMetody::MethodInsData methodIns;
@@ -99,24 +105,21 @@ private:
     RoletaRuch mechR;
 
     TabWidget * widget;
-    MierzonePozycje * widget2700;
+    /*MierzonePozycje * widget2700;
     MierzonePozycje * widget1000p;
     MierzonePozycje * widget1000l;
-    PozycjeRoleta * widgetRoleta;
-    Wentylator *  widgetWentylator;
+    PozycjeRoleta * widgetRoletal;
+    PozycjeRoleta * widgetRoletap;
+    Wentylator *  widgetWentylator;*/
 
     SerialDevice sMsg;
-    bool deviceConn;
-    bool deviceReady;
+
 
     bool firstRun;
     bool firstRun2;
     bool checkRadio;
 
     QString m_portName;
-
-    void chooseWork();
-
     QThread thSterownik;
 };
 #endif // MIERNIKPRZEPLYWU_H

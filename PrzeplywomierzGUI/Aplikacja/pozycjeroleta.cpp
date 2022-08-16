@@ -52,7 +52,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     cnt1 = 0;
     cntErr = 0;
     ui->pbRestart->setVisible(false);
-    //adjustSize();
+    adjustSize();
     ui->table->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
 }
 
@@ -64,6 +64,7 @@ PozycjeRoleta::~PozycjeRoleta()
 
 void PozycjeRoleta::setList(const PozycjeRol &l)
 {
+    qDebug() << __FILE__ << __LINE__ << l.size();
     ui->table->setRowCount(0);
     //ui->table->setRowCount(l.size());
     for (int r = 0; r < l.size(); r++) {
@@ -75,6 +76,7 @@ void PozycjeRoleta::setList(const PozycjeRol &l)
         }
     }
     adjustSize();
+    qDebug() << __FILE__ << __LINE__  << ui->table->rowCount();
 }
 
 unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR,

@@ -24,7 +24,7 @@ PodzialEtapuRolety::PodzialEtapuRolety(QWidget *parent, bool reverse, unsigned i
         jedenWidget(e, nrEtapow);
     }
 
-    qDebug() << __FILE__ << __LINE__ << offsetX_ << offsetY_;
+    qDebug() << __FILE__ << __LINE__ << offsetX_ << offsetY_ << reverse;
     pozycje.setInit(nrEtapow_, maxR_, width_, iloscProbek_, czasStablizacji_);
     pozycje.setOffset(reverse, offsetX_, offsetY_);
 }

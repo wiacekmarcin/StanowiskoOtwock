@@ -65,7 +65,7 @@ void WybranyPlikNorma::parseFile()
               continue;
           }
 
-          if (n > etapMax) {
+          if (n > (int)etapMax) {
               ui->leError->appendPlainText(QString::fromUtf8("Pozycja etap jest za duża :") + line);
               continue;
           }

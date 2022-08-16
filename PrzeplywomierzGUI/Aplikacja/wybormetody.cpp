@@ -708,7 +708,6 @@ void WyborMetody::on_pbNormaOffsetChange_clicked()
     ui->pbNormaOffsetSave->setEnabled(true);
     ui->pbNormaCancel->setEnabled(true);
 
-    qDebug() << "wbMode=" << wbMode;
     ui->normaOffsetXEditL->setVisible(wbMode == MODE_ROLETAL);
     ui->normaOffsetYEditL->setVisible(wbMode == MODE_ROLETAL);
 
@@ -862,6 +861,6 @@ void WyborMetody::on_pbNornaSet_clicked()
     PozycjonowanieOffsetuNormy * dlg = new PozycjonowanieOffsetuNormy(ust, &sd, wbMode == MODE_ROLETAL,
                                             offsetX, offsetY, this);
     dlg->exec();
-    delete dlg;
+    dlg->deleteLater();
 }
 

@@ -7,6 +7,7 @@
 #include <QWaitCondition>
 
 #include <QByteArray>
+#include <QVector>
 
 #include "serialmessage.h"
 #include "ustawienia.h"
@@ -39,14 +40,13 @@ public:
     typedef enum _task {
         IDLE,
         CONNECT,
-        CONFIGURE,
         SET_PARAMS,
         SET_POSITION,
         SET_HOME,
         SET_ROLETA,
         SET_ROLETA_HOME,
         READ_RADIO,
-        
+        DISCONNECT
     } Task;
 
     explicit SerialWorker(SerialDevice * device);
@@ -65,6 +65,11 @@ public:
      * Zatrzymanie pracy workera
      */
     void setStop();
+
+    /**
+     * @brief setReset - usuniecie pozostalych zadan
+     */
+    void setReset();
 
 
     Task getActTask();
@@ -86,8 +91,10 @@ private:
     Task actTask;
     QMutex mutex;
     QWaitCondition newTask;
+    QMutex mutexRun;
     bool runWorker;
     SerialDevice * sd;
+    QVector<Task> futureTask;
 };
 
 
@@ -110,6 +117,21 @@ public:
     explicit SerialDevice(QObject *parent = nullptr);
     ~SerialDevice();
 
+    typedef enum _statusConn {
+        NO_FOUND,
+        FOUND,
+        NO_OPEN,
+        OPEN,
+        NO_READ,
+        IDENT_FAILD,
+        IDENT_OK,
+        PARAMS_FAILD,
+        PARAMS_OK,
+        ALL_OK,
+        CLOSE,
+    } StateConn;
+
+
     /**
      * @brief setThreads
      * Ustawia wątek do obsługi procesu
@@ -117,19 +139,13 @@ public:
      */
     void setThread(QThread * trh);
 
-    /**
-     * @brief setStop
-     * Zatrzymanie pracy workera
-     */
-    void setStop();
-
 
     /************ Funkcje sterujące *************************************/
     /**
      * @brief closeDevice zamyka urzadzenia
-     * @param afterBase - czy spozycjonowaniu na zero
+     * @param waitForDone - czy natychmiast czy poczekac na zakonczenie zadan
      */
-    void closeDevice(bool afterBase);
+    void closeDevice(bool waitForDone);
 
     /**
      * @brief connectToDevice ustanawia polaczenie z urzadzeniem
@@ -181,7 +197,29 @@ public:
      */
     void readRadio();
 
+protected:
+    /**
+     * @brief insertParams przy polaczonym kontrolerze wrzuca konfiguracja dla sterownika
+     */
     void insertParams();
+
+    /**
+     * @brief connected czy urzadzenie jest podlaczone
+     * @return true wszystko OK, false nie podlaczone
+     */
+    bool connected();
+
+    /**
+     * @brief setConnected ustaw podlaczenia
+     * @param connected czy podlaczone
+     */
+    void setConnected(bool connected);
+
+    /**
+     * @brief setStop
+     * Zatrzymanie pracy workera
+     */
+    void setStop();
 
 signals:
     /**
@@ -204,15 +242,10 @@ signals:
 
     /**
      * @brief kontrolerConfigured - znaleziono sterownik i skonfigurowano
-     * @param conn - czy połączone
-     * @param errConn - czy wystąpily błedy podczas otwierania portu
-     * @param conf - skonfigurowano
-     * @param confErr - czy wystąpiły błedy podczas konfiguracji
-     * @param sett - skonfigurowano
-     * @param settErr - czy wystąpiły błedy podczas konfiguracji
-
+     * @param success - czy połączone urzadzenie i jest OK
+     * @param state - rodzaj operacji, ktora nie udala sie
      */
-    void kontrolerConfigured(bool conn, bool errConn, bool conf, bool confErr, bool sett, bool settErr);
+    void kontrolerConfigured(bool success, int state);
 
     /**
      * @brief zwraca nazwe urzadzenia
@@ -240,26 +273,21 @@ signals:
 
 protected:
     /********************************** INNE FUNKCJE *************************/
-    /**
-     * @brief closeDevice zamyka urzadzenia
-     */
-    void closeDevice();
+
 
     void debugFun(const QString & fun);
 
     /*********************  JOBY ******************************************/
 protected:
     friend class SerialWorker;
+
+    /************************ JOBY **********************************/
+
     /**
      * @brief connectToSerialJob - wyszukiwanie i otworzenie sterownika
      */
     void connectToSerialJob();
 
-    /**
-     * @brief configureDeviceJob - konfiguracja sterownika dozowników
-     * @return
-     */
-    bool configureDeviceJob();
 
     /**
      * @brief setParamsJob - ustawia paremetry sterownika silnika
@@ -292,10 +320,39 @@ protected:
     void readRadioJob();
 
     /**
+     * @brief closeDevice zamyka urzadzenia
+     */
+    void closeDeviceJob();
+
+    /***************************** pomocnicze JOBY ********************************************/
+    /**
+     * @brief Wspolna funkcja dla setPos i setHome
+     * @param home - czy powrot do bazy
+     */
+    void setPosJobLocal(bool home);
+
+    /**
+     * @brief Wspolna funkcja dla setPos i setHome
+     * @param home - czy powrot do bazy
+     */
+    void setRoletaJobLocal(bool home);
+
+
+    /***************************** Inne funkcje zwiazane z wiadaomosciamia ********************/
+
+
+    /**
      * @brief openDevice - otwiera urzadzenie
      * @return
      */
     bool openDevice();
+
+
+    /**
+     * @brief configureDeviceJob - konfiguracja sterownika dozowników
+     * @return
+     */
+     bool configureDevice();
 
     /**
      * @brief write - zapisz
@@ -313,25 +370,15 @@ protected:
      */
     SerialMessage parseMessage(const QByteArray & reply);
 
-    /**
-     * @brief Wspolna funkcja dla setPos i setHome
-     * @param home - czy powrot do bazy
-     */
-    void setPosJobLocal(bool home);
 
-    /**
-     * @brief Wspolna funkcja dla setPos i setHome
-     * @param home - czy powrot do bazy
-     */
-    void setRoletaJobLocal(bool home);
 private:
     /* Ustawienia obiektu */
     QString m_portName;
     int m_portNr;
+    QMutex connMutex;
     bool m_connected;
-    bool m_configured;
     SerialWorker m_worker;
-    bool waitForClose;
+
 
     /* Ustawianie silnikow */
     bool m_reverseX, m_reverseY, m_reverseR;

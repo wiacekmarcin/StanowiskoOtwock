@@ -93,6 +93,7 @@ void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsi
     qDebug() << "offset" << offsetX << offsetY;
     float wysokosc = maxR*(roletaEtap+1)/maxEtap;
     qDebug() << "Wysokosc" << wysokosc;
+    qDebug() << "reverse" << reverseX;
     for (unsigned int i = 0; i < xNorma; ++i ) {
         for (unsigned int j = 0; j < yNorma; ++j ) {
             PosRoleta p;
@@ -100,7 +101,13 @@ void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsi
             p.ny = norma[yNorma-5][j];
 
             p.mmx = (reverseX) ? (offsetX - width * (0.5 - p.nx) ) : ( offsetX + width * (0.5 - p.nx) );
-            p.mmy = wysokosc * (0.5 - p.ny) + (offsetY-wysokosc);
+            p.mmy = offsetY - wysokosc * (0.5 + p.ny);
+            if (p.mmy < 0) {
+                p.mmy = 0;
+            }
+            if (p.mmx < 0) {
+                p.mmx = 0;
+            }
             p.mmr = (unsigned int)wysokosc;
             p.etap = roletaEtap+1;
             p.stableTime = 0;
