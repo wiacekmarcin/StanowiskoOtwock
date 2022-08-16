@@ -45,12 +45,12 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     connect(&sMsg, &SerialDevice::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
 
     connect(&sMsg, &SerialDevice::deviceName, this, &MiernikPrzeplywu::deviceName, Qt::QueuedConnection);
-    connect(&sMsg, &SerialDevice::kontrolerConfigured, this, &MiernikPrzeplywu::successOpenDevice);
+    connect(&sMsg, &SerialDevice::kontrolerConfigured, this, &MiernikPrzeplywu::successOpenDevice, Qt::QueuedConnection);
 
-    connect(&sMsg, &SerialDevice::setParamsDone, this, &MiernikPrzeplywu::setParamsDone);
-    connect(&sMsg, &SerialDevice::setPositionDone, this, &MiernikPrzeplywu::setPositionDone);
+    connect(&sMsg, &SerialDevice::setParamsDone, this, &MiernikPrzeplywu::setParamsDone, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::setPositionDone, this, &MiernikPrzeplywu::setPositionDone, Qt::QueuedConnection);
 
-    connect(&sMsg, &SerialDevice::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio);
+    connect(&sMsg, &SerialDevice::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio, Qt::QueuedConnection);
 
     chooseWork();
 
@@ -118,11 +118,11 @@ void MiernikPrzeplywu::chooseTab()
     }
     else if (modeWork == WyborMetody::MODE_ROLETAP) {
          widget = ui->widget_860_1500prawe;
-         ui->stackedWidget->setCurrentIndex(4);
+         ui->stackedWidget->setCurrentIndex(5);
     }
     else if (modeWork == WyborMetody::MODE_ROLETAL) {
          widget = ui->widget_860_1500lewe;
-         ui->stackedWidget->setCurrentIndex(5);
+         ui->stackedWidget->setCurrentIndex(4);
     }
 
     ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL);
