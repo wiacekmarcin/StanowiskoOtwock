@@ -15,20 +15,53 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="4" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="0" column="1" rowspan="4">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>255</width>
+         <height>695</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="dlugoscRolety"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="ldlugoscrolety">
+          <property name="text">
+           <string>Maksymalna długość rolety</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="limpuslyrolety">
+          <property name="text">
+           <string>Ilość impulsów na 1 obrót</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="roletaImpObrot"/>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>Ustawienia czujników</string>
@@ -88,7 +121,7 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="QGroupBox" name="groupBoxWentylator">
       <property name="title">
        <string>Ustawienia współczynników ruchu dla ustawienia wentylatora</string>
@@ -215,7 +248,25 @@ względem podłoża</string>
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
+    <item row="1" column="2" rowspan="5">
+     <widget class="QFrame" name="frame_2">
+      <layout class="QGridLayout" name="gridLayout"/>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0">
      <widget class="QGroupBox" name="groupBoxMechanizm">
       <property name="title">
        <string>Ustawienia współczynników</string>
@@ -353,61 +404,148 @@ względem podłoża</string>
       </layout>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="5">
-     <widget class="QFrame" name="frame_2">
-      <layout class="QGridLayout" name="gridLayout"/>
-     </widget>
-    </item>
-    <item row="0" column="1" rowspan="3">
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Ustawienia przestrzenii roboczych</string>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>369</width>
-         <height>355</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="dlugoscRolety"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="ldlugoscrolety">
-          <property name="text">
-           <string>Maksymalna długość rolety</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="limpuslyrolety">
-          <property name="text">
-           <string>Ilość impulsów na 1 obrót</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="roletaImpObrot"/>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="4" column="3">
+        <widget class="QLineEdit" name="roleta_osY_real"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="stac_osY_nazwa"/>
+       </item>
+       <item row="3" column="3">
+        <widget class="QLineEdit" name="roleta_osX_real"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="stac_osX_real"/>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="okno_osY_real"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="okno_osX_nazwa"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="okno_osY_nazwa"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Nazwa osi Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLineEdit" name="roleta_osX_nazwa"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="stac_osX_nazwa"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Stanowisko
+stacjonarne</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Rzeczywisty wymiar
+osi X w mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="stac_osY_real"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="roleta_osY_nazwa"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Stanowiko
+okienne
+lewe i prawe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Rzeczywisty wymiar
+osi Y w mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Nazwa osi X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="okno_osX_real"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Stanowisko
+z roletą
+lewe i prawe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="pbSaveWymiary">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>stac_osX_nazwa</tabstop>
+  <tabstop>okno_osX_nazwa</tabstop>
+  <tabstop>roleta_osX_nazwa</tabstop>
+  <tabstop>stac_osY_nazwa</tabstop>
+  <tabstop>okno_osY_nazwa</tabstop>
+  <tabstop>roleta_osY_nazwa</tabstop>
+  <tabstop>stac_osX_real</tabstop>
+  <tabstop>okno_osX_real</tabstop>
+  <tabstop>roleta_osX_real</tabstop>
+  <tabstop>stac_osY_real</tabstop>
+  <tabstop>okno_osY_real</tabstop>
+  <tabstop>roleta_osY_real</tabstop>
+  <tabstop>cbcz1</tabstop>
+  <tabstop>ecz1ratio</tabstop>
+  <tabstop>ecz1unit</tabstop>
+  <tabstop>pbSaveRadioCzujnik</tabstop>
+  <tabstop>eimpX</tabstop>
+  <tabstop>estepX</tabstop>
+  <tabstop>eimpY</tabstop>
+  <tabstop>estepY</tabstop>
+  <tabstop>pbSaveRatio</tabstop>
+  <tabstop>ewiatrakkat</tabstop>
+  <tabstop>ewiatrakx</tabstop>
+  <tabstop>ewiatraky</tabstop>
+  <tabstop>pbSaveWentylator</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>dlugoscRolety</tabstop>
+  <tabstop>roletaImpObrot</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

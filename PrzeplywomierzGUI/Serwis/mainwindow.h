@@ -27,6 +27,8 @@ private slots:
 
     void on_pbRoletaSave_clicked();
 
+    void on_pbSaveWymiary_clicked();
+
 private:
     Ui::MainWindow *ui;
     Ustawienia ust;

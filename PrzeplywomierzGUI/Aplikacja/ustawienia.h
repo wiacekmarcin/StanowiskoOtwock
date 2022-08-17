@@ -77,6 +77,42 @@ public:
 
     static constexpr int getMaxRolObrot() { return maxObrot; }
 
+    const QString &getStacOsXNazwa() const;
+    void setStacOsXNazwa(const QString &newStacOsXNazwa);
+
+    const QString &getStacOsYNazwa() const;
+    void setStacOsYNazwa(const QString &newStacOsYNazwa);
+
+    const QString &getStacOsXReal() const;
+    void setStacOsXReal(const QString &newStacOsXReal);
+
+    const QString &getStacOsYReal() const;
+    void setStacOsYReal(const QString &newStacOsYReal);
+
+    const QString &getOknoOsXNazwa() const;
+    void setOknoOsXNazwa(const QString &newOknoOsXNazwa);
+
+    const QString &getOknoOsYNazwa() const;
+    void setOknoOsYNazwa(const QString &newOknoOsYNazwa);
+
+    const QString &getOknoOsXReal() const;
+    void setOknoOsXReal(const QString &newOknoOsXReal);
+
+    const QString &getOknoOsYReal() const;
+    void setOknoOsYReal(const QString &newOknoOsYReal);
+
+    const QString &getRolOsXNazwa() const;
+    void setRolOsXNazwa(const QString &newRolOsXNazwa);
+
+    const QString &getRolOsYNazwa() const;
+    void setRolOsYNazwa(const QString &newRolOsYNazwa);
+
+    const QString &getRolOsXReal() const;
+    void setRolOsXReal(const QString &newRolOsXReal);
+
+    const QString &getRolOsYReal() const;
+    void setRolOsYReal(const QString &newRolOsYReal);
+
 private:
     QSettings settings;
     static constexpr int maxObrot = 30;
@@ -109,6 +145,22 @@ private:
 
     QString normaRoletaWidth;
     QString normaRoletaHeight;
+
+    QString stacOsXNazwa;
+    QString stacOsYNazwa;
+    QString stacOsXReal;
+    QString stacOsYReal;
+
+    QString oknoOsXNazwa;
+    QString oknoOsYNazwa;
+    QString oknoOsXReal;
+    QString oknoOsYReal;
+
+    QString rolOsXNazwa;
+    QString rolOsYNazwa;
+    QString rolOsXReal;
+    QString rolOsYReal;
+
 };
 
 #endif // USTAWIENIA_H

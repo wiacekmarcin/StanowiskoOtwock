@@ -23,6 +23,18 @@ char Ustawienia::firmnazwa[]="PogromcyWiatrow";
 #define K_rol_offset_y_l "roleta_offset_y_l"
 #define K_rol_width "roleta_width"
 #define K_rol_height "roleta_height"
+#define K_stacOsXNazwa "wymiary_stacOsXNazwa"
+#define K_stacOsYNazwa "wymiary_stacOsYNazwa"
+#define K_stacOsXReal "wymiary_stacOsXReal"
+#define K_stacOsYReal "wymiary_stacOsYReal"
+#define K_oknoOsXNazwa "wymiary_oknoOsXNazwa"
+#define K_oknoOsYNazwa "wymiary_oknoOsYNazwa"
+#define K_oknoOsXReal "wymiary_oknoOsXReal"
+#define K_oknoOsYReal "wymiary_oknoOsYReal"
+#define K_rolOsXNazwa "wymiary_rolOsXNazwa"
+#define K_rolOsYNazwa "wymiary_rolOsYNazwa"
+#define K_rolOsXReal "wymiary_rolOsXReal"
+#define K_rolOsYReal "wymiary_rolOsYReal"
 
 static QString number2Digit(short i) {
     QString ret(K_rol_obrot);
@@ -52,7 +64,19 @@ Ustawienia::Ustawienia() :
     rolOffsetY_L("1720"),
     rolkrokiperMM("120"),
     normaRoletaWidth("875"),
-    normaRoletaHeight("1500")
+    normaRoletaHeight("1500"),
+    stacOsXNazwa("2700"),
+    stacOsYNazwa("3000"),
+    stacOsXReal("2700"),
+    stacOsYReal("3000"),
+    oknoOsXNazwa("1000"),
+    oknoOsYNazwa("2000"),
+    oknoOsXReal("1000"),
+    oknoOsYReal("2000"),
+    rolOsXNazwa("870"),
+    rolOsYNazwa("1500"),
+    rolOsXReal("1200"),
+    rolOsYReal("2000")
 {
     read();
     write();
@@ -92,6 +116,18 @@ void Ustawienia::read()
     normaRoletaWidth = settings.value(K_rol_width, normaRoletaWidth).toString();
     normaRoletaHeight = settings.value(K_rol_height, normaRoletaHeight).toString();
 
+    stacOsXNazwa = settings.value(K_stacOsXNazwa, stacOsXNazwa).toString();
+    stacOsYNazwa = settings.value(K_stacOsYNazwa, stacOsYNazwa).toString();
+    stacOsXReal = settings.value(K_stacOsXReal, stacOsXReal).toString();
+    stacOsYReal = settings.value(K_stacOsYReal, stacOsYReal).toString();
+    oknoOsXNazwa = settings.value(K_oknoOsXNazwa, oknoOsXNazwa).toString();
+    oknoOsYNazwa = settings.value(K_oknoOsYNazwa, oknoOsYNazwa).toString();
+    oknoOsXReal = settings.value(K_oknoOsXReal, oknoOsXReal).toString();
+    oknoOsYReal = settings.value(K_oknoOsYReal, oknoOsYReal).toString();
+    rolOsXNazwa = settings.value(K_rolOsXNazwa, rolOsXNazwa).toString();
+    rolOsYNazwa = settings.value(K_rolOsYNazwa, rolOsYNazwa).toString();
+    rolOsXReal = settings.value(K_rolOsXReal, rolOsXReal).toString();
+    rolOsYReal = settings.value(K_rolOsYReal, rolOsYReal).toString();
 }
 
 
@@ -127,6 +163,19 @@ void Ustawienia::write()
 
     settings.setValue(K_rol_width, QVariant::fromValue(normaRoletaWidth));
     settings.setValue(K_rol_height, QVariant::fromValue(normaRoletaHeight));
+
+    settings.setValue(K_stacOsXNazwa, stacOsXNazwa);
+    settings.setValue(K_stacOsYNazwa, stacOsYNazwa);
+    settings.setValue(K_stacOsXReal, stacOsXReal);
+    settings.setValue(K_stacOsYReal, stacOsYReal);
+    settings.setValue(K_oknoOsXNazwa, oknoOsXNazwa);
+    settings.setValue(K_oknoOsYNazwa, oknoOsYNazwa);
+    settings.setValue(K_oknoOsXReal, oknoOsXReal);
+    settings.setValue(K_oknoOsYReal, oknoOsYReal);
+    settings.setValue(K_rolOsXNazwa, rolOsXNazwa);
+    settings.setValue(K_rolOsYNazwa, rolOsYNazwa);
+    settings.setValue(K_rolOsXReal, rolOsXReal);
+    settings.setValue(K_rolOsYReal, rolOsYReal);
 
 }
 
@@ -326,6 +375,138 @@ void Ustawienia::setNormaRoletaHeight(const QString &newNormaRoletaHeight)
 {
     normaRoletaHeight = newNormaRoletaHeight;
     settings.setValue(K_rol_height, QVariant::fromValue(normaRoletaHeight));
+}
+
+const QString &Ustawienia::getStacOsXNazwa() const
+{
+    return stacOsXNazwa;
+}
+
+void Ustawienia::setStacOsXNazwa(const QString &newStacOsXNazwa)
+{
+    stacOsXNazwa = newStacOsXNazwa;
+    settings.setValue(K_stacOsXNazwa, stacOsXNazwa);
+}
+
+const QString &Ustawienia::getStacOsYNazwa() const
+{
+    return stacOsYNazwa;
+}
+
+void Ustawienia::setStacOsYNazwa(const QString &newStacOsYNazwa)
+{
+    stacOsYNazwa = newStacOsYNazwa;
+    settings.setValue(K_stacOsYNazwa, stacOsYNazwa);
+}
+
+const QString &Ustawienia::getStacOsXReal() const
+{
+    return stacOsXReal;
+}
+
+void Ustawienia::setStacOsXReal(const QString &newStacOsXReal)
+{
+    stacOsXReal = newStacOsXReal;
+    settings.setValue(K_stacOsXReal, stacOsXReal);
+}
+
+const QString &Ustawienia::getStacOsYReal() const
+{
+    return stacOsYReal;
+}
+
+void Ustawienia::setStacOsYReal(const QString &newStacOsYReal)
+{
+    stacOsYReal = newStacOsYReal;
+    settings.setValue(K_stacOsYReal, stacOsYReal);
+}
+
+const QString &Ustawienia::getOknoOsXNazwa() const
+{
+    return oknoOsXNazwa;
+}
+
+void Ustawienia::setOknoOsXNazwa(const QString &newOknoOsXNazwa)
+{
+    oknoOsXNazwa = newOknoOsXNazwa;
+    settings.setValue(K_oknoOsXNazwa, oknoOsXNazwa);
+}
+
+const QString &Ustawienia::getOknoOsYNazwa() const
+{
+    return oknoOsYNazwa;
+}
+
+void Ustawienia::setOknoOsYNazwa(const QString &newOknoOsYNazwa)
+{
+    oknoOsYNazwa = newOknoOsYNazwa;
+    settings.setValue(K_oknoOsYNazwa, oknoOsYNazwa);
+}
+
+const QString &Ustawienia::getOknoOsXReal() const
+{
+    return oknoOsXReal;
+}
+
+void Ustawienia::setOknoOsXReal(const QString &newOknoOsXReal)
+{
+    oknoOsXReal = newOknoOsXReal;
+    settings.setValue(K_oknoOsXReal, oknoOsXReal);
+}
+
+const QString &Ustawienia::getOknoOsYReal() const
+{
+    return oknoOsYReal;
+}
+
+void Ustawienia::setOknoOsYReal(const QString &newOknoOsYReal)
+{
+    oknoOsYReal = newOknoOsYReal;
+    settings.setValue(K_oknoOsYReal, oknoOsYReal);
+}
+
+const QString &Ustawienia::getRolOsXNazwa() const
+{
+    return rolOsXNazwa;
+}
+
+void Ustawienia::setRolOsXNazwa(const QString &newRolOsXNazwa)
+{
+    rolOsXNazwa = newRolOsXNazwa;
+    settings.setValue(K_rolOsXNazwa, rolOsXNazwa);
+}
+
+const QString &Ustawienia::getRolOsYNazwa() const
+{
+    return rolOsYNazwa;
+}
+
+void Ustawienia::setRolOsYNazwa(const QString &newRolOsYNazwa)
+{
+    rolOsYNazwa = newRolOsYNazwa;
+    settings.setValue(K_rolOsYNazwa, rolOsYNazwa);
+}
+
+const QString &Ustawienia::getRolOsXReal() const
+{
+    return rolOsXReal;
+}
+
+void Ustawienia::setRolOsXReal(const QString &newRolOsXReal)
+{
+    rolOsXReal = newRolOsXReal;
+    settings.setValue(K_rolOsXReal, rolOsXReal);
+}
+
+const QString &Ustawienia::getRolOsYReal() const
+{
+    return rolOsYReal;
+}
+
+void Ustawienia::setRolOsYReal(const QString &newRolOsYReal)
+{
+    rolOsYReal = newRolOsYReal;
+    settings.setValue(K_rolOsYReal, rolOsYReal);
 }
 
 const QString &Ustawienia::getRolObrot(unsigned short obr) const

@@ -41,6 +41,43 @@ MainWindow::MainWindow(QWidget *parent) :
     auto val11 = ust.getRolStepObrot();
     ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
 
+    auto val12 = ust.getStacOsXNazwa();
+    ui->stac_osX_nazwa->setText(val12 == "" ? "2700" : val12);
+
+    auto val13 = ust.getStacOsYNazwa();
+    ui->stac_osY_nazwa->setText(val13 == "" ? "3000" : val13);
+
+    auto val14 = ust.getOknoOsXNazwa();
+    ui->okno_osX_nazwa->setText(val14 == "" ? "1000" : val14);
+
+    auto val15 = ust.getOknoOsYNazwa();
+    ui->okno_osY_nazwa->setText(val15 == "" ? "2000" : val15);
+
+    auto val16 = ust.getRolOsXNazwa();
+    ui->roleta_osX_nazwa->setText(val16 == "" ? "860" : val16);
+
+    auto val17 = ust.getRolOsYNazwa();
+    ui->roleta_osY_nazwa->setText(val17 == "" ? "1500" : val17);
+
+    auto val18 = ust.getStacOsXReal();
+    ui->stac_osX_real->setText(val18 == "" ? "2700" : val18);
+
+    auto val19 = ust.getStacOsYReal();
+    ui->stac_osY_real->setText(val19 == "" ? "3000" : val19);
+
+    auto val20 = ust.getOknoOsXReal();
+    ui->okno_osX_real->setText(val20 == "" ? "1000" : val20);
+
+    auto val21 = ust.getOknoOsYReal();
+    ui->okno_osY_real->setText(val21 == "" ? "2000" : val21);
+
+    auto val22 = ust.getRolOsXReal();
+    ui->roleta_osX_real->setText(val22 == "" ? "1200" : val22);
+
+    auto val23 = ust.getRolOsYReal();
+    ui->roleta_osY_real->setText(val23 == "" ? "1800" : val23);
+
+
 
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot() ; ++i) {
         QLabel * lobrot = new QLabel(ui->scrollArea);
@@ -73,6 +110,7 @@ MainWindow::MainWindow(QWidget *parent) :
     on_pbSaveRatio_clicked();
     on_pbSaveWentylator_clicked();
     on_pbRoletaSave_clicked();
+    on_pbSaveRatio_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -106,5 +144,22 @@ void MainWindow::on_pbRoletaSave_clicked()
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {
         ust.setRolObrot(i, RolObrotTab[i]->text());
     }
+}
+
+
+void MainWindow::on_pbSaveWymiary_clicked()
+{
+    ust.setStacOsXNazwa(ui->stac_osX_nazwa->text());
+    ust.setStacOsYNazwa(ui->stac_osY_nazwa->text());
+    ust.setOknoOsXNazwa(ui->okno_osX_nazwa->text());
+    ust.setOknoOsYNazwa(ui->okno_osY_nazwa->text());
+    ust.setRolOsXNazwa(ui->roleta_osX_nazwa->text());
+    ust.setRolOsYNazwa(ui->roleta_osY_nazwa->text());
+    ust.setStacOsXReal(ui->stac_osX_real->text());
+    ust.setStacOsYReal(ui->stac_osY_real->text());
+    ust.setOknoOsXReal(ui->okno_osX_real->text());
+    ust.setOknoOsYReal(ui->okno_osY_real->text());
+    ust.setRolOsXReal(ui->roleta_osX_real->text());
+    ust.setRolOsYReal(ui->roleta_osY_real->text());
 }
 
