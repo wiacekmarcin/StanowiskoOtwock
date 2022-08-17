@@ -51,6 +51,11 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     connect(&sMsg, &SerialDevice::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio, Qt::QueuedConnection);
 
     chooseWork();
+    ui->lstanowisko2700_3000->setText(QString("Stanowisko\n%1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
+    ui->lstanowisko1000_2000prawe->setText(QString("Stanowisko\n%1x%2 [mm]\nprawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lStanowisko1000_2000lewe->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
 }
 
@@ -146,7 +151,7 @@ void MiernikPrzeplywu::calculateMechanika()
     switch(modeWork) {
     case WyborMetody::MODE_ROLETAP:
     case WyborMetody::MODE_ROLETAL:
-        mech.setPrzestrzen(1200, 2000);
+        mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
         mech.setReverseY(false);
         mech.setReverseX(modeWork == WyborMetody::MODE_ROLETAP);
         mechR.setReverse(modeWork == WyborMetody::MODE_ROLETAL);
@@ -154,14 +159,14 @@ void MiernikPrzeplywu::calculateMechanika()
         break;
     case WyborMetody::MODE_2700:
     case WyborMetody::MODE_FUNSET:
-        mech.setPrzestrzen(2700, 3000);
+        mech.setPrzestrzen(ust.getStacOsXReal().toUInt(), ust.getStacOsYReal().toUInt());
         mech.setReverseY(false);
         mech.setReverseX(false);
         mech.setReverseR(true);
         break;
     case WyborMetody::MODE_1000L:
     case WyborMetody::MODE_1000P:
-        mech.setPrzestrzen(1000, 2000);
+        mech.setPrzestrzen(ust.getOknoOsXReal().toUInt(), ust.getOknoOsYReal().toUInt());
         mech.setReverseY(false);
         mech.setReverseX(modeWork == WyborMetody::MODE_1000P);
         mech.setReverseR(true);
@@ -197,9 +202,17 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
     if (modeWork == WyborMetody::MODE_1000L || modeWork == WyborMetody::MODE_1000P || modeWork == WyborMetody::MODE_2700)
     {
         MierzonePozycje * w = static_cast<MierzonePozycje*>(widget);
+        unsigned int wymiarX;
+        unsigned int wymiarY;
+        if (modeWork == WyborMetody::MODE_2700) {
+            wymiarX = ust.getStacOsXReal().toUInt();
+            wymiarY = ust.getStacOsYReal().toUInt();
+        } else {
+            wymiarX = ust.getOknoOsXReal().toUInt();
+            wymiarY = ust.getOknoOsYReal().toUInt();
+        }
         if (methodIns == WyborMetody::METHOD_FILE) {
-            WybranyPlik wp(this, values.fileName, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                           modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            WybranyPlik wp(this, values.fileName, wymiarX, wymiarY);
             int r = wp.exec();
             if (r == 0) {
                 return  false;
@@ -207,8 +220,8 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(wp.getList());
             return true;
         } else if (methodIns == WyborMetody::METHOD_SQUERE) {
-            WyborKwadratow wk(this, values.numberWidth, values.numberHeight, values.timeStopAuto, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                                               modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            WyborKwadratow wk(this, values.numberWidth, values.numberHeight, values.timeStopAuto, 
+                                        wymiarX, wymiarY);
             int r = wk.exec();
             if (r == 0) {
                 return false;
@@ -216,8 +229,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(wk.getList());
             return true;
         } else if (methodIns == WyborMetody::METHOD_MANUAL) {
-            ReczneDodPozycji rdp(this, values.numberPozMan, values.timeStopManual, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                                            modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            ReczneDodPozycji rdp(this, values.numberPozMan, values.timeStopManual, wymiarX, wymiarY);
             int r = rdp.exec();
             if (r == 0) {
                 return false;
@@ -230,12 +242,16 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
     if (modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL) {
         PozycjeRoleta * w = static_cast<PozycjeRoleta*>(widget);
         bool reverse = modeWork == WyborMetody::MODE_ROLETAL;
+        unsigned int wymiarX;
+        unsigned int wymiarY;
+        wymiarX = ust.getRolOsXReal().toUInt();
+        wymiarY = ust.getRolOsYReal().toUInt();
 
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
 
             PodzialEtapuRolety pdr(this, reverse, values.etapNrRoleta, values.timeStopRoleta,
-                                  values.stableTimeRoleta, 1500, 870,
+                                  values.stableTimeRoleta, wymiarY, wymiarX,
                                   reverse ? values.offsetXL : values.offsetXP,
                                   reverse ? values.offsetYL : values.offsetYP);
             int r = pdr.exec();
@@ -247,7 +263,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         } else if (methodIns == WyborMetody::METHOD_FILE) {
             //qDebug() << "alloha" << values.stableTimeRoleta;
             WybranyPlikNorma wpn(this, false, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
-                                 1500, 870,
+                                 wymiarY, wymiarX,
                                  reverse ? values.offsetXL : values.offsetXP,
                                  reverse ? values.offsetYL : values.offsetYP);
             int r = wpn.exec();

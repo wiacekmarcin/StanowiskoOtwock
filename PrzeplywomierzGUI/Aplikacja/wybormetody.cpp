@@ -57,6 +57,12 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns,
     data.offsetXP = oxp.toUInt();
     data.offsetYP = oyp.toUInt();
     ui->pbNormaCancel->setEnabled(false);
+
+    ui->rb2700->setText(QString("Stanowisko\n%1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
+    ui->rb1000p->setText(QString("Stanowisko\n%1x%2 [mm]\nprawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->rb1000l->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->rbRoletaP->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->rbRoletaL->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 }
 
 WyborMetody::~WyborMetody()
