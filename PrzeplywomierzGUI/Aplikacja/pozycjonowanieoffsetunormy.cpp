@@ -44,13 +44,13 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
     connect(ui->rb10, &QRadioButton::clicked, this, &PozycjonowanieOffsetuNormy::rb10_clicked);
     connect(ui->rb100, &QRadioButton::clicked, this, &PozycjonowanieOffsetuNormy::rb100_clicked);
 
-    //connect(sDev, &SerialDevice::kontrolerConfigured, this, &PozycjonowanieOffsetuNormy::successOpenDevice);
+    connect(sDev, &SerialDevice::kontrolerConfigured, this, &PozycjonowanieOffsetuNormy::successOpenDevice);
 
-    //connect(sDev, &SerialDevice::setParamsDone, this, &PozycjonowanieOffsetuNormy::setParamsDone);
-    //connect(sDev, &SerialDevice::setPositionDone, this, &PozycjonowanieOffsetuNormy::setPositionDone);
+    connect(sDev, &SerialDevice::setParamsDone, this, &PozycjonowanieOffsetuNormy::setParamsDone);
+    connect(sDev, &SerialDevice::setPositionDone, this, &PozycjonowanieOffsetuNormy::setPositionDone);
 
-    //connect(sDev, &SerialDevice::error, this, &PozycjonowanieOffsetuNormy::errorSerial, Qt::QueuedConnection);
-    //connect(sDev, &SerialDevice::debug, this, &PozycjonowanieOffsetuNormy::debug, Qt::QueuedConnection);
+    connect(sDev, &SerialDevice::error, this, &PozycjonowanieOffsetuNormy::errorSerial, Qt::QueuedConnection);
+    connect(sDev, &SerialDevice::debug, this, &PozycjonowanieOffsetuNormy::debug, Qt::QueuedConnection);
 
 
     sDev->connectToDevice();
@@ -146,18 +146,56 @@ void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int wo
     }
 }
 
-void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, bool succErr, bool conf, bool confErr, bool sett, bool ettErr)
+void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 {
-    qDebug() << __FILE__ << __LINE__ << succ << succErr << conf << confErr << sett << ettErr;
-    if (!succ && !succErr && !conf && !confErr)
-        return;
-    if (succ && !succErr && conf && !confErr) {
-        if (sett) {
-            ui->status->setText("Sterownik OK");
-        }
-    } else {
-        ui->status->setText("Błąd Sterownika");
-        qDebug() << "Bład sterownika" << succ << succErr << conf << confErr << sett << ettErr;
+    qDebug() << __FILE__ << __LINE__ << succ << state;
+    
+
+    switch(state) {
+
+    case SerialDevice::NO_FOUND:
+        ui->status->setText("Nie znaleziono kontrolera");
+        break;
+
+    case SerialDevice::FOUND:
+        break;
+
+    case SerialDevice::NO_OPEN:
+        ui->status->setText(QString("Nie udało się otworzyć portu"));
+        break;
+
+    case SerialDevice::OPEN:
+        break;
+
+    case SerialDevice::NO_READ:
+        ui->status->setText(QString("Problem z odczytem z portu"));
+        break;
+
+    case SerialDevice::IDENT_FAILD:
+        ui->status->setText(QString("Nieprawidłowy kontroler."));
+        break;
+
+    case SerialDevice::IDENT_OK:
+        break;
+
+    case SerialDevice::PARAMS_FAILD:
+        ui->status->setText(QString("Problem z konfiguracja"));
+        break;
+
+    case SerialDevice::PARAMS_OK:
+        ui->status->setText(QString("Kontroler OK"));
+        break;
+
+    case SerialDevice::ALL_OK:
+        setParamsDone(true);
+        break;
+
+    case SerialDevice::CLOSE:
+        ui->status->setText(QString(""));
+        break;
+
+    default:
+        break;
     }
 }
 

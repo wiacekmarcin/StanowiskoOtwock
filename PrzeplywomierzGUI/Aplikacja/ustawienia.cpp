@@ -86,8 +86,8 @@ void Ustawienia::read()
     rolOffsetX_P = settings.value(K_rol_offset_x_p, rolOffsetX_P).toString();
     rolOffsetY_P = settings.value(K_rol_offset_y_p, rolOffsetY_P).toString();
 
-    rolOffsetX_P = settings.value(K_rol_offset_x_l, rolOffsetX_L).toString();
-    rolOffsetY_P = settings.value(K_rol_offset_y_l, rolOffsetY_L).toString();
+    rolOffsetX_L = settings.value(K_rol_offset_x_l, rolOffsetX_L).toString();
+    rolOffsetY_L = settings.value(K_rol_offset_y_l, rolOffsetY_L).toString();
 
     normaRoletaWidth = settings.value(K_rol_width, normaRoletaWidth).toString();
     normaRoletaHeight = settings.value(K_rol_height, normaRoletaHeight).toString();

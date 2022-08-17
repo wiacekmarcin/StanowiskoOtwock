@@ -860,7 +860,27 @@ void WyborMetody::on_pbNornaSet_clicked()
     unsigned int offsetY = wbMode == MODE_ROLETAL ? ui->normaOffsetYL->text().toUInt() : ui->normaOffsetYP->text().toUInt();
     PozycjonowanieOffsetuNormy * dlg = new PozycjonowanieOffsetuNormy(ust, &sd, wbMode == MODE_ROLETAL,
                                             offsetX, offsetY, this);
-    dlg->exec();
+    int r = dlg->exec();
+    
+    if (r == 0) {
+        return;
+    }
+    
+    if (wbMode == MODE_ROLETAL) {
+        ust.setRolOffsetX_L(QString::number(dlg->getOX()));
+        ust.setRolOffsetY_L(QString::number(dlg->getOY()));
+        ui->normaOffsetXL->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYL->setText(QString::number(dlg->getOY()));
+        ui->normaOffsetXEditL->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYEditL->setText(QString::number(dlg->getOY()));
+    } else if (wbMode == MODE_ROLETAP) {
+        ust.setRolOffsetX_P(QString::number(dlg->getOX()));
+        ust.setRolOffsetY_P(QString::number(dlg->getOY()));
+        ui->normaOffsetXP->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYP->setText(QString::number(dlg->getOY()));
+        ui->normaOffsetXEditP->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYEditP->setText(QString::number(dlg->getOY()));
+    }
     dlg->deleteLater();
 }
 
