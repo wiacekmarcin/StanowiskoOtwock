@@ -32,9 +32,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-294</y>
-        <width>1051</width>
-        <height>1010</height>
+        <y>-352</y>
+        <width>1048</width>
+        <height>1056</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1196,7 +1196,7 @@ na podstawie normy</string>
                    <enum>QFrame::Plain</enum>
                   </property>
                   <property name="text">
-                   <string>Wartość od 1 do 15</string>
+                   <string>Wartość od 1 do 3600</string>
                   </property>
                  </widget>
                 </item>
