@@ -19,7 +19,14 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLineEdit" name="leX"/>
+    <widget class="QLineEdit" name="leX">
+     <property name="inputMask">
+      <string>0000</string>
+     </property>
+     <property name="maxLength">
+      <number>4</number>
+     </property>
+    </widget>
    </item>
    <item row="1" column="1">
     <widget class="QLabel" name="errorWentylatorX">
@@ -87,7 +94,14 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="leY"/>
+    <widget class="QLineEdit" name="leY">
+     <property name="inputMask">
+      <string>0000</string>
+     </property>
+     <property name="maxLength">
+      <number>4</number>
+     </property>
+    </widget>
    </item>
    <item row="2" column="2">
     <widget class="QLabel" name="lmmy">
@@ -152,7 +166,14 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QLineEdit" name="leL"/>
+    <widget class="QLineEdit" name="leL">
+     <property name="inputMask">
+      <string>0000</string>
+     </property>
+     <property name="maxLength">
+      <number>4</number>
+     </property>
+    </widget>
    </item>
    <item row="8" column="1">
     <widget class="QLabel" name="lStatusWiatrak">

@@ -14,7 +14,7 @@ class PodzialEtapuRolety : public QDialog
     Q_OBJECT
 
 public:
-    explicit PodzialEtapuRolety(QWidget *parent, unsigned int nrEtapow,
+    explicit PodzialEtapuRolety(QWidget *parent, bool reverse, unsigned int nrEtapow,
                                 unsigned int iloscProbek, unsigned int czasStablizacji,
                                 unsigned int maxR_, unsigned int width_,
                                 unsigned int offsetX_, unsigned int offsetY_);
@@ -23,12 +23,13 @@ public:
     const PozycjeRol &getLista() const;
 
 protected:
-    void jedenWidget(unsigned int etap);
+    void jedenWidget(unsigned int etap, unsigned int maxEtap);
 private slots:
     void on_buttonBox_accepted();
 
 private:
     Ui::PodzialEtapuRolety *ui;
+    bool reverseX;
     unsigned int nrEtapow;
     unsigned int iloscProbek;
     unsigned int czasStablizacji;

@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/marcin/Qt/5.15.2/gcc_64/include/QtCore",
+                "/home/marcin/Qt/5.15.2/gcc_64/include/QtWidgets",
+                "/home/marcin/Qt/5.15.2/gcc_64/include/QtGui",
+                "/usr/include/x86_64-linux-gnu/qt5/QtCore",
+                "/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+                "/usr/include/x86_64-linux-gnu/qt5/QtGui",
+                "/usr/include/x86_64-linux-gnu/qt5/QtPlatformHeaders",
+                "/home/marcin/Qt/5.15.2/gcc_64/include"
+            ],
+            "defines": [
+                "_REENTRANT",
+                "QT_DEPRECATED_WARNINGS",
+                "QT_NO_DEBUG",
+                "QT_WIDGETS_LIB",
+                "QT_GUI_LIB",
+                "QT_SERIALPORT_LIB",
+                "QT_CORE_LIB "
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

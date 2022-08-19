@@ -1,17 +1,20 @@
 #include "wybormetody.h"
 #include "ui_wybormetody.h"
+#include "pozycjonowanieoffsetunormy.h"
 
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QMessageBox>
 #include <QDebug>
 
-WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns, Ustawienia & u ) :
+WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns,
+                         Ustawienia & u, SerialDevice & sdev ) :
     QDialog(parent),
     ui(new Ui::WyborMetody),
     wbInsData(dataIns),
     wbMode(mode),
-    ust(u)
+    ust(u),
+    sd(sdev)
 {
     data.timeStopManual = 0;
     data.timeStopAuto = 0;
@@ -23,24 +26,43 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns, 
     data.timeStopRoleta = 0;
     data.fileName  = "";
     data.fileName2 = "";
-    data.offsetX = 0;
-    data.offsetY = 0;
+    data.offsetXL = 0;
+    data.offsetYL = 0;
+    data.offsetXP = 0;
+    data.offsetYP = 0;
 
     ui->setupUi(this);
 
     init();
     showMaximized();
 
-    QString ox = ust.getRolOffsetX();
-    QString oy = ust.getRolOffsetY();
+    QString oxp = ust.getRolOffsetX_P();
+    QString oyp = ust.getRolOffsetY_P();
+    QString oxl = ust.getRolOffsetX_L();
+    QString oyl = ust.getRolOffsetY_L();
 
-    qDebug() << __FILE__ << __LINE__ <<  ox << oy;
-    ui->normaOffsetX->setText(ox);
-    ui->normaOffsetXEdit->setText(ox);
-    ui->normaOffsetY->setText(oy);
-    ui->normaOffsetYEdit->setText(oy);
-    data.offsetX = ox.toUInt();
-    data.offsetY = oy.toUInt();
+    qDebug() << "oxp" << oxp << "oyp" << oyp << "oxl" << oxl << "oyl" << oyl;
+
+    //qDebug() << __FILE__ << __LINE__ <<  ox << oy;
+    ui->normaOffsetXL->setText(oxl);
+    ui->normaOffsetXEditL->setText(oxl);
+    ui->normaOffsetXP->setText(oxp);
+    ui->normaOffsetXEditP->setText(oxp);
+    ui->normaOffsetYL->setText(oyl);
+    ui->normaOffsetYEditL->setText(oyl);
+    ui->normaOffsetYP->setText(oyp);
+    ui->normaOffsetYEditP->setText(oyp);
+    data.offsetXL = oxl.toUInt();
+    data.offsetYL = oyl.toUInt();
+    data.offsetXP = oxp.toUInt();
+    data.offsetYP = oyp.toUInt();
+    ui->pbNormaCancel->setEnabled(false);
+
+    ui->rb2700->setText(QString("Stanowisko\n%1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
+    ui->rb1000p->setText(QString("Stanowisko\n%1x%2 [mm]\nprawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->rb1000l->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->rbRoletaP->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->rbRoletaL->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 }
 
 WyborMetody::~WyborMetody()
@@ -70,9 +92,10 @@ void WyborMetody::init()
             ui->rb1000p->setChecked(false);
             ui->rb1000l->setChecked(false);
             ui->rbFunSet->setChecked(false);
-            ui->rbRoleta->setChecked(false);
+            ui->rbRoletaP->setChecked(false);
+            ui->rbRoletaL->setChecked(false);
             visibleOther(true);
-            visibleRoleta(false);
+            visibleRoleta(false, false);
             ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -81,9 +104,10 @@ void WyborMetody::init()
             ui->rb1000p->setChecked(true);
             ui->rb1000l->setChecked(false);
             ui->rbFunSet->setChecked(false);
-            ui->rbRoleta->setChecked(false);
+            ui->rbRoletaP->setChecked(false);
+            ui->rbRoletaL->setChecked(false);
             visibleOther(true);
-            visibleRoleta(false);
+            visibleRoleta(false, false);
             ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -92,32 +116,46 @@ void WyborMetody::init()
             ui->rb1000p->setChecked(false);
             ui->rb1000l->setChecked(true);
             ui->rbFunSet->setChecked(false);
+            ui->rbRoletaP->setChecked(false);
+            ui->rbRoletaL->setChecked(false);
             visibleOther(true);
-            visibleRoleta(false);
+            visibleRoleta(false, false);
             ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
         case MODE_FUNSET:
             visibleOther(false);
-            visibleRoleta(false);
+            visibleRoleta(false, false);
             ui->gbMethod->setVisible(false);
             ui->gbMethod->setDisabled(true);
         break;
         case MODE_SERVICE:
             visibleOther(false);
-            visibleRoleta(false);
+            visibleRoleta(false, false);
             ui->gbMethod->setVisible(false);
         break;
-        case MODE_ROLETA:
+        case MODE_ROLETAP:
             ui->rb2700->setChecked(false);
             ui->rb1000p->setChecked(false);
             ui->rb1000l->setChecked(false);
             ui->rbFunSet->setChecked(false);
-            ui->rbRoleta->setChecked(true);
+            ui->rbRoletaP->setChecked(true);
+            ui->rbRoletaL->setChecked(false);
             visibleOther(false);
-            visibleRoleta(true);
+            visibleRoleta(true, false);
             ui->gbMethod->setVisible(true);
         break;
+        case MODE_ROLETAL:
+            ui->rb2700->setChecked(false);
+            ui->rb1000p->setChecked(false);
+            ui->rb1000l->setChecked(false);
+            ui->rbFunSet->setChecked(false);
+            ui->rbRoletaP->setChecked(false);
+            ui->rbRoletaL->setChecked(true);
+            visibleOther(false);
+            visibleRoleta(true, true);
+            ui->gbMethod->setVisible(true);
+    break;
     default:
         break;
     }
@@ -313,16 +351,24 @@ bool WyborMetody::isValidIloscRolety(QLineEdit *number)
     return true;
 }
 
-void WyborMetody::visibleRoleta(bool visible)
+void WyborMetody::visibleRoleta(bool visible, bool left)
 {
     ui->frRoletaInfo->setVisible(visible);
     if (visible) {
         ui->pbNormaOffsetSave->setEnabled(false);
         ui->pbNormaOffsetChange->setEnabled(true);
-        ui->normaOffsetXEdit->setVisible(false);
-        ui->normaOffsetX->setVisible(true);
-        ui->normaOffsetYEdit->setVisible(false);
-        ui->normaOffsetY->setVisible(true);
+        qDebug() << "left" << left;
+        ui->normaOffsetXL->setVisible(left);
+        ui->normaOffsetYL->setVisible(left);
+        ui->normaOffsetXP->setVisible(!left);
+        ui->normaOffsetYP->setVisible(!left);
+
+        ui->normaOffsetXEditP->setVisible(false);
+        ui->normaOffsetYEditP->setVisible(false);
+        ui->normaOffsetXEditL->setVisible(false);
+        ui->normaOffsetYEditL->setVisible(false);
+        ui->pbNormaOffsetChange->setEnabled(true);
+        ui->pbNormaOffsetSave->setEnabled(false);
     }
     ui->rbRoletaDane->setVisible(visible);
     ui->rbRoletaPlik->setVisible(visible);
@@ -432,7 +478,7 @@ void WyborMetody::on_rb2700_toggled(bool checked)
 {
     if (checked) {
         visibleOther(true);
-        visibleRoleta(false);
+        visibleRoleta(false, false);
         wbMode = MODE_2700;
         on_rbfile_toggled(true);
     }
@@ -442,7 +488,7 @@ void WyborMetody::on_rb1000l_toggled(bool checked)
 {
     if (checked) {
         visibleOther(true);
-        visibleRoleta(false);
+        visibleRoleta(false, false);
         wbMode = MODE_1000L;
         on_rbfile_toggled(true);
     }
@@ -452,7 +498,7 @@ void WyborMetody::on_rb1000p_toggled(bool checked)
 {
     if (checked) {
         visibleOther(true);
-        visibleRoleta(false);
+        visibleRoleta(false, false);
         wbMode = MODE_1000P;
         on_rbfile_toggled(true);
     }
@@ -462,20 +508,32 @@ void WyborMetody::on_rbFunSet_toggled(bool checked)
 {
     if (checked) {
         visibleOther(false);
-        visibleRoleta(false);
+        visibleRoleta(false, false);
         wbMode = MODE_FUNSET;
         setEnabledContinue(true);
     }
 }
 
-void WyborMetody::on_rbRoleta_toggled(bool checked)
+void WyborMetody::on_rbRoletaP_toggled(bool checked)
 {
     if (checked) {
-        wbMode = MODE_ROLETA;
+        wbMode = MODE_ROLETAP;
         visibleOther(false);
-        visibleRoleta(true);
+        visibleRoleta(true, false);
         on_rbRoletaDane_toggled(true);
     }
+    qDebug() << "ROLETAP checked" << checked << "wbMode" << wbMode;
+}
+
+void WyborMetody::on_rbRoletaL_toggled(bool checked)
+{
+    if (checked) {
+        wbMode = MODE_ROLETAL;
+        visibleOther(false);
+        visibleRoleta(true, true);
+        on_rbRoletaDane_toggled(true);
+    }
+    qDebug() << "ROLETAL checked" << checked << "wbMode" << wbMode;
 }
 
 void WyborMetody::on_timeManualDefault_editingFinished()
@@ -620,7 +678,6 @@ void WyborMetody::on_rbRoletaDane_toggled(bool checked)
         ui->rbRoletaPlik->setChecked(!checked);
         ui->frRoleta->setDisabled(!checked);
         ui->frRoletaPlik->setDisabled(checked);
-        wbMode = MODE_ROLETA;
         wbInsData = METHOD_MANUAL;
         setEnabledContinue(isValidRoletaRB() && isValidPostojRolety(ui->normaStabTime) && isValidIloscRolety(ui->NormaIloscProbek));
     }
@@ -633,7 +690,6 @@ void WyborMetody::on_rbRoletaPlik_toggled(bool checked)
         ui->rbRoletaPlik->setChecked(checked);
         ui->frRoleta->setDisabled(checked);
         ui->frRoletaPlik->setDisabled(!checked);
-        wbMode = MODE_ROLETA;
         wbInsData = METHOD_FILE;
         setEnabledContinue(isValidRoletaRB() && !ui->wybranyPlikRolety->text().isEmpty());
     }
@@ -656,42 +712,71 @@ void WyborMetody::on_pbNormaOffsetChange_clicked()
 {
     ui->pbNormaOffsetChange->setEnabled(false);
     ui->pbNormaOffsetSave->setEnabled(true);
+    ui->pbNormaCancel->setEnabled(true);
 
-    ui->normaOffsetXEdit->setVisible(true);
-    ui->normaOffsetYEdit->setVisible(true);
+    ui->normaOffsetXEditL->setVisible(wbMode == MODE_ROLETAL);
+    ui->normaOffsetYEditL->setVisible(wbMode == MODE_ROLETAL);
 
-    ui->normaOffsetXEdit->setText(ui->normaOffsetX->text());
-    ui->normaOffsetYEdit->setText(ui->normaOffsetY->text());
+    ui->normaOffsetXEditP->setVisible(wbMode == MODE_ROLETAP);
+    ui->normaOffsetYEditP->setVisible(wbMode == MODE_ROLETAP);
+
+    ui->normaOffsetXL->setVisible(false);
+    ui->normaOffsetYL->setVisible(false);
+    ui->normaOffsetXP->setVisible(false);
+    ui->normaOffsetYP->setVisible(false);
 }
 
 void WyborMetody::on_pbNormaOffsetSave_clicked()
 {
-    ui->pbNormaOffsetChange->setEnabled(true);
-    ui->pbNormaOffsetSave->setEnabled(false);
-
-    ui->normaOffsetXEdit->setVisible(false);
-    ui->normaOffsetYEdit->setVisible(false);
+    on_pbNormaCancel_clicked();
 
     bool ok;
-    int val = ui->normaOffsetXEdit->text().toInt(&ok);
-    if (ok && val >= 0) {
-        ui->normaOffsetX->setText(ui->normaOffsetXEdit->text());
-        data.offsetX = val;
+    int val;
+    if (wbMode == MODE_ROLETAL) {
+        val = ui->normaOffsetXEditL->text().toInt(&ok);
+        if (ok && val >= 0) {
+            ui->normaOffsetXL->setText(ui->normaOffsetXEditL->text());
+            data.offsetXL = val;
+        } else {
+            return;
+        }
+
+        val = ui->normaOffsetYEditL->text().toInt(&ok);
+        if (ok && val >= 0) {
+            ui->normaOffsetYL->setText(ui->normaOffsetYEditL->text());
+            data.offsetYL = val;
+        } else {
+            return;
+        }
+
+        ust.setRolOffsetX_L(QString::number(data.offsetXL));
+        ust.setRolOffsetY_L(QString::number(data.offsetYL));
+    } else if (wbMode == MODE_ROLETAP) {
+        val = ui->normaOffsetXEditP->text().toInt(&ok);
+        if (ok && val >= 0) {
+            ui->normaOffsetXP->setText(ui->normaOffsetXEditP->text());
+            data.offsetXP = val;
+        } else {
+            return;
+        }
+
+        val = ui->normaOffsetYEditP->text().toInt(&ok);
+        if (ok && val >= 0) {
+            ui->normaOffsetYP->setText(ui->normaOffsetYEditP->text());
+            data.offsetYP = val;
+        } else {
+            return;
+        }
+
+        ust.setRolOffsetX_P(QString::number(data.offsetXP));
+        ust.setRolOffsetY_P(QString::number(data.offsetYP));
     } else {
         return;
     }
 
-    val = ui->normaOffsetYEdit->text().toInt(&ok);
-    if (ok && val >= 0) {
-        ui->normaOffsetY->setText(ui->normaOffsetYEdit->text());
-        data.offsetY = val;
-    } else {
-        return;
-    }
-    ust.setRolOffsetX(QString::number(data.offsetX));
-    ust.setRolOffsetY(QString::number(data.offsetY));
+
+
 }
-
 
 void WyborMetody::on_normaEtapNumber_textChanged(const QString &arg1)
 {
@@ -753,5 +838,55 @@ void WyborMetody::on_normaStabTimeFile_textChanged(const QString &arg1)
     data.stableTimeRoleta = arg1.toUInt();
     //qDebug() << data.stableTimeRoleta;
     setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumberFile) && !ui->wybranyPlikRolety->text().isEmpty());
+}
+
+
+void WyborMetody::on_pbNormaCancel_clicked()
+{
+    ui->pbNormaOffsetChange->setEnabled(true);
+    ui->pbNormaOffsetSave->setEnabled(false);
+    ui->pbNormaCancel->setEnabled(false);
+
+
+    ui->normaOffsetXL->setVisible(wbMode == MODE_ROLETAL);
+    ui->normaOffsetYL->setVisible(wbMode == MODE_ROLETAL);
+    ui->normaOffsetXP->setVisible(wbMode == MODE_ROLETAP);
+    ui->normaOffsetYP->setVisible(wbMode == MODE_ROLETAP);
+
+    ui->normaOffsetXEditL->setVisible(false);
+    ui->normaOffsetYEditL->setVisible(false);
+    ui->normaOffsetXEditP->setVisible(false);
+    ui->normaOffsetYEditP->setVisible(false);
+}
+
+
+void WyborMetody::on_pbNornaSet_clicked()
+{
+    unsigned int offsetX = wbMode == MODE_ROLETAL ? ui->normaOffsetXL->text().toUInt() : ui->normaOffsetXP->text().toUInt();
+    unsigned int offsetY = wbMode == MODE_ROLETAL ? ui->normaOffsetYL->text().toUInt() : ui->normaOffsetYP->text().toUInt();
+    PozycjonowanieOffsetuNormy * dlg = new PozycjonowanieOffsetuNormy(ust, &sd, wbMode == MODE_ROLETAL,
+                                            offsetX, offsetY, this);
+    int r = dlg->exec();
+    
+    if (r == 0) {
+        return;
+    }
+    
+    if (wbMode == MODE_ROLETAL) {
+        ust.setRolOffsetX_L(QString::number(dlg->getOX()));
+        ust.setRolOffsetY_L(QString::number(dlg->getOY()));
+        ui->normaOffsetXL->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYL->setText(QString::number(dlg->getOY()));
+        ui->normaOffsetXEditL->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYEditL->setText(QString::number(dlg->getOY()));
+    } else if (wbMode == MODE_ROLETAP) {
+        ust.setRolOffsetX_P(QString::number(dlg->getOX()));
+        ust.setRolOffsetY_P(QString::number(dlg->getOY()));
+        ui->normaOffsetXP->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYP->setText(QString::number(dlg->getOY()));
+        ui->normaOffsetXEditP->setText(QString::number(dlg->getOX()));
+        ui->normaOffsetYEditP->setText(QString::number(dlg->getOY()));
+    }
+    dlg->deleteLater();
 }
 

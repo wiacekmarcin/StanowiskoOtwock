@@ -53,13 +53,14 @@ public:
 
     void setValue1(const float & val, const QString & unit);
 
-    void status(const QString & st);
-
     virtual void positionDone(bool base);
     virtual void roletaDone(bool base);
     virtual void readedFromRadio(const double &);
     virtual void errorReadFromRadio();
     virtual void setStop();
+    virtual void setStart();
+    virtual void setError();
+    virtual void setStatus(const QString & st);
 
 protected :
     void setPos();
@@ -75,7 +76,6 @@ private slots:
     void on_pbRestart_clicked();
 
 protected:
-    void debug(const QString &val);
 
     void createRow(int row, const QString & c1, const QString & c2, const QString & c3, const QString & c4,
                    const QString & c5, const QString & c6, const QString & c7, const QString & c8,
@@ -87,7 +87,7 @@ protected:
                              unsigned int nrR, unsigned int rSize);
 private:
     typedef enum _statusWork {
-        WAIT_FOR_CONN = 0,
+        WAIT_FOR_READY = 0,
         WAIT,
         FIRST_RUN,
         NEXT_POS,
@@ -105,6 +105,7 @@ private:
         ROLETAWAIT,
         ROLETA_HOME,
         ROLETA_HOMEWAIT,
+        END
     } statusWorkEnum;
 
 private:

@@ -21,67 +21,61 @@
 
 #include <QDebug>
 
-#define TABVISIBLE 0
+#define DEBUGMP(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
 
 MiernikPrzeplywu::MiernikPrzeplywu()
     : QMainWindow(NULL)
     , ui(new Ui::MiernikPrzeplywu)
     , modeWork(WyborMetody::MODE_NONE)
     , methodIns(WyborMetody::METHOD_NONE)
-    , deviceConn(false)
-    , deviceReady(false)
-    , sendParams(false)
+    , firstRun(false)
+    , firstRun2(false)
     , checkRadio(false)
 {
     ui->setupUi(this);
     widget = nullptr;
 
-    //setUstawienia();
+    sMsg.setThread(&thSterownik);
 
-    connect(&sMsg, &SerialMessage::errorSerial, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
-    connect(&sMsg, &SerialMessage::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
+    setUstawienia();
 
-    connect(&sMsg, &SerialMessage::deviceName, this, &MiernikPrzeplywu::deviceName, Qt::QueuedConnection);
-    connect(&sMsg, &SerialMessage::controllerOK, this, &MiernikPrzeplywu::controllerOK, Qt::QueuedConnection);
-    connect(&sMsg, &SerialMessage::successOpenDevice, this, &MiernikPrzeplywu::successOpenDevice);
+    connect(&sMsg, &SerialDevice::error, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
 
-    connect(&sMsg, &SerialMessage::setParamsDone, this, &MiernikPrzeplywu::setParamsDone);
+    connect(&sMsg, &SerialDevice::deviceName, this, &MiernikPrzeplywu::deviceName, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::kontrolerConfigured, this, &MiernikPrzeplywu::kontrolerConfigured, Qt::QueuedConnection);
 
-    connect(&sMsg, &SerialMessage::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio);
-    connect(&sMsg, &SerialMessage::errorReadFromRadio, this, &MiernikPrzeplywu::errorReadFromRadio);
+    connect(&sMsg, &SerialDevice::setParamsDone, this, &MiernikPrzeplywu::setParamsDone, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::setPositionDone, this, &MiernikPrzeplywu::setPositionDone, Qt::QueuedConnection);
 
-    connect(&sMsg, &SerialMessage::positionStatus, this, &MiernikPrzeplywu::positionStatus);
-    connect(&sMsg, &SerialMessage::homeStatus, this, &MiernikPrzeplywu::homeStatus);
-    connect(&sMsg, &SerialMessage::errorHome, this, &MiernikPrzeplywu::errorHome);
-    connect(&sMsg, &SerialMessage::errorHomeRoleta, this, &MiernikPrzeplywu::errorHomeRoleta);
+    connect(&sMsg, &SerialDevice::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio, Qt::QueuedConnection);
 
-
-
-    connect(this, &MiernikPrzeplywu::connectToDeviceSig, &sMsg, &SerialMessage::connectToSerial, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::setPositionHomeSig, &sMsg, &SerialMessage::setPositionHome, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::setPositionSig, &sMsg, &SerialMessage::setPosition, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::setRoletaHomeSig, &sMsg, &SerialMessage::setRoletaHome, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::setRoletaSig, &sMsg, &SerialMessage::setRoleta, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::setParamsSig, &sMsg, &SerialMessage::setParams, Qt::QueuedConnection);
-    connect(this, &MiernikPrzeplywu::readRadioSig, &sMsg, &SerialMessage::readRadio, Qt::QueuedConnection);
-
-    showMaximized();
     chooseWork();
+    ui->lstanowisko2700_3000->setText(QString("Stanowisko\n%1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
+    ui->lstanowisko1000_2000prawe->setText(QString("Stanowisko\n%1x%2 [mm]\nprawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lStanowisko1000_2000lewe->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
 {
+    sMsg.closeDevice(false);
+    thSterownik.quit();
     delete ui;
 }
 
 void MiernikPrzeplywu::chooseWork()
 {
     //qDebug() << "chooseWork()" << modeWork << methodIns;
-    hide();
+
     do {
         //qDebug() << "New wyborMethody";
-        WyborMetody m(this, modeWork, methodIns, ust);
+        hide();
+        WyborMetody::ModeWork prevWork = modeWork;
+        modeWork = WyborMetody::MODE_NONE;
+        WyborMetody m(this, prevWork, methodIns, ust, sMsg);
 
         int r = m.exec();
         if (r == 0) {
@@ -91,11 +85,15 @@ void MiernikPrzeplywu::chooseWork()
         modeWork = m.getWbMode();
         methodIns = m.getWbMetoda();
         chooseTab();
+        adjustSize();
+        show();
+
         if (chooseMethod(modeWork, methodIns, m.getData())) {
-            show();
+            widget->resize(QSize(sizeHint().width()-25, sizeHint().height()-200));
             return;
         }
     } while (true);
+
 }
 
 void MiernikPrzeplywu::chooseTab()
@@ -103,7 +101,6 @@ void MiernikPrzeplywu::chooseTab()
     if (modeWork == WyborMetody::MODE_FUNSET) {
         ui->stackedWidget->setCurrentIndex(3);
         widget = ui->widget_wentylator;
-
     }
     else if (modeWork == WyborMetody::MODE_SERVICE) {
         widget = new TabWidget();
@@ -120,13 +117,17 @@ void MiernikPrzeplywu::chooseTab()
         ui->stackedWidget->setCurrentIndex(1);
         widget = ui->widget_1000_2000prawe;
     }
-    else if (modeWork == WyborMetody::MODE_ROLETA) {
-         widget = ui->widget_860_1500;
+    else if (modeWork == WyborMetody::MODE_ROLETAP) {
+         widget = ui->widget_860_1500prawe;
+         ui->stackedWidget->setCurrentIndex(5);
+    }
+    else if (modeWork == WyborMetody::MODE_ROLETAL) {
+         widget = ui->widget_860_1500lewe;
          ui->stackedWidget->setCurrentIndex(4);
     }
 
-    ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETA);
-    ui->lStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETA);
+    ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL);
+    ui->lStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL);
 
     ui->lradio->setEnabled(modeWork != WyborMetody::MODE_FUNSET);
     ui->eRadio->setEnabled(modeWork != WyborMetody::MODE_FUNSET);
@@ -148,22 +149,24 @@ void MiernikPrzeplywu::calculateMechanika()
 
 {
     switch(modeWork) {
-    case WyborMetody::MODE_ROLETA:
-        mech.setPrzestrzen(1200, 2000);
+    case WyborMetody::MODE_ROLETAP:
+    case WyborMetody::MODE_ROLETAL:
+        mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
         mech.setReverseY(false);
-        mech.setReverseX(true);
+        mech.setReverseX(modeWork == WyborMetody::MODE_ROLETAP);
+        mechR.setReverse(modeWork == WyborMetody::MODE_ROLETAL);
         mech.setReverseR(true);
         break;
     case WyborMetody::MODE_2700:
     case WyborMetody::MODE_FUNSET:
-        mech.setPrzestrzen(2700, 3000);
+        mech.setPrzestrzen(ust.getStacOsXReal().toUInt(), ust.getStacOsYReal().toUInt());
         mech.setReverseY(false);
         mech.setReverseX(false);
         mech.setReverseR(true);
         break;
     case WyborMetody::MODE_1000L:
     case WyborMetody::MODE_1000P:
-        mech.setPrzestrzen(1000, 2000);
+        mech.setPrzestrzen(ust.getOknoOsXReal().toUInt(), ust.getOknoOsYReal().toUInt());
         mech.setReverseY(false);
         mech.setReverseX(modeWork == WyborMetody::MODE_1000P);
         mech.setReverseR(true);
@@ -178,7 +181,7 @@ void MiernikPrzeplywu::calculateMechanika()
     }
     mech.setMaxKrokiR(160000);
     widget->setMechanika(mech);
-    sMsg.setMechParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
+    sMsg.setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),
                       mech.getMaxKrokiR());
@@ -199,9 +202,17 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
     if (modeWork == WyborMetody::MODE_1000L || modeWork == WyborMetody::MODE_1000P || modeWork == WyborMetody::MODE_2700)
     {
         MierzonePozycje * w = static_cast<MierzonePozycje*>(widget);
+        unsigned int wymiarX;
+        unsigned int wymiarY;
+        if (modeWork == WyborMetody::MODE_2700) {
+            wymiarX = ust.getStacOsXReal().toUInt();
+            wymiarY = ust.getStacOsYReal().toUInt();
+        } else {
+            wymiarX = ust.getOknoOsXReal().toUInt();
+            wymiarY = ust.getOknoOsYReal().toUInt();
+        }
         if (methodIns == WyborMetody::METHOD_FILE) {
-            WybranyPlik wp(this, values.fileName, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                           modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            WybranyPlik wp(this, values.fileName, wymiarX, wymiarY);
             int r = wp.exec();
             if (r == 0) {
                 return  false;
@@ -209,8 +220,8 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(wp.getList());
             return true;
         } else if (methodIns == WyborMetody::METHOD_SQUERE) {
-            WyborKwadratow wk(this, values.numberWidth, values.numberHeight, values.timeStopAuto, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                                               modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            WyborKwadratow wk(this, values.numberWidth, values.numberHeight, values.timeStopAuto, 
+                                        wymiarX, wymiarY);
             int r = wk.exec();
             if (r == 0) {
                 return false;
@@ -218,8 +229,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(wk.getList());
             return true;
         } else if (methodIns == WyborMetody::METHOD_MANUAL) {
-            ReczneDodPozycji rdp(this, values.numberPozMan, values.timeStopManual, modeWork == WyborMetody::MODE_2700 ? 2700 : 1000,
-                                                            modeWork == WyborMetody::MODE_2700 ? 3000 : 2000);
+            ReczneDodPozycji rdp(this, values.numberPozMan, values.timeStopManual, wymiarX, wymiarY);
             int r = rdp.exec();
             if (r == 0) {
                 return false;
@@ -229,14 +239,21 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         }
     } //mode MODE_1000L || MODE_1000L || MODE_1000P) {
 
-    if (modeWork == WyborMetody::MODE_ROLETA) {
+    if (modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL) {
         PozycjeRoleta * w = static_cast<PozycjeRoleta*>(widget);
+        bool reverse = modeWork == WyborMetody::MODE_ROLETAL;
+        unsigned int wymiarX;
+        unsigned int wymiarY;
+        wymiarX = ust.getRolOsXReal().toUInt();
+        wymiarY = ust.getRolOsYReal().toUInt();
+
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
 
-            PodzialEtapuRolety pdr(this, values.etapNrRoleta, values.timeStopRoleta,
-                                  values.stableTimeRoleta, 1500, 870,
-                                  values.offsetX, values.offsetY);
+            PodzialEtapuRolety pdr(this, reverse, values.etapNrRoleta, values.timeStopRoleta,
+                                  values.stableTimeRoleta, wymiarY, wymiarX,
+                                  reverse ? values.offsetXL : values.offsetXP,
+                                  reverse ? values.offsetYL : values.offsetYP);
             int r = pdr.exec();
             if (r == 0) {
                 return false;
@@ -245,8 +262,10 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             return true;
         } else if (methodIns == WyborMetody::METHOD_FILE) {
             //qDebug() << "alloha" << values.stableTimeRoleta;
-            WybranyPlikNorma wpn(this, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
-                                 1500, 870, values.offsetX, values.offsetY);
+            WybranyPlikNorma wpn(this, false, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
+                                 wymiarY, wymiarX,
+                                 reverse ? values.offsetXL : values.offsetXP,
+                                 reverse ? values.offsetYL : values.offsetYP);
             int r = wpn.exec();
             if (r == 0) {
                 return  false;
@@ -286,38 +305,11 @@ void MiernikPrzeplywu::closeEvent (QCloseEvent *event)
 void MiernikPrzeplywu::setUstawienia()
 {
     ust.read();
-    //mech.setUstawienia(ust);
-
-    auto val1 = ust.getImpulsyXperMM();
-    if (!val1.isEmpty())
-        mech.setImpusyXPerMM(val1.toUInt());
-
-    auto val2 = ust.getImpulsyYperMM();
-    if (!val2.isEmpty())
-        mech.setImpusyYPerMM(val2.toUInt());
-
-    auto val3 = ust.getKrokiXperMM();
-    if (!val3.isEmpty())
-        mech.setKrokiXPerMM(val3.toUInt());
-
-    auto val4 = ust.getKrokiYperMM();
-    if (!val4.isEmpty())
-        mech.setKrokiYPerMM(val4.toUInt());
-
-    auto val5 = ust.getWentOffsetX();
-    if (!val5.isEmpty())
-        mech.setWentOffsetX(val5.toDouble());
-
-    auto val6 = ust.getWentOffsetY();
-    if (!val6.isEmpty())
-        mech.setWentOffsetY(val6.toDouble());
-
-    auto val7 = ust.getKatnachylenia();
-    if (!val7.isEmpty())
-        mech.setWentKatNach(val7.toDouble());
-
+    mech.setUstawienia(ust);
+    mechR.setUstawienia(ust);
 
     mech.calculate();
+    mechR.calculate();
 }
 
 
@@ -325,91 +317,289 @@ void MiernikPrzeplywu::setUstawienia()
 
 void MiernikPrzeplywu::errorSerial(const QString & error)
 {
-    sMsg.closeDevice();
+    DEBUGMP(QString("Error from serial : ") + error);
+    /*
     deviceConn = false;
-    ui->statusserial->setText(QString("Błąd : %1").arg(error));
     ui->lStatus->setText("-");
     ui->lStatusMinor->setText("-");
-    widget->setConnect(false, error);
-    widget->errorSerial(error);
+    widget->setIsReady(false);
+    widget->setError();
+    */
 }
 
-void MiernikPrzeplywu::successOpenDevice(bool open)
+
+void MiernikPrzeplywu::enableStatusWidget(bool enable)
 {
-    debug(QString("Open device open = %1").arg(open));
-    if (open) {
-        ui->statusserial->setText("Sprawdzam sterownik...");
-        if (modeWork == WyborMetody::MODE_FUNSET) {
-            widget->setStatus(addTime("Sprawdzam sterownik."));
-        } else {
-            widget->setStatus("Sprawdzam sterownik.");
-        }
-    } else {
-        ui->lConneected->setText("Nie udalo sie otworzyc portu");
-        widget->setStatus("Nie udalo sie otworzyc portu");
-        widget->setConnect(false);
-        sMsg.closeDevice();
-        deviceConn = false;
-        widget->setConnect(false);
-        widget->setIsReady(false);
+    if (!enable) {
+        ui->lcz1mv->setDisabled(true);
+        ui->lcz1unit->setDisabled(true);
+        ui->ecz1->setDisabled(true);
+        ui->eStatus->setDisabled(true);
+        ui->lStatus->setDisabled(true);
+        ui->lStatusMinor->setDisabled(true);
+        ui->eStatusRoleta->setDisabled(true);
+        ui->lStatusRoleta->setDisabled(true);
+        ui->lStatus->setText("--");
+        ui->lStatusMinor->setText("--");
+        ui->lStatusRoleta->setText("--");
+        ui->lcz1mv->setText("--");
+        ui->lcz1unit->setText("--");
+        ui->eRadio->setDisabled(true);
+        ui->lradio->setDisabled(true);
+        ui->lradio->setText("--");
     }
 }
 
-void MiernikPrzeplywu::controllerOK()
+void MiernikPrzeplywu::kontrolerConfigured(bool success, int state)
 {
-    debug("controllerOk");
-    ui->statusserial->setText("Sterownik OK");
-    deviceConn = true;
-    debug ("setParams");
-    ui->lStatus->setText("Ustawiam parametry...");
-    emit setParams(mech.getReverseX(),mech.getReverseY(),mech.getReverseR(),
-                   mech.getMaxImpusyX(), mech.getMaxImpusyY(),
-                   mech.getMaxKrokiX(), mech.getMaxKrokiY(), mech.getMaxKrokiR());
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
 
+    DEBUGMP(QString("Open device open = %1, state = %2 ").arg(success).arg(state));
+
+    if (widget != nullptr) {
+        widget->setIsReady(success);
+    }
+
+    switch(state) {
+
+    case SerialDevice::NO_FOUND:
+        ui->lConneected->setText("Nie znaleziono kontrolera");
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setError();
+        }
+        break;
+
+    case SerialDevice::FOUND:
+        ui->lConneected->setText(QString("Znaleziono kontroler. Otwieram port %1 ....").arg(m_portName));
+        break;
+
+    case SerialDevice::NO_OPEN:
+        ui->lConneected->setText(QString("%1 - kontroler. Nie udało się otworzyć").arg(m_portName));
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setError();
+        }
+        break;
+
+    case SerialDevice::OPEN:
+        ui->lConneected->setText(QString("%1 - kontroler. Sprawdzam kontroler...").arg(m_portName));
+        break;
+
+    case SerialDevice::NO_READ:
+        ui->lConneected->setText(QString("%1 - kontroler. Problem z odczytem z portu").arg(m_portName));
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setError();
+        }
+        break;
+
+    case SerialDevice::IDENT_FAILD:
+        ui->lConneected->setText(QString("%1 - kontroler. Nieprawidłowy kontroler.").arg(m_portName));
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setError();
+        }
+        break;
+
+    case SerialDevice::IDENT_OK:
+        ui->lConneected->setText(QString("%1 - kontroler. Trwa konfiguracja...").arg(m_portName));
+        break;
+
+    case SerialDevice::PARAMS_FAILD:
+        ui->lConneected->setText(QString("%1 - kontroler. Nie skonfigurowano.").arg(m_portName));
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setError();
+        }
+        break;
+
+    case SerialDevice::PARAMS_OK:
+        ui->lConneected->setText(QString("%1 - kontroler. Skonfigurowano.").arg(m_portName));
+        break;
+
+    case SerialDevice::ALL_OK:
+        ui->lcz1mv->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
+        ui->lcz1unit->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
+        ui->ecz1->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
+        ui->eStatus->setDisabled(false);
+        ui->lStatus->setDisabled(false);
+        ui->lStatusMinor->setDisabled(false);
+        ui->eRadio->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
+        ui->lradio->setDisabled(modeWork == WyborMetody::MODE_FUNSET);
+        ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
+        ui->lStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
+        ui->lConneected->setText(QString("%1 - kontroler OK.").arg(m_portName));
+
+        setParamsDone(true);
+        break;
+
+    case SerialDevice::CLOSE:
+        ui->lConneected->setText("Kontroler rozłączony");
+        enableStatusWidget(false);
+        if (widget != nullptr) {
+            widget->setIsReady(false);
+        }
+        break;
+
+    default:
+        break;
+    }
 }
 
-
-
-void MiernikPrzeplywu::readedFromRadio(int value)
+void MiernikPrzeplywu::setParamsDone(bool success)
 {
-    debug(QString("Read radio %1").arg(value));
+    DEBUGMP(QString("Ustawiono parametry %1.").arg(success));
+
+    if (!success)
+        return;
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    widget->setIsReady(false);
+    widget->setStart();
+    firstRun = true;
+    firstRun2 = true;
+    checkRadio = true;
+    if (modeWork == WyborMetody::MODE_FUNSET) {
+
+        widget->setStatus(QString("Ustawiam czujnik w pozycji bazowej"));
+        ui->lStatus->setText(QString("Trwa zerowanie urządzenia...."));
+        ui->statusbar->showMessage("Ustawiam czujnik w pozycji bazowej", 5000);
+        setPositionHome();
+    } else {
+        widget->setStatus(QString("Sprawdzam połączenie z modułem radiowym"));
+        ui->lStatus->setText(QString("Sprawdzam połączenie z modułem radiowym...."));
+        ui->statusbar->showMessage("Sprawdzam połączenie z modułem radiowym", 5000);
+        checkRadio = true;
+        readRadio();
+    }
+}
+
+void MiernikPrzeplywu::readedFromRadio(bool sucess, int val1, int, int, int)
+{
+    DEBUGMP(QString("Read radio %1 [%2]").arg(sucess).arg(val1));
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    if (!sucess) {
+        errorReadFromRadio();
+        return;
+    }
     if (checkRadio) {
         checkRadio = false;
-        widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
+        widget->setStatus(QString("Ustawiam czujnik w pozycji bazowej"));
+        ui->lStatus->setText(QString("Trwa zerowanie urządzenia...."));
         ui->lradio->setText(QString("Widoczny"));
+        ui->statusbar->showMessage("Udało się połączyć przez radio. Ustawiam czujnik w pozycji bazowej", 5000);
         setPositionHome();
         return;
     }
-    ui->lradio->setText(QString("Widoczny"));
-    ui->lcz1mv->setText(QString::number(ust.getRatioCzujnik1().toDouble()*value, 'g', 4));
+    ui->lradio->setText(QString("Komunikacja OK"));
+    ui->lcz1mv->setText(QString::number(ust.getRatioCzujnik1().toDouble()*sucess, 'g', 4));
     ui->lcz1unit->setText(ust.getUnitCzujnik1());
     ui->lStatusMinor->setText("Trwa pomiar....");
-    widget->readedFromRadio(ust.getRatioCzujnik1().toDouble()*value);
+    ui->statusbar->showMessage("Trwa pomiar", 1000);
+    widget->readedFromRadio(ust.getRatioCzujnik1().toDouble()*val1);
 }
 
 void MiernikPrzeplywu::errorReadFromRadio()
 {
-    debug(QString("errorReadFromRadio"));
+    DEBUGMP(QString("errorReadFromRadio"));
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
     ui->lradio->setText(QString("Błąd odczytu"));
     ui->lcz1mv->setText("---");
     ui->lcz1unit->setText("---");
+
     if (checkRadio) {
         checkRadio = false;
+        widget->setStatus(QString("Ustawiam czujnik w pozycji bazowej"));
+        ui->lStatus->setText(QString("Trwa zerowanie urządzenia...."));
+        ui->statusbar->showMessage("Brak łączności z radio. Ustawiam czujnik w pozycji bazowej", 5000);
+        ui->lradio->setText("Brak komunikacji");
         setPositionHome();
     } else {
+        ui->statusbar->showMessage("Błąd odczytu", 10000);
         widget->errorReadFromRadio();
+        ui->lradio->setText("Brak komunikacji");
     }
 }
 
-void MiernikPrzeplywu::deviceName(QString portname)
+void MiernikPrzeplywu::setPositionDone(bool success, bool home, int w)
 {
-    debug(QString("DeviceName = %1").arg(portname));
-    ui->lConneected->setText(portname);
+    DEBUGMP(QString("positionDone ok=%1 home=%2 w=%3").arg(success).arg(home).arg(w));
+    SerialMessage::StatusWork work = static_cast<SerialMessage::StatusWork>(w);
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    if (success) {
+        if (work == SerialMessage::ERROR_XY) {
+             home ? errorHome() : errorPosition();
+        } else if (work == SerialMessage::ERROR_R) {
+            home ? errorHomeRoleta() : errorRoleta();
+        } else {
+            home ? homeStatus(work) : positionStatus(work);
+        }
+    } else {
+        if (work == SerialMessage::START_R || work == SerialMessage::END_R || work == SerialMessage::ERROR_R) {
+            home ? errorHomeRoleta() : errorRoleta();
+        } else {
+            home ? errorHome() : errorPosition();
+        }
+    }
+}
+
+void MiernikPrzeplywu::positionHome()
+{
+    DEBUGMP(QString("POSITION HOME %1").arg(firstRun));
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    if (firstRun && modeWork != WyborMetody::MODE_FUNSET) {
+        firstRun = false;
+        if (modeWork == WyborMetody::MODE_ROLETAP) {
+            ui->lStatusRoleta->setText(QString("Ustawiam roletę w pozycji bazowej"));
+            widget->setStatus(QString("Trwa zerowanie rolety"));
+            ui->statusbar->showMessage("Trwa zerowanie rolety", 5000);
+            firstRun2 = true;
+            setRoletaHome();
+        } else {
+            widget->setStatus(QString("Rozpoczynam prace"));
+            ui->statusbar->showMessage("Rozpoczynam prace", 5000);
+            widget->setIsReady(true);
+        }
+
+    } else {
+        widget->positionDone(true);
+    }
+}
+
+void MiernikPrzeplywu::roletaHome()
+{
+    DEBUGMP(QString("firstRun2 = %1").arg(firstRun2));
+
+    if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    if (firstRun2) {
+        firstRun2 = false;
+        widget->roletaDone(true);
+        widget->setIsReady(true);
+    }
+
 }
 
 void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
 {
+    qDebug() << __FILE__ << __LINE__ ;
     switch(work) {
     case SerialMessage::START_XY:
         ui->lStatus->setText("Ustawianie pozycji czujnika...");
@@ -463,6 +653,7 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
 
 void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
 {
+    DEBUGMP(QString("home position %1").arg(work));
     switch(work) {
     case SerialMessage::START_XY:
         ui->lStatus->setText("Zerowanie pozycji czujnika...");
@@ -491,12 +682,7 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
         ui->lStatus->setText("Czujnik ustawiony na pozycji bazowej.");
         ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Czujnik ustawiony na pozycji bazowej.",5000);
-        if (sendParams) {
-            sendParams = false;
-            deviceReady = true;
-            widget->setIsReady(true);
-        }
-        widget->positionDone(true);
+        positionHome();
         break;
     case SerialMessage::START_R:
         ui->lStatusRoleta->setText("Ustawianie rolety na pozycji bazowej.");
@@ -505,7 +691,7 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
     case SerialMessage::END_R:
         ui->lStatusRoleta->setText("Roleta ustawiona na pozycji bazowej.");
         ui->statusbar->showMessage("Zakończono ustawianie rolety na pozycji bazowej.",5000);
-        widget->roletaDone(true);
+        roletaHome();
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, QString("Kalibracja urządzenia"),
@@ -518,39 +704,44 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
     widget->positionStatus(true, work);
 }
 
-void MiernikPrzeplywu::setParamsDone()
-{
-    debug("Ustawiono parametry.");
-    sendParams = true;
-    widget->setConnect(true);
-
-    if (modeWork == WyborMetody::MODE_FUNSET) {
-    widget->setStatus(QString("Zakończono konfigurację urządzenia. Ustawiam czujnik w pozycji bazowej"));
-    ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Trwa zerowanie urządzenia...."));
-    setPositionHome();
-    } else {
-        widget->setStatus(QString("Zakończono konfigurację urządzenia. Sprawdzam połączenie z modułem radiowym"));
-        ui->lStatus->setText(QString("Zakończono konfigurację kontrolera. Sprawdzam połączenie z modułem radiowym...."));
-        checkRadio = true;
-        readRadio();
-    }
-
-}
-
 void MiernikPrzeplywu::errorHome()
 {
-    debug("ERROR HOME");
+    DEBUGMP("ERROR HOME");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie bazowe", "Nie udało się ustawić pozycji bazowej dla czujnika");
+}
+
+void MiernikPrzeplywu::errorPosition()
+{
+    DEBUGMP("ERROR POS");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie", "Nie udało się ustawić pozycji dla czujnika");
 }
 
 void MiernikPrzeplywu::errorHomeRoleta()
 {
-    debug("ERROR HOME ROLETA");
+    DEBUGMP("ERROR HOME ROLETA");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie bazowe rolety", "Nie udało się ustawić pozycji bazowej dla rolety");
+}
+
+void MiernikPrzeplywu::errorRoleta()
+{
+    DEBUGMP("ERROR ROLETA");
+    widget->setError();
+    QMessageBox::critical(this, "Pozycjonowanie rolety", "Nie udało się ustawić pozycji dla rolety");
+}
+
+void MiernikPrzeplywu::deviceName(const QString & portname)
+{
+    DEBUGMP(QString("DeviceName = %1").arg(portname));
+    m_portName = portname;
 }
 
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
     //ui->debug->append(dbg);
-    qDebug() << dbg;
+    qDebug() << addTime(dbg);
 }
 
 const WyborMetodyData &MiernikPrzeplywu::getData() const
@@ -560,39 +751,39 @@ const WyborMetodyData &MiernikPrzeplywu::getData() const
 
 void MiernikPrzeplywu::connectToDevice()
 {
-    emit connectToDeviceSig();
-    //emit connectAndConfigureSig();
+    DEBUGMP("connectToDevice");
+    sMsg.connectToDevice();
 }
 
 void MiernikPrzeplywu::setPositionHome()
 {
-    emit setPositionHomeSig();
+    sMsg.setPositionHome();
 }
 
 void MiernikPrzeplywu::setPosition(uint32_t x, uint32_t y)
 {
-    emit setPositionSig(x,y);
+    sMsg.setPosition(x,y);
 }
 
 void MiernikPrzeplywu::setRoletaHome()
 {
-    emit setRoletaHomeSig();
+    sMsg.setRoletaHome();
 }
 
 void MiernikPrzeplywu::setRoleta(uint32_t r)
 {
-    emit setRoletaSig(r);
+    sMsg.setRoleta(r);
 }
 
 void MiernikPrzeplywu::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
                                  uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
 {
-    emit setParamsSig(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
+    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
 }
 
 void MiernikPrzeplywu::readRadio()
 {
-    emit readRadioSig();
+    sMsg.readRadio();
 }
 
 WyborMetody::MethodInsData MiernikPrzeplywu::getMethodIns() const
@@ -607,17 +798,12 @@ WyborMetody::ModeWork MiernikPrzeplywu::getModeWork() const
 
 void MiernikPrzeplywu::noweDane()
 {
-    //WyborMetody::ModeWork actWork = modeWork;
-    //modeWork = WyborMetody::MODE_SERVICE;
-    qDebug() << __FILE__ << __LINE__;
-    sMsg.closeDevice();
-    //QCoreApplication::exit(1);
-    //exit(1);
-    //if (widget)
-    //    widget->restart();
-    //on_tabWidget_currentChanged(actWork);
-    //sMsg.closeDevice();
     chooseWork();
+}
+
+void MiernikPrzeplywu::setClose(bool waitForDone)
+{
+    sMsg.closeDevice(waitForDone);
 }
 
 

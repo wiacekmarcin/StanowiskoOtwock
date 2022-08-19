@@ -14,9 +14,9 @@ class WybranyPlikNorma : public QDialog
     Q_OBJECT
 
 public:
-    explicit WybranyPlikNorma(QWidget *parent = nullptr, const QString & file = "", unsigned int etapMax = 15,
-                              unsigned int timeStable = 3600, unsigned int maxR=1500, unsigned int width = 870,
-                              unsigned int offsetx = 0, unsigned int offsety = 0);
+    explicit WybranyPlikNorma(QWidget *parent, bool reverse, const QString & file, unsigned int etapMax,
+                              unsigned int timeStable, unsigned int maxR, unsigned int width,
+                              unsigned int offsetx, unsigned int offsety);
     ~WybranyPlikNorma();
 
     PozycjeRol getList() const { return m_lista; }
@@ -27,6 +27,7 @@ protected:
 
 private:
     Ui::WybranyPlikNorma *ui;
+    bool reverse;
     QString filename;
     unsigned int etapMax;
     unsigned int timeStable;

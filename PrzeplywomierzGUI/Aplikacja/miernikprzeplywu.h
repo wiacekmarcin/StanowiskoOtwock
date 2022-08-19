@@ -4,11 +4,12 @@
 #include <QMainWindow>
 #include <QString>
 #include <QList>
+#include <QThread>
 
 #include "wybormetody.h"
 #include "pozycje.h"
 #include "mechanika.h"
-#include "serialmessage.h"
+#include "serialdevice.h"
 
 class QCloseEvent;
 class MierzonePozycje;
@@ -51,6 +52,7 @@ public:
     void readRadio();
 
     void noweDane();
+    void setClose(bool afterBase);
 public slots:
     void debug(const QString &);
     void debugClear();
@@ -66,36 +68,33 @@ protected:
     void setUstawienia();
 private slots:
 
-
     void errorSerial(const QString &);
-    void successOpenDevice(bool);
+    void setPositionDone(bool success, bool home, int work);
+    void kontrolerConfigured(bool success, int state);
+    void readedFromRadio(bool sucess, int val1 , int val2, int val3, int val4);
+    void deviceName(const QString &);
+    void setParamsDone(bool success);
 
-    void readedFromRadio(int);
-    void errorReadFromRadio();
-
-    void deviceName(QString);
-    void controllerOK();
-
+protected:
     void positionStatus(SerialMessage::StatusWork work);
     void homeStatus(SerialMessage::StatusWork work);
-    void setParamsDone();
 
     void errorHome();
+    void errorPosition();
     void errorHomeRoleta();
-
-signals:
-    void connectToDeviceSig();
-    void setPositionHomeSig();
-    void setPositionSig(uint32_t x, uint32_t y);
-    void setRoletaHomeSig();
-    void setRoletaSig(uint32_t r);
-    void setParamsSig(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
-                                                                uint32_t maxStepX, uint32_t maxStepY,
-                                                                uint32_t);
-    void readRadioSig();
+    void errorRoleta();
+    void errorReadFromRadio();
+    void positionHome();
+    void roletaHome();
 
 
 private:
+
+    void chooseWork();
+    void enableStatusWidget(bool enable);
+
+private:
+
     Ui::MiernikPrzeplywu *ui;
     WyborMetody::ModeWork modeWork;
     WyborMetody::MethodInsData methodIns;
@@ -106,19 +105,22 @@ private:
     RoletaRuch mechR;
 
     TabWidget * widget;
-    MierzonePozycje * widget2700;
+    /*MierzonePozycje * widget2700;
     MierzonePozycje * widget1000p;
     MierzonePozycje * widget1000l;
-    PozycjeRoleta * widgetRoleta;
-    Wentylator *  widgetWentylator;
+    PozycjeRoleta * widgetRoletal;
+    PozycjeRoleta * widgetRoletap;
+    Wentylator *  widgetWentylator;*/
 
-    SerialMessage sMsg;
-    bool deviceConn;
-    bool deviceReady;
+    SerialDevice sMsg;
 
-    bool sendParams;
+
+    bool firstRun;
+    bool firstRun2;
     bool checkRadio;
-    void chooseWork();
+
+    QString m_portName;
+    QThread thSterownik;
 };
 #endif // MIERNIKPRZEPLYWU_H
 

@@ -3,90 +3,179 @@
 char Ustawienia::appnazwa[]="Przeplywomierz";
 char Ustawienia::firmnazwa[]="PogromcyWiatrow";
 
+
+#define K_ratioczujnik1 "czujniki_ratio1"
+#define K_unitczujnik1 "czyjniki_unit1"
+#define K_impulsyXperMM "silniki_impulsyXperMM"
+#define K_impulsyYperMM "silniki_impulsyYperMM"
+#define K_krokiXperMM "silniki_krokiXperMM"
+#define K_krokiYperMM "silniki_krokiYperMM"
+#define K_katnachylenia "wentylator_katnachylenia"
+#define K_offsetx "wentylator_offset_x"
+#define K_offsety "wentylator_offset_y"
+#define K_rol_dlugoscMM "roleta_dlugoscMM"
+#define K_rol_stepsPerObrot "roleta_stepsPerObrot"
+#define K_rol_krokiperMM "roleta_krokiperMM"
+#define K_rol_obrot "roleta_z_obrot"
+#define K_rol_offset_x_p "roleta_offset_x_p"
+#define K_rol_offset_y_p "roleta_offset_y_p"
+#define K_rol_offset_x_l "roleta_offset_x_l"
+#define K_rol_offset_y_l "roleta_offset_y_l"
+#define K_rol_width "roleta_width"
+#define K_rol_height "roleta_height"
+#define K_stacOsXNazwa "wymiary_stacOsXNazwa"
+#define K_stacOsYNazwa "wymiary_stacOsYNazwa"
+#define K_stacOsXReal "wymiary_stacOsXReal"
+#define K_stacOsYReal "wymiary_stacOsYReal"
+#define K_oknoOsXNazwa "wymiary_oknoOsXNazwa"
+#define K_oknoOsYNazwa "wymiary_oknoOsYNazwa"
+#define K_oknoOsXReal "wymiary_oknoOsXReal"
+#define K_oknoOsYReal "wymiary_oknoOsYReal"
+#define K_rolOsXNazwa "wymiary_rolOsXNazwa"
+#define K_rolOsYNazwa "wymiary_rolOsYNazwa"
+#define K_rolOsXReal "wymiary_rolOsXReal"
+#define K_rolOsYReal "wymiary_rolOsYReal"
+
+static QString number2Digit(short i) {
+    QString ret(K_rol_obrot);
+    ret += QString("_");
+    if (i < 10)
+        ret += QString("0");
+    ret += QString::number(i);
+    return ret;
+}
+
 Ustawienia::Ustawienia() :
-    settings(Ustawienia::firmnazwa, Ustawienia::appnazwa)
+    settings(Ustawienia::firmnazwa, Ustawienia::appnazwa),
+    ratioCzujnik1("0.01"),
+    unitCzujnik1("m/s"),
+    impulsyXperMM("24.96"),
+    impulsyYperMM("24.96"),
+    krokiXperMM("100"),
+    krokiYperMM("100"),
+    katnachylenia("3.85"),
+    wentOffsetX("301"),
+    wentOffsetY("175.58"),
+    rolDlugosc("1600"),
+    rolStepObrot("12000"),
+    rolOffsetX_P("115"),
+    rolOffsetY_P("1172"),
+    rolOffsetX_L("1050"),
+    rolOffsetY_L("1720"),
+    rolkrokiperMM("120"),
+    normaRoletaWidth("875"),
+    normaRoletaHeight("1500"),
+    stacOsXNazwa("2700"),
+    stacOsYNazwa("3000"),
+    stacOsXReal("2700"),
+    stacOsYReal("3000"),
+    oknoOsXNazwa("1000"),
+    oknoOsYNazwa("2000"),
+    oknoOsXReal("1000"),
+    oknoOsYReal("2000"),
+    rolOsXNazwa("870"),
+    rolOsYNazwa("1500"),
+    rolOsXReal("1200"),
+    rolOsYReal("2000")
 {
     read();
+    write();
 }
 
 void Ustawienia::read()
 {
 
-    ratioCzujnik1 = settings.value("ratioczujnik1").toString();
+    ratioCzujnik1 = settings.value(K_ratioczujnik1, ratioCzujnik1).toString();
 
-    unitCzujnik1 = settings.value("unitczujnik1").toString();
+    unitCzujnik1 = settings.value(K_unitczujnik1, unitCzujnik1).toString();
 
-    impulsyXperMM = settings.value("impulsyXperMM").toString();
-    impulsyYperMM = settings.value("impulsyYperMM").toString();
+    impulsyXperMM = settings.value(K_impulsyXperMM, impulsyXperMM).toString();
+    impulsyYperMM = settings.value(K_impulsyYperMM, impulsyYperMM).toString();
 
-    krokiXperMM = settings.value("krokiXperMM").toString();
-    krokiYperMM = settings.value("krokiYperMM").toString();
+    krokiXperMM = settings.value(K_krokiXperMM, krokiXperMM).toString();
+    krokiYperMM = settings.value(K_krokiYperMM, krokiYperMM).toString();
 
-    katnachylenia = settings.value("katnachylenia").toString();
-    wentOffsetX = settings.value("offsetx").toString();
-    wentOffsetY = settings.value("offsety").toString();
+    katnachylenia = settings.value(K_katnachylenia, katnachylenia).toString();
+    wentOffsetX = settings.value(K_offsetx, wentOffsetX).toString();
+    wentOffsetY = settings.value(K_offsety, wentOffsetY).toString();
 
-    rolDlugosc = settings.value("rol_dlugoscMM").toString();
-    rolStepObrot = settings.value("rol_stepsPerObrot").toString();
-    rolkrokiperMM = settings.value("rol_krokiperMM").toString();
+    rolDlugosc = settings.value(K_rol_dlugoscMM, rolDlugosc).toString();
+    rolStepObrot = settings.value(K_rol_stepsPerObrot, rolStepObrot).toString();
+    rolkrokiperMM = settings.value(K_rol_krokiperMM, rolkrokiperMM).toString();
 
-    rolObrot1 = settings.value("rol_obrot1").toString();
-    rolObrot2 = settings.value("rol_obrot2").toString();
-    rolObrot3 = settings.value("rol_obrot3").toString();
-    rolObrot4 = settings.value("rol_obrot4").toString();
-    rolObrot5 = settings.value("rol_obrot5").toString();
-    rolObrot6 = settings.value("rol_obrot6").toString();
-    rolObrot7 = settings.value("rol_obrot7").toString();
-    rolObrot8 = settings.value("rol_obrot8").toString();
-    rolObrot9 = settings.value("rol_obrot9").toString();
-    rolObrot10 = settings.value("rol_obrot10").toString();
-    rolObrot11 = settings.value("rol_obrot11").toString();
-    rolObrot12 = settings.value("rol_obrot12").toString();
-    rolObrot13 = settings.value("rol_obrot13").toString();
+    for (short i = 0; i < maxObrot; i++) {
+        rolObrot[i] = settings.value(number2Digit(i)).toString();
+    }
 
+    rolOffsetX_P = settings.value(K_rol_offset_x_p, rolOffsetX_P).toString();
+    rolOffsetY_P = settings.value(K_rol_offset_y_p, rolOffsetY_P).toString();
 
-    rolOffsetX = settings.value("roleta_offset_x").toString();
-    rolOffsetY = settings.value("roleta_offset_y").toString();
+    rolOffsetX_L = settings.value(K_rol_offset_x_l, rolOffsetX_L).toString();
+    rolOffsetY_L = settings.value(K_rol_offset_y_l, rolOffsetY_L).toString();
 
+    normaRoletaWidth = settings.value(K_rol_width, normaRoletaWidth).toString();
+    normaRoletaHeight = settings.value(K_rol_height, normaRoletaHeight).toString();
+
+    stacOsXNazwa = settings.value(K_stacOsXNazwa, stacOsXNazwa).toString();
+    stacOsYNazwa = settings.value(K_stacOsYNazwa, stacOsYNazwa).toString();
+    stacOsXReal = settings.value(K_stacOsXReal, stacOsXReal).toString();
+    stacOsYReal = settings.value(K_stacOsYReal, stacOsYReal).toString();
+    oknoOsXNazwa = settings.value(K_oknoOsXNazwa, oknoOsXNazwa).toString();
+    oknoOsYNazwa = settings.value(K_oknoOsYNazwa, oknoOsYNazwa).toString();
+    oknoOsXReal = settings.value(K_oknoOsXReal, oknoOsXReal).toString();
+    oknoOsYReal = settings.value(K_oknoOsYReal, oknoOsYReal).toString();
+    rolOsXNazwa = settings.value(K_rolOsXNazwa, rolOsXNazwa).toString();
+    rolOsYNazwa = settings.value(K_rolOsYNazwa, rolOsYNazwa).toString();
+    rolOsXReal = settings.value(K_rolOsXReal, rolOsXReal).toString();
+    rolOsYReal = settings.value(K_rolOsYReal, rolOsYReal).toString();
 }
 
 
 
 void Ustawienia::write()
 {
-    settings.setValue("ratioczujnik1", QVariant::fromValue(ratioCzujnik1));
-    settings.setValue("unitczujnik1", QVariant::fromValue(unitCzujnik1));
+    settings.setValue(K_ratioczujnik1, QVariant::fromValue(ratioCzujnik1));
+    settings.setValue(K_unitczujnik1, QVariant::fromValue(unitCzujnik1));
 
-    settings.setValue("impulsyXperMM", QVariant::fromValue(impulsyXperMM));
-    settings.setValue("impulsyYperMM", QVariant::fromValue(impulsyYperMM));
+    settings.setValue(K_impulsyXperMM, QVariant::fromValue(impulsyXperMM));
+    settings.setValue(K_impulsyYperMM, QVariant::fromValue(impulsyYperMM));
 
-    settings.setValue("krokiXperMM", QVariant::fromValue(krokiXperMM));
-    settings.setValue("krokiYperMM", QVariant::fromValue(krokiYperMM));
+    settings.setValue(K_krokiXperMM, QVariant::fromValue(krokiXperMM));
+    settings.setValue(K_krokiYperMM, QVariant::fromValue(krokiYperMM));
 
-    settings.setValue("katnachylenia", QVariant::fromValue(katnachylenia));
-    settings.setValue("offsetx", QVariant::fromValue(wentOffsetX));
-    settings.setValue("offsety", QVariant::fromValue(wentOffsetY));
+    settings.setValue(K_katnachylenia, QVariant::fromValue(katnachylenia));
+    settings.setValue(K_offsetx, QVariant::fromValue(wentOffsetX));
+    settings.setValue(K_offsety, QVariant::fromValue(wentOffsetY));
 
-    settings.setValue("rol_dlugoscMM", QVariant::fromValue(rolDlugosc));
-    settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
-    settings.setValue("rol_krokiperMM", QVariant::fromValue(rolkrokiperMM));
+    settings.setValue(K_rol_dlugoscMM, QVariant::fromValue(rolDlugosc));
+    settings.setValue(K_rol_stepsPerObrot, QVariant::fromValue(rolStepObrot));
+    settings.setValue(K_rol_krokiperMM, QVariant::fromValue(rolkrokiperMM));
 
-    settings.setValue("rol_obrot1", QVariant::fromValue(rolObrot1));
-    settings.setValue("rol_obrot2", QVariant::fromValue(rolObrot2));
-    settings.setValue("rol_obrot3", QVariant::fromValue(rolObrot3));
-    settings.setValue("rol_obrot4", QVariant::fromValue(rolObrot4));
-    settings.setValue("rol_obrot5", QVariant::fromValue(rolObrot5));
-    settings.setValue("rol_obrot6", QVariant::fromValue(rolObrot6));
-    settings.setValue("rol_obrot7", QVariant::fromValue(rolObrot7));
-    settings.setValue("rol_obrot8", QVariant::fromValue(rolObrot8));
-    settings.setValue("rol_obrot9", QVariant::fromValue(rolObrot9));
-    settings.setValue("rol_obrot10", QVariant::fromValue(rolObrot10));
-    settings.setValue("rol_obrot11", QVariant::fromValue(rolObrot11));
-    settings.setValue("rol_obrot12", QVariant::fromValue(rolObrot12));
-    settings.setValue("rol_obrot13", QVariant::fromValue(rolObrot13));
+    for (short i = 0; i < maxObrot; i++) {
+        settings.setValue(number2Digit(i), QVariant::fromValue(rolObrot[i]));
+    }
 
-    settings.setValue("rol_offset_x", QVariant::fromValue(rolOffsetX));
-    settings.setValue("rol_offset_y", QVariant::fromValue(rolOffsetY));
+    settings.setValue(K_rol_offset_x_p, QVariant::fromValue(rolOffsetX_P));
+    settings.setValue(K_rol_offset_y_p, QVariant::fromValue(rolOffsetY_P));
+
+    settings.setValue(K_rol_offset_x_l, QVariant::fromValue(rolOffsetX_L));
+    settings.setValue(K_rol_offset_y_l, QVariant::fromValue(rolOffsetY_L));
+
+    settings.setValue(K_rol_width, QVariant::fromValue(normaRoletaWidth));
+    settings.setValue(K_rol_height, QVariant::fromValue(normaRoletaHeight));
+
+    settings.setValue(K_stacOsXNazwa, stacOsXNazwa);
+    settings.setValue(K_stacOsYNazwa, stacOsYNazwa);
+    settings.setValue(K_stacOsXReal, stacOsXReal);
+    settings.setValue(K_stacOsYReal, stacOsYReal);
+    settings.setValue(K_oknoOsXNazwa, oknoOsXNazwa);
+    settings.setValue(K_oknoOsYNazwa, oknoOsYNazwa);
+    settings.setValue(K_oknoOsXReal, oknoOsXReal);
+    settings.setValue(K_oknoOsYReal, oknoOsYReal);
+    settings.setValue(K_rolOsXNazwa, rolOsXNazwa);
+    settings.setValue(K_rolOsYNazwa, rolOsYNazwa);
+    settings.setValue(K_rolOsXReal, rolOsXReal);
+    settings.setValue(K_rolOsYReal, rolOsYReal);
 
 }
 
@@ -98,7 +187,7 @@ QString Ustawienia::getRatioCzujnik1() const
 void Ustawienia::setRatioCzujnik1(QString value)
 {
     ratioCzujnik1 = value;
-    settings.setValue("ratioczujnik1", QVariant::fromValue(ratioCzujnik1));
+    settings.setValue(K_ratioczujnik1, QVariant::fromValue(ratioCzujnik1));
 }
 
 QString Ustawienia::getUnitCzujnik1() const
@@ -109,7 +198,7 @@ QString Ustawienia::getUnitCzujnik1() const
 void Ustawienia::setUnitCzujnik1(const QString &value)
 {
     unitCzujnik1 = value;
-    settings.setValue("unitczujnik1", QVariant::fromValue(unitCzujnik1));
+    settings.setValue(K_unitczujnik1, QVariant::fromValue(unitCzujnik1));
 }
 
 QString Ustawienia::getImpulsyXperMM() const
@@ -120,7 +209,7 @@ QString Ustawienia::getImpulsyXperMM() const
 void Ustawienia::setImpulsyXperMM(const QString &value)
 {
     impulsyXperMM = value;
-    settings.setValue("impulsyXperMM", QVariant::fromValue(impulsyXperMM));
+    settings.setValue(K_impulsyXperMM, QVariant::fromValue(impulsyXperMM));
 }
 
 QString Ustawienia::getImpulsyYperMM() const
@@ -131,7 +220,7 @@ QString Ustawienia::getImpulsyYperMM() const
 void Ustawienia::setImpulsyYperMM(const QString &value)
 {
     impulsyYperMM = value;
-    settings.setValue("impulsyYperMM", QVariant::fromValue(impulsyYperMM));
+    settings.setValue(K_impulsyYperMM, QVariant::fromValue(impulsyYperMM));
 }
 
 QString Ustawienia::getKrokiXperMM() const
@@ -142,7 +231,7 @@ QString Ustawienia::getKrokiXperMM() const
 void Ustawienia::setKrokiXperMM(const QString &value)
 {
     krokiXperMM = value;
-    settings.setValue("krokiXperMM", QVariant::fromValue(krokiXperMM));
+    settings.setValue(K_krokiXperMM, QVariant::fromValue(krokiXperMM));
 }
 
 QString Ustawienia::getKrokiYperMM() const
@@ -153,7 +242,7 @@ QString Ustawienia::getKrokiYperMM() const
 void Ustawienia::setKrokiYperMM(const QString &value)
 {
     krokiYperMM = value;
-    settings.setValue("krokiYperMM", QVariant::fromValue(krokiYperMM));
+    settings.setValue(K_krokiYperMM, QVariant::fromValue(krokiYperMM));
 }
 
 QString Ustawienia::getKatnachylenia() const
@@ -164,7 +253,7 @@ QString Ustawienia::getKatnachylenia() const
 void Ustawienia::setKatnachylenia(const QString &value)
 {
     katnachylenia = value;
-    settings.setValue("katnachylenia", QVariant::fromValue(katnachylenia));
+    settings.setValue(K_katnachylenia, QVariant::fromValue(katnachylenia));
 }
 
 QString Ustawienia::getWentOffsetX() const
@@ -175,7 +264,7 @@ QString Ustawienia::getWentOffsetX() const
 void Ustawienia::setWentOffsetX(const QString &value)
 {
     wentOffsetX = value;
-    settings.setValue("offsetx", QVariant::fromValue(wentOffsetX));
+    settings.setValue(K_offsetx, QVariant::fromValue(wentOffsetX));
 }
 
 QString Ustawienia::getWentOffsetY() const
@@ -186,7 +275,7 @@ QString Ustawienia::getWentOffsetY() const
 void Ustawienia::setWentOffsetY(const QString &value)
 {
     wentOffsetY = value;
-    settings.setValue("offsety", QVariant::fromValue(wentOffsetY));
+    settings.setValue(K_offsety, QVariant::fromValue(wentOffsetY));
 }
 
 const QString &Ustawienia::getRolDlugosc() const
@@ -197,7 +286,7 @@ const QString &Ustawienia::getRolDlugosc() const
 void Ustawienia::setRolDlugosc(const QString &newRolDlugosc)
 {
     rolDlugosc = newRolDlugosc;
-    settings.setValue("rol_dlugoscMM", QVariant::fromValue(rolDlugosc));
+    settings.setValue(K_rol_dlugoscMM, QVariant::fromValue(rolDlugosc));
 }
 
 const QString &Ustawienia::getRolStepObrot() const
@@ -208,29 +297,51 @@ const QString &Ustawienia::getRolStepObrot() const
 void Ustawienia::setRolStepObrot(const QString &newRolImpObrot)
 {
     rolStepObrot = newRolImpObrot;
-    settings.setValue("rol_stepsPerObrot", QVariant::fromValue(rolStepObrot));
+    settings.setValue(K_rol_stepsPerObrot, QVariant::fromValue(rolStepObrot));
 }
 
-QString Ustawienia::getRolOffsetX() const
+QString Ustawienia::getRolOffsetX_P() const
 {
-    return rolOffsetX;
+    return rolOffsetX_P;
 }
 
-void Ustawienia::setRolOffsetX(const QString &value)
+void Ustawienia::setRolOffsetX_P(const QString &value)
 {
-    rolOffsetX = value;
-    settings.setValue("roleta_offset_x", QVariant::fromValue(rolOffsetX));
+    rolOffsetX_P = value;
+    settings.setValue(K_rol_offset_x_p, QVariant::fromValue(rolOffsetX_P));
 }
 
-QString Ustawienia::getRolOffsetY() const
+QString Ustawienia::getRolOffsetY_P() const
 {
-    return rolOffsetY;
+    return rolOffsetY_P;
 }
 
-void Ustawienia::setRolOffsetY(const QString &value)
+void Ustawienia::setRolOffsetY_P(const QString &value)
 {
-    rolOffsetY = value;
-    settings.setValue("roleta_offset_y", QVariant::fromValue(rolOffsetY));
+    rolOffsetY_P = value;
+    settings.setValue(K_rol_offset_y_p, QVariant::fromValue(rolOffsetY_P));
+}
+
+QString Ustawienia::getRolOffsetX_L() const
+{
+    return rolOffsetX_L;
+}
+
+void Ustawienia::setRolOffsetX_L(const QString &value)
+{
+    rolOffsetX_L = value;
+    settings.setValue(K_rol_offset_x_l, QVariant::fromValue(rolOffsetX_L));
+}
+
+QString Ustawienia::getRolOffsetY_L() const
+{
+    return rolOffsetY_L;
+}
+
+void Ustawienia::setRolOffsetY_L(const QString &value)
+{
+    rolOffsetY_L = value;
+    settings.setValue(K_rol_offset_y_l, QVariant::fromValue(rolOffsetY_L));
 }
 
 const QString &Ustawienia::getRolkrokiperMM() const
@@ -241,152 +352,171 @@ const QString &Ustawienia::getRolkrokiperMM() const
 void Ustawienia::setRolkrokiperMM(const QString &newRolkrokiperMM)
 {
     rolkrokiperMM = newRolkrokiperMM;
-    settings.setValue("rol_krokiperMM", QVariant::fromValue(rolkrokiperMM));
+    settings.setValue(K_rol_krokiperMM, QVariant::fromValue(rolkrokiperMM));
 }
 
-const QString &Ustawienia::getRolObrot1() const
+const QString &Ustawienia::getNormaRoletaWidth() const
 {
-    return rolObrot1;
+    return normaRoletaWidth;
 }
 
-void Ustawienia::setRolObrot1(const QString &newRolObrot1)
+void Ustawienia::setNormaRoletaWidth(const QString &newNormaRoletaWidth)
 {
-    rolObrot1 = newRolObrot1;
-    settings.setValue("rol_obrot1", QVariant::fromValue(rolObrot1));
+    normaRoletaWidth = newNormaRoletaWidth;
+    settings.setValue(K_rol_width, QVariant::fromValue(normaRoletaWidth));
 }
 
-const QString &Ustawienia::getRolObrot2() const
+const QString &Ustawienia::getNormaRoletaHeight() const
 {
-    return rolObrot2;
+    return normaRoletaHeight;
 }
 
-void Ustawienia::setRolObrot2(const QString &newRolObrot2)
+void Ustawienia::setNormaRoletaHeight(const QString &newNormaRoletaHeight)
 {
-    rolObrot2 = newRolObrot2;
-    settings.setValue("rol_obrot2", QVariant::fromValue(rolObrot2));
+    normaRoletaHeight = newNormaRoletaHeight;
+    settings.setValue(K_rol_height, QVariant::fromValue(normaRoletaHeight));
 }
 
-const QString &Ustawienia::getRolObrot3() const
+const QString &Ustawienia::getStacOsXNazwa() const
 {
-    return rolObrot3;
+    return stacOsXNazwa;
 }
 
-void Ustawienia::setRolObrot3(const QString &newRolObrot3)
+void Ustawienia::setStacOsXNazwa(const QString &newStacOsXNazwa)
 {
-    rolObrot3 = newRolObrot3;
-    settings.setValue("rol_obrot3", QVariant::fromValue(rolObrot3));
+    stacOsXNazwa = newStacOsXNazwa;
+    settings.setValue(K_stacOsXNazwa, stacOsXNazwa);
 }
 
-const QString &Ustawienia::getRolObrot4() const
+const QString &Ustawienia::getStacOsYNazwa() const
 {
-    return rolObrot4;
+    return stacOsYNazwa;
 }
 
-void Ustawienia::setRolObrot4(const QString &newRolObrot4)
+void Ustawienia::setStacOsYNazwa(const QString &newStacOsYNazwa)
 {
-    rolObrot4 = newRolObrot4;
-    settings.setValue("rol_obrot4", QVariant::fromValue(rolObrot4));
+    stacOsYNazwa = newStacOsYNazwa;
+    settings.setValue(K_stacOsYNazwa, stacOsYNazwa);
 }
 
-const QString &Ustawienia::getRolObrot5() const
+const QString &Ustawienia::getStacOsXReal() const
 {
-    return rolObrot5;
+    return stacOsXReal;
 }
 
-void Ustawienia::setRolObrot5(const QString &newRolObrot5)
+void Ustawienia::setStacOsXReal(const QString &newStacOsXReal)
 {
-    rolObrot5 = newRolObrot5;
-    settings.setValue("rol_obrot5", QVariant::fromValue(rolObrot5));
+    stacOsXReal = newStacOsXReal;
+    settings.setValue(K_stacOsXReal, stacOsXReal);
 }
 
-const QString &Ustawienia::getRolObrot6() const
+const QString &Ustawienia::getStacOsYReal() const
 {
-    return rolObrot6;
+    return stacOsYReal;
 }
 
-void Ustawienia::setRolObrot6(const QString &newRolObrot6)
+void Ustawienia::setStacOsYReal(const QString &newStacOsYReal)
 {
-    rolObrot6 = newRolObrot6;
-    settings.setValue("rol_obrot6", QVariant::fromValue(rolObrot6));
+    stacOsYReal = newStacOsYReal;
+    settings.setValue(K_stacOsYReal, stacOsYReal);
 }
 
-const QString &Ustawienia::getRolObrot7() const
+const QString &Ustawienia::getOknoOsXNazwa() const
 {
-    return rolObrot7;
+    return oknoOsXNazwa;
 }
 
-void Ustawienia::setRolObrot7(const QString &newRolObrot7)
+void Ustawienia::setOknoOsXNazwa(const QString &newOknoOsXNazwa)
 {
-    rolObrot7 = newRolObrot7;
-    settings.setValue("rol_obrot7", QVariant::fromValue(rolObrot7));
+    oknoOsXNazwa = newOknoOsXNazwa;
+    settings.setValue(K_oknoOsXNazwa, oknoOsXNazwa);
 }
 
-const QString &Ustawienia::getRolObrot8() const
+const QString &Ustawienia::getOknoOsYNazwa() const
 {
-    return rolObrot8;
+    return oknoOsYNazwa;
 }
 
-void Ustawienia::setRolObrot8(const QString &newRolObrot8)
+void Ustawienia::setOknoOsYNazwa(const QString &newOknoOsYNazwa)
 {
-    rolObrot8 = newRolObrot8;
-    settings.setValue("rol_obrot8", QVariant::fromValue(rolObrot8));
+    oknoOsYNazwa = newOknoOsYNazwa;
+    settings.setValue(K_oknoOsYNazwa, oknoOsYNazwa);
 }
 
-const QString &Ustawienia::getRolObrot9() const
+const QString &Ustawienia::getOknoOsXReal() const
 {
-    return rolObrot9;
+    return oknoOsXReal;
 }
 
-void Ustawienia::setRolObrot9(const QString &newRolObrot9)
+void Ustawienia::setOknoOsXReal(const QString &newOknoOsXReal)
 {
-    rolObrot9 = newRolObrot9;
-    settings.setValue("rol_obrot9", QVariant::fromValue(rolObrot9));
+    oknoOsXReal = newOknoOsXReal;
+    settings.setValue(K_oknoOsXReal, oknoOsXReal);
 }
 
-const QString &Ustawienia::getRolObrot10() const
+const QString &Ustawienia::getOknoOsYReal() const
 {
-    return rolObrot10;
+    return oknoOsYReal;
 }
 
-void Ustawienia::setRolObrot10(const QString &newRolObrot10)
+void Ustawienia::setOknoOsYReal(const QString &newOknoOsYReal)
 {
-    rolObrot10 = newRolObrot10;
-    settings.setValue("rol_obrot10", QVariant::fromValue(rolObrot10));
+    oknoOsYReal = newOknoOsYReal;
+    settings.setValue(K_oknoOsYReal, oknoOsYReal);
 }
 
-const QString &Ustawienia::getRolObrot11() const
+const QString &Ustawienia::getRolOsXNazwa() const
 {
-    return rolObrot11;
+    return rolOsXNazwa;
 }
 
-void Ustawienia::setRolObrot11(const QString &newRolObrot11)
+void Ustawienia::setRolOsXNazwa(const QString &newRolOsXNazwa)
 {
-    rolObrot11 = newRolObrot11;
-    settings.setValue("rol_obrot11", QVariant::fromValue(rolObrot11));
+    rolOsXNazwa = newRolOsXNazwa;
+    settings.setValue(K_rolOsXNazwa, rolOsXNazwa);
 }
 
-const QString &Ustawienia::getRolObrot12() const
+const QString &Ustawienia::getRolOsYNazwa() const
 {
-    return rolObrot12;
+    return rolOsYNazwa;
 }
 
-void Ustawienia::setRolObrot12(const QString &newRolObrot12)
+void Ustawienia::setRolOsYNazwa(const QString &newRolOsYNazwa)
 {
-    rolObrot12 = newRolObrot12;
-    settings.setValue("rol_obrot12", QVariant::fromValue(rolObrot12));
+    rolOsYNazwa = newRolOsYNazwa;
+    settings.setValue(K_rolOsYNazwa, rolOsYNazwa);
 }
 
-const QString &Ustawienia::getRolObrot13() const
+const QString &Ustawienia::getRolOsXReal() const
 {
-    return rolObrot13;
+    return rolOsXReal;
 }
 
-void Ustawienia::setRolObrot13(const QString &newRolObrot13)
+void Ustawienia::setRolOsXReal(const QString &newRolOsXReal)
 {
-    rolObrot13 = newRolObrot13;
-    settings.setValue("rol_obrot13", QVariant::fromValue(rolObrot13));
+    rolOsXReal = newRolOsXReal;
+    settings.setValue(K_rolOsXReal, rolOsXReal);
 }
 
+const QString &Ustawienia::getRolOsYReal() const
+{
+    return rolOsYReal;
+}
 
+void Ustawienia::setRolOsYReal(const QString &newRolOsYReal)
+{
+    rolOsYReal = newRolOsYReal;
+    settings.setValue(K_rolOsYReal, rolOsYReal);
+}
 
+const QString &Ustawienia::getRolObrot(unsigned short obr) const
+{
+    return rolObrot[obr];
+}
+
+void Ustawienia::setRolObrot(unsigned short obr, const QString &newRolObrot)
+{
+    rolObrot[obr] = newRolObrot;
+    settings.setValue(number2Digit(obr), QVariant::fromValue(rolObrot[obr]));
+}
 

@@ -33,12 +33,10 @@ public:
     explicit MierzonePozycje(QWidget *parent = nullptr);
     ~MierzonePozycje();
 
-    bool chooseMethod(const WyborMetody::ModeWork & work, const WyborMetody::MethodInsData & data, const WyborMetodyData &values);
     void setList(const Pozycje &pos);
 
     void setValue1(const float & val, const QString & unit);
 
-    void status(const QString & st);
 
     void restart();
 
@@ -48,6 +46,9 @@ public:
     virtual void readedFromRadio(const double &);
     virtual void errorReadFromRadio();
     virtual void setStop();
+    virtual void setStart();
+    virtual void setError();
+    virtual void setStatus(const QString & st);
 
     void noweDane();
 
@@ -67,7 +68,7 @@ private slots:
 
 private:
     typedef enum _statusWork {
-        WAIT_FOR_CONN = 0,
+        WAIT_FOR_READY = 0,
         WAIT,
         FIRST_RUN,
         NEXT_POS,
@@ -78,7 +79,8 @@ private:
         NOW_MEASURING,
         END_MEASURING,
         NEXT_POS_AFTER_HPOS,
-        DONE
+        DONE,
+        END
     } statusWorkEnum;
 
     typedef enum _cols {

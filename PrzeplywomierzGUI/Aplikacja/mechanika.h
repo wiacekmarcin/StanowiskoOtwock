@@ -3,10 +3,13 @@
 
 #include <QString>
 
+#include "ustawienia.h"
 class Ruch
 {
 public:
     Ruch();
+
+    void setUstawienia(Ustawienia &ust);
 
     void setPrzestrzen(unsigned int xmm, unsigned int ymm);
 
@@ -102,27 +105,21 @@ private:
     bool reverseR;
 };
 
-#define ObrotN(N) void setObrot##N(const QString & obr##N) { obrotStala10xmm[N]=10*obr##N.toUInt(); }\
-    unsigned int getObrotx10##N() const { return obrotStala10xmm[N]; } \
-    float getObrot##N() const { return 0.1*obrotStala10xmm[N]; }
-
 class RoletaRuch {
 public:
     RoletaRuch();
 
-    ObrotN(1)
-    ObrotN(2)
-    ObrotN(3)
-    ObrotN(4)
-    ObrotN(5)
-    ObrotN(6)
-    ObrotN(7)
-    ObrotN(8)
-    ObrotN(9)
-    ObrotN(10)
-    ObrotN(11)
-    ObrotN(12)
-    ObrotN(13)
+    void setReverse(bool rev);
+    bool getReverse() const;
+
+    void setUstawienia(Ustawienia & ust);
+
+    void setImpPerObrot(unsigned short obr, const QString & impls);
+
+    void setObrot(unsigned int obr, float value);
+
+    unsigned int getObrotx10(unsigned int obr) const { return obrotStala10xmm[obr]; }
+    float getObrot(unsigned int obr) const { return 0.1*obrotStala10xmm[obr]; }
 
     unsigned int getKrokiPerObrot() const;
     void setKrokiPerObrot(unsigned int newKrokiPerObrot);
@@ -130,7 +127,7 @@ public:
     unsigned long podniescMM(unsigned int mm);
     unsigned long poniescPercent(float percent) {
         return podniescMM((unsigned int)(percent * maxMM / 100));
-    }
+    };
 
     unsigned int getMaxMM() const;
     void setMaxMM(unsigned int newMaxMM);
@@ -138,20 +135,36 @@ public:
     unsigned long getMaxKroki() const;
     void setMaxKroki(unsigned long newMaxKroki);
 
-    unsigned int getOffsetX() const;
-    void setOffsetX(unsigned int newOffsetX);
+    unsigned int getOffsetX_L() const;
+    void setOffsetX_L(unsigned int newOffsetX);
 
-    unsigned int getOffsetY() const;
-    void setOffsetY(unsigned int newOffsetY);
+    unsigned int getOffsetY_L() const;
+    void setOffsetY_L(unsigned int newOffsetY);
+
+    unsigned int getOffsetX_P() const;
+    void setOffsetX_P(unsigned int newOffsetX);
+
+    unsigned int getOffsetY_P() const;
+    void setOffsetY_P(unsigned int newOffsetY);
+
+    void calculate();
+
+
 
 private:
-    static unsigned int obrotStala10xmm[14];
+
+
+    static unsigned int obrotStala10xmm[Ustawienia::getMaxRolObrot()];
     unsigned int krokiPerObrot;
     unsigned int maxMM;
     unsigned long maxKroki;
 
-    unsigned int offsetX;
-    unsigned int offsetY;
+    unsigned int offsetX_P;
+    unsigned int offsetY_P;
+    unsigned int offsetX_L;
+    unsigned int offsetY_L;
+
+    bool reverse;
 };
 
 #endif // MECHANIKA_H

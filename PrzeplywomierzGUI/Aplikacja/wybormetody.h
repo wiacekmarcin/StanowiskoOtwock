@@ -1,6 +1,7 @@
 #ifndef WYBORMETODY_H
 #define WYBORMETODY_H
 
+#include "serialdevice.h"
 #include "ustawienia.h"
 
 #include <QDialog>
@@ -24,8 +25,10 @@ struct WyborMetodyData {
     unsigned int timeStopRoleta;
     QString fileName;
     QString fileName2;
-    unsigned int offsetX;
-    unsigned int offsetY;
+    unsigned int offsetXL;
+    unsigned int offsetYL;
+    unsigned int offsetXP;
+    unsigned int offsetYP;
 };
 
 
@@ -47,13 +50,14 @@ public:
         MODE_1000L,                 //przestrzen robocza lewa 1000x2000
         MODE_FUNSET,                //ustawianie wiatraka
         MODE_SERVICE,               //serwis
-        MODE_ROLETA,                //roleta
+        MODE_ROLETAP,               //roleta po prawej stronie
+        MODE_ROLETAL,               //roleta po lewej stronie
     } ModeWork;
 
 
     explicit WyborMetody(QWidget *parent, ModeWork mode,
                          MethodInsData method,
-                         Ustawienia & u);
+                         Ustawienia & u, SerialDevice & sdev);
     ~WyborMetody();
 
 
@@ -128,7 +132,9 @@ private slots:
 
     void on_numberManual_textChanged(const QString &arg1);
 
-    void on_rbRoleta_toggled(bool checked);
+    void on_rbRoletaL_toggled(bool checked);
+
+    void on_rbRoletaP_toggled(bool checked);
 
     void on_rbRoletaDane_toggled(bool checked);
 
@@ -152,6 +158,10 @@ private slots:
 
     void on_normaStabTimeFile_textChanged(const QString &arg1);
 
+    void on_pbNormaCancel_clicked();
+
+    void on_pbNornaSet_clicked();
+
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
@@ -166,7 +176,7 @@ protected:
     bool isValidPostojRolety(QLineEdit *number);
     bool isValidIloscRolety(QLineEdit *number);
 
-    void visibleRoleta(bool visible);
+    void visibleRoleta(bool visible, bool left);
     void visibleOther(bool visible);
 
     bool isValidRoletaRB();
@@ -183,12 +193,13 @@ private:
     static constexpr int maxTime = 3600;
     static constexpr int minTime = 1;
     static constexpr int maxRolet = 15;
-    static constexpr int minRolet = 2;
+    static constexpr int minRolet = 1;
     static constexpr int maxPostoj = 3600;
 
 
     bool startWindow;
 
     Ustawienia & ust;
+    SerialDevice & sd;
 };
 #endif // WYBORMETODY_H

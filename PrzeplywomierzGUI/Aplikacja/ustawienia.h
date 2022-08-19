@@ -24,7 +24,6 @@ public:
     QString getUnitCzujnik1() const;
     void setUnitCzujnik1(const QString &value);
 
-
     QString getImpulsyXperMM() const;
     void setImpulsyXperMM(const QString &value);
 
@@ -36,7 +35,6 @@ public:
 
     QString getKrokiYperMM() const;
     void setKrokiYperMM(const QString &value);
-
 
     QString getKatnachylenia() const;
     void setKatnachylenia(const QString &value);
@@ -53,57 +51,71 @@ public:
     const QString &getRolStepObrot() const;
     void setRolStepObrot(const QString &newRolImpObrot);
 
-    const QString &getRolObrot1() const;
-    void setRolObrot1(const QString &newRolObrot1);
+    const QString &getRolObrot(unsigned short obr) const;
+    void setRolObrot(unsigned short obr, const QString &newRolObrot1);
 
-    const QString &getRolObrot2() const;
-    void setRolObrot2(const QString &newRolObrot2);
+    QString getRolOffsetX_P() const;
+    void setRolOffsetX_P(const QString &value);
 
-    const QString &getRolObrot3() const;
-    void setRolObrot3(const QString &newRolObrot3);
+    QString getRolOffsetY_P() const;
+    void setRolOffsetY_P(const QString &value);
 
-    const QString &getRolObrot4() const;
-    void setRolObrot4(const QString &newRolObrot4);
+    QString getRolOffsetX_L() const;
+    void setRolOffsetX_L(const QString &value);
 
-    const QString &getRolObrot5() const;
-    void setRolObrot5(const QString &newRolObrot5);
-
-    const QString &getRolObrot6() const;
-    void setRolObrot6(const QString &newRolObrot6);
-
-    const QString &getRolObrot7() const;
-    void setRolObrot7(const QString &newRolObrot7);
-
-    const QString &getRolObrot8() const;
-    void setRolObrot8(const QString &newRolObrot8);
-
-    const QString &getRolObrot9() const;
-    void setRolObrot9(const QString &newRolObrot9);
-
-    const QString &getRolObrot10() const;
-    void setRolObrot10(const QString &newRolObrot10);
-
-    const QString &getRolObrot11() const;
-    void setRolObrot11(const QString &newRolObrot11);
-
-    const QString &getRolObrot12() const;
-    void setRolObrot12(const QString &newRolObrot12);
-
-    const QString &getRolObrot13() const;
-    void setRolObrot13(const QString &newRolObrot13);
-
-    QString getRolOffsetX() const;
-    void setRolOffsetX(const QString &value);
-
-    QString getRolOffsetY() const;
-    void setRolOffsetY(const QString &value);
+    QString getRolOffsetY_L() const;
+    void setRolOffsetY_L(const QString &value);
 
     const QString &getRolkrokiperMM() const;
     void setRolkrokiperMM(const QString &newRolkrokiperMM);
 
+    const QString &getNormaRoletaWidth() const;
+    void setNormaRoletaWidth(const QString &newNormaRoletaWidth);
+
+    const QString &getNormaRoletaHeight() const;
+    void setNormaRoletaHeight(const QString &newNormaRoletaHeight);
+
+    static constexpr int getMaxRolObrot() { return maxObrot; }
+
+    const QString &getStacOsXNazwa() const;
+    void setStacOsXNazwa(const QString &newStacOsXNazwa);
+
+    const QString &getStacOsYNazwa() const;
+    void setStacOsYNazwa(const QString &newStacOsYNazwa);
+
+    const QString &getStacOsXReal() const;
+    void setStacOsXReal(const QString &newStacOsXReal);
+
+    const QString &getStacOsYReal() const;
+    void setStacOsYReal(const QString &newStacOsYReal);
+
+    const QString &getOknoOsXNazwa() const;
+    void setOknoOsXNazwa(const QString &newOknoOsXNazwa);
+
+    const QString &getOknoOsYNazwa() const;
+    void setOknoOsYNazwa(const QString &newOknoOsYNazwa);
+
+    const QString &getOknoOsXReal() const;
+    void setOknoOsXReal(const QString &newOknoOsXReal);
+
+    const QString &getOknoOsYReal() const;
+    void setOknoOsYReal(const QString &newOknoOsYReal);
+
+    const QString &getRolOsXNazwa() const;
+    void setRolOsXNazwa(const QString &newRolOsXNazwa);
+
+    const QString &getRolOsYNazwa() const;
+    void setRolOsYNazwa(const QString &newRolOsYNazwa);
+
+    const QString &getRolOsXReal() const;
+    void setRolOsXReal(const QString &newRolOsXReal);
+
+    const QString &getRolOsYReal() const;
+    void setRolOsYReal(const QString &newRolOsYReal);
+
 private:
     QSettings settings;
-
+    static constexpr int maxObrot = 30;
     static char appnazwa[];
     static char firmnazwa[];
 
@@ -123,23 +135,32 @@ private:
 
     QString rolDlugosc;
     QString rolStepObrot;
-    QString rolObrot1;
-    QString rolObrot2;
-    QString rolObrot3;
-    QString rolObrot4;
-    QString rolObrot5;
-    QString rolObrot6;
-    QString rolObrot7;
-    QString rolObrot8;
-    QString rolObrot9;
-    QString rolObrot10;
-    QString rolObrot11;
-    QString rolObrot12;
-    QString rolObrot13;
+    QString rolObrot[maxObrot];
 
-    QString rolOffsetX;
-    QString rolOffsetY;
+    QString rolOffsetX_P;
+    QString rolOffsetY_P;
+    QString rolOffsetX_L;
+    QString rolOffsetY_L;
     QString rolkrokiperMM;
+
+    QString normaRoletaWidth;
+    QString normaRoletaHeight;
+
+    QString stacOsXNazwa;
+    QString stacOsYNazwa;
+    QString stacOsXReal;
+    QString stacOsYReal;
+
+    QString oknoOsXNazwa;
+    QString oknoOsYNazwa;
+    QString oknoOsXReal;
+    QString oknoOsYReal;
+
+    QString rolOsXNazwa;
+    QString rolOsYNazwa;
+    QString rolOsXReal;
+    QString rolOsYReal;
+
 };
 
 #endif // USTAWIENIA_H
