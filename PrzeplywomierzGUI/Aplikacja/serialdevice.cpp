@@ -611,7 +611,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         DEBUGSER("Sending bytes....");
         int sendBytes = m_serialPort.write(currentRequest);
         if (!m_serialPort.waitForBytesWritten(currentWaitWriteTimeout)) {
-            qDebug() << "Timeout write";
+            //qDebig() << "Timeout write";
             emit error(QString("Timeout Write"));
             return msg;
         }

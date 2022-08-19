@@ -64,7 +64,7 @@ PozycjeRoleta::~PozycjeRoleta()
 
 void PozycjeRoleta::setList(const PozycjeRol &l)
 {
-    qDebug() << __FILE__ << __LINE__ << l.size();
+    //qDebig() << __FILE__ << __LINE__ << l.size();
     ui->table->setRowCount(0);
     //ui->table->setRowCount(l.size());
     for (int r = 0; r < l.size(); r++) {
@@ -76,7 +76,7 @@ void PozycjeRoleta::setList(const PozycjeRol &l)
         }
     }
     adjustSize();
-    qDebug() << __FILE__ << __LINE__  << ui->table->rowCount();
+    //qDebig() << __FILE__ << __LINE__  << ui->table->rowCount();
 }
 
 unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR,

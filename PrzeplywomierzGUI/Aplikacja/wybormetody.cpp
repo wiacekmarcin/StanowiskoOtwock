@@ -41,9 +41,9 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns,
     QString oxl = ust.getRolOffsetX_L();
     QString oyl = ust.getRolOffsetY_L();
 
-    qDebug() << "oxp" << oxp << "oyp" << oyp << "oxl" << oxl << "oyl" << oyl;
+    //qDebig() << "oxp" << oxp << "oyp" << oyp << "oxl" << oxl << "oyl" << oyl;
 
-    //qDebug() << __FILE__ << __LINE__ <<  ox << oy;
+    ////qDebig() << __FILE__ << __LINE__ <<  ox << oy;
     ui->normaOffsetXL->setText(oxl);
     ui->normaOffsetXEditL->setText(oxl);
     ui->normaOffsetXP->setText(oxp);
@@ -72,7 +72,7 @@ WyborMetody::~WyborMetody()
 
 void WyborMetody::init()
 {
-    qDebug() << __FILE__ << __LINE__ << wbMode << wbInsData;
+    //qDebig() << __FILE__ << __LINE__ << wbMode << wbInsData;
     on_rbfile_toggled(false);
     on_rbmanual_toggled(false);
     on_rbhalfmanual_toggled(false);
@@ -165,7 +165,7 @@ void WyborMetody::init()
 
 void WyborMetody::initMethodPosition()
 {
-    //qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
+    ////qDebig() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
     switch(wbInsData)
     {
     case METHOD_FILE:
@@ -358,7 +358,7 @@ void WyborMetody::visibleRoleta(bool visible, bool left)
     if (visible) {
         ui->pbNormaOffsetSave->setEnabled(false);
         ui->pbNormaOffsetChange->setEnabled(true);
-        qDebug() << "left" << left;
+        //qDebig() << "left" << left;
         ui->normaOffsetXL->setVisible(left);
         ui->normaOffsetYL->setVisible(left);
         ui->normaOffsetXP->setVisible(!left);
@@ -523,7 +523,7 @@ void WyborMetody::on_rbRoletaP_toggled(bool checked)
         visibleRoleta(true, false);
         on_rbRoletaDane_toggled(true);
     }
-    qDebug() << "ROLETAP checked" << checked << "wbMode" << wbMode;
+    //qDebig() << "ROLETAP checked" << checked << "wbMode" << wbMode;
 }
 
 void WyborMetody::on_rbRoletaL_toggled(bool checked)
@@ -534,7 +534,7 @@ void WyborMetody::on_rbRoletaL_toggled(bool checked)
         visibleRoleta(true, true);
         on_rbRoletaDane_toggled(true);
     }
-    qDebug() << "ROLETAL checked" << checked << "wbMode" << wbMode;
+    //qDebig() << "ROLETAL checked" << checked << "wbMode" << wbMode;
 }
 
 void WyborMetody::on_timeManualDefault_editingFinished()
@@ -549,7 +549,7 @@ void WyborMetody::on_timeManualDefault_editingFinished()
 
 void WyborMetody::reject()
 {
-    //qDebug() << __FILE__ << __LINE__ << __FUNCTION__;
+    ////qDebig() << __FILE__ << __LINE__ << __FUNCTION__;
     QMessageBox::StandardButton resBtn = QMessageBox::Yes;
     resBtn = QMessageBox::question( this, "Przeplywomierz",
                                         tr("Czy jesteś pewny?\n"),
@@ -830,14 +830,14 @@ void WyborMetody::on_normaEtapNumberFile_textChanged(const QString &arg1)
 
 void WyborMetody::on_normaStabTimeFile_textChanged(const QString &arg1)
 {
-    //qDebug() << data.stableTimeRoleta << arg1;
+    ////qDebig() << data.stableTimeRoleta << arg1;
     if (!isValidPostojRolety(ui->normaStabTimeFile)) {
         setEnabledContinue(false);
         return;
     }
-    //qDebug() << "ok";
+    ////qDebig() << "ok";
     data.stableTimeRoleta = arg1.toUInt();
-    //qDebug() << data.stableTimeRoleta;
+    ////qDebig() << data.stableTimeRoleta;
     setEnabledContinue(isValidRoletaRB() && isValidNumberRolety(ui->normaEtapNumberFile) && !ui->wybranyPlikRolety->text().isEmpty());
 }
 

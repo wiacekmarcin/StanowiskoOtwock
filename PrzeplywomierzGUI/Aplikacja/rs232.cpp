@@ -284,7 +284,7 @@ int RS232_SendBuf(int comport_number, unsigned char *buf, int size)
 void RS232_CloseComport(int comport_number)
 {
 #ifdef SYMULATORSERIAL
-    qDebug() << __FILE__ << __LINE__;
+    //qDebig() << __FILE__ << __LINE__;
     (void)comport_number;
 #else
   CloseHandle(Cport[comport_number]);

@@ -55,7 +55,7 @@ void Wentylator::pbZeruj_clicked()
 
 void Wentylator::positionDone(bool home)
 {
-    qDebug() << __FILE__ << __LINE__;
+    //qDebig() << __FILE__ << __LINE__;
     if (home) {
         ui->lStatusWiatrak->setText("Ustawiem zadaną pozycję.");
         addStatus("Zaczynam ustawiac pozycje");

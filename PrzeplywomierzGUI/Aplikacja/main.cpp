@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
         MiernikPrzeplywu w;
         w.show();
         //ar = w.exec();
-        //qDebug() << "exec" << ar;
+        ////qDebig() << "exec" << ar;
         //mode = w.getModeWork();
         //method = w.getMethodIns();
     //} while (ar != 0);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
                     "qt", "_",
                     QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         {
-            //qDebug() << "qtTranslator ok";
+            ////qDebig() << "qtTranslator ok";
             a.installTranslator(&qtTranslator);
         }
 
@@ -50,21 +50,21 @@ int main(int argc, char *argv[])
         if (qtBaseTranslator.load("qtbase_" + QLocale::system().name(),
                     QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         {
-            //qDebug() << "qtBaseTranslator ok";
+            ////qDebig() << "qtBaseTranslator ok";
             a.installTranslator(&qtBaseTranslator);
         }
 
         int r = m.exec();
-        qDebug() << "1 r=" << r;
+        //qDebig() << "1 r=" << r;
         if (r == 1) {
-            qDebug() << "Start app\n";
+            //qDebig() << "Start app\n";
             MiernikPrzeplywu w(NULL, m.getWbMode(), m.getWbMetoda(), m.getData());
         	w.setUstawienia(&u);
         	w.show();
             ar = w.exec();
             mode = w.getModeWork();
             method = w.getMethodIns();
-            qDebug() << "1 ar=" << ar << "\n";
+            //qDebig() << "1 ar=" << ar << "\n";
         } else {
             ar = 0;
         }

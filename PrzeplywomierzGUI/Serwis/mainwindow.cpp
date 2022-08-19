@@ -91,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->gridLayout_3->addWidget(RolObrot, 4 + i, 1, 1, 1);
 
         RolObrot->setText(ust.getRolObrot(i));
-        qDebug() << ust.getRolObrot(i);
+        \\QDebug() << ust.getRolObrot(i);
     }
 
     QFrame * line_7 = new QFrame(ui->scrollArea);

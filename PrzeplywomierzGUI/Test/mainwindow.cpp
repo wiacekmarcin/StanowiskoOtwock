@@ -120,41 +120,41 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
 {
     switch(work) {
     case SerialMessage::START_XY:
-        qDebug() << "start both";
+        \\QDebug() << "start both";
         ui->cbPosStart->setChecked(true);
         //ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        qDebug() << "start lewoprawo";
+        \\QDebug() << "start lewoprawo";
         ui->cbPosStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        qDebug() << "end lewo";
+        \\QDebug() << "end lewo";
         ui->cbPosKoniecLP->setChecked(true);
         ui->stepX->setText(QString::number(sMsg.getMoveStepX()));
         ui->posImpX->setText(QString::number(sMsg.getPosImpX()));
         break;
     case SerialMessage::START_Y:
-        qDebug() << "Start gora dol";
+        \\QDebug() << "Start gora dol";
         ui->cbPosStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        qDebug() << "Koniec gora dol";
+        \\QDebug() << "Koniec gora dol";
         ui->cbPosKoniecGD->setChecked(true);
         ui->stepY->setText(QString::number(sMsg.getMoveStepY()));
         ui->posImpY->setText(QString::number(sMsg.getPosImpY()));
         break;
     case SerialMessage::END_XY:
-        qDebug() << "Koniec pozycjoowanie";
+        \\QDebug() << "Koniec pozycjoowanie";
         ui->cbPosKoniec->setChecked(true);
         //ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        qDebug() << "Poczatek bazowania";
+        \\QDebug() << "Poczatek bazowania";
         ui->cbRolPosStart->setChecked(true);
         break;
     case SerialMessage::END_R:
-        qDebug() << "Koniec bazowania";
+        \\QDebug() << "Koniec bazowania";
         ui->cbRolPosKoniec->setChecked(true);
         //ui->pbRoletaUstaw->setEnabled(true);
         ui->stepR->setText(QString::number(sMsg.getMoveStepR()));
@@ -174,43 +174,43 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
 
 void MainWindow::homeDone(SerialMessage::StatusWork work)
 {
-    qDebug() << "homeDone work" << work;
+    \\QDebug() << "homeDone work" << work;
     switch(work) {
     case SerialMessage::START_XY:
-        qDebug() << "Start home";
+        \\QDebug() << "Start home";
         ui->cbHomeStart->setChecked(true);
         //ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        qDebug() << "Start X";
+        \\QDebug() << "Start X";
         ui->cbHomeStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        qDebug() << "End X";
+        \\QDebug() << "End X";
         ui->cbHomeKoniecLP->setChecked(true);
         ui->homeStepsX->setText(QString::number(sMsg.getMoveStepX()));
         break;
     case SerialMessage::START_Y:
-        qDebug() << "Start Y";
+        \\QDebug() << "Start Y";
         ui->cbHomeStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        qDebug() << "End Y";
+        \\QDebug() << "End Y";
         ui->cbHomeKoniecGD->setChecked(true);
         ui->homeStepsY->setText(QString::number(sMsg.getMoveStepY()));
         break;
     case SerialMessage::END_XY:
-        qDebug() << "Koniec Baza";
+        \\QDebug() << "Koniec Baza";
         ui->cbHomeKoniec->setChecked(true);
         //ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        qDebug() << "Start R";
+        \\QDebug() << "Start R";
         ui->cbRolHomeStart->setChecked(true);
         //ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
-        qDebug() << "End R";
+        \\QDebug() << "End R";
         ui->cbRolHomeKoniec->setChecked(true);
         //ui->pbRoletaHome->setEnabled(true);
         ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));

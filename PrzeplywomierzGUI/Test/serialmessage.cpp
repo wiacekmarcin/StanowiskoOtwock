@@ -99,9 +99,9 @@ void SerialMessage::serialError(const QSerialPort::SerialPortError &error)
 
 void SerialMessage::checkController()
 {
-    qDebug() << "checkController";
+    \\QDebug() << "checkController";
     if (setParamsWork) {
-        qDebug() << __FILE__ << __LINE__ << "setParam";
+        \\QDebug() << __FILE__ << __LINE__ << "setParam";
         setSettings1(memoryreverseX, memoryreverseY, memoryreverseR, memorymaxImpX, memorymaxImpY);
         setParamsWork = false;
     }
@@ -109,7 +109,7 @@ void SerialMessage::checkController()
 
 void SerialMessage::connectToSerial()
 {
-    qDebug() << "Connect to serial";
+    \\QDebug() << "Connect to serial";
     const auto serialPortInfos = QSerialPortInfo::availablePorts();
 
     QString description;
@@ -122,7 +122,7 @@ void SerialMessage::connectToSerial()
         description = serialPortInfo.description();
         manufacturer = serialPortInfo.manufacturer();
         serialNumber = serialPortInfo.serialNumber();
-        qDebug() << "D" << description.toStdString().c_str()
+        \\QDebug() << "D" << description.toStdString().c_str()
                  << "M" << manufacturer.toStdString().c_str()
                  << "S" << serialNumber.toStdString().c_str();
 
@@ -133,7 +133,7 @@ void SerialMessage::connectToSerial()
 
                 auto vendorId = serialPortInfo.vendorIdentifier();
                 auto productId = serialPortInfo.productIdentifier();
-                qDebug() << vendorId << " : " << productId;
+                \\QDebug() << vendorId << " : " << productId;
                 if (vendorId == 6991 && productId == 37382 /*&& serialNumber == serialNumberKontroler*/) {
                     //if (sendMesgWelcome(serialPortInfo)) {
                     //    connSerial = true;
@@ -160,14 +160,14 @@ void SerialMessage::setPositionHome()
 
 void SerialMessage::setSettings1(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
 {
-    qDebug() << __FILE__ << __LINE__ << "set setttings 1";
+    \\QDebug() << __FILE__ << __LINE__ << "set setttings 1";
     emit debug(QString(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY).toHex().toStdString().c_str()));
     writeMessage(settings1Msg(reverseX, reverseY, reverseR, maxImpX, maxImpY));
 }
 
 void SerialMessage::setSettings2(uint32_t stepMaxX, uint32_t stepMaxY, uint32_t stepMaxR)
 {
-    qDebug() << __FILE__ << __LINE__ << "set setttings 2";
+    \\QDebug() << __FILE__ << __LINE__ << "set setttings 2";
     emit debug(QString(settings2Msg(stepMaxX, stepMaxY, stepMaxR).toHex().toStdString().c_str()));
     writeMessage(settings2Msg(stepMaxX, stepMaxY, stepMaxR));
 }
@@ -195,7 +195,7 @@ void SerialMessage::setParams(bool reverseX, bool reverseY, bool reverseR,
                               uint32_t maxStepX, uint32_t maxStepY,
                               uint32_t maxStepR)
 {
-    qDebug() << __FILE__ << __LINE__ << "Reset";
+    \\QDebug() << __FILE__ << __LINE__ << "Reset";
     setParamsWork = true;
 
     memoryreverseX = reverseX;
@@ -221,7 +221,7 @@ void SerialMessage::readRadio()
 
 void SerialMessage::sendReset()
 {
-    qDebug() << __FILE__ << __LINE__ << "Reset";
+    \\QDebug() << __FILE__ << __LINE__ << "Reset";
     emit debug(QString(welcomeMsg().toHex().toStdString().c_str()));
     writeMessage(welcomeMsg());
 }
@@ -370,7 +370,7 @@ QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uin
 
 uint32_t SerialMessage::getNumber(const QByteArray &data)
 {
-    qDebug() << data.toHex().toStdString().c_str();
+    \\QDebug() << data.toHex().toStdString().c_str();
     return ((data[0] & 0xff) << 24) +  ((data[1] & 0xff) << 16) + ((data[2] & 0xff) << 8) + (data[3] & 0xff);
 }
 
@@ -642,7 +642,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
         case SET_PARAM_REP:
         {
-            qDebug() << "setParams reply" << (unsigned int) data[0];
+            \\QDebug() << "setParams reply" << (unsigned int) data[0];
             if (data[0] == (char)1) {
 
                 setSettings2(memoryStepX, memoryStepY, memoryStepR);

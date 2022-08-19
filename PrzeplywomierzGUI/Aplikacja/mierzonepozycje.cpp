@@ -16,7 +16,8 @@
 #include "recznedodpozycji.h"
 #include "miernikprzeplywu.h"
 
-#define DEBUGMPZ(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+//#define DEBUGMPZ(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+#define DEBUGMPZ(X)
 
 MierzonePozycje::MierzonePozycje(QWidget *parent) :
     TabWidget(parent),
