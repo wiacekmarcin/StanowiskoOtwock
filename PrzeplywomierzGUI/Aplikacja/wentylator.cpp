@@ -1,4 +1,5 @@
 #include "wentylator.h"
+#include "miernikprzeplywu.h"
 #include "ui_wentylator.h"
 
 Wentylator::Wentylator(QWidget *parent) :
@@ -10,6 +11,7 @@ Wentylator::Wentylator(QWidget *parent) :
     ui->errorWentylatorY->setVisible(false);
     ui->errorWentylatorL->setVisible(false);
     ui->pbZeruj->setVisible(false);
+    ui->pbUstaw->setVisible(true);
     //ui->statusWentylator->setVisible(false);
 
     connect(ui->pbUstaw, &QPushButton::clicked, this, &Wentylator::pbUstaw_clicked);
@@ -56,7 +58,7 @@ void Wentylator::positionDone(bool home)
     qDebug() << __FILE__ << __LINE__;
     if (home) {
         ui->lStatusWiatrak->setText("Ustawiem zadaną pozycję.");
-        addStatus("Wyzerowana pozycja - zaczynam ustawiac pozycje");
+        addStatus("Zaczynam ustawiac pozycje");
         setPosition(impx, impy);
     } else {
         ui->pbUstaw->setEnabled(true);
@@ -235,3 +237,10 @@ void Wentylator::addStatus(const QString &log)
 {
     ui->statusWentylator->append(addTime(log));
 }
+
+void Wentylator::on_pbSelect_clicked()
+{
+    if (miernikPrzeplywu)
+        TabWidget::miernikPrzeplywu->noweDane();
+}
+

@@ -431,7 +431,12 @@ void MiernikPrzeplywu::kontrolerConfigured(bool success, int state)
         ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
         ui->lStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
         ui->lConneected->setText(QString("%1 - kontroler OK.").arg(m_portName));
-
+        if (modeWork == WyborMetody::MODE_FUNSET) {
+            if (widget) {
+                Wentylator * w = static_cast<Wentylator*>(widget);
+                w->addStatus("Sterownik skonfigurowany");
+            }
+        }
         setParamsDone(true);
         break;
 
@@ -468,6 +473,8 @@ void MiernikPrzeplywu::setParamsDone(bool success)
         widget->setStatus(QString("Ustawiam czujnik w pozycji bazowej"));
         ui->lStatus->setText(QString("Trwa zerowanie urządzenia...."));
         ui->statusbar->showMessage("Ustawiam czujnik w pozycji bazowej", 5000);
+        Wentylator * w = static_cast<Wentylator*>(widget);
+        w->addStatus("Zeruje pozycje lasera");
         setPositionHome();
     } else {
         widget->setStatus(QString("Sprawdzam połączenie z modułem radiowym"));
@@ -578,6 +585,12 @@ void MiernikPrzeplywu::positionHome()
         }
 
     } else {
+        if (modeWork == WyborMetody::MODE_FUNSET) {
+            if (widget) {
+                Wentylator * w = static_cast<Wentylator*>(widget);
+                w->addStatus("Urządzenie wyzerowane.");
+            }
+        }
         widget->positionDone(true);
     }
 }

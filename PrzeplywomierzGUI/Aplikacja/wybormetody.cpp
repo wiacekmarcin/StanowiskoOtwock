@@ -72,7 +72,7 @@ WyborMetody::~WyborMetody()
 
 void WyborMetody::init()
 {
-    //qDebug() << __FILE__ << __LINE__ << __PRETTY_FUNCTION__ << wbInsData;
+    qDebug() << __FILE__ << __LINE__ << wbMode << wbInsData;
     on_rbfile_toggled(false);
     on_rbmanual_toggled(false);
     on_rbhalfmanual_toggled(false);
@@ -96,7 +96,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            ui->gbMethod->setVisible(true);
+            //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
         case MODE_1000P:
@@ -108,7 +108,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            ui->gbMethod->setVisible(true);
+            //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
         case MODE_1000L:
@@ -120,19 +120,20 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            ui->gbMethod->setVisible(true);
+            //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
         case MODE_FUNSET:
             visibleOther(false);
             visibleRoleta(false, false);
-            ui->gbMethod->setVisible(false);
-            ui->gbMethod->setDisabled(true);
+            ui->rbFunSet->setChecked(true);
+            //ui->gbMethod->setVisible(false);
+            //ui->gbMethod->setDisabled(true);
         break;
         case MODE_SERVICE:
             visibleOther(false);
             visibleRoleta(false, false);
-            ui->gbMethod->setVisible(false);
+            //ui->gbMethod->setVisible(false);
         break;
         case MODE_ROLETAP:
             ui->rb2700->setChecked(false);
@@ -143,7 +144,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(false);
             visibleRoleta(true, false);
-            ui->gbMethod->setVisible(true);
+            //ui->gbMethod->setVisible(true);
         break;
         case MODE_ROLETAL:
             ui->rb2700->setChecked(false);
@@ -154,7 +155,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(true);
             visibleOther(false);
             visibleRoleta(true, true);
-            ui->gbMethod->setVisible(true);
+            //ui->gbMethod->setVisible(true);
     break;
     default:
         break;
