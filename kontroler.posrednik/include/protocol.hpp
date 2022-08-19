@@ -60,6 +60,9 @@ protected:
 
     bool wasWelcomeMsg;
     unsigned long timeSendRadioVal;
+
+    uint8_t param1[17];
+    uint8_t param2[17];
 };
 
     
