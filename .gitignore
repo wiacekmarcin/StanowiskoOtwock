@@ -64,8 +64,8 @@ PrzeplywomierzGUI/Serwis/Makefile
 PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI.pro.user
 PrzeplywomierzGUI/Serwis/PrzeplywomierzSewis.pro.user
 PrzeplywomierzGUI/Serwis/PrzeplywomierzSewis.pro.user*
-PrzeplywomierzGUI/Serwis/PrzeplywomierzTest.pro.user
-PrzeplywomierzGUI/Serwis/PrzeplywomierzTest.pro.user*
+PrzeplywomierzGUI/Test/PrzeplywomierzTest.pro.user
+PrzeplywomierzGUI/Test/PrzeplywomierzTest.pro.user*
 PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI
 PrzeplywomierzGUI/Aplikacja/qrc_ikony.cpp
 
