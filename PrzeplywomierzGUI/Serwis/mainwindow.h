@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "ustawienia.h"
+#include "../Aplikacja/ustawienia.h"
 namespace Ui {
 class MainWindow;
 }
