@@ -34,6 +34,7 @@ private slots:
 private:
     Ui::Wentylator *ui;
     uint32_t impx, impy;
+    bool conn;
 
 };
 

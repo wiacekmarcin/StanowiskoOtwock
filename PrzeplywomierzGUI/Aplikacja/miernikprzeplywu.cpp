@@ -21,7 +21,7 @@
 
 #include <QDebug>
 
-#define DEBUGMP(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+//#define DEBUGMP(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
 #define DEBUGMP(X) 
 
 MiernikPrzeplywu::MiernikPrzeplywu()
@@ -39,6 +39,9 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     sMsg.setThread(&thSterownik);
 
     setUstawienia();
+    for (int m = 1400; m < 1520; m += 10) {
+        qDebug() << m << mechR.podniescMM(m);
+    }
 
     connect(&sMsg, &SerialDevice::error, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
     connect(&sMsg, &SerialDevice::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
@@ -57,6 +60,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     ui->lStanowisko1000_2000lewe->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
     ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
     ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+
 
 }
 
@@ -310,7 +314,6 @@ void MiernikPrzeplywu::setUstawienia()
     mechR.setUstawienia(ust);
 
     mech.calculate();
-    mechR.calculate();
 }
 
 

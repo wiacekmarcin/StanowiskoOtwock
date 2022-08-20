@@ -26,7 +26,7 @@ SerialWorker::~SerialWorker()
     actTask = IDLE;
     newTask.wakeOne();
     mutex.unlock();
-    wait();
+    wait(120000);
 }
 
 bool SerialWorker::command(Task curr)

@@ -4,7 +4,8 @@
 
 Wentylator::Wentylator(QWidget *parent) :
     TabWidget(parent),
-    ui(new Ui::Wentylator)
+    ui(new Ui::Wentylator),
+    conn(false)
 {
     ui->setupUi(this);
     ui->errorWentylatorX->setVisible(false);
@@ -34,10 +35,15 @@ void Wentylator::pbUstaw_clicked()
         ui->pbUstaw->setEnabled(true);
         return;
     }
-
-   addStatus("Szukam kontrolera.");
-   ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
-   connectToDevice();
+    if (!conn) {
+        addStatus("Szukam kontrolera.");
+        ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
+        connectToDevice();
+        conn = true;
+    } else {
+        addStatus("Zaczynam ustawiac pozycje");
+        setPosition(impx, impy);
+    }
 
 }
 
@@ -64,13 +70,14 @@ void Wentylator::positionDone(bool home)
         ui->pbUstaw->setEnabled(true);
         ui->lStatusWiatrak->setText("Pozycja wentylatora ustawiona");
         addStatus("Pozycja ustawiona.");
-        setClose(false);
+        //setClose(false);
     }
 }
 
 void Wentylator::setStop()
 {
     ui->pbUstaw->setEnabled(true);
+    conn=false;
 }
 
 void Wentylator::setError()
@@ -78,6 +85,8 @@ void Wentylator::setError()
     ui->pbUstaw->setEnabled(true);
     ui->lStatusWiatrak->setText("Wystapił błąd.");
     addStatus("Wystapił błąd.");
+    conn=false;
+    setClose(false);
 }
 
 bool Wentylator::sprawdz()
@@ -240,6 +249,8 @@ void Wentylator::addStatus(const QString &log)
 
 void Wentylator::on_pbSelect_clicked()
 {
+    conn=false;
+    setClose(false);
     if (miernikPrzeplywu)
         TabWidget::miernikPrzeplywu->noweDane();
 }

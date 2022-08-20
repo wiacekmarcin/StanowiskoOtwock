@@ -12,7 +12,7 @@
 #include "serialmessage.h"
 #include "ustawienia.h"
 
-#define SERIALLINUX
+//#define SERIALLINUX
 
 class SerialDevice;
 class QThread;

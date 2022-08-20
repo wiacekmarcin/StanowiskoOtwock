@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 class QLineEdit;
+class QLabel;
 
 class MainWindow : public QMainWindow
 {
@@ -29,10 +30,13 @@ private slots:
 
     void on_pbSaveWymiary_clicked();
 
+    void on_pbcalculate_clicked();
+
 private:
     Ui::MainWindow *ui;
     Ustawienia ust;
     QLineEdit *RolObrotTab[30];
+    QLabel *sumLabel[30];
 };
 
 #endif // MAINWINDOW_H
