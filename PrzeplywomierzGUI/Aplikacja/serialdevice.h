@@ -388,7 +388,7 @@ private:
     uint32_t m_impX, m_impY, m_stepR;
 
 #ifdef SERIALLINUX
-    QSerialPort m_serialPort;
+    QSerialPort * m_serialPort;
 #endif
 };
 

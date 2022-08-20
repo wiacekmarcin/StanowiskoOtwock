@@ -754,7 +754,7 @@ void MiernikPrzeplywu::deviceName(const QString & portname)
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
     //ui->debug->append(dbg);
-    //qDebug() << addTime(dbg);
+    qDebug() << addTime(dbg);
 }
 
 const WyborMetodyData &MiernikPrzeplywu::getData() const
