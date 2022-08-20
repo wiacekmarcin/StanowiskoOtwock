@@ -12,7 +12,7 @@ uint32_t gStepMaxX = 73000L;
 uint32_t gStepMaxY = 76000L;
 
 
-int32_t gStepMaxR = 160000L;
+int32_t gStepMaxR = 60000L;
 
 #ifdef OKNO_SILNIK_PRAWA
     bool reverseY = false;
@@ -290,7 +290,7 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            stepR(50, 200);
+            stepR(50, 400);
         }
         if (!getHomePosR()) {
             msg.setErrorRoletaHomeBack();
@@ -304,8 +304,8 @@ bool returnBaseR()
         Serial.println(digitalRead(BASE_R),DEC);
 #endif
         //przesuwam jeszcze z 2mm glebiej karetke
-        uint16_t idx = 500;
-        step += 500;
+        uint16_t idx = 250;
+        step += 250;
         while (--idx) {
             stepR(50,500);
         }
@@ -636,14 +636,15 @@ void setPosR(uint32_t pos)
     int32_t step = 0;
     
 
-    if (gMoveStepR < 2*sizeImpuls + 10) {
+    if (gMoveStepR < 2*sizeImpuls2 + 10) {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-            stepR(50,250);
+            stepR(50,500);
             --gMoveStepR;
         }
     } else {
         while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-            stepR(50,delayPulse(imps - gMoveStepR, imps));
+            //stepR(50,delayPulseRoleta(imps - gMoveStepR, imps, 2));
+            stepR(50,400);
             --gMoveStepR;
         }
     }

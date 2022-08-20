@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ewiatraky->setText(val9 == "" ? "656,8" : val9);
 
     auto val10 = ust.getRolDlugosc();
-    ui->dlugoscRolety->setText(val10 == "" ? "1600" : val10);
+    ui->dlugoscRolety->setText(val10 == "" ? "1500" : val10);
 
     auto val11 = ust.getRolStepObrot();
     ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
