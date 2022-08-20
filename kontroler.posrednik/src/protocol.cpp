@@ -126,7 +126,17 @@ bool MessageSerial::parseRozkaz()
         }
         case SET_PARAM_REQ:
         {
-            Serial1.write(data, dlugosc+2);
+            if (data[1] == 0xf0) {
+                uint8_t sendData[1] = {0xf0};
+                digitalWrite(RESET_NANO, LOW);
+                delay(1000);
+                digitalWrite(RESET_NANO, HIGH);
+                delay(2000);
+                sendMessage(SET_PARAM_REQ, sendData, 1);  
+            }
+            else {
+                Serial1.write(data, dlugosc+2);
+            }
             actWork=NOP;
             return true;
         }
