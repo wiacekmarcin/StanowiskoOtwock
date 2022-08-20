@@ -39,9 +39,6 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     sMsg.setThread(&thSterownik);
 
     setUstawienia();
-    for (int m = 1400; m < 1520; m += 10) {
-        qDebug() << m << mechR.podniescMM(m);
-    }
 
     connect(&sMsg, &SerialDevice::error, this, &MiernikPrzeplywu::errorSerial, Qt::QueuedConnection);
     connect(&sMsg, &SerialDevice::debug, this, &MiernikPrzeplywu::debug, Qt::QueuedConnection);
@@ -184,7 +181,7 @@ void MiernikPrzeplywu::calculateMechanika()
         mech.setReverseR(false);
         break;
     }
-    mech.setMaxKrokiR(160000);
+    mech.setMaxKrokiR(ust.getMaxRolKroki().toUInt());
     widget->setMechanika(mech);
     sMsg.setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),

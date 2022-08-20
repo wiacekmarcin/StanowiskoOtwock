@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "qdatetime.h"
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
@@ -15,68 +16,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Program testowy");
 
-    connect(&sMsg, SIGNAL(positionStatus(SerialMessage::StatusWork)), this, SLOT(positionDone(SerialMessage::StatusWork)));
-    connect(&sMsg, SIGNAL(homeStatus(SerialMessage::StatusWork)), this, SLOT(homeDone(SerialMessage::StatusWork)));
+    connect(&sMsg, &SerialDevice::error, this, &MainWindow::errorSerial, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::debug, this, &MainWindow::debug, Qt::QueuedConnection);
 
-    connect(&sMsg, SIGNAL(errorReadFromRadio()), this, SLOT(errorReadFromRadio()));
-    connect(&sMsg, SIGNAL(readFromRadio(int)), this, SLOT(readFromRadio(int)));
+    connect(&sMsg, &SerialDevice::deviceName, this, &MainWindow::deviceName, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::kontrolerConfigured, this, &MainWindow::kontrolerConfigured, Qt::QueuedConnection);
 
-    connect(&sMsg, SIGNAL(errorSerial(QString)), this, SLOT(errorSerial(QString)));
-    connect(&sMsg, SIGNAL(debug(QString)), this, SLOT(debug(QString)));
+    connect(&sMsg, &SerialDevice::setParamsDone, this, &MainWindow::setParamsDone, Qt::QueuedConnection);
+    connect(&sMsg, &SerialDevice::setPositionDone, this, &MainWindow::setPositionDone, Qt::QueuedConnection);
 
-    connect(&sMsg, SIGNAL(deviceName(QString)), this, SLOT(deviceName(QString)));
-    connect(&sMsg, SIGNAL(controllerOK()), this, SLOT(controllerOK()));
-    connect(&sMsg, SIGNAL(successOpenDevice(bool)), this, SLOT(successOpenDevice(bool)));
+    connect(&sMsg, &SerialDevice::readFromRadio, this, &MainWindow::readedFromRadio, Qt::QueuedConnection);
 
-    connect(&sMsg, SIGNAL(setParamsDone()), this, SLOT(setParamsDone()));
+    rpos.setUstawienia(ust);
+    rr.setUstawienia(ust);
 
-    connect(this, SIGNAL(connectToDevice()), &sMsg, SLOT(connectToSerial()));
-    connect(this, SIGNAL(checkDevice()), &sMsg, SLOT(checkController()));
-
-
-    connect(this, SIGNAL(setPositionHome()), &sMsg, SLOT(setPositionHome()));
-    connect(this, SIGNAL(setPosition(uint32_t,uint32_t)), &sMsg, SLOT(setPosition(uint32_t,uint32_t)));
-
-    connect(this, SIGNAL(setRoletaHome()), &sMsg, SLOT(setRoletaHome()));
-    connect(this, SIGNAL(setRoleta(uint32_t)), &sMsg, SLOT(setRoleta(uint32_t)));
-
-    connect(this, SIGNAL(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)),
-            &sMsg,  SLOT(setParams(bool,bool,bool,uint32_t,uint32_t,uint32_t,uint32_t,uint32_t)));
-
-    connect(this, SIGNAL(readRadio()), &sMsg, SLOT(readRadio()));
-
-
-
-    rpos.setImpusyXPerMM(ust.getImpulsyXperMM().toUInt());
-    rpos.setImpusyYPerMM(ust.getImpulsyYperMM().toUInt());
-
-    rpos.setKrokiXPerMM(ust.getKrokiXperMM().toUInt());
-    rpos.setKrokiYPerMM(ust.getKrokiYperMM().toUInt());
-
-    rr.setKrokiPerObrot(ust.getRolStepObrot().toUInt());
-    rr.setMaxMM(ust.getRolDlugosc().toUInt());
-    rr.setMaxKroki(160000);
-/*
-    rr.setObrot1(ust.getRolObrot1());
-    rr.setObrot2(ust.getRolObrot2());
-    rr.setObrot3(ust.getRolObrot3());
-    rr.setObrot4(ust.getRolObrot4());
-    rr.setObrot5(ust.getRolObrot5());
-    rr.setObrot6(ust.getRolObrot6());
-    rr.setObrot7(ust.getRolObrot7());
-    rr.setObrot8(ust.getRolObrot8());
-    rr.setObrot9(ust.getRolObrot9());
-    rr.setObrot10(ust.getRolObrot10());
-    rr.setObrot11(ust.getRolObrot11());
-    rr.setObrot12(ust.getRolObrot12());
-    rr.setObrot13(ust.getRolObrot13());
-*/
-    ui->maxImpx->setText("750000");
-    ui->maxImpY->setText("750000");
-
-    ui->maxStepX->setText("300000");
-    ui->maxStepY->setText("300000");
-    ui->maxStepR->setText("160000");
+    on_rbRoletaPrawe_clicked();
 
     ui->pbRadioOff->setEnabled(false);
 
@@ -96,6 +50,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     tmr.setInterval(1000);
     connect(&tmr, &QTimer::timeout, this, &MainWindow::radioTimeout);
+    ui->frame->setEnabled(false);
+    ui->frame_2->setEnabled(false);
+    ui->frame_3->setEnabled(false);
+    ui->frame_4->setEnabled(false);
+    ui->frame_5->setEnabled(false);
+    ui->frame_6->setEnabled(false);
+    sMsg.setThread(&thSterownik);
 }
 
 MainWindow::~MainWindow()
@@ -103,62 +64,63 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::pbFindSerial_clicked()
+void MainWindow::errorSerial(const QString &)
 {
-    ui->statusserial->setText("");
-    ui->errorserial->setText("");
-    ui->portname->setText("");
-    emit connectToDevice();
+
 }
 
-void MainWindow::connectedToPort(QString portname)
+void MainWindow::setPositionDone(bool success, bool home, int work)
 {
-    ui->portname->setText(portname);
+    if (success && home) {
+        homeDone(work);
+    } else if (success && !home) {
+        positionDone(work);
+    }
 }
 
-void MainWindow::positionDone(SerialMessage::StatusWork work)
+void MainWindow::positionDone(int work)
 {
     switch(work) {
     case SerialMessage::START_XY:
-        \\QDebug() << "start both";
+        qDebug() << "start both";
         ui->cbPosStart->setChecked(true);
         //ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        \\QDebug() << "start lewoprawo";
+        qDebug() << "start lewoprawo";
         ui->cbPosStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        \\QDebug() << "end lewo";
+        qDebug() << "end lewo";
         ui->cbPosKoniecLP->setChecked(true);
-        ui->stepX->setText(QString::number(sMsg.getMoveStepX()));
-        ui->posImpX->setText(QString::number(sMsg.getPosImpX()));
+        //ui->stepX->setText(QString::number(sMsg.getMoveStepX()));
+        //ui->posImpX->setText(QString::number(sMsg.getPosImpX()));
         break;
     case SerialMessage::START_Y:
-        \\QDebug() << "Start gora dol";
+        qDebug() << "Start gora dol";
         ui->cbPosStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        \\QDebug() << "Koniec gora dol";
+        qDebug() << "Koniec gora dol";
         ui->cbPosKoniecGD->setChecked(true);
-        ui->stepY->setText(QString::number(sMsg.getMoveStepY()));
-        ui->posImpY->setText(QString::number(sMsg.getPosImpY()));
+        //ui->stepY->setText(QString::number(sMsg.getMoveStepY()));
+        //ui->posImpY->setText(QString::number(sMsg.getPosImpY()));
         break;
     case SerialMessage::END_XY:
-        \\QDebug() << "Koniec pozycjoowanie";
+        qDebug() << "Koniec pozycjoowanie";
         ui->cbPosKoniec->setChecked(true);
         //ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        \\QDebug() << "Poczatek bazowania";
+        qDebug() << "Poczatek bazowania";
         ui->cbRolPosStart->setChecked(true);
         break;
     case SerialMessage::END_R:
-        \\QDebug() << "Koniec bazowania";
+        qDebug() << "Koniec bazowania";
         ui->cbRolPosKoniec->setChecked(true);
         //ui->pbRoletaUstaw->setEnabled(true);
-        ui->stepR->setText(QString::number(sMsg.getMoveStepR()));
-        ui->posStepR->setText(QString::number(sMsg.getPosStepR()));
+        //ui->stepR->setText(QString::number(sMsg.getMoveStepR()));
+        //ui->posStepR->setText(QString::number(sMsg.getPosStepR()));
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Pozycja X/Y", "Nie udało się ustawić pozycji");
@@ -172,48 +134,48 @@ void MainWindow::positionDone(SerialMessage::StatusWork work)
     }
 }
 
-void MainWindow::homeDone(SerialMessage::StatusWork work)
+void MainWindow::homeDone(int work)
 {
-    \\QDebug() << "homeDone work" << work;
+    qDebug() << "homeDone work" << work;
     switch(work) {
     case SerialMessage::START_XY:
-        \\QDebug() << "Start home";
+        qDebug() << "Start home";
         ui->cbHomeStart->setChecked(true);
         //ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        \\QDebug() << "Start X";
+        qDebug() << "Start X";
         ui->cbHomeStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        \\QDebug() << "End X";
+        qDebug() << "End X";
         ui->cbHomeKoniecLP->setChecked(true);
-        ui->homeStepsX->setText(QString::number(sMsg.getMoveStepX()));
+        //ui->homeStepsX->setText(QString::number(sMsg.getMoveStepX()));
         break;
     case SerialMessage::START_Y:
-        \\QDebug() << "Start Y";
+        qDebug() << "Start Y";
         ui->cbHomeStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        \\QDebug() << "End Y";
+        qDebug() << "End Y";
         ui->cbHomeKoniecGD->setChecked(true);
-        ui->homeStepsY->setText(QString::number(sMsg.getMoveStepY()));
+        //ui->homeStepsY->setText(QString::number(sMsg.getMoveStepY()));
         break;
     case SerialMessage::END_XY:
-        \\QDebug() << "Koniec Baza";
+        qDebug() << "Koniec Baza";
         ui->cbHomeKoniec->setChecked(true);
         //ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        \\QDebug() << "Start R";
+        qDebug() << "Start R";
         ui->cbRolHomeStart->setChecked(true);
         //ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
-        \\QDebug() << "End R";
+        qDebug() << "End R";
         ui->cbRolHomeKoniec->setChecked(true);
         //ui->pbRoletaHome->setEnabled(true);
-        ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));
+        //ui->homeStepsR->setText(QString::number(sMsg.getMoveStepR()));
         break;
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Powrót do pozycji startowej", "Nie udało się ustawić pozycji bazowej");
@@ -226,16 +188,201 @@ void MainWindow::homeDone(SerialMessage::StatusWork work)
     }
 }
 
-void MainWindow::errorReadFromRadio()
+void MainWindow::wyboStanowiska()
+{
+    bool lewaR = modeWork == MODE_ROLETAL;
+    bool lewaO = modeWork == MODE_1000L;
+    switch(modeWork) {
+    case MODE_ROLETAP:
+    case MODE_ROLETAL:
+        rpos.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
+        rpos.setReverseY(false);
+        rpos.setReverseX(!lewaR);
+        rr.setReverse(lewaR);
+        rpos.setReverseR(true);
+        ui->rbOknoLewe->setChecked(false);
+        ui->rbOknoPrawe->setChecked(false);
+        ui->rbStac->setChecked(false);
+        ui->rbRoletaPrawe->setChecked(!lewaR);
+        ui->rbRoletaLewe->setChecked(lewaR);
+        break;
+    case MODE_2700:
+        rpos.setPrzestrzen(ust.getStacOsXReal().toUInt(), ust.getStacOsYReal().toUInt());
+        rpos.setReverseY(false);
+        rpos.setReverseX(false);
+        rpos.setReverseR(true);
+        ui->rbOknoLewe->setChecked(false);
+        ui->rbOknoPrawe->setChecked(false);
+        ui->rbStac->setChecked(true);
+        ui->rbRoletaPrawe->setChecked(false);
+        ui->rbRoletaLewe->setChecked(false);
+        break;
+    case MODE_1000L:
+    case MODE_1000P:
+        rpos.setPrzestrzen(ust.getOknoOsXReal().toUInt(), ust.getOknoOsYReal().toUInt());
+        rpos.setReverseY(false);
+        rpos.setReverseX(!lewaO);
+        rpos.setReverseR(true);
+        ui->rbOknoLewe->setChecked(lewaO);
+        ui->rbOknoPrawe->setChecked(!lewaO);
+        ui->rbStac->setChecked(false);
+        ui->rbRoletaPrawe->setChecked(false);
+        ui->rbRoletaLewe->setChecked(false);
+        break;
+    case MODE_NONE:
+    default:
+        Q_ASSERT(true);
+        rpos.setPrzestrzen(0, 0);
+        rpos.setReverseY(false);
+        rpos.setReverseX(false);
+        rpos.setReverseR(false);
+        rr.setMaxKroki(0);
+        break;
+    }
+    rpos.setMaxKrokiR(ust.getMaxRolKroki().toUInt());
+
+    ui->maxImpx->setText(QString::number(rpos.getMaxImpusyX()));
+    ui->maxImpY->setText(QString::number(rpos.getMaxImpusyY()));
+
+    ui->maxStepX->setText(QString::number(rpos.getMaxKrokiX()));
+    ui->maxStepY->setText(QString::number(rpos.getMaxKrokiY()));
+    ui->maxStepR->setText(QString::number(rpos.getMaxKrokiR()));
+
+    ui->dirX->setChecked(rpos.getReverseX());
+    ui->dirY->setChecked(rpos.getReverseY());
+    ui->dirR->setChecked(rpos.getReverseR());
+
+    sMsg.setParams(rpos.getReverseX(), rpos.getReverseY(), rpos.getReverseR(),
+                      rpos.getMaxImpusyX(), rpos.getMaxImpusyY(),
+                      rpos.getMaxKrokiX(), rpos.getMaxKrokiY(),
+                      rpos.getMaxKrokiR());
+}
+
+void MainWindow::kontrolerConfigured(bool success, int state)
+{
+
+    debug(QString("Open device open = %1, state = %2 ").arg(success).arg(state));
+
+    switch(state) {
+
+    case SerialDevice::NO_FOUND:
+        debug("Nie znaleziono kontrolera");
+        ui->frame->setEnabled(false);
+        ui->frame_2->setEnabled(false);
+        ui->frame_3->setEnabled(false);
+        ui->frame_4->setEnabled(false);
+        ui->frame_5->setEnabled(false);
+        ui->frame_6->setEnabled(false);
+
+        ui->portName->setText("");
+
+        ui->statusserial->setText("Nie znaleziono kontrolera");
+        break;
+
+    case SerialDevice::FOUND:
+        ui->statusserial->setText(QString("Znaleziono kontroler. Otwieram port ...."));
+        break;
+
+    case SerialDevice::NO_OPEN:
+        ui->statusserial->setText(QString("Nie udało się otworzyć."));
+
+        break;
+
+    case SerialDevice::OPEN:
+        ui->statusserial->setText(QString("Sprawdzam kontroler..."));
+        break;
+
+    case SerialDevice::NO_READ:
+        ui->statusserial->setText(QString("Problem z odczytem z portu."));
+
+        break;
+
+    case SerialDevice::IDENT_FAILD:
+        ui->statusserial->setText(QString("Nieprawidłowy kontroler."));
+
+        break;
+
+    case SerialDevice::IDENT_OK:
+        ui->statusserial->setText(QString("Trwa konfiguracja..."));
+        break;
+
+    case SerialDevice::PARAMS_FAILD:
+        ui->statusserial->setText(QString("Nie skonfigurowano."));
+
+        break;
+
+    case SerialDevice::PARAMS_OK:
+        ui->statusserial->setText(QString("Skonfigurowano."));
+        break;
+
+    case SerialDevice::ALL_OK:
+        ui->statusserial->setText(QString("OK"));
+        ui->frame->setEnabled(true);
+        ui->frame_6->setEnabled(true);
+        setParamsDone(true);
+        break;
+
+    case SerialDevice::CLOSE:
+        ui->statusserial->setText("Kontroler rozłączony");
+        ui->portName->setText("");
+        ui->frame->setEnabled(false);
+        ui->frame_2->setEnabled(false);
+        ui->frame_3->setEnabled(false);
+        ui->frame_4->setEnabled(false);
+        ui->frame_5->setEnabled(false);
+        ui->frame_6->setEnabled(false);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void MainWindow::readedFromRadio(bool sucess, int val1, int val2, int val3, int val4)
+{
+    (void)val2;(void)val3;(void)val4;
+    if (sucess)
+        ui->radioInfo->setText(QString::number(val1));
+    else
+        ui->radioInfo->setText("Błąd");
+}
+
+void MainWindow::deviceName(const QString &portname)
+{
+    ui->portName->setText(portname);
+}
+
+void MainWindow::setParamsDone(bool success)
+{
+    if (success) {
+        ui->frame->setEnabled(true);
+        ui->frame_2->setEnabled(true);
+        ui->frame_3->setEnabled(true);
+        ui->frame_4->setEnabled(true);
+        ui->frame_5->setEnabled(true);
+        ui->statusparams->setText("Konfiguracja ustawiona");
+    } else {
+        ui->frame->setEnabled(false);
+        ui->frame_2->setEnabled(false);
+        ui->frame_3->setEnabled(false);
+        ui->frame_4->setEnabled(false);
+        ui->frame_5->setEnabled(false);
+        ui->statusparams->setText("Nie udało się skonfigurować");
+    }
+}
+
+void MainWindow::pbFindSerial_clicked()
+{
+
+    connectToDevice();
+}
+
+void MainWindow::roletaHome()
 {
 
 }
 
-void MainWindow::readFromRadio(int val)
-{
-    qDebug("readFromRadio %d", val);
-}
-
+/*
 void MainWindow::errorSerial(QString error)
 {
     //ui->pbHome->setEnabled(false);
@@ -245,6 +392,7 @@ void MainWindow::errorSerial(QString error)
     ui->errorserial->setText(error);
     ui->debug->appendPlainText(error);
 }
+
 
 void MainWindow::successOpenDevice(bool open)
 {
@@ -262,10 +410,6 @@ void MainWindow::successOpenDevice(bool open)
 
 }
 
-void MainWindow::deviceName(QString portname)
-{
-    ui->portname->setText(portname);
-}
 
 void MainWindow::controllerOK()
 {
@@ -278,10 +422,37 @@ void MainWindow::setParamsDone()
 {
     ui->statusparams->setText("Parametry ustawione");
 }
+*/
+
+void MainWindow::errorHome()
+{
+
+}
+
+void MainWindow::errorPosition()
+{
+
+}
+
+void MainWindow::errorHomeRoleta()
+{
+
+}
+
+void MainWindow::errorRoleta()
+{
+
+}
+
+QString MainWindow::addTime(QString status)
+{
+    return QString("[%1] %2").arg(QTime::currentTime().toString("HH:mm:ss.zzz")).arg(status);
+}
+
 
 void MainWindow::debug(QString text)
 {
-    ui->debug->appendPlainText(text);
+    ui->debug->appendPlainText(addTime(text));
 }
 
 void MainWindow::pbHome_clicked()
@@ -294,7 +465,7 @@ void MainWindow::pbHome_clicked()
     ui->cbHomeKoniec->setChecked(false);
     ui->homeStepsX->setText("-");
     ui->homeStepsY->setText("-");
-    emit setPositionHome();
+    setPositionHome();
 }
 
 void MainWindow::pbUstaw_clicked()
@@ -311,13 +482,13 @@ void MainWindow::pbUstaw_clicked()
     ui->posImpX->setText("-");
     ui->posImpY->setText("-");
 
-    emit setPosition(ui->pos_X->text().toUInt(), ui->pos_Y->text().toUInt());
+    setPosition(ui->pos_X->text().toUInt(), ui->pos_Y->text().toUInt());
 }
 
 void MainWindow::pbClose_clicked()
 {
     ui->pbFindSerial->setEnabled(true);
-    sMsg.closeDevice();
+    sMsg.closeDevice(false);
 }
 
 void MainWindow::pbSettings_clicked()
@@ -348,12 +519,12 @@ void MainWindow::pbSettings_clicked()
     bool reverseY = ui->dirY->isChecked();
     bool reverseR = ui->dirR->isChecked();
     ui->statusparams->setText("Trwa ustawianie parametrów");
-    emit setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR);
+    setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR);
 }
 
 void MainWindow::tbRoletaR_clicked()
 {
-    RoletaKroki * dlg = new RoletaKroki(&rr, ui->pos_R, this);
+    RoletaKroki * dlg = new RoletaKroki(&rr, ui->pos_R, ui->lroletamm, this);
     dlg->exec();
 }
 
@@ -362,7 +533,7 @@ void MainWindow::pbRoletaHome_clicked()
     ui->cbRolHomeKoniec->setChecked(false);
     ui->cbRolHomeStart->setChecked(false);
     ui->homeStepsR->setText("-");
-    emit setRoletaHome();
+    setRoletaHome();
 }
 
 void MainWindow::pbRoletaUstaw_clicked()
@@ -378,7 +549,7 @@ void MainWindow::pbRoletaUstaw_clicked()
     //ui->pbRoletaUstaw->setEnabled(false);
     ui->stepR->setText("-");
     ui->posStepR->setText("-");
-    emit setRoleta(steps);
+    setRoleta(steps);
 }
 
 
@@ -416,7 +587,86 @@ void MainWindow::tbY_clicked()
 
 void MainWindow::radioTimeout()
 {
-    emit readRadio();
+    readRadio();
 }
 
+void MainWindow::connectToDevice()
+{
+    ui->statusserial->setText("");
+    ui->portName->setText("");
+    sMsg.connectToDevice();
+}
+
+void MainWindow::setPositionHome()
+{
+    sMsg.setPositionHome();
+}
+
+void MainWindow::setPosition(uint32_t x, uint32_t y)
+{
+    sMsg.setPosition(x, y);
+}
+
+void MainWindow::setRoletaHome()
+{
+    sMsg.setRoletaHome();
+}
+
+void MainWindow::setRoleta(uint32_t r)
+{
+    sMsg.setRoleta(r);
+}
+
+void MainWindow::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
+{
+    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
+}
+
+void MainWindow::readRadio()
+{
+    sMsg.readRadio();
+}
+
+
+
+
+void MainWindow::on_rbStac_clicked()
+{
+    modeWork = MODE_2700;
+    wyboStanowiska();
+}
+
+
+void MainWindow::on_rbOknoPrawe_clicked()
+{
+    modeWork = MODE_1000P;
+    wyboStanowiska();
+}
+
+
+void MainWindow::on_rbOknoLewe_clicked()
+{
+    modeWork = MODE_1000L;
+    wyboStanowiska();
+}
+
+
+void MainWindow::on_rbRoletaPrawe_clicked()
+{
+    modeWork = MODE_ROLETAP;
+    wyboStanowiska();
+}
+
+
+void MainWindow::on_rbRoletaLewe_clicked()
+{
+    modeWork = MODE_ROLETAL;
+    wyboStanowiska();
+}
+
+
+void MainWindow::on_tbRoletaR_clicked()
+{
+
+}
 

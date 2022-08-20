@@ -126,7 +126,7 @@ public:
 
     unsigned long podniescMM(unsigned int mm);
     unsigned long poniescPercent(float percent) {
-        return podniescMM((unsigned int)(percent * maxMM / 100));
+        return podniescMM((unsigned int)(percent * maxMM));
     };
 
     unsigned int getMaxMM() const;

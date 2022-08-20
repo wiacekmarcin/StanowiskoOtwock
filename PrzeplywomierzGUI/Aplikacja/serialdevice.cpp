@@ -283,7 +283,6 @@ bool SerialDevice::configureDevice()
     }
 
     emit kontrolerConfigured(false, IDENT_OK);
-    return true;
 
     //s = write(SerialMessage::setReset(), 100, 3000).getParseReply();
     //if (s != SerialMessage::RESET_REPLY)
@@ -611,11 +610,11 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         DEBUGSER("Sending bytes....");
         int sendBytes = m_serialPort->write(currentRequest);
         if (!m_serialPort->waitForBytesWritten(currentWaitWriteTimeout)) {
-            //qDebig() << "Timeout write";
+            DEBUGSER(QString("Timeout Write %1").arg(currentWaitWriteTimeout));
             emit error(QString("Timeout Write"));
             return msg;
         }
-        DEBUGSER(QString("Write %1 bytes").arg(sendBytes));
+        DEBUGSER(QString("Write %1 bytes [%2]").arg(sendBytes).arg(currentRequest.toHex(' ').constData()));
     }
 
     QByteArray responseData;
@@ -624,10 +623,10 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         responseData = m_serialPort->readAll();
         while (m_serialPort->waitForReadyRead(10))
             responseData += m_serialPort->readAll();
-        DEBUGSER(QString("Read %1").arg(responseData.size()));
+        DEBUGSER(QString("Read %1 [%2]").arg(responseData.size()).arg(responseData.toHex(' ').constData()));
         return parseMessage(responseData);
     } else {
-        DEBUGSER(QString("Error for read"));
+        DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
         emit error(QString("Timeout Read"));
         return msg;
     }

@@ -37,14 +37,27 @@ SOURCES += \
 HEADERS += \
     impulsydlg.h \
         mainwindow.h \
-        ../Aplikacjacrc8.h \
+        ../Aplikacja/crc8.h \
         ../Aplikacjamechanika.h \
     roletakroki.h \
-    ../Aplikacjaserialmessage.h \
+    ../Aplikacja/serialmessage.h \
     ../Aplikacja/serialdevice.h \
-    ../Aplikacjaustawienia.h
+    ../Aplikacja/ustawienia.h
 
 FORMS += \
         impulsydlg.ui \
         mainwindow.ui \
         roletakroki.ui
+        win32 {
+             !contains(QMAKE_TARGET.arch, x86_64) {
+                LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
+                LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
+
+            } else {
+                LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
+                LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
+            }
+        }
+        linux {
+                DEFINES += SERIALLINUX
+        }

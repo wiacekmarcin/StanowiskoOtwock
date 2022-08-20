@@ -31,25 +31,25 @@ void Ruch::setUstawienia(Ustawienia &ust)
 {
     QString val1 = ust.getImpulsyXperMM();
     if (!val1.isEmpty())
-        setImpusyXPerMM(val1.toUInt());
+        setImpusyXPerMM(val1.toFloat());
     else
         ust.setImpulsyXperMM(QString::number(impulsyXperMM));
 
     QString val2 = ust.getImpulsyYperMM();
     if (!val2.isEmpty())
-        setImpusyYPerMM(val2.toUInt());
+        setImpusyYPerMM(val2.toFloat());
     else
         ust.setImpulsyYperMM(QString::number(impulsyYperMM));
 
     QString val3 = ust.getKrokiXperMM();
     if (!val3.isEmpty())
-        setKrokiXPerMM(val3.toUInt());
+        setKrokiXPerMM(val3.toFloat());
     else
         ust.setKrokiXperMM(QString::number(krokiXperMM));
 
     QString val4 = ust.getKrokiYperMM();
     if (!val4.isEmpty())
-        setKrokiYPerMM(val4.toUInt());
+        setKrokiYPerMM(val4.toFloat());
     else
         ust.setKrokiYperMM(QString::number(krokiYperMM));
 
@@ -171,7 +171,7 @@ bool Ruch::getReverseR() const
 
 void Ruch::setReverseR(bool value)
 {
-    reverseX = value;
+    reverseR = value;
 }
 
 

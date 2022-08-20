@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "serialmessage.h"
-#include "mechanika.h"
-#include "ustawienia.h"
+#include "../Aplikacja/serialdevice.h"
+#include "../Aplikacja/mechanika.h"
+#include "../Aplikacja/ustawienia.h"
 
 #include <QTimer>
 
@@ -20,27 +20,41 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    typedef enum _ModeWork {
+        MODE_NONE = -1,
+        MODE_2700,                  //przestrzen robocza 2700x3000
+        MODE_1000P,                 //przestrzen robocza prawa 1000x2000
+        MODE_1000L,                 //przestrzen robocza lewa 1000x2000
+        MODE_FUNSET,                //ustawianie wiatraka
+        MODE_SERVICE,               //serwis
+        MODE_ROLETAP,               //roleta po prawej stronie
+        MODE_ROLETAL,               //roleta po lewej stronie
+    } ModeWork;
+
+
 private slots:
-    void pbFindSerial_clicked();
 
-    void connectedToPort(QString);
+    void errorSerial(const QString &);
+    void setPositionDone(bool success, bool home, int work);
+    void kontrolerConfigured(bool success, int state);
+    void readedFromRadio(bool sucess, int val1 , int val2, int val3, int val4);
+    void deviceName(const QString &portname);
+    void setParamsDone(bool success);
 
-    void positionDone(SerialMessage::StatusWork);
-    void homeDone(SerialMessage::StatusWork);
+protected:
+    void positionStatus(int work);
+    void homeStatus(int work);
 
-    void errorReadFromRadio();
-    void readFromRadio(int val);
-
-    void errorSerial(QString);
-    void successOpenDevice(bool);
-
-    void deviceName(QString);
-    void controllerOK();
-
-    void setParamsDone();
+    void errorHome();
+    void errorPosition();
+    void errorHomeRoleta();
+    void errorRoleta();
+    void roletaHome();
 
     void debug(QString);
 
+private slots:
+    void pbFindSerial_clicked();
     void pbHome_clicked();
     void pbUstaw_clicked();
 
@@ -56,9 +70,21 @@ private slots:
     void radioTimeout();
 
 
-signals:
+    void on_rbStac_clicked();
+
+    void on_rbOknoPrawe_clicked();
+
+    void on_rbOknoLewe_clicked();
+
+    void on_rbRoletaPrawe_clicked();
+
+    void on_rbRoletaLewe_clicked();
+
+    void on_tbRoletaR_clicked();
+
+protected:
     void connectToDevice();
-    void checkDevice();
+
     void setPositionHome();
     void setPosition(uint32_t x, uint32_t y);
     void setRoletaHome();
@@ -70,13 +96,22 @@ signals:
 
     void readRadio();
 
+    void positionDone(int work);
+    void homeDone(int work);
+
+    void wyboStanowiska();
+    QString addTime(QString status);
 private:
     Ui::MainWindow *ui;
-    SerialMessage sMsg;
+    SerialDevice sMsg;
     Ruch rpos;
     RoletaRuch rr;
+
     Ustawienia ust;
     QTimer tmr;
+
+    ModeWork modeWork;
+    QThread thSterownik;
 };
 
 #endif // MAINWINDOW_H

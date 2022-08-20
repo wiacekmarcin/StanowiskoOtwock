@@ -3,7 +3,8 @@
 
 #include <QDialog>
 #include <QLineEdit>
-#include "mechanika.h"
+#include <QLabel>
+#include "../Aplikacja/mechanika.h"
 namespace Ui {
 class RoletaKroki;
 }
@@ -14,7 +15,7 @@ class RoletaKroki : public QDialog
 
 public:
 
-    explicit RoletaKroki(RoletaRuch * rr, QLineEdit *txt, QWidget *parent = nullptr);
+    explicit RoletaKroki(RoletaRuch * rr, QLineEdit *txt, QLabel * mm, QWidget *parent = nullptr);
     ~RoletaKroki();
 
 private slots:
@@ -27,6 +28,7 @@ private:
     Ui::RoletaKroki *ui;
     QLineEdit *lineEdit;
     RoletaRuch *ruch;
+    QLabel *mmLab;
 };
 
 #endif // ROLETAKROKI_H
