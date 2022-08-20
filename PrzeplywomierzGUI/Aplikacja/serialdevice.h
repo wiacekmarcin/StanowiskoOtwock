@@ -16,6 +16,9 @@
 
 class SerialDevice;
 class QThread;
+
+
+
 /**
  * @brief The SerialWorker class
  * Klasa wątku w którym chodzi sterowanie dozownikime
@@ -196,6 +199,8 @@ public:
      * @brief readRadio
      */
     void readRadio();
+
+    const SerialMessageValues &getValues() const;
 
 protected:
     /**
@@ -390,6 +395,9 @@ private:
 #ifdef SERIALLINUX
     QSerialPort * m_serialPort;
 #endif
+
+    /* zmienne zwrócone przez komunikat */
+    SerialMessageValues values;
 };
 
 

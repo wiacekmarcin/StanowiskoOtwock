@@ -383,7 +383,8 @@ void SerialDevice::setPosJobLocal(bool home)
         if (actSt != SerialMessage::END_X) {
             emit setPositionDone(false, home, actSt);
             return;
-        }   
+        }
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 
@@ -416,6 +417,7 @@ void SerialDevice::setPosJobLocal(bool home)
             emit setPositionDone(false, home, actSt);
             return;
         }   
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 
@@ -480,7 +482,8 @@ void SerialDevice::setRoletaJobLocal(bool home)
         if (actSt != SerialMessage::END_R) {
             emit setPositionDone(false, home, actSt);
             return;
-        }   
+        }
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 }
@@ -597,6 +600,11 @@ SerialMessage SerialDevice::parseMessage(const QByteArray &reply)
     SerialMessage msg;
     msg.parseCommand(reply);
     return msg;
+}
+
+const SerialMessageValues &SerialDevice::getValues() const
+{
+    return values;
 }
 
 SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentWaitWriteTimeout, int currentReadWaitTimeout)
