@@ -28,19 +28,21 @@ SOURCES += \
     impulsydlg.cpp \
         main.cpp \
         mainwindow.cpp \
-        crc8.cpp \
-        mechanika.cpp \
+        ../Aplikacja/crc8.cpp \
+        ../Aplikacja/mechanika.cpp \
     roletakroki.cpp \
-    serialmessage.cpp \
-    ustawienia.cpp
+    ../Aplikacja/serialmessage.cpp \
+    ../Aplikacja/serialdevice.cpp \
+    ../Aplikacja/ustawienia.cpp
 HEADERS += \
     impulsydlg.h \
         mainwindow.h \
-        crc8.h \
-        mechanika.h \
+        ../Aplikacjacrc8.h \
+        ../Aplikacjamechanika.h \
     roletakroki.h \
-    serialmessage.h \
-    ustawienia.h
+    ../Aplikacjaserialmessage.h \
+    ../Aplikacja/serialdevice.h \
+    ../Aplikacjaustawienia.h
 
 FORMS += \
         impulsydlg.ui \

@@ -308,6 +308,7 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
 
     while (n < Ustawienia::getMaxRolObrot())
     {
+
         obwod = obrotStala10xmm[n];
         if (obwod == 0) {
             //jestesmy pod koniec obrotow
@@ -316,7 +317,6 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
             if (mmDoKonca <= 0)
                 return maxKroki;
             int krokiWyznaczone = krokidoKonca*MM/mmDoKonca/10;
-
             if (krokiWyznaczone < 0)
                 krokiWyznaczone = 0;
             kroki += krokiWyznaczone;
