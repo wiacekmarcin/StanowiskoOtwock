@@ -388,8 +388,8 @@ void MainWindow::roletaHome()
 /*
 void MainWindow::errorSerial(QString error)
 {
-    //ui->pbHome->setEnabled(false);
-    //ui->pbUstaw->setEnabled(false);
+    ui->pbHome->setEnabled(false);
+    ui->pbUstaw->setEnabled(false);
 
     ui->pbFindSerial->setEnabled(true);
     ui->errorserial->setText(error);
@@ -417,8 +417,8 @@ void MainWindow::successOpenDevice(bool open)
 void MainWindow::controllerOK()
 {
     ui->statusserial->setText("Sterownik OK");
-    //ui->pbHome->setEnabled(true);
-    //ui->pbUstaw->setEnabled(true);
+    ui->pbHome->setEnabled(true);
+    ui->pbUstaw->setEnabled(true);
 }
 
 void MainWindow::setParamsDone()

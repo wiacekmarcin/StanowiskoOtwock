@@ -290,7 +290,7 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            stepR(50, 200);
+            stepR(50, 400);
         }
         if (!getHomePosR()) {
             msg.setErrorRoletaHomeBack();
