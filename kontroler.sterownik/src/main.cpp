@@ -26,7 +26,6 @@ void setup()
     Serial.begin(115200);
 #endif  
     Serial1.begin(115200);
-    //Serial.begin(115200);
 }
 
 void loop()
@@ -77,15 +76,17 @@ bool work()
             if (!returnBaseX()) {
                 msg.setStop();
                 delay(200);
-                msg.sendRetHomeDone();
+                //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
+                return false;
             }
             delay(200);
             if (!returnBaseY()) {
                 msg.setStop();
                 delay(200);
-                msg.sendRetHomeDone();
+                //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
+                return false;
             }
             delay(200);
             msg.sendRetHomeDone();
@@ -98,7 +99,7 @@ bool work()
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_HOME:
-            returnBaseR();
+            returnBaseR(); //w srodku jest komunikat poczatku
             actWork = MessageSerial::NOP;
         return true;
         default:

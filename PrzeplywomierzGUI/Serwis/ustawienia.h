@@ -1,4 +1,0 @@
-
-#include "../Aplikacja/ustawienia.h"
-
-

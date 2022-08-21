@@ -1,15 +1,18 @@
 #include "wentylator.h"
+#include "miernikprzeplywu.h"
 #include "ui_wentylator.h"
 
 Wentylator::Wentylator(QWidget *parent) :
     TabWidget(parent),
-    ui(new Ui::Wentylator)
+    ui(new Ui::Wentylator),
+    conn(false)
 {
     ui->setupUi(this);
     ui->errorWentylatorX->setVisible(false);
     ui->errorWentylatorY->setVisible(false);
     ui->errorWentylatorL->setVisible(false);
     ui->pbZeruj->setVisible(false);
+    ui->pbUstaw->setVisible(true);
     //ui->statusWentylator->setVisible(false);
 
     connect(ui->pbUstaw, &QPushButton::clicked, this, &Wentylator::pbUstaw_clicked);
@@ -32,10 +35,15 @@ void Wentylator::pbUstaw_clicked()
         ui->pbUstaw->setEnabled(true);
         return;
     }
-
-   addStatus("Szukam kontrolera.");
-   ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
-   connectToDevice();
+    if (!conn) {
+        addStatus("Szukam kontrolera.");
+        ui->lStatusWiatrak->setText(QString("Szukam urzadzenia ...."));
+        connectToDevice();
+        conn = true;
+    } else {
+        addStatus("Zaczynam ustawiac pozycje");
+        setPosition(impx, impy);
+    }
 
 }
 
@@ -53,22 +61,23 @@ void Wentylator::pbZeruj_clicked()
 
 void Wentylator::positionDone(bool home)
 {
-    qDebug() << __FILE__ << __LINE__;
+    //qDebig() << __FILE__ << __LINE__;
     if (home) {
         ui->lStatusWiatrak->setText("Ustawiem zadaną pozycję.");
-        addStatus("Wyzerowana pozycja - zaczynam ustawiac pozycje");
+        addStatus("Zaczynam ustawiac pozycje");
         setPosition(impx, impy);
     } else {
         ui->pbUstaw->setEnabled(true);
         ui->lStatusWiatrak->setText("Pozycja wentylatora ustawiona");
         addStatus("Pozycja ustawiona.");
-        setClose(false);
+        //setClose(false);
     }
 }
 
 void Wentylator::setStop()
 {
     ui->pbUstaw->setEnabled(true);
+    conn=false;
 }
 
 void Wentylator::setError()
@@ -76,6 +85,8 @@ void Wentylator::setError()
     ui->pbUstaw->setEnabled(true);
     ui->lStatusWiatrak->setText("Wystapił błąd.");
     addStatus("Wystapił błąd.");
+    conn=false;
+    setClose(false);
 }
 
 bool Wentylator::sprawdz()
@@ -235,3 +246,12 @@ void Wentylator::addStatus(const QString &log)
 {
     ui->statusWentylator->append(addTime(log));
 }
+
+void Wentylator::on_pbSelect_clicked()
+{
+    conn=false;
+    setClose(false);
+    if (miernikPrzeplywu)
+        TabWidget::miernikPrzeplywu->noweDane();
+}
+

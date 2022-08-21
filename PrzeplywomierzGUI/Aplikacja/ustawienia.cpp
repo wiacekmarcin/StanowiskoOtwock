@@ -1,8 +1,9 @@
 #include "ustawienia.h"
 
 char Ustawienia::appnazwa[]="Przeplywomierz";
-char Ustawienia::firmnazwa[]="PogromcyWiatrow";
+char Ustawienia::firmnazwa[]="Kolodziejczyk";
 
+int defObroty[] = {80,78,83,91,91,95,106,102,105,116,115,120,126,127};
 
 #define K_ratioczujnik1 "czujniki_ratio1"
 #define K_unitczujnik1 "czyjniki_unit1"
@@ -35,6 +36,7 @@ char Ustawienia::firmnazwa[]="PogromcyWiatrow";
 #define K_rolOsYNazwa "wymiary_rolOsYNazwa"
 #define K_rolOsXReal "wymiary_rolOsXReal"
 #define K_rolOsYReal "wymiary_rolOsYReal"
+#define K_rol_maxKroki "rol_maxRolKroki"
 
 static QString number2Digit(short i) {
     QString ret(K_rol_obrot);
@@ -56,13 +58,14 @@ Ustawienia::Ustawienia() :
     katnachylenia("3.85"),
     wentOffsetX("301"),
     wentOffsetY("175.58"),
-    rolDlugosc("1600"),
-    rolStepObrot("12000"),
+    rolDlugosc("1500"),
+    rolStepObrot("2000"),
     rolOffsetX_P("115"),
     rolOffsetY_P("1172"),
     rolOffsetX_L("1050"),
     rolOffsetY_L("1720"),
-    rolkrokiperMM("120"),
+    rolkrokiperMM("19.4"),
+    maxRolKroki("29100"),
     normaRoletaWidth("875"),
     normaRoletaHeight("1500"),
     stacOsXNazwa("2700"),
@@ -73,11 +76,18 @@ Ustawienia::Ustawienia() :
     oknoOsYNazwa("2000"),
     oknoOsXReal("1000"),
     oknoOsYReal("2000"),
-    rolOsXNazwa("870"),
+    rolOsXNazwa("800"),
     rolOsYNazwa("1500"),
     rolOsXReal("1200"),
     rolOsYReal("2000")
 {
+    int maxDefSize = sizeof(defObroty)/sizeof(int);
+    for (int i=0; i < maxObrot; i++) {
+        if (i < maxDefSize)
+            rolObrot[i] = QString::number(defObroty[i]);
+        else
+            rolObrot[i] = "0";
+    }
     read();
     write();
 }
@@ -102,9 +112,10 @@ void Ustawienia::read()
     rolDlugosc = settings.value(K_rol_dlugoscMM, rolDlugosc).toString();
     rolStepObrot = settings.value(K_rol_stepsPerObrot, rolStepObrot).toString();
     rolkrokiperMM = settings.value(K_rol_krokiperMM, rolkrokiperMM).toString();
+    maxRolKroki = settings.value(K_rol_maxKroki, maxRolKroki).toString();
 
     for (short i = 0; i < maxObrot; i++) {
-        rolObrot[i] = settings.value(number2Digit(i)).toString();
+        rolObrot[i] = settings.value(number2Digit(i), rolObrot[i]).toString();
     }
 
     rolOffsetX_P = settings.value(K_rol_offset_x_p, rolOffsetX_P).toString();
@@ -150,7 +161,7 @@ void Ustawienia::write()
     settings.setValue(K_rol_dlugoscMM, QVariant::fromValue(rolDlugosc));
     settings.setValue(K_rol_stepsPerObrot, QVariant::fromValue(rolStepObrot));
     settings.setValue(K_rol_krokiperMM, QVariant::fromValue(rolkrokiperMM));
-
+    settings.setValue(K_rol_maxKroki, QVariant::fromValue(maxRolKroki));
     for (short i = 0; i < maxObrot; i++) {
         settings.setValue(number2Digit(i), QVariant::fromValue(rolObrot[i]));
     }
@@ -507,6 +518,17 @@ void Ustawienia::setRolOsYReal(const QString &newRolOsYReal)
 {
     rolOsYReal = newRolOsYReal;
     settings.setValue(K_rolOsYReal, rolOsYReal);
+}
+
+const QString &Ustawienia::getMaxRolKroki() const
+{
+    return maxRolKroki;
+}
+
+void Ustawienia::setMaxRolKroki(const QString &newMaxRolKroki)
+{
+    maxRolKroki = newMaxRolKroki;
+    settings.setValue(K_rol_maxKroki, QVariant::fromValue(maxRolKroki));
 }
 
 const QString &Ustawienia::getRolObrot(unsigned short obr) const

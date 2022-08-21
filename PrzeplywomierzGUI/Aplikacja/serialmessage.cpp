@@ -221,17 +221,17 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             } else if (len == 5) {
                 switch(data[0]) {
                 case 'P':
-                    moveStepX = getNumber(data.mid(1, 4));
+                    v.moveStepX = getNumber(data.mid(1, 4));
                     m_parseReply = MOVEHOME_REPLY;
                     posWork = END_X;
                     return true;
                 case 'G':
-                    moveStepY = getNumber(data.mid(1, 4));
+                    v.moveStepY = getNumber(data.mid(1, 4));
                     m_parseReply = MOVEHOME_REPLY;
                     posWork = END_Y;
                     return true;
                 case 'R':
-                    moveStepR = getNumber(data.mid(1, 4));
+                    v.moveStepR = getNumber(data.mid(1, 4));
                     m_parseReply = MOVEHOME_REPLY;
                     posWork = END_R;
                     return true;
@@ -269,20 +269,20 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             } else if (len == 9) {
                 switch(data[0]) {
                     case 'P':
-                        moveStepX = getNumber(data.mid(1, 4));
-                        posImpX = getNumber(data.mid(5, 4));
+                        v.moveStepX = getNumber(data.mid(1, 4));
+                        v.posImpX = getNumber(data.mid(5, 4));
                         m_parseReply = POSITION_REPLY;
                         posWork = END_X;
                         return true;
                     case 'G':
-                        moveStepY = getNumber(data.mid(1, 4));
-                        posImpY = getNumber(data.mid(5, 4));
+                        v.moveStepY = getNumber(data.mid(1, 4));
+                        v.posImpY = getNumber(data.mid(5, 4));
                         m_parseReply = POSITION_REPLY;
                         posWork = END_Y;
                         return true;
                     case 'R':
-                        moveStepR = getNumber(data.mid(1, 4));
-                        posStepR = getNumber(data.mid(5, 4));
+                        v.moveStepR = getNumber(data.mid(1, 4));
+                        v.posStepR = getNumber(data.mid(5, 4));
                         m_parseReply = POSITION_REPLY;
                         posWork = END_R;
                         return true;
@@ -381,6 +381,11 @@ bool SerialMessage::reply2Byte(ParseReply rep, uint8_t b1, uint8_t b2)
         m_errorBool = true;    
         return false;                
     }
+}
+
+const SerialMessageValues& SerialMessage::getValues() const
+{
+    return v;
 }
 
 void SerialMessage::setInvalidReply()

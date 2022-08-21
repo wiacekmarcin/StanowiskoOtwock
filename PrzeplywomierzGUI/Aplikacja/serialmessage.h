@@ -6,6 +6,14 @@
 #include <QSerialPort>
 #include <QTimer>
 
+struct SerialMessageValues {
+    uint32_t moveStepR;
+    uint32_t moveStepX;
+    uint32_t moveStepY;
+    uint32_t posImpX;
+    uint32_t posImpY;
+    uint32_t posStepR;
+};
 
 /**
  * @brief The SerialMessage class
@@ -184,6 +192,8 @@ public:
     StatusWork getPosWork() { return posWork; }
 
     void readRadioValues(int & val1, int & val2, int & val3, int & val4);
+    const SerialMessageValues& getValues() const;
+
 protected:
 
     bool checkHead(const QByteArray &arr, uint8_t & cmd, uint8_t & len, QByteArray & data);
@@ -197,19 +207,12 @@ private:
     QString m_errorText;
     bool m_errorBool;
 
-    uint32_t moveStepR;
-    uint32_t moveStepX;
-    uint32_t moveStepY;
-
-    uint32_t posImpX;
-    uint32_t posImpY;
-    uint32_t posStepR;
+    SerialMessageValues v;
 
     ParseReply m_parseReply;
-
     StatusWork posWork;
-
     bool readRadioOK;
+
     unsigned int radioVal1;
     unsigned int radioVal2;
     unsigned int radioVal3;

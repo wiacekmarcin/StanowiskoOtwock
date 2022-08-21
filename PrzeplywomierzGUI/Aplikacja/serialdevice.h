@@ -12,10 +12,13 @@
 #include "serialmessage.h"
 #include "ustawienia.h"
 
-#define SERIALLINUX
+//#define SERIALLINUX
 
 class SerialDevice;
 class QThread;
+
+
+
 /**
  * @brief The SerialWorker class
  * Klasa wątku w którym chodzi sterowanie dozownikime
@@ -196,6 +199,8 @@ public:
      * @brief readRadio
      */
     void readRadio();
+
+    const SerialMessageValues &getValues() const;
 
 protected:
     /**
@@ -388,8 +393,11 @@ private:
     uint32_t m_impX, m_impY, m_stepR;
 
 #ifdef SERIALLINUX
-    QSerialPort m_serialPort;
+    QSerialPort * m_serialPort;
 #endif
+
+    /* zmienne zwrócone przez komunikat */
+    SerialMessageValues values;
 };
 
 

@@ -36,10 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ewiatraky->setText(val9 == "" ? "656,8" : val9);
 
     auto val10 = ust.getRolDlugosc();
-    ui->dlugoscRolety->setText(val10 == "" ? "1600" : val10);
+    ui->dlugoscRolety->setText(val10 == "" ? "1500" : val10);
 
     auto val11 = ust.getRolStepObrot();
-    ui->roletaImpObrot->setText(val11 == "" ? "12000" : val11);
+    ui->roletaImpObrot->setText(val11 == "" ? "2000" : val11);
 
     auto val12 = ust.getStacOsXNazwa();
     ui->stac_osX_nazwa->setText(val12 == "" ? "2700" : val12);
@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->okno_osY_nazwa->setText(val15 == "" ? "2000" : val15);
 
     auto val16 = ust.getRolOsXNazwa();
-    ui->roleta_osX_nazwa->setText(val16 == "" ? "860" : val16);
+    ui->roleta_osX_nazwa->setText(val16 == "" ? "800" : val16);
 
     auto val17 = ust.getRolOsYNazwa();
     ui->roleta_osY_nazwa->setText(val17 == "" ? "1500" : val17);
@@ -77,35 +77,55 @@ MainWindow::MainWindow(QWidget *parent) :
     auto val23 = ust.getRolOsYReal();
     ui->roleta_osY_real->setText(val23 == "" ? "1800" : val23);
 
+    auto val24 = ust.getMaxRolKroki();
+    ui->rolMaxKrokow->setText(val23 == "" ? "29100" : val24);
 
 
+    float sum = 0.0;
+    int row;
+    int col;
+    int steps = val11.toUInt();
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot() ; ++i) {
+        row = (i % 15) + 2;
+        col = 5 * (i / 15);
         QLabel * lobrot = new QLabel(ui->scrollArea);
         lobrot->setObjectName(QString::fromUtf8("lobrot")+QString::number(i));
-        lobrot->setText(QString("%1 obrót").arg(i+1));
-        ui->gridLayout_3->addWidget(lobrot, 4 + i, 0, 1, 1);
+        lobrot->setText(QString("%1").arg(i+1));
+        ui->gridLayout_3->addWidget(lobrot, row, col, 1, 1);
+
+        QLabel * lStep = new QLabel(ui->scrollArea);
+        lStep->setObjectName(QString::fromUtf8("lobrot")+QString::number(i));
+        lStep->setText(QString::number((i+1)*steps));
+        ui->gridLayout_3->addWidget(lStep, row, col + 1, 1, 1);
 
         QLineEdit *RolObrot = new QLineEdit(ui->scrollArea);
         RolObrotTab[i] = RolObrot;
         RolObrot->setObjectName(QString::fromUtf8("RolObrot")+QString::number(i));
-        ui->gridLayout_3->addWidget(RolObrot, 4 + i, 1, 1, 1);
+        ui->gridLayout_3->addWidget(RolObrot, row, col + 2, 1, 1);
 
         RolObrot->setText(ust.getRolObrot(i));
-        qDebug() << ust.getRolObrot(i);
+        sum += ust.getRolObrot(i).toFloat();
+
+        QLabel * lobrotSum = new QLabel(ui->scrollArea);
+        lobrotSum->setObjectName(QString::fromUtf8("lobrot")+QString::number(i));
+        lobrotSum->setText(QString::number(sum));
+        ui->gridLayout_3->addWidget(lobrotSum, row, col + 3, 1, 1);
+        sumLabel[i] = lobrotSum;
     }
 
+    /*
     QFrame * line_7 = new QFrame(ui->scrollArea);
     line_7->setObjectName(QString::fromUtf8("line_7"));
     line_7->setFrameShape(QFrame::HLine);
     line_7->setFrameShadow(QFrame::Sunken);
 
-    ui->gridLayout_3->addWidget(line_7, 34, 0, 2, 1);
+    ui->gridLayout_3->addWidget(line_7, 20, 0, 2, 1);
 
     QPushButton * pbRoletaSave = new QPushButton(ui->scrollArea);
     pbRoletaSave->setObjectName(QString::fromUtf8("pbRoletaSave"));
     pbRoletaSave->setText(QCoreApplication::translate("MainWindow", "Zapisz", nullptr));
     ui->gridLayout_3->addWidget(pbRoletaSave, 35, 0, 1, 1);
-
+*/
     on_pbSaveRadioCzujnik_clicked();
     on_pbSaveRatio_clicked();
     on_pbSaveWentylator_clicked();
@@ -144,6 +164,9 @@ void MainWindow::on_pbRoletaSave_clicked()
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {
         ust.setRolObrot(i, RolObrotTab[i]->text());
     }
+    ust.setMaxRolKroki(ui->rolMaxKrokow->text());
+    ust.setRolDlugosc(ui->dlugoscRolety->text());
+    ust.setRolStepObrot(ui->roletaImpObrot->text());
 }
 
 
@@ -161,5 +184,15 @@ void MainWindow::on_pbSaveWymiary_clicked()
     ust.setOknoOsYReal(ui->okno_osY_real->text());
     ust.setRolOsXReal(ui->roleta_osX_real->text());
     ust.setRolOsYReal(ui->roleta_osY_real->text());
+}
+
+
+void MainWindow::on_pbcalculate_clicked()
+{
+    float sum = 0.0;
+    for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {
+        sum += RolObrotTab[i]->text().toFloat();
+        sumLabel[i]->setText(QString::number(sum));
+    }
 }
 

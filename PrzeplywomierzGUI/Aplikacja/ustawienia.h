@@ -113,6 +113,9 @@ public:
     const QString &getRolOsYReal() const;
     void setRolOsYReal(const QString &newRolOsYReal);
 
+    const QString &getMaxRolKroki() const;
+    void setMaxRolKroki(const QString &newMaxRolKroki);
+
 private:
     QSettings settings;
     static constexpr int maxObrot = 30;
@@ -142,6 +145,7 @@ private:
     QString rolOffsetX_L;
     QString rolOffsetY_L;
     QString rolkrokiperMM;
+    QString maxRolKroki;
 
     QString normaRoletaWidth;
     QString normaRoletaHeight;

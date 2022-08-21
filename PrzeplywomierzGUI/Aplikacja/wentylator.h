@@ -20,15 +20,21 @@ public:
     virtual void setStop();
     virtual void setError();
 
+    void addStatus(const QString & log);
+
 protected:
     bool sprawdz();
-    void addStatus(const QString & log);
+
 protected slots:
     void pbUstaw_clicked();
     void pbZeruj_clicked();
+private slots:
+    void on_pbSelect_clicked();
+
 private:
     Ui::Wentylator *ui;
     uint32_t impx, impy;
+    bool conn;
 
 };
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>913</width>
-    <height>721</height>
+    <width>1375</width>
+    <height>756</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,53 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1" rowspan="4">
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>255</width>
-         <height>695</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="dlugoscRolety"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="ldlugoscrolety">
-          <property name="text">
-           <string>Maksymalna długość rolety</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="limpuslyrolety">
-          <property name="text">
-           <string>Ilość impulsów na 1 obrót</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="roletaImpObrot"/>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
        <string>Ustawienia czujników</string>
@@ -121,138 +75,6 @@
       </layout>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QGroupBox" name="groupBoxWentylator">
-      <property name="title">
-       <string>Ustawienia współczynników ruchu dla ustawienia wentylatora</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayoutWenty">
-       <item row="0" column="0">
-        <widget class="QLabel" name="lwiatrakkat">
-         <property name="text">
-          <string>Kąt nachylenia lasera</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacerWentylator_1">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="2">
-        <widget class="Line" name="linewentylator_1">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <spacer name="horizontalSpacerWentylator_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="4">
-        <widget class="QLabel" name="lwiatrakx">
-         <property name="text">
-          <string>Przesunięcie lasera
-względem środka tacki</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <spacer name="horizontalSpacerWentylator_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="6">
-        <widget class="Line" name="linewentylator_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <spacer name="horizontalSpacerWentylator_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="8">
-        <widget class="QLabel" name="lwiatraky">
-         <property name="text">
-          <string>Przesunięcie lasera
-względem podłoża</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="9">
-        <spacer name="horizontalSpacerWentylator_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="ewiatrakkat"/>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLineEdit" name="ewiatrakx"/>
-       </item>
-       <item row="1" column="8">
-        <widget class="QLineEdit" name="ewiatraky"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pbSaveWentylator">
-         <property name="text">
-          <string>Zapisz</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2" rowspan="5">
-     <widget class="QFrame" name="frame_2">
-      <layout class="QGridLayout" name="gridLayout"/>
-     </widget>
-    </item>
     <item row="5" column="0">
      <spacer name="verticalSpacer">
       <property name="orientation">
@@ -266,7 +88,7 @@ względem podłoża</string>
       </property>
      </spacer>
     </item>
-    <item row="2" column="0">
+    <item row="3" column="0">
      <widget class="QGroupBox" name="groupBoxMechanizm">
       <property name="title">
        <string>Ustawienia współczynników</string>
@@ -404,45 +226,141 @@ względem podłoża</string>
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
+    <item row="4" column="0">
+     <widget class="QGroupBox" name="groupBoxWentylator">
+      <property name="title">
+       <string>Ustawienia współczynników ruchu dla ustawienia wentylatora</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayoutWenty">
+       <item row="0" column="5">
+        <spacer name="horizontalSpacerWentylator_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacerWentylator_1">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2">
+        <widget class="Line" name="linewentylator_1">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="Line" name="linewentylator_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QLabel" name="lwiatraky">
+         <property name="text">
+          <string>Przesunięcie lasera
+względem podłoża</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <spacer name="horizontalSpacerWentylator_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="8">
+        <widget class="QLineEdit" name="ewiatraky"/>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacerWentylator_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="7">
+        <spacer name="horizontalSpacerWentylator_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="ewiatrakx"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lwiatrakkat">
+         <property name="text">
+          <string>Kąt nachylenia lasera</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pbSaveWentylator">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="ewiatrakkat"/>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="lwiatrakx">
+         <property name="text">
+          <string>Przesunięcie lasera
+względem środka tacki</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="title">
        <string>Ustawienia przestrzenii roboczych</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="4" column="3">
-        <widget class="QLineEdit" name="roleta_osY_real"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="stac_osY_nazwa"/>
-       </item>
-       <item row="3" column="3">
-        <widget class="QLineEdit" name="roleta_osX_real"/>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="stac_osX_real"/>
-       </item>
-       <item row="4" column="2">
-        <widget class="QLineEdit" name="okno_osY_real"/>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="okno_osX_nazwa"/>
-       </item>
        <item row="2" column="2">
         <widget class="QLineEdit" name="okno_osY_nazwa"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Nazwa osi Y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLineEdit" name="roleta_osX_nazwa"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="stac_osX_nazwa"/>
        </item>
        <item row="0" column="1">
         <widget class="QLabel" name="label_3">
@@ -460,28 +378,23 @@ osi X w mm</string>
          </property>
         </widget>
        </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="okno_osX_nazwa"/>
+       </item>
+       <item row="4" column="3">
+        <widget class="QLineEdit" name="roleta_osY_real"/>
+       </item>
        <item row="4" column="1">
         <widget class="QLineEdit" name="stac_osY_real"/>
        </item>
-       <item row="2" column="3">
-        <widget class="QLineEdit" name="roleta_osY_nazwa"/>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="okno_osX_real"/>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Stanowiko
-okienne
-lewe i prawe</string>
-         </property>
-        </widget>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="stac_osX_nazwa"/>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Rzeczywisty wymiar
-osi Y w mm</string>
-         </property>
-        </widget>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="stac_osX_real"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_6">
@@ -489,9 +402,6 @@ osi Y w mm</string>
           <string>Nazwa osi X</string>
          </property>
         </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QLineEdit" name="okno_osX_real"/>
        </item>
        <item row="0" column="3">
         <widget class="QLabel" name="label_5">
@@ -502,10 +412,230 @@ lewe i prawe</string>
          </property>
         </widget>
        </item>
+       <item row="4" column="2">
+        <widget class="QLineEdit" name="okno_osY_real"/>
+       </item>
+       <item row="3" column="3">
+        <widget class="QLineEdit" name="roleta_osX_real"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLineEdit" name="roleta_osX_nazwa"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Nazwa osi Y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="roleta_osY_nazwa"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Rzeczywisty wymiar
+osi Y w mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Stanowiko
+okienne
+lewe i prawe</string>
+         </property>
+        </widget>
+       </item>
        <item row="5" column="0">
         <widget class="QPushButton" name="pbSaveWymiary">
          <property name="text">
           <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="stac_osY_nazwa"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="1" rowspan="4">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Maksymalna ilość kroków</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="5">
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="roletaImpObrot"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="ldlugoscrolety">
+         <property name="text">
+          <string>Maksymalna długość rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLineEdit" name="rolMaxKrokow"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="limpuslyrolety">
+         <property name="text">
+          <string>Ilość kroków na 1 pomiar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pbRoletaSave">
+         <property name="text">
+          <string>Zapisz</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="dlugoscRolety"/>
+       </item>
+       <item row="4" column="0" colspan="5">
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>649</width>
+            <height>589</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Lp.</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Ilość kroków</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Lp.</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Przyrost</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="9">
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="8">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Dlugość</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Przyrost</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Ilość kroków</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Długość</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="pbcalculate">
+         <property name="text">
+          <string>Oblicz odleglości</string>
          </property>
         </widget>
        </item>
@@ -529,6 +659,7 @@ lewe i prawe</string>
   <tabstop>stac_osY_real</tabstop>
   <tabstop>okno_osY_real</tabstop>
   <tabstop>roleta_osY_real</tabstop>
+  <tabstop>pbSaveWymiary</tabstop>
   <tabstop>cbcz1</tabstop>
   <tabstop>ecz1ratio</tabstop>
   <tabstop>ecz1unit</tabstop>
@@ -542,9 +673,12 @@ lewe i prawe</string>
   <tabstop>ewiatrakx</tabstop>
   <tabstop>ewiatraky</tabstop>
   <tabstop>pbSaveWentylator</tabstop>
-  <tabstop>scrollArea</tabstop>
   <tabstop>dlugoscRolety</tabstop>
   <tabstop>roletaImpObrot</tabstop>
+  <tabstop>rolMaxKrokow</tabstop>
+  <tabstop>pbRoletaSave</tabstop>
+  <tabstop>pbcalculate</tabstop>
+  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>

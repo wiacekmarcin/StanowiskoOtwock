@@ -26,6 +26,7 @@ SerialWorker::~SerialWorker()
     actTask = IDLE;
     newTask.wakeOne();
     mutex.unlock();
+    wait(120000);
 }
 
 bool SerialWorker::command(Task curr)
@@ -94,39 +95,32 @@ void SerialWorker::run()
 
         case SET_PARAMS:
             sd->setParamsJob();
-            zadanie = IDLE;
-            break;
+              break;
 
         case SET_HOME:
             sd->setHomeJob();
-            zadanie = IDLE;
             break;
 
         case SET_POSITION:
             sd->setPosJob();
-            zadanie = IDLE;
             break;
         
         case SET_ROLETA:
             sd->setRoletaJob();
-            zadanie = IDLE;
             break;
 
         case SET_ROLETA_HOME:
             sd->setRoletaHomeJob();
-            zadanie = IDLE;
             break;
 
         case READ_RADIO:
             sd->readRadioJob();
-            zadanie = IDLE;
             break;
 
         case DISCONNECT:
             sd->closeDeviceJob();
-            break;
+
         default:
-            zadanie = IDLE;
             break;
         }
         mutexRun.lock();
@@ -157,6 +151,7 @@ SerialDevice::SerialDevice(QObject *parent)
     : QObject(parent),
       m_portName(""), m_portNr(-1),
       m_connected(false),  m_worker(this)
+
 {
     m_reverseX = false;
     m_reverseY = false;
@@ -168,6 +163,10 @@ SerialDevice::SerialDevice(QObject *parent)
     m_maxStepX = 0;
     m_maxStepY = 0;
     m_maxStepR = 0;
+
+#ifdef SERIALLINUX
+     m_serialPort = new QSerialPort(&m_worker);
+#endif
 
 }
 
@@ -284,7 +283,6 @@ bool SerialDevice::configureDevice()
     }
 
     emit kontrolerConfigured(false, IDENT_OK);
-    return true;
 
     //s = write(SerialMessage::setReset(), 100, 3000).getParseReply();
     //if (s != SerialMessage::RESET_REPLY)
@@ -385,7 +383,8 @@ void SerialDevice::setPosJobLocal(bool home)
         if (actSt != SerialMessage::END_X) {
             emit setPositionDone(false, home, actSt);
             return;
-        }   
+        }
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 
@@ -418,6 +417,7 @@ void SerialDevice::setPosJobLocal(bool home)
             emit setPositionDone(false, home, actSt);
             return;
         }   
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 
@@ -482,7 +482,8 @@ void SerialDevice::setRoletaJobLocal(bool home)
         if (actSt != SerialMessage::END_R) {
             emit setPositionDone(false, home, actSt);
             return;
-        }   
+        }
+        values = s.getValues();
         emit setPositionDone(true, home, actSt);
     }
 }
@@ -533,7 +534,7 @@ void SerialDevice::closeDeviceJob()
     DEBUGSER("CLOSING DEVICE");
     //setStop();
 #ifdef SERIALLINUX
-    m_serialPort.close();
+    m_serialPort->close();
 #else
     RS232_CloseComport(m_portNr);
 #endif
@@ -546,22 +547,23 @@ void SerialDevice::closeDeviceJob()
 bool SerialDevice::openDevice()
 {
 #ifdef SERIALLINUX
-    m_serialPort.setPort(QSerialPortInfo(m_portName));
+    m_serialPort->setPort(QSerialPortInfo(m_portName));
 
-    emit deviceName(m_serialPort.portName());
+    emit deviceName(m_serialPort->portName());
 
-    if (!m_serialPort.open(QIODevice::ReadWrite)) {
-        emit error(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(m_portName).arg(m_serialPort.errorString()));
+    if (!m_serialPort->open(QIODevice::ReadWrite)) {
+        emit error(QString(QObject::tr("Nie mozna otworzyc urzadzenia %1, error  %2")).arg(m_portName).
+                   arg(m_serialPort->errorString()));
         emit kontrolerConfigured(false, NO_OPEN);
         return false;
     }
 
     emit kontrolerConfigured(false, OPEN);
-    m_serialPort.setBaudRate(QSerialPort::Baud115200);
-    m_serialPort.setDataBits(QSerialPort::Data8);
-    m_serialPort.setFlowControl(QSerialPort::NoFlowControl);
-    m_serialPort.setParity(QSerialPort::NoParity);
-    m_serialPort.setStopBits(QSerialPort::OneStop);
+    m_serialPort->setBaudRate(QSerialPort::Baud115200);
+    m_serialPort->setDataBits(QSerialPort::Data8);
+    m_serialPort->setFlowControl(QSerialPort::NoFlowControl);
+    m_serialPort->setParity(QSerialPort::NoParity);
+    m_serialPort->setStopBits(QSerialPort::OneStop);
 
     return true;
 #else
@@ -600,6 +602,11 @@ SerialMessage SerialDevice::parseMessage(const QByteArray &reply)
     return msg;
 }
 
+const SerialMessageValues &SerialDevice::getValues() const
+{
+    return values;
+}
+
 SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentWaitWriteTimeout, int currentReadWaitTimeout)
 {
 
@@ -609,25 +616,25 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
 #ifdef SERIALLINUX
     if (currentRequest.size() > 0) {
         DEBUGSER("Sending bytes....");
-        int sendBytes = m_serialPort.write(currentRequest);
-        if (!m_serialPort.waitForBytesWritten(currentWaitWriteTimeout)) {
-            qDebug() << "Timeout write";
+        int sendBytes = m_serialPort->write(currentRequest);
+        if (!m_serialPort->waitForBytesWritten(currentWaitWriteTimeout)) {
+            DEBUGSER(QString("Timeout Write %1").arg(currentWaitWriteTimeout));
             emit error(QString("Timeout Write"));
             return msg;
         }
-        DEBUGSER(QString("Write %1 bytes").arg(sendBytes));
+        DEBUGSER(QString("Write %1 bytes [%2]").arg(sendBytes).arg(currentRequest.toHex(' ').constData()));
     }
 
     QByteArray responseData;
     DEBUGSER(QString("Wait for read"));
-    if (m_serialPort.waitForReadyRead(currentReadWaitTimeout)) {
-        responseData = m_serialPort.readAll();
-        while (m_serialPort.waitForReadyRead(10))
-            responseData += m_serialPort.readAll();
-        DEBUGSER(QString("Read %1").arg(responseData.size()));
+    if (m_serialPort->waitForReadyRead(currentReadWaitTimeout)) {
+        responseData = m_serialPort->readAll();
+        while (m_serialPort->waitForReadyRead(10))
+            responseData += m_serialPort->readAll();
+        DEBUGSER(QString("Read %1 [%2]").arg(responseData.size()).arg(responseData.toHex(' ').constData()));
         return parseMessage(responseData);
     } else {
-        DEBUGSER(QString("Error for read"));
+        DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
         emit error(QString("Timeout Read"));
         return msg;
     }

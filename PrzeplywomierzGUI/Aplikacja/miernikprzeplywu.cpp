@@ -21,7 +21,8 @@
 
 #include <QDebug>
 
-#define DEBUGMP(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+//#define DEBUGMP(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+#define DEBUGMP(X) 
 
 MiernikPrzeplywu::MiernikPrzeplywu()
     : QMainWindow(NULL)
@@ -57,6 +58,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
     ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
+
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
@@ -68,10 +70,10 @@ MiernikPrzeplywu::~MiernikPrzeplywu()
 
 void MiernikPrzeplywu::chooseWork()
 {
-    //qDebug() << "chooseWork()" << modeWork << methodIns;
+    ////qDebig() << "chooseWork()" << modeWork << methodIns;
 
     do {
-        //qDebug() << "New wyborMethody";
+        ////qDebig() << "New wyborMethody";
         hide();
         WyborMetody::ModeWork prevWork = modeWork;
         modeWork = WyborMetody::MODE_NONE;
@@ -179,7 +181,7 @@ void MiernikPrzeplywu::calculateMechanika()
         mech.setReverseR(false);
         break;
     }
-    mech.setMaxKrokiR(160000);
+    mech.setMaxKrokiR(ust.getMaxRolKroki().toUInt());
     widget->setMechanika(mech);
     sMsg.setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
@@ -261,7 +263,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
             w->setList(pdr.getLista());
             return true;
         } else if (methodIns == WyborMetody::METHOD_FILE) {
-            //qDebug() << "alloha" << values.stableTimeRoleta;
+            ////qDebig() << "alloha" << values.stableTimeRoleta;
             WybranyPlikNorma wpn(this, false, values.fileName2, values.etapNrRoleta, values.stableTimeRoleta,
                                  wymiarY, wymiarX,
                                  reverse ? values.offsetXL : values.offsetXP,
@@ -309,7 +311,6 @@ void MiernikPrzeplywu::setUstawienia()
     mechR.setUstawienia(ust);
 
     mech.calculate();
-    mechR.calculate();
 }
 
 
@@ -431,7 +432,12 @@ void MiernikPrzeplywu::kontrolerConfigured(bool success, int state)
         ui->eStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
         ui->lStatusRoleta->setEnabled(modeWork == WyborMetody::MODE_ROLETAP);
         ui->lConneected->setText(QString("%1 - kontroler OK.").arg(m_portName));
-
+        if (modeWork == WyborMetody::MODE_FUNSET) {
+            if (widget) {
+                Wentylator * w = static_cast<Wentylator*>(widget);
+                w->addStatus("Sterownik skonfigurowany");
+            }
+        }
         setParamsDone(true);
         break;
 
@@ -468,6 +474,8 @@ void MiernikPrzeplywu::setParamsDone(bool success)
         widget->setStatus(QString("Ustawiam czujnik w pozycji bazowej"));
         ui->lStatus->setText(QString("Trwa zerowanie urządzenia...."));
         ui->statusbar->showMessage("Ustawiam czujnik w pozycji bazowej", 5000);
+        Wentylator * w = static_cast<Wentylator*>(widget);
+        w->addStatus("Zeruje pozycje lasera");
         setPositionHome();
     } else {
         widget->setStatus(QString("Sprawdzam połączenie z modułem radiowym"));
@@ -578,6 +586,12 @@ void MiernikPrzeplywu::positionHome()
         }
 
     } else {
+        if (modeWork == WyborMetody::MODE_FUNSET) {
+            if (widget) {
+                Wentylator * w = static_cast<Wentylator*>(widget);
+                w->addStatus("Urządzenie wyzerowane.");
+            }
+        }
         widget->positionDone(true);
     }
 }
@@ -599,7 +613,6 @@ void MiernikPrzeplywu::roletaHome()
 
 void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
 {
-    qDebug() << __FILE__ << __LINE__ ;
     switch(work) {
     case SerialMessage::START_XY:
         ui->lStatus->setText("Ustawianie pozycji czujnika...");
@@ -741,7 +754,7 @@ void MiernikPrzeplywu::deviceName(const QString & portname)
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
     //ui->debug->append(dbg);
-    qDebug() << addTime(dbg);
+    //qDebug() << addTime(dbg);
 }
 
 const WyborMetodyData &MiernikPrzeplywu::getData() const

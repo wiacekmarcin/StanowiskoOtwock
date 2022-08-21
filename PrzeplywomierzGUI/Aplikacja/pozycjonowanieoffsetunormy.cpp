@@ -127,7 +127,7 @@ void PozycjonowanieOffsetuNormy::right()
 
 void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int work)
 {
-    qDebug() << __LINE__ << success << home << work;
+    //qDebig() << __LINE__ << success << home << work;
     if (success && !home && work == SerialMessage::END_XY) {
         ui->status->setText("Pozycja ustawiona");
         ui->left->setEnabled(true);
@@ -148,7 +148,7 @@ void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int wo
 
 void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 {
-    qDebug() << __FILE__ << __LINE__ << succ << state;
+    //qDebig() << __FILE__ << __LINE__ << succ << state;
     
 
     switch(state) {
@@ -201,7 +201,7 @@ void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 
 void PozycjonowanieOffsetuNormy::setParamsDone(bool success)
 {
-    qDebug() << __LINE__ << success;
+    //qDebig() << __LINE__ << success;
     if (success) {
         ui->status->setText("Zerowanie");
         sDev->setPositionHome();
@@ -213,12 +213,12 @@ void PozycjonowanieOffsetuNormy::setParamsDone(bool success)
 
 void PozycjonowanieOffsetuNormy::debug(const QString &s)
 {
-    qDebug() << s;
+    //qDebig() << s;
 }
 
 void PozycjonowanieOffsetuNormy::errorSerial(const QString &e)
 {
-    qDebug() << "ERR: " << e;
+    //qDebig() << "ERR: " << e;
 }
 
 void PozycjonowanieOffsetuNormy::setPos()
