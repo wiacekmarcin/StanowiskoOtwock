@@ -38,7 +38,7 @@ HEADERS += \
     impulsydlg.h \
         mainwindow.h \
         ../Aplikacja/crc8.h \
-        ../Aplikacjamechanika.h \
+        ../Aplikacja/mechanika.h \
     roletakroki.h \
     ../Aplikacja/serialmessage.h \
     ../Aplikacja/serialdevice.h \
@@ -48,16 +48,17 @@ FORMS += \
         impulsydlg.ui \
         mainwindow.ui \
         roletakroki.ui
-        win32 {
-             !contains(QMAKE_TARGET.arch, x86_64) {
-                LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
-                LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
 
-            } else {
-                LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
-                LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
-            }
+win32 {
+         !contains(QMAKE_TARGET.arch, x86_64) {
+            LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
+            LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
+
+        } else {
+            LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
+            LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
         }
-        linux {
-                DEFINES += SERIALLINUX
-        }
+}
+linux {
+        DEFINES += SERIALLINUX
+}

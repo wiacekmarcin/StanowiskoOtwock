@@ -75,6 +75,11 @@ void MainWindow::setPositionDone(bool success, bool home, int work)
         homeDone(work);
     } else if (success && !home) {
         positionDone(work);
+    } else {
+        if (work == SerialMessage::START_R || work == SerialMessage::END_R || work == SerialMessage::ERROR_R)
+            home ? errorHomeRoleta() : errorRoleta();
+        else
+            home ? errorHome() : errorPosition();
     }
 }
 
@@ -82,41 +87,41 @@ void MainWindow::positionDone(int work)
 {
     switch(work) {
     case SerialMessage::START_XY:
-        qDebug() << "start both";
+        debug("Rozpoczynam ustawianie pozycji...");
         ui->cbPosStart->setChecked(true);
         ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        qDebug() << "start lewoprawo";
+        debug("Rozpoczynam ustawianie pozycji na osi X...");
         ui->cbPosStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        qDebug() << "end lewo";
+        debug("Pozycja na osi X ustalona");
         ui->cbPosKoniecLP->setChecked(true);
         ui->stepX->setText(QString::number(sMsg.getValues().moveStepX));
         ui->posImpX->setText(QString::number(sMsg.getValues().posImpX));
         break;
     case SerialMessage::START_Y:
-        qDebug() << "Start gora dol";
+        debug("Rozpoczynam ustawianie pozycji na osi Y...");
         ui->cbPosStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        qDebug() << "Koniec gora dol";
+        debug("Pozycja na osi Y ustalona");
         ui->cbPosKoniecGD->setChecked(true);
         ui->stepY->setText(QString::number(sMsg.getValues().moveStepY));
         ui->posImpY->setText(QString::number(sMsg.getValues().posImpY));
         break;
     case SerialMessage::END_XY:
-        qDebug() << "Koniec pozycjoowanie";
+        debug("Pozycja czujnika ustalona na obu osiach");
         ui->cbPosKoniec->setChecked(true);
         ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        qDebug() << "Poczatek bazowania";
+        debug("Ustawiam roletę w odpowiedniej pozycji...");
         ui->cbRolPosStart->setChecked(true);
         break;
     case SerialMessage::END_R:
-        qDebug() << "Koniec bazowania";
+        debug("Roleta ustawiona");
         ui->cbRolPosKoniec->setChecked(true);
         ui->pbRoletaUstaw->setEnabled(true);
         ui->stepR->setText(QString::number(sMsg.getValues().moveStepR));
@@ -125,10 +130,12 @@ void MainWindow::positionDone(int work)
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Pozycja X/Y", "Nie udało się ustawić pozycji");
         ui->pbUstaw->setEnabled(true);
+        errorPosition();
         break;
     case SerialMessage::ERROR_R:
         QMessageBox::critical(this, "Roleta", "Nie udało się ustawić pozycji rolety");
         ui->pbRoletaUstaw->setEnabled(true);
+        errorRoleta();
         break;
     default:
         break;
@@ -137,43 +144,42 @@ void MainWindow::positionDone(int work)
 
 void MainWindow::homeDone(int work)
 {
-    qDebug() << "homeDone work" << work;
     switch(work) {
     case SerialMessage::START_XY:
-        qDebug() << "Start home";
+        debug("Rozpoczynam zerowanie...");
         ui->cbHomeStart->setChecked(true);
         ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
-        qDebug() << "Start X";
+        debug("Zeruje oś X....");
         ui->cbHomeStartLP->setChecked(true);
         break;
     case SerialMessage::END_X:
-        qDebug() << "End X";
+        debug("Oś X wyzerowana");
         ui->cbHomeKoniecLP->setChecked(true);
         ui->homeStepsX->setText(QString::number(sMsg.getValues().moveStepX));
         break;
     case SerialMessage::START_Y:
-        qDebug() << "Start Y";
+        debug("Zeruje oś Y.....");
         ui->cbHomeStartGD->setChecked(true);
         break;
     case SerialMessage::END_Y:
-        qDebug() << "End Y";
+        debug("Oś Y wyzerowana");
         ui->cbHomeKoniecGD->setChecked(true);
         ui->homeStepsY->setText(QString::number(sMsg.getValues().moveStepY));
         break;
     case SerialMessage::END_XY:
-        qDebug() << "Koniec Baza";
+        debug("Urządzenie skalibrowane");
         ui->cbHomeKoniec->setChecked(true);
         ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
-        qDebug() << "Start R";
+        debug("Zeruje roletę.....");
         ui->cbRolHomeStart->setChecked(true);
         ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
-        qDebug() << "End R";
+        debug("Roleta zamknięta");
         ui->cbRolHomeKoniec->setChecked(true);
         ui->pbRoletaHome->setEnabled(true);
         ui->homeStepsR->setText(QString::number(sMsg.getValues().moveStepR));
@@ -181,10 +187,12 @@ void MainWindow::homeDone(int work)
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, "Powrót do pozycji startowej", "Nie udało się ustawić pozycji bazowej");
         ui->pbHome->setEnabled(true);
+        errorHome();
         break;
     case SerialMessage::ERROR_R:
-        QMessageBox::critical(this, "Roleta", "Nie udało się ustawić pozycji rolety");
+        QMessageBox::critical(this, "Roleta", "Nie udało się ustawić pozycji startowej rolety");
         ui->pbRoletaHome->setEnabled(true);
+        errorHomeRoleta();
         break;
     default:
         break;
@@ -395,56 +403,27 @@ void MainWindow::errorSerial(QString error)
     ui->errorserial->setText(error);
     ui->debug->appendPlainText(error);
 }
-
-
-void MainWindow::successOpenDevice(bool open)
-{
-    debug(QString("%1 open port").arg(open ? "Success" : "Unsucces"));
-    if (open) {
-        ui->pbFindSerial->setEnabled(false);
-        ui->statusserial->setText("Sprawdzam sterownik...");
-        ui->errorserial->setText("Port poprawnie otwarty");
-        emit checkDevice();
-
-    } else {
-        ui->errorserial->setText("Nie udalo sie otworzyc portu");
-    }
-    ui->pbFindSerial->setEnabled(false);
-
-}
-
-
-void MainWindow::controllerOK()
-{
-    ui->statusserial->setText("Sterownik OK");
-    ui->pbHome->setEnabled(true);
-    ui->pbUstaw->setEnabled(true);
-}
-
-void MainWindow::setParamsDone()
-{
-    ui->statusparams->setText("Parametry ustawione");
-}
 */
 
 void MainWindow::errorHome()
 {
-
+    QMessageBox::critical(this, "Zerowanie", "Nie udało się wyzerować");
 }
 
 void MainWindow::errorPosition()
 {
-
+    QMessageBox::critical(this, "Pozycjonowanie", "Nie udało się ustawić pozycji");
 }
 
 void MainWindow::errorHomeRoleta()
 {
-
+    QMessageBox::critical(this, "Roleta", "Nie udało się opuścić rolety");
 }
+
 
 void MainWindow::errorRoleta()
 {
-
+    QMessageBox::critical(this, "Roleta", "Nie udało podnieść rolety");
 }
 
 QString MainWindow::addTime(QString status)
@@ -576,15 +555,17 @@ void MainWindow::pbRadioOn_clicked()
 
 void MainWindow::tbX_clicked()
 {
-    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyXperMM().toUInt(), ust.getKrokiXperMM().toUInt(),
-                                       QString("Oś lewo-prawo"), ui->pos_X, this);
+    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyXperMM().toFloat(), ust.getKrokiXperMM().toFloat(),
+                                       QString("Oś lewo-prawo"), ui->pos_X,
+                                      ui->posXsteps, ui->posXmm, this);
     dlg->exec();
 }
 
 void MainWindow::tbY_clicked()
 {
-    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyYperMM().toUInt(), ust.getKrokiYperMM().toUInt(),
-                                       QString("Oś góra-dół"), ui->pos_Y, this);
+    ImpulsyDlg * dlg = new ImpulsyDlg(ust.getImpulsyYperMM().toFloat(), ust.getKrokiYperMM().toFloat(),
+                                       QString("Oś góra-dół"), ui->pos_Y,
+                                       ui->posYsteps, ui->posYmm, this);
     dlg->exec();
 }
 

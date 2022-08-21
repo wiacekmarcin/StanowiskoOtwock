@@ -1,12 +1,15 @@
 #include "impulsydlg.h"
 #include "ui_impulsydlg.h"
 
-ImpulsyDlg::ImpulsyDlg(unsigned int imp2mm_, unsigned int step2mm_, const QString &title, QLineEdit *value, QWidget *parent) :
+ImpulsyDlg::ImpulsyDlg(float imp2mm_, float step2mm_, const QString & title,
+                       QLineEdit * value, QLabel * lsteps, QLabel * lmm, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ImpulsyDlg),
     lineEdit(value),
     imp2mm(imp2mm_),
-    step2mm(step2mm_)
+    step2mm(step2mm_),
+    Lmm(lmm),
+    Lsteps(lsteps)
 {
     ui->setupUi(this);
     connect(ui->pbUstaw, &QPushButton::clicked, this, &ImpulsyDlg::pbUstaw_clicked);
@@ -33,6 +36,8 @@ void ImpulsyDlg::pbUstaw_clicked()
             return;
 
         lineEdit->setText(QString::number(steps2impulsy(steps)));
+        Lsteps->setText(ui->steps->text());
+        Lmm->setText(QString::number(steps2mm(steps)));
         reject();
     } else if (ui->rbmm->isChecked()) {
         if (ui->mm->text().isEmpty())
@@ -42,6 +47,8 @@ void ImpulsyDlg::pbUstaw_clicked()
         if (!ok)
             return;
         lineEdit->setText(QString::number(mm2impulsy(mm)));
+        Lmm->setText(ui->mm->text());
+        Lsteps->setText(QString::number(mm2steps(mm)));
         reject();
     } else if (ui->rbImpulsy->isChecked()) {
         if (ui->impulsy->text().isEmpty())
@@ -51,6 +58,8 @@ void ImpulsyDlg::pbUstaw_clicked()
         if (!ok)
             return;
         lineEdit->setText(QString::number(imp));
+        Lmm->setText(QString::number(impulsy2mm(imp)));
+        Lsteps->setText(QString::number(impulsy2steps(imp)));
         reject();
     }
 }
@@ -81,7 +90,28 @@ unsigned long ImpulsyDlg::steps2impulsy(unsigned long steps)
     return imp2mm*steps/step2mm;
 }
 
+unsigned long ImpulsyDlg::impulsy2steps(unsigned long imps)
+{
+    return step2mm*imps/imp2mm;
+}
+
 unsigned long ImpulsyDlg::mm2impulsy(unsigned long mm)
 {
-    return imp2mm*mm;
+    return mm*imp2mm;
 }
+
+unsigned long ImpulsyDlg::impulsy2mm(unsigned long imps)
+{
+    return imps/imp2mm;
+}
+
+unsigned long ImpulsyDlg::steps2mm(unsigned long steps)
+{
+    return steps/step2mm;
+}
+
+unsigned long ImpulsyDlg::mm2steps(unsigned long mm)
+{
+    return mm*step2mm;
+}
+

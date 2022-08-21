@@ -73,7 +73,6 @@ PozycjeRol::PozycjeRol(bool reverse, unsigned int maxEtap_, unsigned int maxR_, 
 
 void PozycjeRol::appendRoletaEtap(unsigned int roletaEtap)
 {
-    //qDebug() << "roletaetap" << stableTime;
     PosRoleta p;
     p.mmx = 0;
     p.mmy = 0;
