@@ -33,7 +33,8 @@ SOURCES += \
     roletakroki.cpp \
     ../Aplikacja/serialmessage.cpp \
     ../Aplikacja/serialdevice.cpp \
-    ../Aplikacja/ustawienia.cpp
+    ../Aplikacja/ustawienia.cpp \
+	../Aplikacja/rs232.cpp
 HEADERS += \
     impulsydlg.h \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     roletakroki.h \
     ../Aplikacja/serialmessage.h \
     ../Aplikacja/serialdevice.h \
-    ../Aplikacja/ustawienia.h
+    ../Aplikacja/ustawienia.h \
+	../Aplikacja/rs232.h
 
 FORMS += \
         impulsydlg.ui \
@@ -50,14 +52,14 @@ FORMS += \
         roletakroki.ui
 
 win32 {
-         !contains(QMAKE_TARGET.arch, x86_64) {
-            LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
-            LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
+     !contains(QMAKE_TARGET.arch, x86_64) {
+        LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -lsetupAPI
+        LIBS += -L$$PWD/../../setupapilib/32/setupapi/ -ladvAPI32
 
-        } else {
-            LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
-            LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
-        }
+    } else {
+        LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -lsetupAPI
+        LIBS += -L$$PWD/../../setupapilib/64/setupapi/ -ladvAPI32
+    }
 }
 linux {
         DEFINES += SERIALLINUX

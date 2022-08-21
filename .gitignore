@@ -138,3 +138,10 @@ PrzeplywomierzGUI/Test/PrzeplywomierzTest.pro.user*
 PrzeplywomierzGUI/Aplikacja/PrzeplywomierzGUI
 PrzeplywomierzGUI/Aplikacja/qrc_ikony.cpp
 
+PrzeplywomierzGUI/Serwis/PrzeplywomierzSewis.vcxproj
+.gitignore
+PrzeplywomierzGUI/Aplikacja/Makefile.Debug
+PrzeplywomierzGUI/Serwis/PrzeplywomierzSewis.vcxproj.user
+.gitignore
+PrzeplywomierzGUI/Aplikacja/Makefile.Release
+PrzeplywomierzGUI/Serwis/PrzeplywomierzSewis.vcxproj.filters

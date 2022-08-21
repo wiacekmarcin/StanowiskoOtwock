@@ -654,7 +654,9 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     do {
 
         rc = RS232_PollComport(m_portNr, recvBuffor, 20);
-        DEBUGSER(QString("recv %1 bytes").arg(rc));
+        if (rc > 0) {
+            DEBUGSER(QString("recv %1 bytes").arg(rc));
+        }
         if (rc == 0) {
             readTimeout -= 50;
             QThread::currentThread()->msleep(50);
