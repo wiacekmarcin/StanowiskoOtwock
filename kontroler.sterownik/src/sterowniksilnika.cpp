@@ -637,7 +637,7 @@ void setPosR(uint32_t pos)
     
 
     while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-        stepR(50, 400));
+        stepR(50, 400);
         --gMoveStepR;
     }
 

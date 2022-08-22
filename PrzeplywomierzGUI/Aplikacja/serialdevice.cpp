@@ -275,7 +275,7 @@ bool SerialDevice::configureDevice()
     DEBUGSER(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
     .arg(m_maxImpX).arg(m_maxImpY).arg(m_maxStepX).arg(m_maxStepY).arg(m_maxStepR));
 
-    auto s = write(SerialMessage::welcomeMsg(), 100, 6000).getParseReply();
+    auto s = write(SerialMessage::welcomeMsg(), 100, 10000).getParseReply();
 
     if (s != SerialMessage::WELCOME_REPLY) {
         emit kontrolerConfigured(false, IDENT_FAILD);
@@ -291,7 +291,7 @@ bool SerialDevice::configureDevice()
     //QThread::currentThread()->sleep(2);
 
     s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
-              100, 100).getParseReply();
+              1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS1_REPLY) {
         emit kontrolerConfigured(false, PARAMS_FAILD);
@@ -299,7 +299,7 @@ bool SerialDevice::configureDevice()
     }
 
     s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR),
-              100, 100).getParseReply();
+              1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS2_REPLY) {
         emit kontrolerConfigured(false, PARAMS_FAILD);
@@ -316,7 +316,7 @@ void SerialDevice::setParamsJob()
     .arg(m_maxImpX).arg(m_maxImpY).arg(m_maxStepX).arg(m_maxStepY).arg(m_maxStepR));
 
     auto s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
-              100, 100).getParseReply();
+              1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS1_REPLY) {
         emit setParamsDone(false);
@@ -324,7 +324,7 @@ void SerialDevice::setParamsJob()
     }
 
     s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR),
-              100, 100).getParseReply();
+              1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS2_REPLY) {
         emit setParamsDone(false);
@@ -341,7 +341,7 @@ void SerialDevice::setPosJobLocal(bool home)
 
     auto s = write((home ? SerialMessage::setPositionHome() :
                     SerialMessage::setPosition(m_impX, m_impY)),
-            100, 100);
+            100, 200000);
     auto rp = s.getParseReply();
     auto actSt = s.getPosWork();
     if (rp != orp) {
@@ -355,7 +355,7 @@ void SerialDevice::setPosJobLocal(bool home)
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 2000);
+    s = write(QByteArray(), 100, 20000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
@@ -388,7 +388,7 @@ void SerialDevice::setPosJobLocal(bool home)
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 2000);
+    s = write(QByteArray(), 100, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
@@ -421,7 +421,7 @@ void SerialDevice::setPosJobLocal(bool home)
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 2000);
+    s = write(QByteArray(), 100, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
@@ -454,7 +454,7 @@ void SerialDevice::setRoletaJobLocal(bool home)
 
     auto s = write((home ? SerialMessage::setRoletaHome() :
                     SerialMessage::setRoleta(m_stepR)),
-            100, 100);
+            100, 200000);
     auto rp = s.getParseReply();
     auto actSt = s.getPosWork();
     if (rp != orp) {
@@ -517,7 +517,7 @@ void SerialDevice::readRadioJob()
 {
     DEBUGSER(QString("Pobieram dane z radia"));
     auto s = write(SerialMessage::measValuesMsg(),
-              100, 1000);
+              100, 2000);
 
     if (s.getParseReply() != SerialMessage::RADIOREAD_REPLY) {
         emit readFromRadio(false, 0, 0, 0, 0);
@@ -587,7 +587,7 @@ bool SerialDevice::openDevice()
     }
     QThread::currentThread()->msleep(200);
     unsigned char recvBuf[100];
-    int recv = RS232_PollComport(m_portNr, recvBuf, 100);
+    int recv = RS232_PollComport(m_portNr, recvBuf, 500);
     (void)recv;
 
     emit kontrolerConfigured(false, OPEN);
@@ -664,6 +664,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     } while(rc == 0 && readTimeout > 0);
     if (readTimeout <= 0) {
         emit error(QString("Timeout"));
+        DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
     }
     QByteArray responseData((const char*)recvBuffor, rc);
     DEBUGSER(QString("read [%1]").arg(responseData.toHex().constData()));
