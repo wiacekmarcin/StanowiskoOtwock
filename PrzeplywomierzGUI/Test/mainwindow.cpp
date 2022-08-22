@@ -412,6 +412,7 @@ void MainWindow::errorHome()
 
 void MainWindow::errorPosition()
 {
+
     QMessageBox::critical(this, "Pozycjonowanie", "Nie udało się ustawić pozycji");
 }
 

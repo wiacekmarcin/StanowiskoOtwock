@@ -61,9 +61,9 @@ bool work()
             delay(200);
             msg.sendPositionStart();
             delay(200);
-            setPosY(msg.getPosY());
-            delay(200);
             setPosX(msg.getPosX());
+            delay(200);
+            setPosY(msg.getPosY());
             delay(200);
             msg.sendPositionDone();
             actWork = MessageSerial::NOP;

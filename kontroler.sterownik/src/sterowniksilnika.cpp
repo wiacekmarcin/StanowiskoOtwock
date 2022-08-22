@@ -298,7 +298,7 @@ bool returnBaseR()
     if (!getHomePosR()) {
         
         while (!getHomePosR() && ++step < gStepMaxR) {
-            stepR(50, 400);
+            stepR(50, 800);
         }
         if (!getHomePosR()) {
             msg.setErrorRoletaHomeBack();
@@ -377,7 +377,7 @@ void setPosR(uint32_t pos)
     
 
     while(gMoveStepR >= 0 && ++step < gStepMaxR) {
-        stepR(50, 400);
+        stepR(50, 2000);
         --gMoveStepR;
     }
 

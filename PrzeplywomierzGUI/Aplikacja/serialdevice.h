@@ -340,7 +340,7 @@ protected:
      * @brief Wspolna funkcja dla setPos i setHome
      * @param home - czy powrot do bazy
      */
-    void setRoletaJobLocal(bool home);
+    void setRoletaJobLocal(bool home, bool info);
 
 
     /***************************** Inne funkcje zwiazane z wiadaomosciamia ********************/
