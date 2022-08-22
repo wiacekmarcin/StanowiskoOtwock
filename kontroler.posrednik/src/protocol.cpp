@@ -3,6 +3,8 @@
 #include "../../kontroler_lib/protocol_kontroler.cpp"
 #include "../../kontroler_lib/crc8.cpp"
 
+#define RESET_NANO 4
+
 //10 imp silnika na 1 mm
 #include "platform.h"
 
