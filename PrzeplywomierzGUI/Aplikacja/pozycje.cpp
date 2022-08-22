@@ -69,6 +69,7 @@ PozycjeRol::PozycjeRol(bool reverse, unsigned int maxEtap_, unsigned int maxR_, 
 
     float N10[10] = {-E10, -D10, -C10, -B10, -A10, A10, B10, C10, D10, E10};
     initNorma(10, N10);
+    width= 800;
 }
 
 void PozycjeRol::appendRoletaEtap(unsigned int roletaEtap)
@@ -127,6 +128,7 @@ void PozycjeRol::setInit(unsigned int maxEtap_, unsigned int maxR_,
     measTime = measTime_;
     stableTime = stableTime_;
     width = width_;
+    width = 800;
 }
 
 void PozycjeRol::setOffset(bool reverse, unsigned int offSetX_, unsigned int offSetY_)

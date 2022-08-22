@@ -27,11 +27,14 @@ WybranyPlikNorma::WybranyPlikNorma(QWidget *parent, bool reverse, const QString 
     ui->tbWybrane->resizeColumnsToContents();
     ui->tbWybrane->horizontalHeader()->setStretchLastSection(true);
 
+    width = 800;
+    maxR = 1500;
 
     m_lista.setInit(etapMax, maxR , width, 0, timeStable);
     m_lista.setOffset(reverse, offsetx, offsety);
 
     prevNorma = -1;
+
     parseFile();
 }
 

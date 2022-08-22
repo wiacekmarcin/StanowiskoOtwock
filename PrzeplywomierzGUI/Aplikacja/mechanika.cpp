@@ -227,7 +227,7 @@ void Ruch::setWentOffsetX(double value)
 }
 
 RoletaRuch::RoletaRuch() :
-    krokiPerObrot(19.4),
+    krokiPerObrot(2000),
     maxMM(1500),
     maxKroki(29100)
 {
@@ -300,6 +300,9 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
     if (mm > maxMM) {
         return maxKroki;
     }
+    
+    if (krokiPerObrot != 2000)
+        krokiPerObrot = 2000;
 
     unsigned long kroki = 0L;
     unsigned long MM = 10*mm;

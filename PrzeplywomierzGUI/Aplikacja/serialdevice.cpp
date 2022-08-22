@@ -291,7 +291,7 @@ bool SerialDevice::configureDevice()
     //QThread::currentThread()->sleep(2);
 
     s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
-              1000, 1000).getParseReply();
+              5000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS1_REPLY) {
         emit kontrolerConfigured(false, PARAMS_FAILD);
@@ -343,44 +343,52 @@ void SerialDevice::setPosJobLocal(bool home)
                     SerialMessage::setPosition(m_impX, m_impY)),
             100, 200000);
     auto rp = s.getParseReply();
+
     auto actSt = s.getPosWork();
     if (rp != orp) {
+        qDebug() << __FILE__ << __LINE__ << actSt;
         emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt != SerialMessage::START_XY) {
             emit setPositionDone(false, home, actSt);
+            qDebug() << __FILE__ << __LINE__;
             return;
         }   
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 20000);
+    s = write(QByteArray(), 1000, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
         emit setPositionDone(false, home, actSt);
+        qDebug() << __FILE__ << __LINE__;
         return;
     } else {
         if (actSt != SerialMessage::START_X) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }   
         emit setPositionDone(true, home, actSt);
     }
     
-    s = write(QByteArray(), 100, 200000);
+    s = write(QByteArray(), 1000, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
+        qDebug() << __FILE__ << __LINE__;
         emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt == SerialMessage::ERROR_XY) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }
         if (actSt != SerialMessage::END_X) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }
@@ -388,32 +396,37 @@ void SerialDevice::setPosJobLocal(bool home)
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 200000);
+    s = write(QByteArray(), 1000, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
+        qDebug() << __FILE__ << __LINE__;
         emit setPositionDone(home, false, actSt);
         return;
     } else {
         if (actSt != SerialMessage::START_Y) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }   
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 200000);
+    s = write(QByteArray(), 1000, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
+        qDebug() << __FILE__ << __LINE__;
         emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt == SerialMessage::ERROR_XY) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }
         if (actSt != SerialMessage::END_Y) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }   
@@ -421,14 +434,16 @@ void SerialDevice::setPosJobLocal(bool home)
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 200000);
+    s = write(QByteArray(), 1000, 20000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
+        qDebug() << __FILE__ << __LINE__;
         emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt != SerialMessage::END_XY) {
+            qDebug() << __FILE__ << __LINE__;
             emit setPositionDone(false, home, actSt);
             return;
         }   
@@ -448,43 +463,49 @@ void SerialDevice::setPosJob()
     setPosJobLocal(false);
 }
 
-void SerialDevice::setRoletaJobLocal(bool home)
+void SerialDevice::setRoletaJobLocal(bool home, bool info)
 {
     SerialMessage::ParseReply orp = home ? SerialMessage::MOVEHOME_REPLY : SerialMessage::POSITION_REPLY;
 
     auto s = write((home ? SerialMessage::setRoletaHome() :
                     SerialMessage::setRoleta(m_stepR)),
-            100, 200000);
+            1000, 1000);
     auto rp = s.getParseReply();
     auto actSt = s.getPosWork();
     if (rp != orp) {
-        emit setPositionDone(false, home, actSt);
+        if (info)
+            emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt != SerialMessage::START_R) {
-            emit setPositionDone(false, home, actSt);
+            if (info)
+                emit setPositionDone(false, home, actSt);
             return;
         }   
         emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 100, 200000);
+    s = write(QByteArray(), 1000, 200000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {
-        emit setPositionDone(false, home, actSt);
+        if (info)
+            emit setPositionDone(false, home, actSt);
         return;
     } else {
         if (actSt == SerialMessage::ERROR_R) {
-            emit setPositionDone(false, home, actSt);
+            if (info)
+                emit setPositionDone(false, home, actSt);
             return;
         }
         if (actSt != SerialMessage::END_R) {
-            emit setPositionDone(false, home, actSt);
+            if (info)
+                emit setPositionDone(false, home, actSt);
             return;
         }
         values = s.getValues();
-        emit setPositionDone(true, home, actSt);
+        if (info)
+            emit setPositionDone(true, home, actSt);
     }
 }
 
@@ -504,20 +525,23 @@ void SerialDevice::setConnected(bool connected)
 void SerialDevice::setRoletaHomeJob()
 {
     DEBUGSER(QString("Ustaw pozycje startowa dla rolety"));
-    setRoletaJobLocal(true);
+    setRoletaJobLocal(true, false);
+    m_stepR = 5000;
+    setRoletaJobLocal(false, false);
+    setRoletaJobLocal(true, true);
 }
 
 void SerialDevice::setRoletaJob()
 {
     DEBUGSER(QString("Ustaw pozycje rolety x=%1").arg(m_stepR));
-    setRoletaJobLocal(false);
+    setRoletaJobLocal(false, true);
 }
 
 void SerialDevice::readRadioJob()
 {
     DEBUGSER(QString("Pobieram dane z radia"));
     auto s = write(SerialMessage::measValuesMsg(),
-              100, 2000);
+              1000, 10000);
 
     if (s.getParseReply() != SerialMessage::RADIOREAD_REPLY) {
         emit readFromRadio(false, 0, 0, 0, 0);
@@ -587,7 +611,7 @@ bool SerialDevice::openDevice()
     }
     QThread::currentThread()->msleep(200);
     unsigned char recvBuf[100];
-    int recv = RS232_PollComport(m_portNr, recvBuf, 500);
+    int recv = RS232_PollComport(m_portNr, recvBuf, 1000);
     (void)recv;
 
     emit kontrolerConfigured(false, OPEN);
@@ -631,8 +655,8 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         responseData = m_serialPort->readAll();
         while (m_serialPort->waitForReadyRead(10))
             responseData += m_serialPort->readAll();
-        DEBUGSER(QString("Read %1 [%2]").arg(responseData.size()).arg(responseData.toHex(' ').constData()));
-        return parseMessage(responseData);
+            DEBUGSER(QString("Read %1 [%2]").arg(responseData.size()).arg(responseData.toHex(' ').constData()));
+            return parseMessage(responseData);
     } else {
         DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
         emit error(QString("Timeout Read"));

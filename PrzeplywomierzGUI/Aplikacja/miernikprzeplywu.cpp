@@ -248,12 +248,15 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         unsigned int wymiarY;
         wymiarX = ust.getRolOsXReal().toUInt();
         wymiarY = ust.getRolOsYReal().toUInt();
+        unsigned int maxH = ust.getNormaRoletaHeight().toUInt();
+        unsigned int maxW = ust.getNormaRoletaWidth().toUInt();
 
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO
 
-            PodzialEtapuRolety pdr(this, reverse, values.etapNrRoleta, values.timeStopRoleta,
-                                  values.stableTimeRoleta, wymiarY, wymiarX,
+            PodzialEtapuRolety pdr(this, reverse, values.etapNrRoleta,
+                                   values.timeStopRoleta,
+                                  values.stableTimeRoleta, maxH, maxW,
                                   reverse ? values.offsetXL : values.offsetXP,
                                   reverse ? values.offsetYL : values.offsetYP);
             int r = pdr.exec();
