@@ -186,7 +186,8 @@ void MiernikPrzeplywu::calculateMechanika()
     sMsg.setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),
-                      mech.getMaxKrokiR());
+                      mech.getMaxKrokiR(), mechR.getMinKroki(),
+                      mechR.getSpeedHome(), mechR.getSpeedPos());
 }
 
 bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
@@ -756,6 +757,7 @@ void MiernikPrzeplywu::deviceName(const QString & portname)
 
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
+    (void)dbg;
     //ui->debug->append(dbg);
     //qDebug() << addTime(dbg);
 }
@@ -792,9 +794,11 @@ void MiernikPrzeplywu::setRoleta(uint32_t r)
 }
 
 void MiernikPrzeplywu::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
-                                 uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
+                                 uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, int16_t minStepR,
+                                 uint16_t speedRolHome, uint16_t speedRolPos)
 {
-    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
+    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR,
+                    minStepR, speedRolHome, speedRolPos);
 }
 
 void MiernikPrzeplywu::readRadio()

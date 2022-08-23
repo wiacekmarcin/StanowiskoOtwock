@@ -32,9 +32,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-352</y>
-        <width>1048</width>
-        <height>1056</height>
+        <y>-301</y>
+        <width>1051</width>
+        <height>1046</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -108,6 +108,13 @@ prawe</string>
              <string>Stanowisko z roletą
 870x1500 [mm]
 lewe</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton">
+            <property name="text">
+             <string>Roleta</string>
             </property>
            </widget>
           </item>
@@ -1476,7 +1483,7 @@ postoju karetki [s] </string>
             </layout>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="6" column="1">
            <spacer name="verticalSpacer">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1488,6 +1495,32 @@ postoju karetki [s] </string>
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="5" column="0" colspan="2">
+           <widget class="QFrame" name="frame_roletaInne">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_23">
+               <property name="text">
+                <string>Pole</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_24">
+               <property name="text">
+                <string>Wartość</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>

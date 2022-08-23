@@ -200,7 +200,8 @@ void SerialDevice::connectToDevice()
 void SerialDevice::setParams(bool reverseX, bool reverseY, bool reverseR,
                uint32_t maxImpX, uint32_t maxImpY,
                uint32_t maxStepX, uint32_t maxStepY,
-               uint32_t maxStepR)
+               uint32_t maxStepR, uint16_t minStepR,
+               uint16_t speedRolHome, uint16_t speedRolPos)
 {
     m_reverseX = reverseX;
     m_reverseY = reverseY;
@@ -212,6 +213,10 @@ void SerialDevice::setParams(bool reverseX, bool reverseY, bool reverseR,
     m_maxStepX = maxStepX;
     m_maxStepY = maxStepY;
     m_maxStepR = maxStepR;
+
+    m_minStepR = minStepR;
+    m_speedRolHome = speedRolHome;
+    m_speedRolPos = speedRolPos;
 
     if (connected()) {
         insertParams();
@@ -290,7 +295,7 @@ bool SerialDevice::configureDevice()
 
     //QThread::currentThread()->sleep(2);
 
-    s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
+    s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY, m_speedRolHome, m_speedRolPos),
               5000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS1_REPLY) {
@@ -298,7 +303,7 @@ bool SerialDevice::configureDevice()
         return false;
     }
 
-    s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR),
+    s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR, m_minStepR),
               1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS2_REPLY) {
@@ -315,7 +320,7 @@ void SerialDevice::setParamsJob()
     DEBUGSER(QString("Konfiguracja %1%2%3 imp=[%4,%5] steps=[%6,%7] R=%8").arg(m_reverseX).arg(m_reverseY).arg(m_reverseR)
     .arg(m_maxImpX).arg(m_maxImpY).arg(m_maxStepX).arg(m_maxStepY).arg(m_maxStepR));
 
-    auto s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY),
+    auto s = write(SerialMessage::settings1Msg(m_reverseX, m_reverseY, m_reverseR, m_maxImpX, m_maxImpY, m_speedRolHome, m_speedRolPos),
               1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS1_REPLY) {
@@ -323,7 +328,7 @@ void SerialDevice::setParamsJob()
         return;
     }
 
-    s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR),
+    s = write(SerialMessage::settings2Msg(m_maxStepX, m_maxStepY, m_maxStepR, m_minStepR),
               1000, 1000).getParseReply();
 
     if (s != SerialMessage::SETPARAMS2_REPLY) {

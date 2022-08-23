@@ -52,9 +52,9 @@ QByteArray SerialMessage::setRoleta(uint32_t r)
 }
 
 QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, 
-    uint16t_t speedRolHome, uint16t_t speedRolPos)
+    uint16_t speedRolHome, uint16_t speedRolPos)
 {
-    uint8_t tab[10];
+    uint8_t tab[14];
     tab[0] = 0x01;
     tab[1] = (reverseX ? 0x01 : 0x00) | (reverseY ? 0x02 : 0x00) | (reverseR ? 0x04 : 0x00) ;
     tab[2] = (maxImpX >> 24) & 0xff;
@@ -65,10 +65,14 @@ QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool revers
     tab[7] = (maxImpY >> 16) & 0xff;
     tab[8] = (maxImpY >> 8) & 0xff;
     tab[9] = maxImpY & 0xff;
-    return prepareMessage(SET_PARAM_REQ, tab, 10);
+    tab[10] = (speedRolHome >> 8) & 0xff;
+    tab[11] = speedRolHome & 0xff;
+    tab[12] = (speedRolPos >> 8) & 0xff;
+    tab[13] = speedRolPos & 0xff;
+    return prepareMessage(SET_PARAM_REQ, tab, 14);
 }
 
-QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16t_t minStepR)
+QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16_t minStepR)
 {
     uint8_t tab[15];
     tab[0] = 0x02;
@@ -335,7 +339,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             return false;
         }
 
-        case RES
+        case RESET_STER_REP:
+            m_parseReply = RESET_REPLY;
+            return true;
         default:
             m_errorText = QString("Nieznana komenda");
             m_errorBool = true;

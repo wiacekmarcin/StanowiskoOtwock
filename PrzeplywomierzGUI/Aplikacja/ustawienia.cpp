@@ -37,6 +37,9 @@ int defObroty[] = {80,78,83,91,91,95,106,102,105,116,115,120,126,127};
 #define K_rolOsXReal "wymiary_rolOsXReal"
 #define K_rolOsYReal "wymiary_rolOsYReal"
 #define K_rol_maxKroki "rol_maxRolKroki"
+#define K_rol_minHomeKroki "rol_minHomeKroki"
+#define K_rol_speedHomeKroki "rol_speedHomeKroki"
+#define K_rol_speedPosKroki "rol_speedPosKroki"
 
 static QString number2Digit(short i) {
     QString ret(K_rol_obrot);
@@ -529,6 +532,39 @@ void Ustawienia::setMaxRolKroki(const QString &newMaxRolKroki)
 {
     maxRolKroki = newMaxRolKroki;
     settings.setValue(K_rol_maxKroki, QVariant::fromValue(maxRolKroki));
+}
+
+QString Ustawienia::getRolMinHomeStep() const
+{
+    return rolMinHomeStep;
+}
+
+void Ustawienia::setRolMinHomeStep(const QString &value)
+{
+    rolMinHomeStep = value;
+    settings.setValue(K_rol_minHomeKroki, QVariant::fromValue(rolMinHomeStep));
+}
+
+QString Ustawienia::getRolSpeedHomeStep() const
+{
+    return rolSpeedHomeStep;
+}
+
+void Ustawienia::setRolSpeedHomeStep(const QString &value)
+{
+    rolSpeedHomeStep = value;
+    settings.setValue(K_rol_speedHomeKroki, QVariant::fromValue(rolSpeedHomeStep));
+}
+
+QString Ustawienia::getRolSpeedPosStep() const
+{
+    return rolSpeedPosStep;
+}
+
+void Ustawienia::setRolSpeedPosStep(const QString &value)
+{
+    rolSpeedPosStep = value;
+    settings.setValue(K_rol_speedPosKroki, QVariant::fromValue(rolSpeedPosStep));
 }
 
 const QString &Ustawienia::getRolObrot(unsigned short obr) const

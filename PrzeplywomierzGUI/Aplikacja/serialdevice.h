@@ -165,11 +165,15 @@ public:
     * @param maxStepX maksymalna ilosc krokow dla silnika X
     * @param maxStepY maksymalna ilosc krokow dla silnika Y
     * @param maxStepR maksymalna ilosc krokow dla silnika R
+    * @param minStepR ilosc impulsow wjechania rolety na dol mimo wykrycia czujnika
+    * @param speedRolPos predkosco rolety w gore
+    * @param speedRolHome predkosco rolety w dol
     */
     void setParams(bool reverseX, bool reverseY, bool reverseR,
                    uint32_t maxImpX, uint32_t maxImpY,
                    uint32_t maxStepX, uint32_t maxStepY,
-                   uint32_t maxStepR);
+                   uint32_t maxStepR, uint16_t minStepR,
+                   uint16_t speedRolHome, uint16_t speedRolPos);
 
 
     /**
@@ -391,7 +395,8 @@ private:
 
     /* Zmienne pomocnicze do komunikacji z sterownikiem */
     uint32_t m_impX, m_impY, m_stepR;
-
+    uint16_t m_speedRolHome, m_speedRolPos, m_minStepR;
+    
 #ifdef SERIALLINUX
     QSerialPort * m_serialPort;
 #endif

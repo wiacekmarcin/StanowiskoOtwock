@@ -48,7 +48,8 @@ public:
     void setRoleta(uint32_t r);
     void setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
                                                                 uint32_t maxStepX, uint32_t maxStepY,
-                                                                uint32_t maxStepR);
+                                                                uint32_t maxStepR, int16_t minStepR,
+                                                                uint16_t speedRolHome, uint16_t speedRolPos);
     void readRadio();
 
     void noweDane();

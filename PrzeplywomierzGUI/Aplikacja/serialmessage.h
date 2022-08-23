@@ -111,7 +111,7 @@
  *      0xF?   TXT1 ... TXT15   CRC     
  */
 
-truct SerialMessageValues {
+struct SerialMessageValues {
     uint32_t moveStepR;
     uint32_t moveStepX;
     uint32_t moveStepY;
@@ -216,8 +216,8 @@ public:
      * @return bajty reprezentujące wiadomość
      */
     static QByteArray settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,  
-                uint16t_t speedRolHome, uint16t_t speedRolPos);
-    static QByteArray settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16t_t minStepR);
+                uint16_t speedRolHome, uint16_t speedRolPos);
+    static QByteArray settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16_t minStepR);
 
     /**
      * @brief welcomeMsg - wiadomość powitalna
@@ -331,6 +331,11 @@ private:
     unsigned int radioVal2;
     unsigned int radioVal3;
     unsigned int radioVal4;
+
+    unsigned int m_speedRolHome;
+    unsigned int m_speedRolPos;
+    unsigned int m_minStepR;
+
 };
 
 #endif // SERIALMESSAGE_H

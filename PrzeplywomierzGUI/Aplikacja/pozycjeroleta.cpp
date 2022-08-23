@@ -250,7 +250,7 @@ void PozycjeRoleta::update()
         actWork = ROLETAWAIT;
         ui->status->setText("Ustawiam wysokość rolety");
         unsigned int steps = rolRuch.podniescMM(rmm);
-        setRoleta(rolRuch.podniescMM(rmm));
+        setRoleta(steps);
         DEBUGPR(QString("Ustawiam rolete na %1 mm").arg(rmm));
 
         return;

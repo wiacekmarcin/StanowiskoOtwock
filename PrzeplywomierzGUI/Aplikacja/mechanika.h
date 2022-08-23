@@ -147,6 +147,15 @@ public:
     unsigned int getOffsetY_P() const;
     void setOffsetY_P(unsigned int newOffsetY);
 
+    unsigned int getSpeedPos() const;
+    void setSpeedPos(unsigned int speedPos);
+
+    unsigned int getSpeedHome() const;
+    void setSpeedHome(unsigned int speedHome);
+
+    unsigned int getMinKroki() const;
+    void setMinKroki(unsigned int minKroki);
+
 private:
 
 
@@ -161,6 +170,10 @@ private:
     unsigned int offsetY_L;
 
     bool reverse;
+
+    unsigned int m_speedPos;
+    unsigned int m_speedHome;
+    unsigned int m_minKroki;
 };
 
 #endif // MECHANIKA_H

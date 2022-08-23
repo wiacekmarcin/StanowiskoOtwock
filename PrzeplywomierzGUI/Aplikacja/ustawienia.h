@@ -116,6 +116,15 @@ public:
     const QString &getMaxRolKroki() const;
     void setMaxRolKroki(const QString &newMaxRolKroki);
 
+    QString getRolMinHomeStep() const;
+    void setRolMinHomeStep(const QString &value);
+
+    QString getRolSpeedHomeStep() const;
+    void setRolSpeedHomeStep(const QString &value);
+
+    QString getRolSpeedPosStep() const;
+    void setRolSpeedPosStep(const QString &value);
+
 private:
     QSettings settings;
     static constexpr int maxObrot = 30;
@@ -164,6 +173,10 @@ private:
     QString rolOsYNazwa;
     QString rolOsXReal;
     QString rolOsYReal;
+
+    QString rolMinHomeStep;
+    QString rolSpeedHomeStep;
+    QString rolSpeedPosStep;
 
 };
 

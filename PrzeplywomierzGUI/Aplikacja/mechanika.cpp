@@ -244,7 +244,7 @@ void RoletaRuch::setReverse(bool rev)
     if (!val.isEmpty()) \
         value = (val.conF());\
     else\
-        ust.setRolDlugosc(QString::number(value));\
+        ust.SF(QString::number(value));\
     } while(false)
 
 void RoletaRuch::setUstawienia(Ustawienia &ust)
@@ -256,6 +256,9 @@ void RoletaRuch::setUstawienia(Ustawienia &ust)
     SETVALUE(getRolOffsetX_L,setRolOffsetX_L,offsetX_L,toUInt);
     SETVALUE(getRolOffsetY_L,setRolOffsetY_L,offsetY_L,toUInt);
     SETVALUE(getMaxRolKroki,setMaxRolKroki,maxKroki,toUInt);
+    SETVALUE(getRolMinHomeStep,setRolMinHomeStep,m_minKroki,toUInt);
+    SETVALUE(getRolSpeedHomeStep,setRolSpeedHomeStep,m_speedHome,toUInt);
+    SETVALUE(getRolSpeedPosStep,setRolSpeedPosStep,m_speedHome,toUInt);
 
     QString val;
     for (short i = 0; i < Ustawienia::getMaxRolObrot(); i++) {
@@ -385,6 +388,36 @@ unsigned int RoletaRuch::getOffsetY_P() const
 void RoletaRuch::setOffsetY_P(unsigned int newOffsetY)
 {
     offsetY_P = newOffsetY;
+}
+
+unsigned int RoletaRuch::getSpeedPos() const
+{
+    return m_speedPos;
+}
+
+void RoletaRuch::setSpeedPos(unsigned int speedPos)
+{
+    m_speedPos = speedPos;
+}
+
+unsigned int RoletaRuch::getSpeedHome() const
+{
+    return m_speedHome;
+}
+
+void RoletaRuch::setSpeedHome(unsigned int speedHome)
+{
+    m_speedHome = speedHome;
+}
+
+unsigned int RoletaRuch::getMinKroki() const
+{
+    return m_minKroki;
+}
+
+void RoletaRuch::setMinKroki(unsigned int minKroki)
+{
+    m_minKroki = minKroki;
 }
 
 unsigned int RoletaRuch::getOffsetX_L() const

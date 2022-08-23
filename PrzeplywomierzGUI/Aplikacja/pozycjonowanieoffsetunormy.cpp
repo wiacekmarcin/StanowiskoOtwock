@@ -16,7 +16,7 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
 {
     ui->setupUi(this);
     mech.setUstawienia(ust);
-    mech.setPrzestrzen(1200, 2000);
+    mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
     mech.setReverseY(false);
     mech.setReverseX(!left);
     mech.setReverseR(true);
@@ -24,7 +24,8 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
     sDev->setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),
-                      mech.getMaxKrokiR());
+                      mech.getMaxKrokiR(), mechRol.getMinKroki(),
+                      mechRol.getSpeedHome(), mechRol.getSpeedPos());
 
     ui->rb1->setChecked(true);
 
@@ -149,7 +150,10 @@ void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int wo
 void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 {
     //qDebig() << __FILE__ << __LINE__ << succ << state;
-    
+    if (!succ) {
+        ui->status->setText("Nie otwarty");
+        return;
+    }
 
     switch(state) {
 
@@ -213,11 +217,13 @@ void PozycjonowanieOffsetuNormy::setParamsDone(bool success)
 
 void PozycjonowanieOffsetuNormy::debug(const QString &s)
 {
+    (void)s;
     //qDebig() << s;
 }
 
 void PozycjonowanieOffsetuNormy::errorSerial(const QString &e)
 {
+    (void)e;
     //qDebig() << "ERR: " << e;
 }
 

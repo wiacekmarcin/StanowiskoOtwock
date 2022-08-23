@@ -44,6 +44,7 @@ private:
     int oY;
     SerialDevice * sDev;
     Ruch mech;
+    RoletaRuch mechRol;
     unsigned int stepMM;
     bool reverse;
 };
