@@ -23,9 +23,10 @@ inline bool getHomePosX();
 inline bool getHomePosY();
 inline bool getHomePosR();
 
-bool returnBaseX();
-bool returnBaseY();
-bool returnBaseR();
+bool returnBaseX(bool info);
+bool returnBaseY(bool info);
+bool returnBaseR(uint32_t * steps);
+bool moveBaseR();
 
 void setDirX(bool lewo);
 void setDirY(bool gora);
@@ -61,5 +62,5 @@ void checkMaxImpuls();
 
 inline void stepX(uint16_t delay1, uint16_t delay2);
 inline void stepY(uint16_t delay1, uint16_t delay2);
-
+inline void stepR(uint16_t delay1, uint16_t delay2);
 #endif // !STEROWNIK_SILNIKA_H_

@@ -5,109 +5,110 @@
 // |      HEAD       | n1 | n2 | .... | n15 | CRC8
 // | CMD 4b | LEN 4b |
 // LEN(MSG) = 1 (HEAD) + LEN(DATA) + 1 (CRC8)
+ /* NOP_REP    0x00
+ * NOP_REQ    0x0f
+ * 
+ *      CMD+LEN D1     D2      D3      D4      D5      D6      D7      D8      D9      D10     D11     D12     D13     D14     D15    CRC8
+ *
+ * WELCOME_REQ   - sprawdzenie zy odowiedni kontroler
+ *      0x10    0x70
+ *
+ * WELCOME_REP   
+ *      0x2F    0x4B    0x4F    0x4E    0x54    0x52    0x4F    0x4C    0x45    0x52    0x57    0x49    0x41    0x54    0x52    0x32    0xDC
+ *              K       O       M       T       R       O       L       E       R       W       I       A       T       R       2   
+ *     
+ * SET_PARAM_REQ  - ustawienie parametrow (maxymalna ilosc impulsow i korkow na osiach X i Y, kierunek obrotow silnikow i max krokow rolety)
+ *      0x3E    0x01    REVB    MAXIX4  MAXIX3  MAXIX2  MAXIX1  MAXIY4  MAXSY3  MAXIY2  MAXIY1  RHSPD2  RHSPD1  RPSPD2  RPSPD1  CRC
+ *      0x3F    0x02    MAXSX4  MAXSX3  MAXSX2  MAXSX1  MAXSY4  MAXSY3  MAXSY2  MAXSY1  MAXSR4  MAXSR3  MAXSR2  MAXSR1  MINSR1  MINSR2  CRC 
+ * 
+ * SET_PARAM_REP
+ *      0x41    0x01    0x49       
+ *      0x42    0x02    0x40
+ *         
+ * POSITION_REQ - zadanie ustawienia silnika P 
+ *      0x59    0x50    IMPY4   IMPY3   IMPY2   IMPY1   IMPX4   IMPX3    IMPX2  IMPX1   CRC
+ *              P  
+ *      0x55    0x52    STEPR4  STEPR3  STEPR2  STEPR1  CRC
+ *              R
+ * 
+ * POSITION_REP
+ *      0x61    0x73    0xBE
+ *              s   
+ *      0x61    0x64    0xDB
+ *              d           
+ *      0x69    0x47    STEPY4   STEPY3   STEPY2   STEPY1   POSIY4  POSIY3  POSIY2  POSIY1  CRC
+ *              G
+ *      0x61    0x6C    0xE3
+ *              l
+ *      0x69    0x50    STEPX4   STEPX3   STEPX2   STEPX1   POSIX4  POSIX3  POSIX2  POSIX1  CRC
+ *              P    
+ *      0x61    0x4B    0x16
+ *              K
+ * 
+ *      0x61    0x72    0xB9
+ *              r
+ *      0x69    0x52    STEPR4   STEPR3   STEPR2   STEPR1   POSSR4  POSSR3  POSSR2  POSSR1  CRC
+ *              R
+ *
+ *      0x62    0x45    0x50    0xBE
+ *              E       P
+ *      0x62    0x45    0x52    0xB0
+ *              E       R
+ *
+  * MOVEHOME_REQ zerowanie czujnika (P) , rolety(R), oraz koncowe zerowanie czujnika (p) i rolety (r) - bez komunikatow
+ *       0x71   0x50    0x00 
+ *              P
+ *       0x71   0x52    0x0E
+ *              R
+ *       0x71   0x70    0xE0
+ *              p
+ *       0x71   0x72    0xEE
+ *              r
+ * 
+ * MOVEHOME_REP
+ *      0x81    0x73    0xFD - start
+ *              s 
+ *      0x81    0x6C    0xA0 - start X
+ *              l
+ *      0x85    0x50    STEPX4   STEPX3   STEPX2   STEPX1   CRC - end X
+ *              P 
+ *      0x81    0x64    0x98 - start Y
+ *              d
+ *      0x85    0x47    STEPY4   STEPY3   STEPY2   STEPY1   CRC - end Y
+ *              G  
+ *      0x81    0x4B    0x55 - end
+ *              K
+ *
+ *      0x81    0x72    0xFA - roleta start
+ *              r
+ *      0x85    0x52    STEPR4  STEPR3  STEPR2  STEPR1  CRC - end R
+ *              R
+ * 
+ *      0x82    0x45    0x50    0x70
+ *              E       P
+ *      0x82    0x45    0x52    0x7E
+ *              E       R
+ *
+ * MEASVALUE_REQ
+ *      0x90    0xF9
+ *
+ * MEASVALUE_REP
+ *      0xA9    0x4F    VAL1_16 VAL1_8  VAL2_16 VAL2_8  VAL3_16 VAL3_8  VAL4_16 VAL4_8  CRC
+ *              O
+ *      0xA1    0x45    ERR     CRC
+ *              E         
+ *
+ * MEASUNIT_REQ
+ * MEASUNIT_REP
+ *
+ * RESET_STER_REQ
+ *      0xC0    0x4E
+ * RESET_STER_REP
+ *      0xD0             
+ * ERROR_REP 
+ *      0xF?   TXT1 ... TXT15   CRC   
+ */
 
-
-// 00 - czyszczenie bufora
-
-//welcome msg
-// 10 70 - req
-// 2f 4b 4f 4e 54 52 4f 4c 45 52 57 49 41 54 52 32 dc - rep 
-//    K  O  N  T  R  O  L  E  R  W  I  A  T  R  2
-
-//setPos X,Y or setPos R
-//59 50 X4 X3 X2 X1 Y4 Y3 Y2 Y1 CRC8 - req ustawienie pozycji
-//Y  P
-//55 52 R4 R3 R2 R1 CRC8 - req ustawienie rolety 
-//U  R
-
-//set post reply
-//61 s/l/P/d/G/K/R/r/  CRC8 - reply setting position in proges 
-//                              S=start, 
-//                              l=start lewoprawo, 
-//                              P=end lewoprawo, 
-//                              d=start goradol 
-//                              G=end goradol 
-//                              K=endboth, 
-//                              r - start rolet, 
-//                              R - koniec rolet
-//62 E X/Y/R  CRC8 - reply error setting position X - os x, Y - os y, R - rolety
-//69 P STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-//69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-//69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
-
-//61 73 be - start ustawiania pozycji ogolnie
-//a  s  
-//61 63 e3 - start ustawianie lewo-prawo
-//a  l  
-//61 64 db - poczatek ustawianai dol-gora
-//a  d  
-//61 4b 16 - koniec wszystkiego
-//a  K   
-//61 52 59 - start ustawiania rolety
-//a  R  Y
-//61 72 b9 - koniec ustawiania rolety
-//a  r  
-
-//62 45 58 3b  - blad przy pozycjonowaniu osi X
-//a  E  X  ;  
-//62 45 59 3c  - blad przy pozycjonowaniu osi Y
-//a  E  Y  <  
-//62 45 52 b0  - blad przy pozycjonowaniu osi R
-//a  E  R    
-
-//set home position
-//71 50 00 - req home position
-//q  P
-//71 52 0e - req home roleta
-//q  R 
-
-//81 S/l/P/d/G/K/R/r/ CRC8 - rep home position
-//                                S=start, l=start lewoprawo, P=end lewoprawo, 
-//                                d=start goradol G=end goradol K=endboth, R - start rolet, r - koniec rolet
-
-
-
-//set parameters
-//3a 01 STATUSBYTE IMPX4 IMPX3 IMPX2 IMPX1 IMPY4 IMPY3 IMPY2 IMPY1 CRC8- ustawianie parametrow 
-// STATUSBYTE = 0 0 0 0 0 RevR RevY RevX
-
-//3c 02 STEPX4 STEPX3 STEPX2 STEPX1 STEPY4 STEPY3 STEPY2 STEPY1 R4 R3 R2 R1 CRC8- ustawianie parametrow maksymalne kroki silnikow
-
-//41 01 49 - ACK
-//0x4f nrE CRC8 - rep
-
-
-
-
-
-
-
-
-
-
-
-
-// setError
-
-
-
-//getCzujVal
-//0x70 CRC8 - req
-//0x89 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
-//0x81 'E' CRC8 - error polaczenia z radiem
-
-//setUnitVal
-//0x92 R 1/2/3/4 float1 float2 float3 float4 CRC8 wartość wspolczynnika mnożonego który będzie pokazywany
-//0x92 U 1/2/3/4 U1 U2 U3 U4 U5 U6 U7 U8 U9 U10 CRC8 - 1/2/3/4 - nr kanalu, ujednostka pokazywana
-//0xA0 CRC8 - ok 
-//0xA1 'E' CRC8 - error
-
-
-
-//set parameters
-//0x3a 0x01 STATUSBYTE X4 X3 X2 X1 Y4 Y3 Y2 Y1 CRC8- ustawianie parametrow 
-//0x39 0x02 X4 X3 X2 X1 Y4 Y3 Y2 Y1 CRC8- ustawianie parametrow 
-//0x40 CRC8 - ACK
 
 class MessageSerialBase {
 public:
@@ -140,6 +141,8 @@ public:
         MEASVALUE_REP = 10,
         MEASUNIT_REQ = 11,
         MEASUNIT_REP = 12,
+        RESET_STER_REQ = 13,
+        RESET_STER_REP = 14,
         ERROR_REP = 15,
     } CMD;
 

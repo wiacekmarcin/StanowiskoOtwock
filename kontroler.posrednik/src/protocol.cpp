@@ -128,17 +128,7 @@ bool MessageSerial::parseRozkaz()
         }
         case SET_PARAM_REQ:
         {
-            if (data[1] == 0xf0) {
-                uint8_t sendData[1] = {0xf0};
-                digitalWrite(RESET_NANO, LOW);
-                delay(1000);
-                digitalWrite(RESET_NANO, HIGH);
-                delay(2000);
-                sendMessage(SET_PARAM_REQ, sendData, 1);  
-            }
-            else {
-                Serial1.write(data, dlugosc+2);
-            }
+            Serial1.write(data, dlugosc+2);
             actWork=NOP;
             return true;
         }
@@ -154,6 +144,17 @@ bool MessageSerial::parseRozkaz()
         }
         case MEASUNIT_REQ:
         {
+            actWork=NOP;
+            return true;
+        }
+        case RESET_STER_REQ:
+        {
+            digitalWrite(RESET_NANO, LOW);
+            delay(1000);
+            digitalWrite(RESET_NANO, HIGH);
+            delay(2000);
+            sendMessage(RESET_STER_REP, nullptr, 0);  
+            actWork=NOP;
             return true;
         }
         default:

@@ -51,7 +51,8 @@ QByteArray SerialMessage::setRoleta(uint32_t r)
     return prepareMessage(POSITION_REQ, tab, 5);
 }
 
-QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY)
+QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, 
+    uint16t_t speedRolHome, uint16t_t speedRolPos)
 {
     uint8_t tab[10];
     tab[0] = 0x01;
@@ -67,9 +68,9 @@ QByteArray SerialMessage::settings1Msg(bool reverseX, bool reverseY, bool revers
     return prepareMessage(SET_PARAM_REQ, tab, 10);
 }
 
-QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
+QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16t_t minStepR)
 {
-    uint8_t tab[13];
+    uint8_t tab[15];
     tab[0] = 0x02;
     tab[1] = (maxStepX >> 24) & 0xff;
     tab[2] = (maxStepX >> 16) & 0xff;
@@ -83,7 +84,9 @@ QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uin
     tab[10] = (maxStepR >> 16) & 0xff;
     tab[11] = (maxStepR >> 8) & 0xff;
     tab[12] = maxStepR & 0xff;
-    return prepareMessage(SET_PARAM_REQ, tab, 13);
+    tab[13] = (minStepR >> 16) & 0xff;
+    tab[14] = (minStepR >> 8) & 0xff;
+    return prepareMessage(SET_PARAM_REQ, tab, 15);
 }
 
 QByteArray SerialMessage::measValuesMsg()
@@ -111,6 +114,11 @@ QByteArray SerialMessage::measUnitMsg(short index, const float &ratio, QString &
             break;
     }
     return prepareMessage(MEASUNIT_REQ, tab, 5+unit.size());
+}
+
+QByteArray SerialMessage::resetSterownik()
+{
+    return prepareMessage(RESET_STER_REQ, NULL, 0); 
 }
 
 
@@ -185,7 +193,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 m_errorBool = true;
                 return false;
             }
-            uint8_t wzorzec[15] = {'K','O','N','T','R','O','L','E','R','W','I','A','T','R', '2'};
+            uint8_t wzorzec[15] = {
+                
+            };
             for (int i = 0; i < 15; ++i) {
                 if (wzorzec[i] != data[i]) {
                     m_errorText = QString("Nie poprawna wzorzec odpdowiedzi");
@@ -325,7 +335,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             return false;
         }
 
-        
+        case RES
         default:
             m_errorText = QString("Nieznana komenda");
             m_errorBool = true;

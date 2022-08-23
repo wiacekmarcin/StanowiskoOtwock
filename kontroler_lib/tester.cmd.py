@@ -10,7 +10,7 @@ def S(st, i):
 
 hash = crc8.crc8()
 
-s = "%c%c%c" % (0x62, 'E', 'X')
+s = "%c%c" % (0x41, 0x1)
 print(s)
 crc = hash.update(s)
 c = hash.hexdigest()

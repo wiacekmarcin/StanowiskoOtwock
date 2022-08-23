@@ -9,6 +9,8 @@ MessageSerial msg;
 void checkMsg();
 bool work();
 
+extern bool infoPos;
+
 
 void setup()
 {
@@ -58,48 +60,68 @@ bool work()
     
     switch(actWork) {
         case MessageSerial::POS_START:
-            delay(200);
+            delay(100);
             msg.sendPositionStart();
-            delay(200);
+            delay(100);
             setPosX(msg.getPosX());
-            delay(200);
+            delay(100);
             setPosY(msg.getPosY());
-            delay(200);
+            delay(100);
             msg.sendPositionDone();
             actWork = MessageSerial::NOP;
         return true;
 
         case MessageSerial::RETURN_HOME:
-            delay(200);
-            msg.sendRetHomeStart();
-            delay(200);
-            if (!returnBaseX()) {
+            if (infoPos) {
+                msg.sendRetHomeStart();
+                delay(100);
+            }
+            if (!returnBaseX(infoPos)) {
                 msg.setStop();
-                delay(200);
+                //delay(100);
                 //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
                 return false;
             }
-            delay(200);
-            if (!returnBaseY()) {
+            delay(100);
+            if (!returnBaseY(infoPos)) {
                 msg.setStop();
-                delay(200);
+                //delay(100);
                 //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
                 return false;
             }
-            delay(200);
-            msg.sendRetHomeDone();
+            if (infoPos) {
+                msg.sendRetHomeDone();
+                delay(100);
+            }
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_START:
             msg.sendRoletaStart();
-            delay(200);
+            delay(100);
             setPosR(msg.getRol());
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_HOME:
-            returnBaseR(); //w srodku jest komunikat poczatku
+            if (infoPos) {
+                msg.sendRetHomeRStart();
+                delay(100);
+            }
+            uint32_t step;
+            if (!returnBaseR(&step)) {
+                if (infoPos) {
+                    msg.setErrorRoletaHomeBack();
+                    delay(100);
+                }
+                msg.setStop();
+            } else {
+                if (infoPos) {
+                    msg.sendRetHomeRDone(step);
+                    delay(100);
+
+                }
+            }
             actWork = MessageSerial::NOP;
         return true;
         default:

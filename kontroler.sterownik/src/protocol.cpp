@@ -11,12 +11,18 @@ extern bool reverseY;
 extern bool reverseX;
 extern bool reverseR;
 
-extern int32_t gImpMaxX;
-extern int32_t gImpMaxY;
+extern uint32_t gImpMaxX;
+extern uint32_t gImpMaxY;
 
-extern int32_t gStepMaxX;
-extern int32_t gStepMaxY;
-extern int32_t gStepMaxR;
+extern uint32_t gStepMaxX;
+extern uint32_t gStepMaxY;
+extern uint32_t gStepMaxR;
+
+extern uint16_t  gHomeRSpeed;
+extern uint16_t  gPosRSpeed;
+extern uint16_t  gRolStepsInHome;
+
+bool infoPos;
 
 MessageSerial::MessageSerial() 
 {
@@ -158,10 +164,12 @@ bool MessageSerial::parseRozkaz()
         case MOVEHOME_REQ:
         {
             char kind = data[1];
-            if (kind == 'P') {
+            if (kind == 'P' || kind == 'p') {
                 actWork = RETURN_HOME;
+                infoPos = kind == 'P';
                 return true;
-            } else if (kind == 'R') {
+            } else if (kind == 'R' || kind == 'r') {
+                infoPos = kind == 'R';
                 actWork = ROL_HOME;
                 return true;
             } else {
@@ -199,14 +207,31 @@ bool MessageSerial::parseRozkaz()
                 Serial.print("REVERSEROLETA=");
                 Serial.println(reverseR, DEC);
 #endif
-                int32_t maxX = 0;
+                uint32_t maxX = 0;
                 for (uint8_t i = 0; i < 4; i++) {
                     maxX = (maxX << 8) + (data[3+i] & 0xff);
                 }
 
-                int32_t maxY = 0;
+                uint32_t maxY = 0;
                 for (uint8_t i = 0; i < 4; i++) {
                     maxY = (maxY << 8) + (data[7+i] & 0xff);
+                }
+
+                uint16_t homeRSpeed = 0;
+                for (uint8_t i = 0; i < 2; i++) {
+                    homeRSpeed = (homeRSpeed << 8) + (data[11+i] & 0xff);
+                }
+                if (homeRSpeed > 50 && homeRSpeed < 50000) {
+                    gHomeRSpeed = homeRSpeed;
+                }
+
+                uint32_t posRSpeed = 0;
+                for (uint8_t i = 0; i < 2; i++) {
+                    posRSpeed = (posRSpeed << 8) + (data[13+i] & 0xff);
+                }
+
+                if (posRSpeed > 50 && posRSpeed < 50000) {
+                    gPosRSpeed = posRSpeed;
                 }
 
 #ifdef DEBUG 
@@ -215,6 +240,12 @@ bool MessageSerial::parseRozkaz()
 
                 Serial.print("MAXIMPY=");
                 Serial.println(maxY, DEC);
+
+                Serial.print("homeRSpeed=");
+                Serial.println(homeRSpeed, DEC);
+
+                Serial.print("posRSpeed=");
+                Serial.println(posRSpeed, DEC);
 #endif
                 gImpMaxX = maxX;
                 gImpMaxY = maxY;
@@ -236,6 +267,15 @@ bool MessageSerial::parseRozkaz()
                 int32_t maxR = 0;
                 for (uint8_t i = 0; i < 4; i++) {
                     maxR = (maxR << 8) + (data[10+i] & 0xff);
+                }
+
+                uint16_t minR = 0;
+                for (uint8_t i = 0; i < 2; i++) {
+                    minR = (minR << 8) + (data[14+i] & 0xff);
+                }
+
+                if (minR < maxR / 10) {
+                    gRolStepsInHome = minR;
                 }
 #ifdef DEBUG
                 Serial.print("MAXSTE{X=");
@@ -359,17 +399,17 @@ void MessageSerial::sendPositionStartX()
     sendMessage(POSITION_REP, sendData, 1);
 }
     
-void MessageSerial::sendPositionDoneX(uint32_t step, uint32_t stepPos)
+void MessageSerial::sendPositionDoneX(uint32_t step, uint32_t impPos)
 {
     uint8_t sendData[9] = {'P', 0, 0, 0, 0, 0, 0, 0, 0};
     sendData[1] = (step >> 24) & 0xff;
     sendData[2] = (step >> 16) & 0xff;
     sendData[3] = (step >> 8) & 0xff;
     sendData[4] = step & 0xff;
-    sendData[5] = (stepPos >> 24) & 0xff;
-    sendData[6] = (stepPos >> 16) & 0xff;
-    sendData[7] = (stepPos >> 8) & 0xff;
-    sendData[8] = stepPos & 0xff;
+    sendData[5] = (impPos >> 24) & 0xff;
+    sendData[6] = (impPos >> 16) & 0xff;
+    sendData[7] = (impPos >> 8) & 0xff;
+    sendData[8] = impPos & 0xff;
     sendMessage(POSITION_REP, sendData, 9);
 }
 
@@ -379,17 +419,17 @@ void MessageSerial::sendPositionStartY()
     sendMessage(POSITION_REP, sendData, 1);
 }
     
-void MessageSerial::sendPositionDoneY(uint32_t step, uint32_t stepPos)
+void MessageSerial::sendPositionDoneY(uint32_t step, uint32_t impPos)
 {
     uint8_t sendData[9] = {'G', 0, 0, 0, 0, 0, 0, 0, 0};
     sendData[1] = (step >> 24) & 0xff;
     sendData[2] = (step >> 16) & 0xff;
     sendData[3] = (step >> 8) & 0xff;
     sendData[4] = step & 0xff;
-    sendData[5] = (stepPos >> 24) & 0xff;
-    sendData[6] = (stepPos >> 16) & 0xff;
-    sendData[7] = (stepPos >> 8) & 0xff;
-    sendData[8] = stepPos & 0xff;
+    sendData[5] = (impPos >> 24) & 0xff;
+    sendData[6] = (impPos >> 16) & 0xff;
+    sendData[7] = (impPos >> 8) & 0xff;
+    sendData[8] = impPos & 0xff;
     sendMessage(POSITION_REP, sendData, 9);
 }
 
