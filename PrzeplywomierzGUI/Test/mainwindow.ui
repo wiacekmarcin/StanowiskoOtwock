@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1056</width>
-    <height>737</height>
+    <width>1037</width>
+    <height>914</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,23 +15,159 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
+    <item row="1" column="2" colspan="2">
+     <widget class="QFrame" name="frame_3">
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_11">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Wybierz kierunek silnika rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Maksymalna ilość kroków rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Ilość kroków jakie jeszcze zjedzie
+roleta osiągając punkt bazowy</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="dirR">
+         <property name="text">
+          <string>Odwrócony</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="minR"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>Prędkość opuszczania rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="speedRDown"/>
+       </item>
+       <item row="6" column="0">
+        <widget class="QPushButton" name="pbSetting2">
+         <property name="text">
+          <string>Ustaw</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="speedRUp"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Prędkość podnoszenia rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="maxStepR"/>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="speedHomObroty">
+         <property name="text">
+          <string>0 obr/min</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLabel" name="speedPosObroty">
+         <property name="text">
+          <string>0 obr/min</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="minrR_mm">
+         <property name="text">
+          <string>0 mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="max_wysokosc">
+         <property name="text">
+          <string>0 mm</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="2" colspan="2">
      <widget class="QFrame" name="frame_4">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pbRoletaHome">
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_36">
          <property name="text">
-          <string>Ustaw pozycję bazową rolety</string>
+          <string>Zakończenie bazowania</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_41">
+         <property name="text">
+          <string>Ilość wykonanych kroków</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="homeStepsR">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" colspan="2">
+        <widget class="QProgressBar" name="progressRoletaHome">
+         <property name="maximum">
+          <number>2</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Rozpoczęcie bazowania</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -44,145 +180,483 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="cbRolHomeStart">
-         <property name="text">
-          <string>Rozpoczęcie bazowania</string>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
          </property>
-        </widget>
+        </spacer>
        </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="homeStepsR">
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pbRoletaHome">
          <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="cbRolHomeKoniec">
-         <property name="text">
-          <string>Zakończenie bazowania</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
+          <string>Ustaw pozycję bazową rolety</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QFrame" name="frame_6">
+    <item row="1" column="0" rowspan="4">
+     <widget class="QFrame" name="frame_2">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pbRadioOn">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0" colspan="4">
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>X</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pbHome">
+            <property name="text">
+             <string>Ustaw pozycję bazową czujnika</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_35">
+            <property name="text">
+             <string>Wykonane kroki</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="homeStepsY">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="homeStepsX">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="6" column="6">
+        <widget class="QLabel" name="label_26">
          <property name="text">
-          <string>Włącz radio</string>
+          <string>Zakończenie ustalania obu osi</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_8">
+       <item row="4" column="6">
+        <widget class="QLabel" name="label_24">
          <property name="text">
-          <string>Odczyt z radio</string>
+          <string>Rozpoczęcie ustawiania osi pionowej</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="radioInfo">
+       <item row="1" column="6">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>-</string>
+          <string>Rozpoczęcie ustawiania</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="pbRadioOff">
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_27">
          <property name="text">
-          <string>Wyłącz radio</string>
+          <string>Rozpoczęcie pozycjonowania</string>
          </property>
+        </widget>
+       </item>
+       <item row="3" column="6">
+        <widget class="QLabel" name="label_23">
+         <property name="text">
+          <string>Zakończenie ustawiania osi poziomej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="6">
+        <widget class="QLabel" name="label_25">
+         <property name="text">
+          <string>Zakończenie ustaiania osi pionowej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="2">
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string>Zakończenie pozycjonowania osi poziomej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5" rowspan="6">
+        <widget class="QProgressBar" name="progressPos">
+         <property name="maximum">
+          <number>6</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="invertedAppearance">
+          <bool>true</bool>
+         </property>
+         <property name="textDirection">
+          <enum>QProgressBar::TopToBottom</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" rowspan="6">
+        <widget class="QProgressBar" name="progresHome">
+         <property name="maximum">
+          <number>6</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="invertedAppearance">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6">
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>Rozpoczęcie ustawiania osi poziomej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>Zakońcenie pozycjonowania</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QLabel" name="label_28">
+         <property name="text">
+          <string>Rozpoczęcie pozycjonowanie osi poziomej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string>Rozpoczęcie pozycjonowania osi pionowej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" colspan="2">
+        <widget class="QLabel" name="label_31">
+         <property name="text">
+          <string>Zakończenie pozycjonowania osi pionowej</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" rowspan="7" colspan="2">
+        <widget class="QFrame" name="frame_6">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="2" column="1">
+           <widget class="QLabel" name="radioInfo">
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Odczyt z radio</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pbRadioOff">
+            <property name="text">
+             <string>Wyłącz radio</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pbRadioOn">
+            <property name="text">
+             <string>Włącz radio</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="7" column="2" rowspan="8" colspan="5">
+        <widget class="QWidget" name="widget_2" native="true">
+         <layout class="QGridLayout" name="gridLayout_9">
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_39">
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_38">
+            <property name="text">
+             <string>Ilość kroków</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="posImpX">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_40">
+            <property name="text">
+             <string>Ilość impulsów</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLabel" name="stepY">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_37">
+            <property name="text">
+             <string>X</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QLabel" name="posImpY">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="stepX">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="5" colspan="2">
+        <widget class="QFrame" name="frame_10">
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="3" column="1">
+           <widget class="QLabel" name="posXmm">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>mm</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QLabel" name="posYmm">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Kroki</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QLabel" name="posYsteps">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Impulsy</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLineEdit" name="pos_Y"/>
+          </item>
+          <item row="4" column="0" colspan="6">
+           <widget class="QPushButton" name="pbUstaw">
+            <property name="text">
+             <string>Ustaw pozycję czujnika</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="posXsteps">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_34">
+            <property name="text">
+             <string>Y</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="5">
+           <widget class="QToolButton" name="tb_Y">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>59</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="2">
+           <widget class="QToolButton" name="tb_X">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_33">
+            <property name="text">
+             <string>X</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="pos_X"/>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame_7">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="2">
-        <widget class="QRadioButton" name="rbRoletaPrawe">
-         <property name="text">
-          <string>Stanowisko z roletą prawe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QRadioButton" name="rbStac">
-         <property name="text">
-          <string>Stanowisko stacjonarne</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pbFindSerial">
-         <property name="text">
-          <string>Znajdz urzadzenia</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Port</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QRadioButton" name="rbOknoPrawe">
-         <property name="text">
-          <string>Stanowisko okienne prawe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QRadioButton" name="rbRoletaLewe">
-         <property name="text">
-          <string>Stanowisko z roletą lewe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QRadioButton" name="rbOknoLewe">
-         <property name="text">
-          <string>Stanowisko okienne lewe</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
         <widget class="QPushButton" name="pbClose">
          <property name="text">
           <string>Zamknij port</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="portName">
-         <property name="text">
-          <string>-</string>
          </property>
         </widget>
        </item>
@@ -193,38 +667,105 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="rbStac">
+         <property name="text">
+          <string>Stanowisko stacjonarne</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QRadioButton" name="rbOknoLewe">
+         <property name="text">
+          <string>Stanowisko okienne lewe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QRadioButton" name="rbOknoPrawe">
+         <property name="text">
+          <string>Stanowisko okienne prawe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QRadioButton" name="rbRoletaPrawe">
+         <property name="text">
+          <string>Stanowisko z roletą prawe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pbFindSerial">
+         <property name="text">
+          <string>Znajdz urzadzenia</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QRadioButton" name="rbRoletaLewe">
+         <property name="text">
+          <string>Stanowisko z roletą lewe</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="portName">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Port</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pbStop">
+         <property name="text">
+          <string>Zatrzymaj</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="0" column="2" colspan="2">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="2">
-        <widget class="QLineEdit" name="maxStepY"/>
+       <item row="0" column="0">
+        <widget class="QLabel" name="statusparams">
+         <property name="text">
+          <string>Nie ustawione</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="maxStepX"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Maksymalna ilość impulsów</string>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="maxImpx"/>
        </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label_3">
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pbSettings">
          <property name="text">
-          <string>Roleta</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLineEdit" name="maxStepR"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_17">
-         <property name="text">
-          <string>Wybierz kierunki</string>
+          <string>Ustaw</string>
          </property>
         </widget>
        </item>
@@ -235,10 +776,13 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pbSettings">
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="maxStepY"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_17">
          <property name="text">
-          <string>Ustaw</string>
+          <string>Wybierz kierunki</string>
          </property>
         </widget>
        </item>
@@ -249,37 +793,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="maxImpY"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="maxStepX"/>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>-</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
           <string>Maksymalna ilość kroków</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="QCheckBox" name="dirR">
-         <property name="text">
-          <string>Odwrócony</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Maksymalna ilość impulsów</string>
          </property>
         </widget>
        </item>
@@ -297,445 +814,38 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="4">
-        <widget class="QLabel" name="statusparams">
-         <property name="text">
-          <string>Nie ustawione</string>
-         </property>
-        </widget>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="maxImpY"/>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="3" column="0" colspan="2">
-     <widget class="QFrame" name="frame_2">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="5" column="1">
-        <widget class="QLabel" name="homeStepsY">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="pbHome">
-         <property name="text">
-          <string>Ustaw pozycję bazową</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="cbHomeStart">
-         <property name="text">
-          <string>Rozpoczęcie ustawiania</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="homeStepsX">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="cbHomeKoniecGD">
-         <property name="text">
-          <string>Zakończenie ustaiania osi pionowej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="cbHomeStartGD">
-         <property name="text">
-          <string>Rozpoczęcie ustawiania osi pionowej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="cbHomeStartLP">
-         <property name="text">
-          <string>Rozpoczęcie ustawiania osi poziomej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="cbHomeKoniec">
-         <property name="text">
-          <string>Zakończenie ustalania obu osi</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="cbHomeKoniecLP">
-         <property name="text">
-          <string>Zakończenie ustawiania osi poziomej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
+    <item row="7" column="0" colspan="4">
+     <widget class="QPlainTextEdit" name="debug"/>
     </item>
-    <item row="3" column="2">
-     <widget class="QFrame" name="frame_3">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="7" column="1" colspan="2">
-        <widget class="QLabel" name="stepY">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1" colspan="2">
-        <widget class="QLabel" name="stepX">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="cbPosStart">
-         <property name="text">
-          <string>Rozpoczęcie pozycjonowania</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="cbPosStartLP">
-         <property name="text">
-          <string>Rozpoczęcie pozycjonowanie osi poziomej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="3" colspan="2">
-        <widget class="QLabel" name="posImpY">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="cbPosKoniecLP">
-         <property name="text">
-          <string>Zakończenie pozycjonowania osi poziomej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="cbPosKoniecGD">
-         <property name="text">
-          <string>Zakończenie pozycjonowania osi pionowej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QCheckBox" name="cbPosKoniec">
-         <property name="text">
-          <string>Zakońcenie pozycjonowania</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="cbPosStartGD">
-         <property name="text">
-          <string>Rozpoczęcie pozycjonowania osi pionowej</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="5">
-        <widget class="QFrame" name="frame_8">
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Impulsy X</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="pos_X"/>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tb_X">
-            <property name="text">
-             <string>...</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>59</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Impulsy Y</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="pos_Y"/>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tb_Y">
-            <property name="text">
-             <string>...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="5" column="3" colspan="2">
-        <widget class="QLabel" name="posImpX">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pbUstaw">
-         <property name="text">
-          <string>Ustaw pozycję </string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" rowspan="2" colspan="4">
-        <widget class="QFrame" name="frame_9">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_9">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Kroki X</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>mm X</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>mm Y</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_10">
-            <property name="text">
-             <string>Kroki Y</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="posXsteps">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="posYsteps">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="posXmm">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
-           <widget class="QLabel" name="posYmm">
-            <property name="text">
-             <string>0</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="2">
+    <item row="3" column="2" rowspan="2" colspan="2">
      <widget class="QFrame" name="frame_5">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Kroki </string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="cbRolPosStart">
-         <property name="text">
-          <string>Rozpoczęcie pozycjonowania</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="tbRoletaR">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
-        <widget class="QCheckBox" name="cbRolPosKoniec">
+        <widget class="QPushButton" name="pbRoletaUstaw">
+         <property name="text">
+          <string>Ustaw pozycję rolety</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="label_43">
          <property name="text">
           <string>Zakonczenie pozycjonowania</string>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pbRoletaUstaw">
-         <property name="text">
-          <string>Ustaw pozycję</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="pos_R"/>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="stepR">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="4">
-        <widget class="QLabel" name="posStepR">
-         <property name="text">
-          <string>0</string>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -746,18 +856,83 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_42">
+         <property name="text">
+          <string>Rozpoczęcie pozycjonowania</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>mm</string>
          </property>
         </widget>
        </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Kroki </string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="stepR">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="tbRoletaR">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="posStepR">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="pos_R"/>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QProgressBar" name="progressRoletaPos">
+         <property name="maximum">
+          <number>3</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+         <property name="format">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_44">
+         <property name="text">
+          <string>Ilość kroków</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="label_45">
+         <property name="text">
+          <string>Aktualna pozycja w krokach</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
-    </item>
-    <item row="5" column="0" colspan="3">
-     <widget class="QPlainTextEdit" name="debug"/>
     </item>
    </layout>
   </widget>
@@ -771,38 +946,31 @@
   <tabstop>rbRoletaLewe</tabstop>
   <tabstop>pbFindSerial</tabstop>
   <tabstop>pbClose</tabstop>
+  <tabstop>pbStop</tabstop>
+  <tabstop>pbHome</tabstop>
+  <tabstop>pos_X</tabstop>
+  <tabstop>tb_X</tabstop>
+  <tabstop>pos_Y</tabstop>
+  <tabstop>tb_Y</tabstop>
+  <tabstop>pbUstaw</tabstop>
+  <tabstop>pbRadioOn</tabstop>
+  <tabstop>pbRadioOff</tabstop>
   <tabstop>maxImpx</tabstop>
   <tabstop>maxImpY</tabstop>
   <tabstop>maxStepX</tabstop>
   <tabstop>maxStepY</tabstop>
-  <tabstop>maxStepR</tabstop>
   <tabstop>dirX</tabstop>
   <tabstop>dirY</tabstop>
-  <tabstop>dirR</tabstop>
   <tabstop>pbSettings</tabstop>
-  <tabstop>pbRadioOn</tabstop>
-  <tabstop>pbRadioOff</tabstop>
+  <tabstop>dirR</tabstop>
+  <tabstop>maxStepR</tabstop>
+  <tabstop>minR</tabstop>
+  <tabstop>speedRDown</tabstop>
+  <tabstop>speedRUp</tabstop>
   <tabstop>pbRoletaHome</tabstop>
-  <tabstop>cbRolHomeStart</tabstop>
-  <tabstop>cbRolHomeKoniec</tabstop>
   <tabstop>pos_R</tabstop>
   <tabstop>tbRoletaR</tabstop>
   <tabstop>pbRoletaUstaw</tabstop>
-  <tabstop>cbRolPosStart</tabstop>
-  <tabstop>cbRolPosKoniec</tabstop>
-  <tabstop>pbHome</tabstop>
-  <tabstop>cbHomeStart</tabstop>
-  <tabstop>cbHomeStartLP</tabstop>
-  <tabstop>cbHomeKoniecLP</tabstop>
-  <tabstop>cbHomeStartGD</tabstop>
-  <tabstop>cbHomeKoniecGD</tabstop>
-  <tabstop>cbHomeKoniec</tabstop>
-  <tabstop>cbPosStart</tabstop>
-  <tabstop>cbPosStartLP</tabstop>
-  <tabstop>cbPosKoniecLP</tabstop>
-  <tabstop>cbPosStartGD</tabstop>
-  <tabstop>cbPosKoniecGD</tabstop>
-  <tabstop>cbPosKoniec</tabstop>
   <tabstop>debug</tabstop>
  </tabstops>
  <resources/>

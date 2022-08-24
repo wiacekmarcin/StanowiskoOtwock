@@ -88,8 +88,8 @@ QByteArray SerialMessage::settings2Msg(uint32_t maxStepX, uint32_t maxStepY, uin
     tab[10] = (maxStepR >> 16) & 0xff;
     tab[11] = (maxStepR >> 8) & 0xff;
     tab[12] = maxStepR & 0xff;
-    tab[13] = (minStepR >> 16) & 0xff;
-    tab[14] = (minStepR >> 8) & 0xff;
+    tab[13] = (minStepR >> 8) & 0xff;
+    tab[14] = minStepR & 0xff;
     return prepareMessage(SET_PARAM_REQ, tab, 15);
 }
 
@@ -197,7 +197,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 m_errorBool = true;
                 return false;
             }
-            uint8_t wzorzec[15] = {
+            uint8_t wzorzec[15] = { 'K','O','N','T','R','O','L','E','R','W','I','A','T','R','2'
                 
             };
             for (int i = 0; i < 15; ++i) {

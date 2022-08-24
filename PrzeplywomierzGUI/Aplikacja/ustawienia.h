@@ -175,8 +175,8 @@ private:
     QString rolOsYReal;
 
     QString rolMinHomeStep;
-    QString rolSpeedHomeStep;
-    QString rolSpeedPosStep;
+    QString rolSpeedHome;
+    QString rolSpeedPos;
 
 };
 

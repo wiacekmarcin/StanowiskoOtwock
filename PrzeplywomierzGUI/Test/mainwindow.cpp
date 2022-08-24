@@ -56,6 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->frame_4->setEnabled(false);
     ui->frame_5->setEnabled(false);
     ui->frame_6->setEnabled(false);
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
     sMsg.setThread(&thSterownik);
 }
 
@@ -88,41 +92,41 @@ void MainWindow::positionDone(int work)
     switch(work) {
     case SerialMessage::START_XY:
         debug("Rozpoczynam ustawianie pozycji...");
-        ui->cbPosStart->setChecked(true);
+        ui->progressPos->setValue(1);
         ui->pbUstaw->setEnabled(false);
         break;
     case SerialMessage::START_X:
         debug("Rozpoczynam ustawianie pozycji na osi X...");
-        ui->cbPosStartLP->setChecked(true);
+        ui->progressPos->setValue(2);
         break;
     case SerialMessage::END_X:
         debug("Pozycja na osi X ustalona");
-        ui->cbPosKoniecLP->setChecked(true);
+        ui->progressPos->setValue(3);
         ui->stepX->setText(QString::number(sMsg.getValues().moveStepX));
         ui->posImpX->setText(QString::number(sMsg.getValues().posImpX));
         break;
     case SerialMessage::START_Y:
         debug("Rozpoczynam ustawianie pozycji na osi Y...");
-        ui->cbPosStartGD->setChecked(true);
+        ui->progressPos->setValue(4);
         break;
     case SerialMessage::END_Y:
         debug("Pozycja na osi Y ustalona");
-        ui->cbPosKoniecGD->setChecked(true);
+        ui->progressPos->setValue(5);
         ui->stepY->setText(QString::number(sMsg.getValues().moveStepY));
         ui->posImpY->setText(QString::number(sMsg.getValues().posImpY));
         break;
     case SerialMessage::END_XY:
         debug("Pozycja czujnika ustalona na obu osiach");
-        ui->cbPosKoniec->setChecked(true);
+        ui->progressPos->setValue(6);
         ui->pbUstaw->setEnabled(true);
         break;
     case SerialMessage::START_R:
         debug("Ustawiam roletę w odpowiedniej pozycji...");
-        ui->cbRolPosStart->setChecked(true);
+        ui->progressRoletaPos->setValue(1);
         break;
     case SerialMessage::END_R:
         debug("Roleta ustawiona");
-        ui->cbRolPosKoniec->setChecked(true);
+        ui->progressRoletaPos->setValue(3);
         ui->pbRoletaUstaw->setEnabled(true);
         ui->stepR->setText(QString::number(sMsg.getValues().moveStepR));
         ui->posStepR->setText(QString::number(sMsg.getValues().posStepR));
@@ -147,40 +151,40 @@ void MainWindow::homeDone(int work)
     switch(work) {
     case SerialMessage::START_XY:
         debug("Rozpoczynam zerowanie...");
-        ui->cbHomeStart->setChecked(true);
+        ui->progresHome->setValue(1);
         ui->pbHome->setEnabled(false);
         break;
     case SerialMessage::START_X:
         debug("Zeruje oś X....");
-        ui->cbHomeStartLP->setChecked(true);
+        ui->progresHome->setValue(2);
         break;
     case SerialMessage::END_X:
         debug("Oś X wyzerowana");
-        ui->cbHomeKoniecLP->setChecked(true);
+        ui->progresHome->setValue(3);
         ui->homeStepsX->setText(QString::number(sMsg.getValues().moveStepX));
         break;
     case SerialMessage::START_Y:
         debug("Zeruje oś Y.....");
-        ui->cbHomeStartGD->setChecked(true);
+        ui->progresHome->setValue(4);
         break;
     case SerialMessage::END_Y:
         debug("Oś Y wyzerowana");
-        ui->cbHomeKoniecGD->setChecked(true);
+        ui->progresHome->setValue(5);
         ui->homeStepsY->setText(QString::number(sMsg.getValues().moveStepY));
         break;
     case SerialMessage::END_XY:
         debug("Urządzenie skalibrowane");
-        ui->cbHomeKoniec->setChecked(true);
+        ui->progresHome->setValue(6);
         ui->pbHome->setEnabled(true);
         break;
     case SerialMessage::START_R:
         debug("Zeruje roletę.....");
-        ui->cbRolHomeStart->setChecked(true);
+        ui->progressRoletaHome->setValue(1);
         ui->pbRoletaHome->setEnabled(false);
         break;
     case SerialMessage::END_R:
         debug("Roleta zamknięta");
-        ui->cbRolHomeKoniec->setChecked(true);
+        ui->progressRoletaHome->setValue(2);
         ui->pbRoletaHome->setEnabled(true);
         ui->homeStepsR->setText(QString::number(sMsg.getValues().moveStepR));
         break;
@@ -251,6 +255,9 @@ void MainWindow::wyboStanowiska()
         break;
     }
     rpos.setMaxKrokiR(ust.getMaxRolKroki().toUInt());
+    rr.setMinKroki(ust.getRolMinHomeStep().toUInt());
+    rr.setSpeedHome(ust.getRolSpeedHomeStep().toUInt());
+    rr.setSpeedPos(ust.getRolSpeedPosStep().toUInt());
 
     ui->maxImpx->setText(QString::number(rpos.getMaxImpusyX()));
     ui->maxImpY->setText(QString::number(rpos.getMaxImpusyY()));
@@ -263,16 +270,30 @@ void MainWindow::wyboStanowiska()
     ui->dirY->setChecked(rpos.getReverseY());
     ui->dirR->setChecked(rpos.getReverseR());
 
+    ui->minR->setText(QString::number(rr.getMinKroki()));
+    ui->speedRDown->setText(QString::number(rr.getSpeedHome()));
+    ui->speedRUp->setText(QString::number(rr.getSpeedPos()));
+
     sMsg.setParams(rpos.getReverseX(), rpos.getReverseY(), rpos.getReverseR(),
                       rpos.getMaxImpusyX(), rpos.getMaxImpusyY(),
                       rpos.getMaxKrokiX(), rpos.getMaxKrokiY(),
-                      rpos.getMaxKrokiR());
+                      rpos.getMaxKrokiR(), rr.getMinKroki(),
+                      rr.getSpeedHome(), rr.getSpeedPos());
+
+    ui->max_wysokosc->setText(QString("% 1 mm").arg(rr.getMaxMM()));
+    float basemm = rr.getMinKroki() * rr.getMaxMM() / rr.getMaxKroki();
+    ui->minrR_mm->setText(QString("~ %1 mm").arg(basemm, 0, 'f', 2));
+    float obr1 = 1000000.0 / (rr.getSpeedHome() + 50) / 1000 * 60;
+    float obr2 = 1000000.0 / (rr.getSpeedPos() + 50) / 1000 * 60;
+    ui->speedHomObroty->setText(QString("%1 obr/min").arg(obr1, 0, 'f', 3));
+    ui->speedPosObroty->setText(QString("%2 obr/min").arg(obr2, 0, 'f', 3));
+
 }
 
 void MainWindow::kontrolerConfigured(bool success, int state)
 {
-
-    debug(QString("Open device open = %1, state = %2 ").arg(success).arg(state));
+    const char* st[] = { "NO_FOUND","FOUND","NO_OPEN","OPEN","NO_READ","IDENT_FAILD","IDENT_OK","PARAMS_FAILD","PARAMS_OK","ALL_OK","CLOSE" };
+    debug(QString("Open device open = %1, state = %2 ").arg(success).arg(st[state]));
 
     switch(state) {
 
@@ -408,6 +429,7 @@ void MainWindow::errorSerial(QString error)
 void MainWindow::errorHome()
 {
     QMessageBox::critical(this, "Zerowanie", "Nie udało się wyzerować");
+    ui->pbHome->setEnabled(true);
 }
 
 void MainWindow::errorPosition()
@@ -440,12 +462,10 @@ void MainWindow::debug(QString text)
 
 void MainWindow::pbHome_clicked()
 {
-    ui->cbHomeStart->setChecked(false);
-    ui->cbHomeStartLP->setChecked(false);
-    ui->cbHomeKoniecLP->setChecked(false);
-    ui->cbHomeStartGD->setChecked(false);
-    ui->cbHomeKoniecGD->setChecked(false);
-    ui->cbHomeKoniec->setChecked(false);
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
     ui->homeStepsX->setText("-");
     ui->homeStepsY->setText("-");
     setPositionHome();
@@ -453,12 +473,10 @@ void MainWindow::pbHome_clicked()
 
 void MainWindow::pbUstaw_clicked()
 {
-    ui->cbPosStart->setChecked(false);
-    ui->cbPosStartLP->setChecked(false);
-    ui->cbPosKoniecLP->setChecked(false);
-    ui->cbPosStartGD->setChecked(false);
-    ui->cbPosKoniecGD->setChecked(false);
-    ui->cbPosKoniec->setChecked(false);
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
 
     ui->stepX->setText("-");
     ui->stepY->setText("-");
@@ -470,6 +488,10 @@ void MainWindow::pbUstaw_clicked()
 
 void MainWindow::pbClose_clicked()
 {
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
     ui->pbFindSerial->setEnabled(true);
     sMsg.closeDevice(false);
 }
@@ -501,8 +523,29 @@ void MainWindow::pbSettings_clicked()
     bool reverseX = ui->dirX->isChecked();
     bool reverseY = ui->dirY->isChecked();
     bool reverseR = ui->dirR->isChecked();
+
+    uint16_t mStepR, spdHome, spdPos;
+    mStepR = 100;
+    spdHome = 400; 
+    spdPos = 1000;
+
+    ui->max_wysokosc->setText(QString("% 1 mm").arg(rr.getMaxMM()));
+    float basemm = rr.getMinKroki() * rr.getMaxMM() / rr.getMaxKroki();
+    ui->minrR_mm->setText(QString("~ %1 mm").arg(basemm, 0, 'f', 2));
+    float obr1 = 1000000.0 / (rr.getSpeedHome() + 50) / 1000 * 60;
+    float obr2 = 1000000.0 / (rr.getSpeedPos() + 50) / 1000 * 60;
+    ui->speedHomObroty->setText(QString("%1 obr/min").arg(obr1, 0, 'f', 3));
+    ui->speedPosObroty->setText(QString("%2 obr/min").arg(obr2, 0, 'f', 3));
+    
+    ust.setRolMinHomeStep(ui->minR->text());
+    ust.setRolSpeedHomeStep(ui->speedRDown->text());
+    ust.setRolSpeedPosStep(ui->speedRUp->text());
+    rr.setMinKroki(ui->minR->text().toUInt());
+    rr.setSpeedHome(ui->speedRDown->text().toUInt());
+    rr.setSpeedPos(ui->speedRUp->text().toUInt());
     ui->statusparams->setText("Trwa ustawianie parametrów");
-    setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR);
+
+    setParams(reverseX, reverseY, reverseR, impX, impY, stepX, stepY, stepR, mStepR, spdHome, spdPos);
 }
 
 void MainWindow::tbRoletaR_clicked()
@@ -513,8 +556,10 @@ void MainWindow::tbRoletaR_clicked()
 
 void MainWindow::pbRoletaHome_clicked()
 {
-    ui->cbRolHomeKoniec->setChecked(false);
-    ui->cbRolHomeStart->setChecked(false);
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
     ui->homeStepsR->setText("-");
     setRoletaHome();
 }
@@ -527,8 +572,10 @@ void MainWindow::pbRoletaUstaw_clicked()
     uint32_t steps = ui->pos_R->text().toULong(&ok);
     if (!ok)
         return;
-    ui->cbRolPosStart->setChecked(false);
-    ui->cbRolPosKoniec->setChecked(false);
+    ui->progresHome->setValue(0);
+    ui->progressPos->setValue(0);
+    ui->progressRoletaPos->setValue(0);
+    ui->progressRoletaHome->setValue(0);
     //ui->pbRoletaUstaw->setEnabled(false);
     ui->stepR->setText("-");
     ui->posStepR->setText("-");
@@ -602,9 +649,10 @@ void MainWindow::setRoleta(uint32_t r)
     sMsg.setRoleta(r);
 }
 
-void MainWindow::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR)
+void MainWindow::setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY, 
+    uint32_t maxStepX, uint32_t maxStepY, uint32_t maxStepR, uint16_t minStepR, uint16_t speedHome, uint16_t speedPos)
 {
-    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR);
+    sMsg.setParams(reverseX, reverseY, reverseR, maxImpX, maxImpY, maxStepX, maxStepY, maxStepR, minStepR, speedHome, speedPos);
 }
 
 void MainWindow::readRadio()
@@ -650,8 +698,13 @@ void MainWindow::on_rbRoletaLewe_clicked()
 }
 
 
-void MainWindow::on_tbRoletaR_clicked()
+void MainWindow::on_pbStop_clicked()
 {
+    sMsg.setReset();
+}
 
+void MainWindow::pbSettings2_clicked()
+{
+    pbSettings_clicked();
 }
 

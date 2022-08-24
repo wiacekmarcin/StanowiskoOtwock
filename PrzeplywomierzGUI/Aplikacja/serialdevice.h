@@ -49,7 +49,8 @@ public:
         SET_ROLETA,
         SET_ROLETA_HOME,
         READ_RADIO,
-        DISCONNECT
+        DISCONNECT,
+        RESET
     } Task;
 
     explicit SerialWorker(SerialDevice * device);
@@ -204,6 +205,11 @@ public:
      */
     void readRadio();
 
+    /**
+    * @brief setReset
+    */
+    void setReset();
+
     const SerialMessageValues &getValues() const;
 
 protected:
@@ -333,6 +339,12 @@ protected:
      */
     void closeDeviceJob();
 
+    /**
+     * @brief resetJob - resetuje kontroler silnikow - zatrzymuje go
+    */
+    void resetJob();
+
+
     /***************************** pomocnicze JOBY ********************************************/
     /**
      * @brief Wspolna funkcja dla setPos i setHome
@@ -344,7 +356,7 @@ protected:
      * @brief Wspolna funkcja dla setPos i setHome
      * @param home - czy powrot do bazy
      */
-    void setRoletaJobLocal(bool home, bool info);
+    void setRoletaJobLocal(bool home);
 
 
     /***************************** Inne funkcje zwiazane z wiadaomosciamia ********************/

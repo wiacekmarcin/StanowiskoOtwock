@@ -37,9 +37,9 @@ int defObroty[] = {80,78,83,91,91,95,106,102,105,116,115,120,126,127};
 #define K_rolOsXReal "wymiary_rolOsXReal"
 #define K_rolOsYReal "wymiary_rolOsYReal"
 #define K_rol_maxKroki "rol_maxRolKroki"
-#define K_rol_minHomeKroki "rol_minHomeKroki"
-#define K_rol_speedHomeKroki "rol_speedHomeKroki"
-#define K_rol_speedPosKroki "rol_speedPosKroki"
+#define K_rolMinHomeKroki "rol_minHomeKroki"
+#define K_rol_speedHome "rol_speedHome"
+#define K_rol_speedPos "rol_speedPos"
 
 static QString number2Digit(short i) {
     QString ret(K_rol_obrot);
@@ -82,7 +82,13 @@ Ustawienia::Ustawienia() :
     rolOsXNazwa("800"),
     rolOsYNazwa("1500"),
     rolOsXReal("1200"),
-    rolOsYReal("2000")
+    rolOsYReal("2000"),
+    rolMinHomeStep("500"),
+    rolSpeedHome("400"),
+    rolSpeedPos("1000")
+
+
+    
 {
     int maxDefSize = sizeof(defObroty)/sizeof(int);
     for (int i=0; i < maxObrot; i++) {
@@ -142,6 +148,10 @@ void Ustawienia::read()
     rolOsYNazwa = settings.value(K_rolOsYNazwa, rolOsYNazwa).toString();
     rolOsXReal = settings.value(K_rolOsXReal, rolOsXReal).toString();
     rolOsYReal = settings.value(K_rolOsYReal, rolOsYReal).toString();
+
+    rolMinHomeStep = settings.value(K_rolMinHomeKroki, rolMinHomeStep).toString();
+    rolSpeedHome = settings.value(K_rol_speedHome, rolSpeedHome).toString();
+    rolSpeedPos = settings.value(K_rol_speedPos, rolSpeedPos).toString();
 }
 
 
@@ -178,19 +188,22 @@ void Ustawienia::write()
     settings.setValue(K_rol_width, QVariant::fromValue(normaRoletaWidth));
     settings.setValue(K_rol_height, QVariant::fromValue(normaRoletaHeight));
 
-    settings.setValue(K_stacOsXNazwa, stacOsXNazwa);
-    settings.setValue(K_stacOsYNazwa, stacOsYNazwa);
-    settings.setValue(K_stacOsXReal, stacOsXReal);
-    settings.setValue(K_stacOsYReal, stacOsYReal);
-    settings.setValue(K_oknoOsXNazwa, oknoOsXNazwa);
-    settings.setValue(K_oknoOsYNazwa, oknoOsYNazwa);
-    settings.setValue(K_oknoOsXReal, oknoOsXReal);
-    settings.setValue(K_oknoOsYReal, oknoOsYReal);
-    settings.setValue(K_rolOsXNazwa, rolOsXNazwa);
-    settings.setValue(K_rolOsYNazwa, rolOsYNazwa);
-    settings.setValue(K_rolOsXReal, rolOsXReal);
-    settings.setValue(K_rolOsYReal, rolOsYReal);
+    settings.setValue(K_stacOsXNazwa, QVariant::fromValue(stacOsXNazwa));
+    settings.setValue(K_stacOsYNazwa, QVariant::fromValue(stacOsYNazwa));
+    settings.setValue(K_stacOsXReal, QVariant::fromValue(stacOsXReal));
+    settings.setValue(K_stacOsYReal, QVariant::fromValue(stacOsYReal));
+    settings.setValue(K_oknoOsXNazwa, QVariant::fromValue(oknoOsXNazwa));
+    settings.setValue(K_oknoOsYNazwa, QVariant::fromValue(oknoOsYNazwa));
+    settings.setValue(K_oknoOsXReal, QVariant::fromValue(oknoOsXReal));
+    settings.setValue(K_oknoOsYReal, QVariant::fromValue(oknoOsYReal));
+    settings.setValue(K_rolOsXNazwa, QVariant::fromValue(rolOsXNazwa));
+    settings.setValue(K_rolOsYNazwa, QVariant::fromValue(rolOsYNazwa));
+    settings.setValue(K_rolOsXReal, QVariant::fromValue(rolOsXReal));
+    settings.setValue(K_rolOsYReal, QVariant::fromValue(rolOsYReal));
 
+    settings.setValue(K_rolMinHomeKroki, QVariant::fromValue(rolMinHomeStep));
+    settings.setValue(K_rol_speedHome, QVariant::fromValue(rolSpeedHome));
+    settings.setValue(K_rol_speedPos, QVariant::fromValue(rolSpeedPos));
 }
 
 QString Ustawienia::getRatioCzujnik1() const
@@ -542,29 +555,29 @@ QString Ustawienia::getRolMinHomeStep() const
 void Ustawienia::setRolMinHomeStep(const QString &value)
 {
     rolMinHomeStep = value;
-    settings.setValue(K_rol_minHomeKroki, QVariant::fromValue(rolMinHomeStep));
+    settings.setValue(K_rolMinHomeKroki, QVariant::fromValue(rolMinHomeStep));
 }
 
 QString Ustawienia::getRolSpeedHomeStep() const
 {
-    return rolSpeedHomeStep;
+    return rolSpeedHome;
 }
 
 void Ustawienia::setRolSpeedHomeStep(const QString &value)
 {
-    rolSpeedHomeStep = value;
-    settings.setValue(K_rol_speedHomeKroki, QVariant::fromValue(rolSpeedHomeStep));
+    rolSpeedHome = value;
+    settings.setValue(K_rol_speedHome, QVariant::fromValue(rolSpeedHome));
 }
 
 QString Ustawienia::getRolSpeedPosStep() const
 {
-    return rolSpeedPosStep;
+    return rolSpeedPos;
 }
 
 void Ustawienia::setRolSpeedPosStep(const QString &value)
 {
-    rolSpeedPosStep = value;
-    settings.setValue(K_rol_speedPosKroki, QVariant::fromValue(rolSpeedPosStep));
+    rolSpeedPos = value;
+    settings.setValue(K_rol_speedPos, QVariant::fromValue(rolSpeedPos));
 }
 
 const QString &Ustawienia::getRolObrot(unsigned short obr) const

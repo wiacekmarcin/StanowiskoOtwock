@@ -104,9 +104,9 @@
  * MEASUNIT_REP
  *
  * RESET_STER_REQ
- *      0xC0    0x4E
+ *      0xD0    0x3E
  * RESET_STER_REP
- *      0xD0             
+ *      0xE0    0xAE   
  * ERROR_REP 
  *      0xF?   TXT1 ... TXT15   CRC     
  */

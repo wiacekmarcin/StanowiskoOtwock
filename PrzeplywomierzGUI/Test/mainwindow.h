@@ -68,19 +68,13 @@ private slots:
     void tbX_clicked();
     void tbY_clicked();
     void radioTimeout();
-
-
     void on_rbStac_clicked();
-
     void on_rbOknoPrawe_clicked();
-
     void on_rbOknoLewe_clicked();
-
     void on_rbRoletaPrawe_clicked();
-
     void on_rbRoletaLewe_clicked();
-
-    void on_tbRoletaR_clicked();
+    void on_pbStop_clicked();
+    void pbSettings2_clicked();
 
 protected:
     void connectToDevice();
@@ -90,9 +84,10 @@ protected:
     void setRoletaHome();
     void setRoleta(uint32_t r);
 
-    void setParams(bool reverseX, bool reverseY, bool reverseR,
-                   uint32_t maxImpX, uint32_t maxImpY, uint32_t maxStepX, uint32_t maxStepY,
-                   uint32_t maxStepR);
+    void setParams(bool reverseX, bool reverseY, bool reverseR, uint32_t maxImpX, uint32_t maxImpY,
+        uint32_t maxStepX, uint32_t maxStepY, 
+        uint32_t maxStepR, uint16_t minStepR, 
+        uint16_t speedHome, uint16_t speedPos);
 
     void readRadio();
 
