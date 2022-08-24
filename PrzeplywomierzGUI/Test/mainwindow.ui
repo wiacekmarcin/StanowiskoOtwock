@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1037</width>
+    <width>1043</width>
     <height>914</height>
    </rect>
   </property>
@@ -67,7 +67,7 @@ roleta osiągając punkt bazowy</string>
         <widget class="QLineEdit" name="speedRDown"/>
        </item>
        <item row="6" column="0">
-        <widget class="QPushButton" name="pbSetting2">
+        <widget class="QPushButton" name="pbSettings2">
          <property name="text">
           <string>Ustaw</string>
          </property>
@@ -111,6 +111,19 @@ roleta osiągając punkt bazowy</string>
         <widget class="QLabel" name="max_wysokosc">
          <property name="text">
           <string>0 mm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1" colspan="2">
+        <widget class="QLabel" name="infoObroty">
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:6pt;&quot;&gt;Prędkość wyznaczona jest dla przekladni 1:1 i 1000 kroków na obró. Aby uzyskać prędkość dla kroków 8000 i przekładni 1:3 należy podzielić warotść przez 3*8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

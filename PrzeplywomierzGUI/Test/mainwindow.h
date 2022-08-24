@@ -57,7 +57,6 @@ private slots:
     void pbFindSerial_clicked();
     void pbHome_clicked();
     void pbUstaw_clicked();
-
     void pbClose_clicked();
     void pbSettings_clicked();
     void tbRoletaR_clicked();
@@ -68,14 +67,16 @@ private slots:
     void tbX_clicked();
     void tbY_clicked();
     void radioTimeout();
-    void on_rbStac_clicked();
-    void on_rbOknoPrawe_clicked();
-    void on_rbOknoLewe_clicked();
-    void on_rbRoletaPrawe_clicked();
-    void on_rbRoletaLewe_clicked();
-    void on_pbStop_clicked();
+    void rbStac_clicked();
+    void rbOknoPrawe_clicked();
+    void rbOknoLewe_clicked();
+    void rbRoletaPrawe_clicked();
+    void rbRoletaLewe_clicked();
+    void pbStop_clicked();
     void pbSettings2_clicked();
-
+    void changeTimeObroty();
+    void changeRoletaPostoj();
+    
 protected:
     void connectToDevice();
 

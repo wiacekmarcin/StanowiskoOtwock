@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     rpos.setUstawienia(ust);
     rr.setUstawienia(ust);
 
-    on_rbRoletaPrawe_clicked();
+    rbRoletaPrawe_clicked();
 
     ui->pbRadioOff->setEnabled(false);
 
@@ -47,6 +47,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->tb_Y, &QToolButton::clicked, this, &MainWindow::tbY_clicked);
     connect(ui->pbFindSerial, &QPushButton::clicked, this, &MainWindow::pbFindSerial_clicked);
     connect(ui->pbClose, &QPushButton::clicked, this, &MainWindow::pbClose_clicked);
+    connect(ui->rbStac, &QPushButton::clicked, this, &MainWindow::rbStac_clicked);
+    connect(ui->rbOknoPrawe, &QPushButton::clicked, this, &MainWindow::rbOknoPrawe_clicked);
+    connect(ui->rbOknoLewe, &QPushButton::clicked, this, &MainWindow::rbOknoLewe_clicked);
+    connect(ui->rbRoletaPrawe, &QPushButton::clicked, this, &MainWindow::rbRoletaPrawe_clicked);
+    connect(ui->rbRoletaLewe, &QPushButton::clicked, this, &MainWindow::rbRoletaLewe_clicked);
+    connect(ui->pbStop, &QPushButton::clicked, this, &MainWindow::pbStop_clicked);
+    connect(ui->pbSettings2, &QPushButton::clicked, this, &MainWindow::pbSettings2_clicked);
+    connect(ui->speedRDown, &QLineEdit::editingFinished, this, &MainWindow::changeTimeObroty);
+    connect(ui->speedRUp, &QLineEdit::editingFinished, this, &MainWindow::changeTimeObroty);
+    connect(ui->minR, &QLineEdit::editingFinished, this, &MainWindow::changeRoletaPostoj);
 
     tmr.setInterval(1000);
     connect(&tmr, &QTimer::timeout, this, &MainWindow::radioTimeout);
@@ -60,6 +70,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->progressPos->setValue(0);
     ui->progressRoletaPos->setValue(0);
     ui->progressRoletaHome->setValue(0);
+
+
+    //changeTimeObroty();
+    //changeRoletaPostoj();
+
     sMsg.setThread(&thSterownik);
 }
 
@@ -280,14 +295,9 @@ void MainWindow::wyboStanowiska()
                       rpos.getMaxKrokiR(), rr.getMinKroki(),
                       rr.getSpeedHome(), rr.getSpeedPos());
 
-    ui->max_wysokosc->setText(QString("% 1 mm").arg(rr.getMaxMM()));
-    float basemm = rr.getMinKroki() * rr.getMaxMM() / rr.getMaxKroki();
-    ui->minrR_mm->setText(QString("~ %1 mm").arg(basemm, 0, 'f', 2));
-    float obr1 = 1000000.0 / (rr.getSpeedHome() + 50) / 1000 * 60;
-    float obr2 = 1000000.0 / (rr.getSpeedPos() + 50) / 1000 * 60;
-    ui->speedHomObroty->setText(QString("%1 obr/min").arg(obr1, 0, 'f', 3));
-    ui->speedPosObroty->setText(QString("%2 obr/min").arg(obr2, 0, 'f', 3));
-
+    ui->max_wysokosc->setText(QString("%1 mm").arg(rr.getMaxMM()));
+    changeTimeObroty();
+    changeRoletaPostoj();
 }
 
 void MainWindow::kontrolerConfigured(bool success, int state)
@@ -525,15 +535,24 @@ void MainWindow::pbSettings_clicked()
     bool reverseR = ui->dirR->isChecked();
 
     uint16_t mStepR, spdHome, spdPos;
-    mStepR = 100;
-    spdHome = 400; 
-    spdPos = 1000;
+    mStepR = ui->minR->text().toUInt(&ok);
+    if (!ok)
+        mStepR = 0;
+
+    spdHome = ui->speedRDown->text().toUInt(&ok);
+    if (!ok)
+        spdHome = 400;
+
+    spdPos = ui->speedRUp->text().toUInt(&ok);
+    if (!ok)
+        spdPos = 1000;
+
 
     ui->max_wysokosc->setText(QString("% 1 mm").arg(rr.getMaxMM()));
     float basemm = rr.getMinKroki() * rr.getMaxMM() / rr.getMaxKroki();
     ui->minrR_mm->setText(QString("~ %1 mm").arg(basemm, 0, 'f', 2));
-    float obr1 = 1000000.0 / (rr.getSpeedHome() + 50) / 1000 * 60;
-    float obr2 = 1000000.0 / (rr.getSpeedPos() + 50) / 1000 * 60;
+    float obr1 = 1.0 / (1000.0 / (rr.getSpeedHome() + 50)) * 60;
+    float obr2 = 1.0 / (1000.0 / (rr.getSpeedPos() + 50)) * 60;
     ui->speedHomObroty->setText(QString("%1 obr/min").arg(obr1, 0, 'f', 3));
     ui->speedPosObroty->setText(QString("%2 obr/min").arg(obr2, 0, 'f', 3));
     
@@ -663,42 +682,42 @@ void MainWindow::readRadio()
 
 
 
-void MainWindow::on_rbStac_clicked()
+void MainWindow::rbStac_clicked()
 {
     modeWork = MODE_2700;
     wyboStanowiska();
 }
 
 
-void MainWindow::on_rbOknoPrawe_clicked()
+void MainWindow::rbOknoPrawe_clicked()
 {
     modeWork = MODE_1000P;
     wyboStanowiska();
 }
 
 
-void MainWindow::on_rbOknoLewe_clicked()
+void MainWindow::rbOknoLewe_clicked()
 {
     modeWork = MODE_1000L;
     wyboStanowiska();
 }
 
 
-void MainWindow::on_rbRoletaPrawe_clicked()
+void MainWindow::rbRoletaPrawe_clicked()
 {
     modeWork = MODE_ROLETAP;
     wyboStanowiska();
 }
 
 
-void MainWindow::on_rbRoletaLewe_clicked()
+void MainWindow::rbRoletaLewe_clicked()
 {
     modeWork = MODE_ROLETAL;
     wyboStanowiska();
 }
 
 
-void MainWindow::on_pbStop_clicked()
+void MainWindow::pbStop_clicked()
 {
     sMsg.setReset();
 }
@@ -708,3 +727,38 @@ void MainWindow::pbSettings2_clicked()
     pbSettings_clicked();
 }
 
+void MainWindow::changeTimeObroty()
+{
+    bool ok;
+    unsigned int speedDown = ui->speedRDown->text().toInt(&ok);
+    if (!ok)
+        return;
+
+    unsigned int speedUp = ui->speedRUp->text().toInt(&ok);
+    if (!ok)
+        return;
+
+
+    float obr1 = (1000.0 / (speedDown + 50.0)) * 60.0;
+    float obr2 = (1000.0 / (speedUp + 50.0)) * 60.0;
+    ui->speedHomObroty->setText(QString("%1 obr/min").arg(obr1, 0, 'f', 3));
+    ui->speedPosObroty->setText(QString("%2 obr/min").arg(obr2, 0, 'f', 3));
+
+    ui->infoObroty->setText(QString("<html><head/><body><p><span style=\"font-size:6pt;\">Prędkość obrotowa wyznaczona jest dla przekladni 1:1 i 1000 kroków na obrót .Aby uzyskać wartość dla 8000 kroków i przekładni 1:3 należy podzielić wartość przez 3*8 [%1, %2]</span></p></body></html>")
+        .arg(obr1 / 24.0, 0, 'f', 3).arg(obr2 / 24.0, 0, 'f', 3));
+}
+
+void  MainWindow::changeRoletaPostoj()
+{
+    bool ok;
+    unsigned int step = ui->minR->text().toInt(&ok);
+    if (!ok)
+        return;
+    unsigned int maxStep = ui->maxStepR->text().toInt(&ok);
+    if (!ok)
+        return;
+    unsigned int maxmm = rr.getMaxMM();
+    if (!ok)
+        return;
+    ui->minrR_mm->setText(QString("~ %1 mm").arg(QString::number((unsigned int)(1.0 * step * maxmm / maxStep))));
+}
