@@ -5,7 +5,7 @@
 #include "rs232.h"
 #include <QDebug>
 #include <QMutexLocker>
-
+#include <QElapsedTimer>
 
 #define DEBUGSER(X) debugFun(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
 
@@ -119,9 +119,11 @@ void SerialWorker::run()
 
         case DISCONNECT:
             sd->closeDeviceJob();
+            break;
 
         case RESET:
             sd->resetJob();
+            break;
 
         default:
             break;

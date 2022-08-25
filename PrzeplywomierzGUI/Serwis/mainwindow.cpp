@@ -88,6 +88,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     auto val27 = ust.getRolSpeedPosStep();
     ui->rolSpeedUp->setText(val27 == "" ? "500" : val27);
+    connect(ui->pbSaveRadioCzujnik, &QPushButton::clicked, this, &MainWindow::pbSaveRadioCzujnik_clicked);
+    connect(ui->pbSaveRatio, &QPushButton::clicked, this, &MainWindow::pbSaveRatio_clicked);
+    connect(ui->pbSaveWentylator, &QPushButton::clicked, this, &MainWindow::pbSaveWentylator_clicked);
+    connect(ui->pbRoletaSave, &QPushButton::clicked, this, &MainWindow::pbRoletaSave_clicked);
+    connect(ui->pbSaveWymiary, &QPushButton::clicked, this, &MainWindow::pbSaveWymiary_clicked);
+    connect(ui->pbcalculate, &QPushButton::clicked, this, &MainWindow::pbcalculate_clicked);
+
 
     float sum = 0.0;
     int row;
@@ -119,6 +126,8 @@ MainWindow::MainWindow(QWidget *parent) :
         lobrotSum->setText(QString::number(sum));
         ui->gridLayout_3->addWidget(lobrotSum, row, col + 3, 1, 1);
         sumLabel[i] = lobrotSum;
+
+        connect(RolObrot, &QLineEdit::editingFinished, this, &MainWindow::pbcalculate_clicked);
     }
 
     /*
@@ -134,11 +143,11 @@ MainWindow::MainWindow(QWidget *parent) :
     pbRoletaSave->setText(QCoreApplication::translate("MainWindow", "Zapisz", nullptr));
     ui->gridLayout_3->addWidget(pbRoletaSave, 35, 0, 1, 1);
 */
-    on_pbSaveRadioCzujnik_clicked();
-    on_pbSaveRatio_clicked();
-    on_pbSaveWentylator_clicked();
-    on_pbRoletaSave_clicked();
-    on_pbSaveRatio_clicked();
+    pbSaveRadioCzujnik_clicked();
+    pbSaveRatio_clicked();
+    pbSaveWentylator_clicked();
+    pbRoletaSave_clicked();
+    pbSaveRatio_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -146,13 +155,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pbSaveRadioCzujnik_clicked()
+void MainWindow::pbSaveRadioCzujnik_clicked()
 {
     ust.setRatioCzujnik1(ui->ecz1ratio->text());
     ust.setUnitCzujnik1(ui->ecz1unit->text());
 }
 
-void MainWindow::on_pbSaveRatio_clicked()
+void MainWindow::pbSaveRatio_clicked()
 {
     ust.setImpulsyXperMM(ui->eimpX->text());
     ust.setImpulsyYperMM(ui->eimpY->text());
@@ -160,14 +169,14 @@ void MainWindow::on_pbSaveRatio_clicked()
     ust.setKrokiYperMM(ui->estepY->text());
 }
 
-void MainWindow::on_pbSaveWentylator_clicked()
+void MainWindow::pbSaveWentylator_clicked()
 {
     ust.setKatnachylenia(ui->ewiatrakkat->text());
     ust.setWentOffsetX(ui->ewiatrakx->text());
     ust.setWentOffsetY(ui->ewiatraky->text());
 }
 
-void MainWindow::on_pbRoletaSave_clicked()
+void MainWindow::pbRoletaSave_clicked()
 {
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {
         ust.setRolObrot(i, RolObrotTab[i]->text());
@@ -181,7 +190,7 @@ void MainWindow::on_pbRoletaSave_clicked()
 }
 
 
-void MainWindow::on_pbSaveWymiary_clicked()
+void MainWindow::pbSaveWymiary_clicked()
 {
     ust.setStacOsXNazwa(ui->stac_osX_nazwa->text());
     ust.setStacOsYNazwa(ui->stac_osY_nazwa->text());
@@ -198,7 +207,7 @@ void MainWindow::on_pbSaveWymiary_clicked()
 }
 
 
-void MainWindow::on_pbcalculate_clicked()
+void MainWindow::pbcalculate_clicked()
 {
     float sum = 0.0;
     for (short i = 0 ; i < Ustawienia::getMaxRolObrot(); ++i) {

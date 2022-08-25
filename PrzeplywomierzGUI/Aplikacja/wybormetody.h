@@ -52,6 +52,7 @@ public:
         MODE_SERVICE,               //serwis
         MODE_ROLETAP,               //roleta po prawej stronie
         MODE_ROLETAL,               //roleta po lewej stronie
+        MODE_ROLETAOTHER
     } ModeWork;
 
 
@@ -162,6 +163,16 @@ private slots:
 
     void on_pbNornaSet_clicked();
 
+    void on_rbRoletaOther_toggled(bool checked);
+
+    void on_PbOpuscRoleta_clicked();
+
+    void on_sbRomaxEtap_valueChanged(const QString &arg1);
+
+    void on_sbRoNrEtap_valueChanged(const QString &arg1);
+
+    void on_pbWyliczPozycje_clicked();
+
 protected:
     void chooseFileName();
     void setEnabledContinue(bool enabled);
@@ -178,6 +189,7 @@ protected:
 
     void visibleRoleta(bool visible, bool left);
     void visibleOther(bool visible);
+    void visibleRoletaOther(bool visible);
 
     bool isValidRoletaRB();
     bool isValidPlaszczynaRB();

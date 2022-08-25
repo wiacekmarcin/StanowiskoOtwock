@@ -96,6 +96,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
+            visibleOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -108,6 +109,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
+            visibleOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -120,6 +122,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
+            visibleOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -127,12 +130,14 @@ void WyborMetody::init()
             visibleOther(false);
             visibleRoleta(false, false);
             ui->rbFunSet->setChecked(true);
+            visibleOther(false);
             //ui->gbMethod->setVisible(false);
             //ui->gbMethod->setDisabled(true);
         break;
         case MODE_SERVICE:
             visibleOther(false);
             visibleRoleta(false, false);
+            visibleOther(false);
             //ui->gbMethod->setVisible(false);
         break;
         case MODE_ROLETAP:
@@ -144,6 +149,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(false);
             visibleRoleta(true, false);
+            visibleOther(false);
             //ui->gbMethod->setVisible(true);
         break;
         case MODE_ROLETAL:
@@ -155,8 +161,14 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(true);
             visibleOther(false);
             visibleRoleta(true, true);
+            visibleOther(false);
             //ui->gbMethod->setVisible(true);
-    break;
+        break;
+        case MODE_ROLETAOTHER:
+            visibleOther(false);
+            visibleRoleta(false, false);
+            visibleOther(false);
+        break;
     default:
         break;
     }
@@ -387,6 +399,11 @@ void WyborMetody::visibleOther(bool visible)
     ui->frManual->setVisible(visible);
 }
 
+void WyborMetody::visibleRoletaOther(bool visible)
+{
+    ui->frRoletaInne->setVisible(visible);
+}
+
 bool WyborMetody::isValidRoletaRB()
 {
     return ui->rbRoletaDane->isChecked() || ui->rbRoletaPlik->isChecked();
@@ -480,6 +497,7 @@ void WyborMetody::on_rb2700_toggled(bool checked)
     if (checked) {
         visibleOther(true);
         visibleRoleta(false, false);
+        visibleRoletaOther(false);
         wbMode = MODE_2700;
         on_rbfile_toggled(true);
     }
@@ -490,6 +508,7 @@ void WyborMetody::on_rb1000l_toggled(bool checked)
     if (checked) {
         visibleOther(true);
         visibleRoleta(false, false);
+        visibleRoletaOther(false);
         wbMode = MODE_1000L;
         on_rbfile_toggled(true);
     }
@@ -500,6 +519,7 @@ void WyborMetody::on_rb1000p_toggled(bool checked)
     if (checked) {
         visibleOther(true);
         visibleRoleta(false, false);
+        visibleRoletaOther(false);
         wbMode = MODE_1000P;
         on_rbfile_toggled(true);
     }
@@ -510,6 +530,7 @@ void WyborMetody::on_rbFunSet_toggled(bool checked)
     if (checked) {
         visibleOther(false);
         visibleRoleta(false, false);
+        visibleRoletaOther(false);
         wbMode = MODE_FUNSET;
         setEnabledContinue(true);
     }
@@ -521,6 +542,7 @@ void WyborMetody::on_rbRoletaP_toggled(bool checked)
         wbMode = MODE_ROLETAP;
         visibleOther(false);
         visibleRoleta(true, false);
+        visibleRoletaOther(false);
         on_rbRoletaDane_toggled(true);
     }
     //qDebig() << "ROLETAP checked" << checked << "wbMode" << wbMode;
@@ -532,6 +554,7 @@ void WyborMetody::on_rbRoletaL_toggled(bool checked)
         wbMode = MODE_ROLETAL;
         visibleOther(false);
         visibleRoleta(true, true);
+        visibleRoletaOther(false);
         on_rbRoletaDane_toggled(true);
     }
     //qDebig() << "ROLETAL checked" << checked << "wbMode" << wbMode;
@@ -891,3 +914,95 @@ void WyborMetody::on_pbNornaSet_clicked()
     dlg->deleteLater();
 }
 
+
+void WyborMetody::on_rbRoletaOther_toggled(bool checked)
+{
+    if (checked) {
+        wbMode = MODE_ROLETAOTHER;
+        visibleOther(false);
+        visibleRoleta(false, false);
+        visibleRoletaOther(true);
+    }
+}
+
+void WyborMetody::on_PbOpuscRoleta_clicked()
+{
+
+}
+
+void WyborMetody::on_sbRomaxEtap_valueChanged(const QString &arg1)
+{
+    bool ok;
+    unsigned int maxVal = arg1.toUInt(&ok);
+    if (!ok) {
+        ui->sbRomaxEtap->setValue(1);
+    }
+    if (maxVal <= 0)
+        ui->sbRomaxEtap->setValue(1);
+
+    if (maxVal > 15)
+        ui->sbRomaxEtap->setValue(15);
+
+    int val = ui->sbRoNrEtap->value();
+    unsigned int maxMM = 1.0 * ust.getRolDlugosc().toUInt() * val / maxVal;
+    ui->lroMaxY->setText(QString("od 0 do %1").arg(maxMM));
+
+}
+
+void WyborMetody::on_sbRoNrEtap_valueChanged(const QString &arg1)
+{
+    bool ok;
+    unsigned int val = arg1.toUInt(&ok);
+    if (!ok) {
+        ui->sbRoNrEtap->setValue(1);
+    }
+    if (val <= 0 || val > 15)
+        ui->sbRoNrEtap->setValue(1);
+
+    unsigned int maxVal = ui->sbRomaxEtap->value();
+    if (val > maxVal)
+        ui->sbRoNrEtap->setValue(maxVal);
+
+    unsigned int maxMM = 1.0 * ust.getRolDlugosc().toUInt() * val / maxVal;
+    ui->lroMaxY->setText(QString("od 0 do %1").arg(maxMM));
+}
+
+void WyborMetody::on_pbWyliczPozycje_clicked()
+{
+    int maxEtap = ui->sbRomaxEtap->value();
+    int nrEtap = ui->sbRoNrEtap->value();
+    if (ui->roPosX->text().isEmpty())
+        return;
+    bool ok;
+    unsigned int mmX = ui->roPosX->text().toUInt(&ok);
+    if (!ok)
+        return;
+
+    unsigned int mmY = ui->roPosY->text().toUInt(&ok);
+    if (!ok)
+        return;
+
+    unsigned int width = 800;
+
+    unsigned int maxMM = (unsigned int) (1.0 * nrEtap / maxEtap * 1500);
+
+    if (mmX > width)
+        return;
+
+    if (mmY > maxMM)
+        return;
+
+
+    float nX = 0.5 - 1.0 * mmX / width ;
+    float nY = -0.5 + 1.0 * mmY / maxMM;
+
+    unsigned int czas = ui->rolInneCzasPomiarow->text().toUInt(&ok);
+    if (!ok)
+        return;
+
+    if (czas < 0)
+        return ;
+    if (czas > 3600)
+        return;
+    ui->normaPlikLine->setText(QString("%1,%2,%3,%4").arg(nrEtap).arg(nX, 0, 'f', 3).arg(nY, 0, 'f', 3).arg(czas));
+}
