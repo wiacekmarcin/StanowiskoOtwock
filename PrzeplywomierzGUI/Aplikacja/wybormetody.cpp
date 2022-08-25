@@ -927,7 +927,8 @@ void WyborMetody::on_rbRoletaOther_toggled(bool checked)
 
 void WyborMetody::on_PbOpuscRoleta_clicked()
 {
-
+    sd.setRoletaHome();
+    sd.closeDevice(true);
 }
 
 void WyborMetody::on_sbRomaxEtap_valueChanged(const QString &arg1)

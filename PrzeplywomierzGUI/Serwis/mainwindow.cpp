@@ -84,10 +84,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->rolMinR->setText(val25 == "" ? "500" : val25);
 
     auto val26 = ust.getRolSpeedHomeStep();
-    ui->rolSpeedHome->setText(val26 == "" ? "500" : val26);
+    ui->rolSpeedHome->setText(val26 == "" ? "400" : val26);
 
     auto val27 = ust.getRolSpeedPosStep();
-    ui->rolSpeedUp->setText(val27 == "" ? "500" : val27);
+    ui->rolSpeedUp->setText(val27 == "" ? "1000" : val27);
     connect(ui->pbSaveRadioCzujnik, &QPushButton::clicked, this, &MainWindow::pbSaveRadioCzujnik_clicked);
     connect(ui->pbSaveRatio, &QPushButton::clicked, this, &MainWindow::pbSaveRatio_clicked);
     connect(ui->pbSaveWentylator, &QPushButton::clicked, this, &MainWindow::pbSaveWentylator_clicked);
