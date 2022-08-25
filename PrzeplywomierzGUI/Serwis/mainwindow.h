@@ -20,17 +20,17 @@ public:
 private slots:
 
 
-    void on_pbSaveRadioCzujnik_clicked();
+    void pbSaveRadioCzujnik_clicked();
 
-    void on_pbSaveRatio_clicked();
+    void pbSaveRatio_clicked();
 
-    void on_pbSaveWentylator_clicked();
+    void pbSaveWentylator_clicked();
 
-    void on_pbRoletaSave_clicked();
+    void pbRoletaSave_clicked();
 
-    void on_pbSaveWymiary_clicked();
+    void pbSaveWymiary_clicked();
 
-    void on_pbcalculate_clicked();
+    void pbcalculate_clicked();
 
 private:
     Ui::MainWindow *ui;
