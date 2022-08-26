@@ -52,11 +52,11 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     connect(&sMsg, &SerialDevice::readFromRadio, this, &MiernikPrzeplywu::readedFromRadio, Qt::QueuedConnection);
 
     chooseWork();
-    ui->lstanowisko2700_3000->setText(QString("Stanowisko\n%1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
-    ui->lstanowisko1000_2000prawe->setText(QString("Stanowisko\n%1x%2 [mm]\nprawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
-    ui->lStanowisko1000_2000lewe->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
-    ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
-    ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->lstanowisko2700_3000->setText(QString("Stanowisko %1x%2 [mm]").arg(ust.getStacOsXNazwa(),ust.getStacOsYNazwa()));
+    ui->lstanowisko1000_2000prawe->setText(QString("Stanowisko %1x%2 [mm] prawe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lStanowisko1000_2000lewe->setText(QString("Stanowisko %1x%2 [mm] lewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
+    ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą %1x%2 [mm] prawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+    ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą %1x%2 [mm] lewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
 
 }

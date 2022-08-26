@@ -218,7 +218,7 @@ void PozycjeRoleta::update()
         ui->pbNoweDane->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
         ui->pbRestart->setEnabled(true);
-        ui->pbRestart->setEnabled(true);
+        ui->pbZamknijRoleta->setEnabled(true);
 
         ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
         actWork = DONE;
@@ -413,7 +413,7 @@ void PozycjeRoleta::roletaDone(bool home)
         ui->pbNoweDane->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
         ui->pbRestart->setEnabled(true);
-        ui->pbRestart->setEnabled(true);
+        ui->pbZamknijRoleta->setEnabled(true);
         roletaClose = false;
         return;
     }
@@ -452,6 +452,7 @@ void PozycjeRoleta::setStop()
     ui->pbRestart->setEnabled(true);
     ui->pbNoweDane->setEnabled(true);
     ui->pbStart->setEnabled(true);
+    ui->pbZamknijRoleta->setEnabled(true);
     if (m_listawynikowa.size() > 0)
         ui->pbZapisz->setEnabled(true);
 

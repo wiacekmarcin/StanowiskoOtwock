@@ -1028,7 +1028,7 @@ na podstawie normy</string>
                 </size>
                </property>
                <property name="text">
-                <string>Plik powinien zawierać następujące dane oddzielone przecinkiem : nr etapu [ od 2 do 15], współrzędne szerokość i wysokość wyrażone w jednostce [środek obszary to 0, lewa lub dolna krawędż to -0.5, a prawa lub górna krawędź to 0.5], czas postoju</string>
+                <string>Plik powinien zawierać następujące dane oddzielone przecinkiem : nr etapu [ od 1 do 15], współrzędne szerokość i wysokość wyrażone w jednostce [środek obszary to 0, lewa lub dolna krawędż to -0.5, a prawa lub górna krawędź to 0.5], czas postoju</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
