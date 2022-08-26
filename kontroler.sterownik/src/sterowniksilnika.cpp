@@ -176,7 +176,7 @@ bool returnBaseX(bool info)
 {
     if (info) {
         msg.sendRetHomeXStart();
-        delay(200);
+        delay(300);
     }
     setHomePosX();
     setDirX(X_LEFT);
@@ -188,7 +188,7 @@ bool returnBaseX(bool info)
     delay(2000);
     if (info) {
         msg.sendRetHomeXDone(millis());
-        delay(200);
+        delay(300);
     }
     gActPosImpX = 0;
     attachEnkoderX(false);
@@ -213,7 +213,7 @@ bool returnBaseX(bool info)
 #endif
             if (info) {
                 msg.setErrorHomeBack();
-                delay(200);
+                delay(300);
             }
             //attachEnkoderX(false);
             return false;
@@ -230,7 +230,7 @@ bool returnBaseX(bool info)
     gActPosStepX = 0;
     if (info) {
         msg.sendRetHomeXDone(step);
-        delay(200);
+        delay(300);
     }
     //attachEnkoderX(false);
     return true;
@@ -240,7 +240,7 @@ bool returnBaseY(bool info)
 {
     if (info) {
         msg.sendRetHomeYStart();
-        delay(200);
+        delay(300);
     }
     setHomePosY();
     setDirY(Y_DOWN);
@@ -252,7 +252,7 @@ bool returnBaseY(bool info)
     delay(2000);
     if (info) {
         msg.sendRetHomeYDone(millis());
-        delay(200);
+        delay(300);
     }
     gActPosImpY = 0;
     attachEnkoderY(false);
@@ -293,7 +293,7 @@ bool returnBaseY(bool info)
     gActPosStepY = 0;
     if (info) {
         msg.sendRetHomeYDone(step);
-        delay(200);
+        delay(300);
     }
     //printPos();
     
@@ -606,7 +606,7 @@ void setPosY(uint32_t pos)
     Serial.println(gActPosImpY, DEC);
 #endif
     msg.sendPositionStartY();
-    delay(200);
+    delay(300);
     
 #ifdef TEST_SILNIKA
     delay(2000);
@@ -617,7 +617,7 @@ void setPosY(uint32_t pos)
     
     if (gActPosImpY == pos) {
         msg.sendPositionDoneY(0, gActPosStepY);
-        delay(200);
+        delay(300);
 #ifdef DEBUG        
         Serial.println("gPos == pos");
 #endif        
@@ -668,13 +668,13 @@ void setPosY(uint32_t pos)
     attachEnkoderY(false);
     gActPosStepY += goraK ? step : -step;
     msg.sendPositionDoneY(step, gActPosImpY);
-    delay(200);
+    delay(300);
 }
 
 void setPosX(uint32_t pos)
 {
     msg.sendPositionStartX();
-    delay(200);
+    delay(300);
 #ifdef DEBUG    
     Serial.print("gActPosImpX=");
     Serial.print(gActPosImpX, DEC);
@@ -689,7 +689,7 @@ void setPosX(uint32_t pos)
 
     if (gActPosImpX == pos) {
         msg.sendPositionDoneX(0, gActPosStepX);
-        delay(200);
+        delay(300);
 #ifdef DEBUG        
         Serial.println("gActPosImpX == pos");
 #endif        
@@ -737,7 +737,7 @@ void setPosX(uint32_t pos)
     attachEnkoderX(false);
     gActPosStepX += lewoK ? step : -step;
     msg.sendPositionDoneX(step, gActPosImpX);
-    delay(200);
+    delay(300);
 }
 
 
