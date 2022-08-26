@@ -304,9 +304,6 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
         return maxKroki;
     }
     
-    if (krokiPerObrot != 2000)
-        krokiPerObrot = 2000;
-
     unsigned long kroki = 0L;
     unsigned long MM = 10*mm;
     unsigned long obwod;

@@ -209,23 +209,23 @@ void MessageSerial::sendPosiotionMessages(bool home)
 
     uint8_t sendData1[1] = {'s'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData1, 1);
-    delay(500);
+    delay(300);
 
     uint8_t sendData2[1] = {'l'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData2, 1);
-    delay(10000);
+    delay(1000);
 
     uint8_t sendData3[9] = {'P', 0, 0, 0, 0, 0, 0, 0, 0};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData3, home ? 5 : 9);
-    delay(500);
+    delay(300);
 
     uint8_t sendData4[1] = {'d'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData4, 1);
-    delay(10000);
+    delay(1000);
 
     uint8_t sendData5[9] = {'G', 0, 0, 0, 0, 0, 0, 0, 0};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData5, home ? 5 : 9);
-    delay(500);
+    delay(300);
 
     uint8_t sendData6[1] = {'K'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData6, 1);
@@ -236,7 +236,7 @@ void MessageSerial::sendRolPositionMessages(bool home)
 {
     uint8_t sendData1[1] = {'r'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData1, 1);
-    delay(5000);
+    delay(1000);
 
     uint8_t sendData2[9] = {'R', 0, 0, 0, 0, 0, 0, 0, 0};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData2, home ? 5 : 9);

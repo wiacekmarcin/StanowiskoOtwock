@@ -58,7 +58,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą %1x%2 [mm] prawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
     ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą %1x%2 [mm] lewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
-
+    //ui->debugLine->setVisible(false);
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
@@ -251,6 +251,7 @@ bool MiernikPrzeplywu::chooseMethod(const WyborMetody::ModeWork & modeWork,
         wymiarY = ust.getRolOsYReal().toUInt();
         unsigned int maxH = ust.getNormaRoletaHeight().toUInt();
         unsigned int maxW = ust.getNormaRoletaWidth().toUInt();
+        w->setUstawienia(ust);
 
         if (methodIns == WyborMetody::METHOD_MANUAL) {
             //TODO

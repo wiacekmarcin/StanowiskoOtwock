@@ -42,9 +42,6 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
 
-    m_width = 860;
-    m_height = 1600;
-
     m_offsetX = 0;
     m_offsetY = 0;
 
@@ -55,6 +52,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     adjustSize();
     ui->table->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
     roletaClose = false;
+    firstRoleta = false;
 }
 
 PozycjeRoleta::~PozycjeRoleta()
@@ -78,6 +76,12 @@ void PozycjeRoleta::setList(const PozycjeRol &l)
     }
     adjustSize();
     //qDebig() << __FILE__ << __LINE__  << ui->table->rowCount();
+}
+
+void PozycjeRoleta::setUstawienia(Ustawienia& ust)
+{
+    rolRuch.setUstawienia(ust);
+
 }
 
 unsigned int PozycjeRoleta::createRoletaRow(unsigned int row, unsigned int nrR, unsigned int sizeR,
@@ -255,7 +259,7 @@ void PozycjeRoleta::update()
         unsigned int steps = rolRuch.podniescMM(rmm);
         setRoleta(steps);
         DEBUGPR(QString("Ustawiam rolete na %1 mm").arg(rmm));
-
+        firstRoleta = true;
         return;
     }
     case NEXT_POS:
@@ -340,7 +344,14 @@ void PozycjeRoleta::update()
     }
     case WAIT2STABLE:
         DEBUGPR("actWork WAIT2STABLE");
-        ui->status->setText("Czekam na stabilizacje.");
+        
+        if (firstRoleta) {
+            firstRoleta = false;
+            timer->stop();
+            QMessageBox::information(this, "Stanowisko z roletą", "Roleta została otwarta - po uruchomieniu wentylatorów, można kliknąć dalej aby kontynuować pomiary");
+            timer->start();
+            ui->status->setText("Czekam na uruchomienie wentylatorów.");
+        }
         if (stableTime == 0) {
             actWork = NEXT_POS;
             ui->table->item(actPos, col_status)->setText("Oczekiwanie na stabilazacje zakończone");

@@ -490,7 +490,7 @@ void SerialDevice::setRoletaJobLocal(bool home)
         if (emitSignal) emit setPositionDone(true, home, actSt);
     }
 
-    s = write(QByteArray(), 0, 200000);
+    s = write(QByteArray(), 0, 10000000);
     rp = s.getParseReply();
     actSt = s.getPosWork();
     if (rp != orp) {

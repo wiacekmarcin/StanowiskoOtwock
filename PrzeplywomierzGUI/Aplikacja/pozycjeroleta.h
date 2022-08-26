@@ -30,6 +30,7 @@ public:
     ~PozycjeRoleta();
 
     void setList(const PozycjeRol & l);
+    void setUstawienia(Ustawienia& ust);
 
     typedef enum _cols {
         col_xmm = 0,
@@ -132,6 +133,7 @@ private:
     QList<DaneWynikoweRoleta> m_listawynikowa;
     RoletaRuch rolRuch;
     bool roletaClose;
+    bool firstRoleta;
 };
 
 #endif // POZYCJEROLETA_H

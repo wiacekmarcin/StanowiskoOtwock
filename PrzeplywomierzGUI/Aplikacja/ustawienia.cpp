@@ -62,14 +62,14 @@ Ustawienia::Ustawienia() :
     wentOffsetX("301"),
     wentOffsetY("175.58"),
     rolDlugosc("1500"),
-    rolStepObrot("2000"),
+    rolStepObrot("8000"),
     rolOffsetX_P("115"),
     rolOffsetY_P("1172"),
     rolOffsetX_L("1050"),
     rolOffsetY_L("1720"),
     rolkrokiperMM("19.4"),
-    maxRolKroki("29100"),
-    normaRoletaWidth("875"),
+    maxRolKroki("116700"),
+    normaRoletaWidth("800"),
     normaRoletaHeight("1500"),
     stacOsXNazwa("2700"),
     stacOsYNazwa("3000"),
@@ -83,8 +83,8 @@ Ustawienia::Ustawienia() :
     rolOsYNazwa("1500"),
     rolOsXReal("1200"),
     rolOsYReal("2000"),
-    rolMinHomeStep("500"),
-    rolSpeedHome("400"),
+    rolMinHomeStep("1300"),
+    rolSpeedHome("1000"),
     rolSpeedPos("1000")
 
 

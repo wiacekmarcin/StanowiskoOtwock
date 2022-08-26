@@ -38,6 +38,12 @@ private slots:
 protected:
     void setPos();
 
+    void visibleFound(bool vis);
+    void visibleIdent(bool vis);
+    void visibleConf(bool vis);
+    void visibleHomePos(bool vis);
+    void visibleOpen(bool vis);
+    void visibleProgres(bool vis);
 private:
     Ui::PozycjonowanieOffsetuNormy *ui;
     int oX;
@@ -47,6 +53,8 @@ private:
     RoletaRuch mechRol;
     unsigned int stepMM;
     bool reverse;
+
+
 };
 
 #endif // POZYCJONOWANIEOFFSETUNORMY_H

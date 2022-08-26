@@ -16,11 +16,12 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
 {
     ui->setupUi(this);
     mech.setUstawienia(ust);
+    mechRol.setUstawienia(ust);
     mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
     mech.setReverseY(false);
     mech.setReverseX(!left);
     mech.setReverseR(true);
-
+    
     sDev->setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),
@@ -54,6 +55,13 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
     connect(sDev, &SerialDevice::debug, this, &PozycjonowanieOffsetuNormy::debug, Qt::QueuedConnection);
 
 
+    visibleFound(false);
+    visibleIdent(false);
+    visibleConf(false);
+    visibleHomePos(false);
+    visibleOpen(false);
+    visibleProgres(false);
+    ui->statusK->setText("Szukam kontrolera");
     sDev->connectToDevice();
 }
 
@@ -129,6 +137,36 @@ void PozycjonowanieOffsetuNormy::right()
 void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int work)
 {
     //qDebig() << __LINE__ << success << home << work;
+    if (success) {
+        switch (work) {
+        case SerialMessage::START_XY:
+            ui->progressBar->setValue(1);
+            break;
+        
+        case SerialMessage::START_X:
+            ui->progressBar->setValue(2);
+            break;
+
+        case SerialMessage::END_X:
+            ui->progressBar->setValue(3);
+            break;
+
+        case SerialMessage::START_Y:
+            ui->progressBar->setValue(4);
+            break;
+
+        case SerialMessage::END_Y:
+            ui->progressBar->setValue(5);
+            break;
+
+        case SerialMessage::END_XY:
+            ui->progressBar->setValue(6);
+            break;
+
+        default:
+            break;
+        };
+    }
     if (success && !home && work == SerialMessage::END_XY) {
         ui->status->setText("Pozycja ustawiona");
         ui->left->setEnabled(true);
@@ -143,51 +181,68 @@ void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int wo
     } else if (success && !home && work != SerialMessage::ERROR_XY) {
         ui->status->setText("Pozycjonowanie");
     } else {
-        ui->status->setText("Błąd");
+        ui->status->setText(QString("Błąd pozycjonowania %1 %2 %3").arg(success).arg(home).arg(work));
     }
 }
 
 void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 {
     //qDebig() << __FILE__ << __LINE__ << succ << state;
-    if (!succ) {
-        ui->status->setText("Nie otwarty");
-        return;
-    }
+    //if (!succ) {
+    //    ui->statusK->setText("Nie otwarty");
+    //    return;
+    //}
 
     switch(state) {
 
     case SerialDevice::NO_FOUND:
-        ui->status->setText("Nie znaleziono kontrolera");
+        visibleFound(true);
+        ui->rbKontrolerFoundNo->setChecked(true);
         break;
 
     case SerialDevice::FOUND:
+        visibleFound(true);
+        ui->rbKontrolerFoundYes->setChecked(true);
         break;
 
     case SerialDevice::NO_OPEN:
-        ui->status->setText(QString("Nie udało się otworzyć portu"));
+        visibleOpen(true);
+        ui->rbKontrolerOpenNo->setChecked(true);
+        ui->statusK->setText(QString("Nie udało się otworzyć portu"));
         break;
 
     case SerialDevice::OPEN:
+        visibleOpen(true);
+        ui->rbKontrolerOpenYes->setChecked(true);
         break;
 
     case SerialDevice::NO_READ:
-        ui->status->setText(QString("Problem z odczytem z portu"));
+        visibleIdent(true);
+        ui->rbKontrolerIdentNo->setChecked(true);
+        ui->statusK->setText(QString("Problem z odczytem z portu"));
         break;
 
     case SerialDevice::IDENT_FAILD:
-        ui->status->setText(QString("Nieprawidłowy kontroler."));
+        visibleIdent(true);
+        ui->rbKontrolerIdentNo->setChecked(true);
+        ui->statusK->setText(QString("Nieprawidłowy kontroler."));
         break;
 
     case SerialDevice::IDENT_OK:
+        visibleIdent(true);
+        ui->rbKontrolerIdentYes->setChecked(true);
         break;
 
     case SerialDevice::PARAMS_FAILD:
-        ui->status->setText(QString("Problem z konfiguracja"));
+        visibleConf(true);
+        ui->rbKontrolerKonfNo->setChecked(true);
+        ui->statusK->setText(QString("Problem z konfiguracja"));
         break;
 
     case SerialDevice::PARAMS_OK:
-        ui->status->setText(QString("Kontroler OK"));
+        visibleConf(true);
+        ui->rbKontrolerKonfYes->setChecked(true);
+        ui->statusK->setText(QString("Kontroler OK"));
         break;
 
     case SerialDevice::ALL_OK:
@@ -195,7 +250,7 @@ void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
         break;
 
     case SerialDevice::CLOSE:
-        ui->status->setText(QString(""));
+        ui->statusK->setText(QString(""));
         break;
 
     default:
@@ -207,10 +262,18 @@ void PozycjonowanieOffsetuNormy::setParamsDone(bool success)
 {
     //qDebig() << __LINE__ << success;
     if (success) {
-        ui->status->setText("Zerowanie");
+        //ui->status->setText("Zerowanie");
+        visibleHomePos(true);
+        ui->rbKontrolerPosHomeYes->setChecked(true);
+        ui->statusK->setText(QString("Kontroler OK"));
+        ui->progressBar->setValue(0);
+        visibleProgres(true);
         sDev->setPositionHome();
     } else {
-        ui->status->setText("Błąd Sterownika");
+        visibleHomePos(true);
+        visibleProgres(false);
+        ui->rbKontrolerPosHomeNo->setChecked(true);
+        ui->statusK->setText(QString("Błąd konfiguracji"));
         sDev->closeDevice(false);
     }
 }
@@ -235,4 +298,48 @@ void PozycjonowanieOffsetuNormy::setPos()
     ui->up->setEnabled(false);
     ui->down->setEnabled(false);
     sDev->setPosition(mech.getImpulsyX(oX), mech.getImpulsyY(oY));
+}
+
+void PozycjonowanieOffsetuNormy::visibleFound(bool vis)
+{
+    ui->lFound->setEnabled(vis);
+    ui->rbKontrolerFoundYes->setEnabled(vis);
+    ui->rbKontrolerFoundNo->setEnabled(vis);
+}
+
+void PozycjonowanieOffsetuNormy::visibleIdent(bool vis)
+{
+    ui->lIdent->setEnabled(vis);
+    ui->rbKontrolerIdentYes->setEnabled(vis);
+    ui->rbKontrolerIdentNo->setEnabled(vis);
+}
+
+void PozycjonowanieOffsetuNormy::visibleConf(bool vis)
+{
+    ui->lKonfiguracja->setEnabled(vis);
+    ui->rbKontrolerKonfYes->setEnabled(vis);
+    ui->rbKontrolerKonfNo->setEnabled(vis);
+}
+
+void PozycjonowanieOffsetuNormy::visibleHomePos(bool vis)
+{
+    ui->lPosHome->setEnabled(vis);
+    ui->rbKontrolerPosHomeNo->setEnabled(vis);
+    ui->rbKontrolerPosHomeYes->setEnabled(vis);
+}
+
+void PozycjonowanieOffsetuNormy::visibleOpen(bool vis)
+{
+    ui->lOpen->setEnabled(vis);
+    ui->rbKontrolerOpenYes->setEnabled(vis);
+    ui->rbKontrolerOpenNo->setEnabled(vis);
+}
+
+void PozycjonowanieOffsetuNormy::visibleProgres(bool vis)
+{
+    ui->progressBar->setEnabled(vis);
+    ui->lKoniec->setEnabled(vis);
+    ui->Lstart->setEnabled(vis);
+    ui->lX->setEnabled(vis);
+    ui->lY->setEnabled(vis);
 }
