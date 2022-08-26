@@ -54,6 +54,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     ui->pbRestart->setVisible(false);
     adjustSize();
     ui->table->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed);
+    roletaClose = false;
 }
 
 PozycjeRoleta::~PozycjeRoleta()
@@ -217,6 +218,8 @@ void PozycjeRoleta::update()
         ui->pbNoweDane->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
         ui->pbRestart->setEnabled(true);
+        ui->pbRestart->setEnabled(true);
+
         ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
         actWork = DONE;
         setClose(true);
@@ -405,6 +408,17 @@ void PozycjeRoleta::positionDone(bool home)
 
 void PozycjeRoleta::roletaDone(bool home)
 {
+    DEBUGPR(QString("rolet Done home=%1").arg(home));
+    if (roletaClose && home) {
+        ui->pbNoweDane->setEnabled(true);
+        ui->pbZapisz->setEnabled(true);
+        ui->pbRestart->setEnabled(true);
+        ui->pbRestart->setEnabled(true);
+        roletaClose = false;
+        return;
+    }
+        
+
     if (home) {
         actWork = FIRST_RUN;
     } else {
@@ -468,6 +482,7 @@ void PozycjeRoleta::on_pbStart_clicked()
     ui->pbRestart->setEnabled(false);
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
+    ui->pbZamknijRoleta->setEnabled(false);
     connectToDevice();
 }
 
@@ -521,6 +536,13 @@ void PozycjeRoleta::on_pbRestart_clicked()
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
     ui->pbRestart->setEnabled(false);
+    ui->pbZamknijRoleta->setEnabled(false);
     connectToDevice();
 }
 
+void PozycjeRoleta::on_pbZamknijRoleta_clicked()
+{
+    ui->pbZamknijRoleta->setEnabled(false);
+    roletaClose = true;
+    closeRoleta();
+}

@@ -78,10 +78,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->roleta_osY_real->setText(val23 == "" ? "1800" : val23);
 
     auto val24 = ust.getMaxRolKroki();
-    ui->rolMaxKrokow->setText(val24 == "" ? "29100" : val24);
+    ui->rolMaxKrokow->setText(val24 == "" ? "114600" : val24);
 
     auto val25 = ust.getRolMinHomeStep();
-    ui->rolMinR->setText(val25 == "" ? "500" : val25);
+    ui->rolMinR->setText(val25 == "" ? "2000" : val25);
 
     auto val26 = ust.getRolSpeedHomeStep();
     ui->rolSpeedHome->setText(val26 == "" ? "400" : val26);

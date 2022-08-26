@@ -11,12 +11,12 @@ uint32_t gImpMaxY = 301000L;
 uint32_t gStepMaxX = 73000L;
 uint32_t gStepMaxY = 76000L;
 
-uint32_t gStepMaxR = 60000L;
+uint32_t gStepMaxR = 116400;
 
 uint16_t  gHomeRSpeed = 400;
 uint16_t  gPosRSpeed = 1000;
 
-uint16_t gRolStepsInHome = 100;
+uint16_t gRolStepsInHome = 400;
 
 
 #ifdef OKNO_SILNIK_PRAWA
@@ -176,7 +176,7 @@ bool returnBaseX(bool info)
 {
     if (info) {
         msg.sendRetHomeXStart();
-        delay(100);
+        delay(200);
     }
     setHomePosX();
     setDirX(X_LEFT);
@@ -187,8 +187,8 @@ bool returnBaseX(bool info)
 #ifdef TEST_SILNIKA    
     delay(2000);
     if (info) {
-        msg.sendRetHomeXDone(step);
-        delay(100);
+        msg.sendRetHomeXDone(millis());
+        delay(200);
     }
     gActPosImpX = 0;
     attachEnkoderX(false);
@@ -213,7 +213,7 @@ bool returnBaseX(bool info)
 #endif
             if (info) {
                 msg.setErrorHomeBack();
-                delay(100);
+                delay(200);
             }
             //attachEnkoderX(false);
             return false;
@@ -240,7 +240,7 @@ bool returnBaseY(bool info)
 {
     if (info) {
         msg.sendRetHomeYStart();
-        delay(100);
+        delay(200);
     }
     setHomePosY();
     setDirY(Y_DOWN);
@@ -251,8 +251,8 @@ bool returnBaseY(bool info)
 #ifdef TEST_SILNIKA
     delay(2000);
     if (info) {
-        msg.sendRetHomeYDone(step);
-        delay(100);
+        msg.sendRetHomeYDone(millis());
+        delay(200);
     }
     gActPosImpY = 0;
     attachEnkoderY(false);
@@ -293,7 +293,7 @@ bool returnBaseY(bool info)
     gActPosStepY = 0;
     if (info) {
         msg.sendRetHomeYDone(step);
-        delay(100);
+        delay(200);
     }
     //printPos();
     
@@ -311,7 +311,7 @@ bool returnBaseR(uint32_t * stepsRet)
 
 #ifdef TEST_SILNIKA
     delay(2000);
-    *steps = 0;
+    *stepsRet = millis();
     gActPosImpY = 0;
     return true;
 #endif
@@ -406,7 +406,8 @@ void setPosR(uint32_t pos)
     
 #ifdef TEST_SILNIKA
     delay(2000);
-    msg.sendRoletaDone(gActPosStepRol);
+    gActPosStepRol = pos;
+    msg.sendRoletaDone(millis(), gActPosStepRol);
     return;
 #endif
     
@@ -605,17 +606,18 @@ void setPosY(uint32_t pos)
     Serial.println(gActPosImpY, DEC);
 #endif
     msg.sendPositionStartY();
-    delay(100);
+    delay(200);
     
 #ifdef TEST_SILNIKA
     delay(2000);
-    msg.sendPositionDoneY(0, gActPosStepY);
+    gActPosStepY = pos;
+    msg.sendPositionDoneY(millis(), gActPosStepY);
     return;
 #endif
     
     if (gActPosImpY == pos) {
         msg.sendPositionDoneY(0, gActPosStepY);
-        delay(100);
+        delay(200);
 #ifdef DEBUG        
         Serial.println("gPos == pos");
 #endif        
@@ -666,13 +668,13 @@ void setPosY(uint32_t pos)
     attachEnkoderY(false);
     gActPosStepY += goraK ? step : -step;
     msg.sendPositionDoneY(step, gActPosImpY);
-    delay(100);
+    delay(200);
 }
 
 void setPosX(uint32_t pos)
 {
     msg.sendPositionStartX();
-    delay(100);
+    delay(200);
 #ifdef DEBUG    
     Serial.print("gActPosImpX=");
     Serial.print(gActPosImpX, DEC);
@@ -680,13 +682,14 @@ void setPosX(uint32_t pos)
 
 #ifdef TEST_SILNIKA
     delay(2000);
-    msg.sendPositionDoneX(0, gActPosStepX);
+    gActPosStepX = pos;
+    msg.sendPositionDoneX(millis(), gActPosStepX);
     return;
 #endif
 
     if (gActPosImpX == pos) {
         msg.sendPositionDoneX(0, gActPosStepX);
-        delay(100);
+        delay(200);
 #ifdef DEBUG        
         Serial.println("gActPosImpX == pos");
 #endif        
@@ -734,7 +737,7 @@ void setPosX(uint32_t pos)
     attachEnkoderX(false);
     gActPosStepX += lewoK ? step : -step;
     msg.sendPositionDoneX(step, gActPosImpX);
-    delay(100);
+    delay(200);
 }
 
 

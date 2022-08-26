@@ -60,13 +60,13 @@ bool work()
     
     switch(actWork) {
         case MessageSerial::POS_START:
-            delay(100);
+            delay(200);
             msg.sendPositionStart();
-            delay(100);
+            delay(200);
             setPosX(msg.getPosX());
-            delay(100);
+            delay(200);
             setPosY(msg.getPosY());
-            delay(100);
+            delay(200);
             msg.sendPositionDone();
             actWork = MessageSerial::NOP;
         return true;
@@ -74,51 +74,51 @@ bool work()
         case MessageSerial::RETURN_HOME:
             if (infoPos) {
                 msg.sendRetHomeStart();
-                delay(100);
+                delay(200);
             }
             if (!returnBaseX(infoPos)) {
                 msg.setStop();
-                //delay(100);
+                //delay(200);
                 //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
                 return false;
             }
-            delay(100);
+            delay(200);
             if (!returnBaseY(infoPos)) {
                 msg.setStop();
-                //delay(100);
+                //delay(200);
                 //msg.sendRetHomeDone();
                 actWork = MessageSerial::NOP;
                 return false;
             }
             if (infoPos) {
                 msg.sendRetHomeDone();
-                delay(100);
+                delay(200);
             }
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_START:
             msg.sendRoletaStart();
-            delay(100);
+            delay(200);
             setPosR(msg.getRol());
             actWork = MessageSerial::NOP;
         return true;
         case MessageSerial::ROL_HOME:
             if (infoPos) {
                 msg.sendRetHomeRStart();
-                delay(100);
+                delay(200);
             }
             uint32_t step;
             if (!returnBaseR(&step)) {
                 if (infoPos) {
                     msg.setErrorRoletaHomeBack();
-                    delay(100);
+                    delay(200);
                 }
                 msg.setStop();
             } else {
                 if (infoPos) {
                     msg.sendRetHomeRDone(step);
-                    delay(100);
+                    delay(200);
 
                 }
             }

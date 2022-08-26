@@ -127,6 +127,11 @@ void TabWidget::setRoleta(uint32_t r)
     if (miernikPrzeplywu)
         miernikPrzeplywu->setRoleta(r);
 }
+void TabWidget::closeRoleta()
+{
+    if (miernikPrzeplywu)
+        miernikPrzeplywu->setRoletaClose();
+}
 
 void TabWidget::debug(const QString &s)
 {

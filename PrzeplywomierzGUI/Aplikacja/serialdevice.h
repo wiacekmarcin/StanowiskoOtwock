@@ -50,7 +50,9 @@ public:
         SET_ROLETA_HOME,
         READ_RADIO,
         DISCONNECT,
-        RESET
+        RESET,
+        QUIET_ON,
+        QUIET_OFF
     } Task;
 
     explicit SerialWorker(SerialDevice * device);
@@ -210,7 +212,11 @@ public:
     */
     void setReset();
 
+    void setRoletaClose();
+
     const SerialMessageValues &getValues() const;
+
+
 
 protected:
     /**
@@ -344,6 +350,10 @@ protected:
     */
     void resetJob();
 
+    /**
+     * @brief ustawia tryb glosny/cichy
+     */
+    void setQuiteMode(bool mode);
 
     /***************************** pomocnicze JOBY ********************************************/
     /**
@@ -399,6 +409,7 @@ private:
     QMutex connMutex;
     bool m_connected;
     SerialWorker m_worker;
+    bool emitSignal;
 
 
     /* Ustawianie silnikow */

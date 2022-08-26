@@ -317,10 +317,7 @@ void MiernikPrzeplywu::setUstawienia()
     mech.calculate();
 }
 
-
-
-
-void MiernikPrzeplywu::errorSerial(const QString & error)
+void MiernikPrzeplywu::errorSerial(QString error)
 {
     DEBUGMP(QString("Error from serial : ") + error);
     /*
@@ -826,4 +823,7 @@ void MiernikPrzeplywu::setClose(bool waitForDone)
     sMsg.closeDevice(waitForDone);
 }
 
-
+void MiernikPrzeplywu::setRoletaClose()
+{
+    sMsg.setRoletaClose();
+}

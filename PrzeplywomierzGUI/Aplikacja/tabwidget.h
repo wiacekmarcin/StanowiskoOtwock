@@ -54,6 +54,7 @@ public:
     void debugClear();
     void readRadio();
     void setClose(bool afterBase);
+    void closeRoleta();
 
     void setMiernikPrzeplywu(MiernikPrzeplywu *newMiernikPrzeplywu);
 

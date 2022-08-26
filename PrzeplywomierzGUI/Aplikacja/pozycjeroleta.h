@@ -70,10 +70,9 @@ private slots:
 
     void on_pbStart_clicked();
     void on_pbNoweDane_clicked();
-
     void on_pbZapisz_clicked();
-
     void on_pbRestart_clicked();
+    void on_pbZamknijRoleta_clicked();
 
 protected:
 
@@ -132,6 +131,7 @@ private:
 
     QList<DaneWynikoweRoleta> m_listawynikowa;
     RoletaRuch rolRuch;
+    bool roletaClose;
 };
 
 #endif // POZYCJEROLETA_H

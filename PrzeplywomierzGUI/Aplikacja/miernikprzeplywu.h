@@ -54,6 +54,7 @@ public:
 
     void noweDane();
     void setClose(bool afterBase);
+    void setRoletaClose();
 public slots:
     void debug(const QString &);
     void debugClear();
@@ -69,7 +70,7 @@ protected:
     void setUstawienia();
 private slots:
 
-    void errorSerial(const QString &);
+    void errorSerial(QString);
     void setPositionDone(bool success, bool home, int work);
     void kontrolerConfigured(bool success, int state);
     void readedFromRadio(bool sucess, int val1 , int val2, int val3, int val4);

@@ -229,7 +229,7 @@ void Ruch::setWentOffsetX(double value)
 RoletaRuch::RoletaRuch() :
     krokiPerObrot(2000),
     maxMM(1500),
-    maxKroki(29100)
+    maxKroki(116400)
 {
 
 }
