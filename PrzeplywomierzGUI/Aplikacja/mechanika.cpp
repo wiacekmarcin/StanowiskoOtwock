@@ -227,9 +227,13 @@ void Ruch::setWentOffsetX(double value)
 }
 
 RoletaRuch::RoletaRuch() :
-    krokiPerObrot(2000),
+    krokiPerObrot(8000),
     maxMM(1500),
-    maxKroki(116400)
+    maxKroki(116700),
+    reverse(true),
+    m_speedPos(700),
+    m_speedHome(1000),
+    m_minKroki(1300)
 {
 
 }
@@ -258,7 +262,7 @@ void RoletaRuch::setUstawienia(Ustawienia &ust)
     SETVALUE(getMaxRolKroki,setMaxRolKroki,maxKroki,toUInt);
     SETVALUE(getRolMinHomeStep,setRolMinHomeStep,m_minKroki,toUInt);
     SETVALUE(getRolSpeedHomeStep,setRolSpeedHomeStep,m_speedHome,toUInt);
-    SETVALUE(getRolSpeedPosStep,setRolSpeedPosStep,m_speedHome,toUInt);
+    SETVALUE(getRolSpeedPosStep,setRolSpeedPosStep, m_speedPos,toUInt);
 
     QString val;
     for (short i = 0; i < Ustawienia::getMaxRolObrot(); i++) {

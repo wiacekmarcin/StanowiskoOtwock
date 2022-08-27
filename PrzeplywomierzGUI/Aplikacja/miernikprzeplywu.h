@@ -120,6 +120,7 @@ private:
     bool firstRun;
     bool firstRun2;
     bool checkRadio;
+    bool closeRoleta;
 
     QString m_portName;
     QThread thSterownik;

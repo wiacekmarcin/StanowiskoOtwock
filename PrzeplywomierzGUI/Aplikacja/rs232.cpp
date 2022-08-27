@@ -286,7 +286,8 @@ void RS232_CloseComport(int comport_number)
     //qDebig() << __FILE__ << __LINE__;
     (void)comport_number;
 #else
-  CloseHandle(Cport[comport_number]);
+    if (comport_number > 0)
+        CloseHandle(Cport[comport_number]);
 #endif
 }
 

@@ -60,6 +60,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą %1x%2 [mm] lewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
     //ui->debugLine->setVisible(false);
+    closeRoleta = false;
 }
 
 MiernikPrzeplywu::~MiernikPrzeplywu()
@@ -359,6 +360,9 @@ void MiernikPrzeplywu::kontrolerConfigured(bool success, int state)
     if (modeWork == WyborMetody::MODE_NONE)
         return;
 
+    if (closeRoleta)
+        return;
+
     DEBUGMP(QString("Open device open = %1, state = %2 ").arg(success).arg(state));
 
     if (widget != nullptr) {
@@ -465,6 +469,9 @@ void MiernikPrzeplywu::setParamsDone(bool success)
         return;
 
     if (modeWork == WyborMetody::MODE_NONE)
+        return;
+
+    if (closeRoleta)
         return;
 
     widget->setIsReady(false);
@@ -757,8 +764,8 @@ void MiernikPrzeplywu::deviceName(const QString & portname)
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
     (void)dbg;
-    //ui->debug->append(dbg);
-    //qDebug() << addTime(dbg);
+    ui->debugLine->append(addTime(dbg));
+    qDebug() << addTime(dbg);
 }
 
 const WyborMetodyData &MiernikPrzeplywu::getData() const
@@ -827,6 +834,9 @@ void MiernikPrzeplywu::setClose(bool waitForDone)
 
 void MiernikPrzeplywu::setRoletaClose()
 {
-    RoletaClose* dlg = new RoletaClose(ust, &sMsg);
+    closeRoleta = true;
+    RoletaClose* dlg = new RoletaClose(mech, mechR, &sMsg);
     dlg->exec();
+    delete dlg;
+    closeRoleta = false;
 }

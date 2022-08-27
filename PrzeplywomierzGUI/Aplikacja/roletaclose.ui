@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>199</width>
-    <height>269</height>
+    <height>188</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>230</y>
+     <y>160</y>
      <width>181</width>
      <height>25</height>
     </rect>
@@ -212,19 +212,6 @@
     <string>Konfiguracja</string>
    </property>
   </widget>
-  <widget class="Line" name="line">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>181</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QLabel" name="lOpen">
    <property name="geometry">
     <rect>
@@ -274,7 +261,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>190</y>
+     <y>140</y>
      <width>181</width>
      <height>16</height>
     </rect>
@@ -283,24 +270,11 @@
     <string>Status pozycjonowania</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbCloseRoleta">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>150</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Zamknij roletę</string>
-   </property>
-  </widget>
   <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
+     <y>130</y>
      <width>181</width>
      <height>16</height>
     </rect>

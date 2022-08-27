@@ -912,7 +912,8 @@ void WyborMetody::on_pbNornaSet_clicked()
         ui->normaOffsetXEditP->setText(QString::number(dlg->getOX()));
         ui->normaOffsetYEditP->setText(QString::number(dlg->getOY()));
     }
-    dlg->deleteLater();
+    delete dlg;
+    //dlg->deleteLater();
 }
 
 
@@ -928,10 +929,20 @@ void WyborMetody::on_rbRoletaOther_toggled(bool checked)
 
 void WyborMetody::on_PbOpuscRoleta_clicked()
 {
-    RoletaClose* dlg = new RoletaClose(ust, &sd);
+    Ruch mech;
+    RoletaRuch mechRol;
+    mech.setUstawienia(ust);
+    mechRol.setUstawienia(ust);
+    mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
+    mech.setReverseY(false);
+    mech.setReverseX(false);
+    mech.setReverseR(true);
+    
+    RoletaClose* dlg = new RoletaClose(mech, mechRol, &sd);
     dlg->exec();
     //sd.setRoletaHome();
     //sd.closeDevice(true);
+    delete dlg;
 }
 
 void WyborMetody::on_sbRomaxEtap_valueChanged(const QString &arg1)

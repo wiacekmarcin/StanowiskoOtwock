@@ -178,6 +178,7 @@ SerialDevice::SerialDevice(QObject *parent)
     m_maxStepY = 0;
     m_maxStepR = 0;
 
+    m_portNr = -1;
 #ifdef SERIALLINUX
      m_serialPort = new QSerialPort(&m_worker);
 #endif
@@ -559,6 +560,7 @@ void SerialDevice::closeDeviceJob()
     m_serialPort->close();
 #else
     RS232_CloseComport(m_portNr);
+    m_portNr = -1;
 #endif
     setConnected(false);
     emit kontrolerConfigured(false, CLOSE);
@@ -620,6 +622,7 @@ bool SerialDevice::openDevice()
 
     if (rs <= 0) {
         RS232_CloseComport(m_portNr);
+        m_portNr = -1;
         emit kontrolerConfigured(false, NO_READ);
         return false;
     }
@@ -704,7 +707,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         return msg;
     }
 #else
-
+    
     if (currentRequest.size() > 0)
     {
 
@@ -721,7 +724,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     QElapsedTimer timer;
     timer.start();
     do {
-            rc = RS232_PollComport(m_portNr, recvBuffor, 20);
+        rc = RS232_PollComport(m_portNr, recvBuffor, 20);
         if (rc > 0) {
             DEBUGSER(QString("recv %1 bytes").arg(rc));
         }
@@ -736,8 +739,8 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         emit error(QString("Timeout"));
         DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
     }
-    QByteArray responseData((const char*)recvBuffor, rc);
-    DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.toHex().constData()).arg(ms));
+        QByteArray responseData((const char*)recvBuffor, rc);
+        DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.toHex().constData()).arg(ms));
     return parseMessage(responseData);
 #endif
 }

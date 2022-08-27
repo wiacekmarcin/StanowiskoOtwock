@@ -3,18 +3,15 @@
 
 #include <QDebug>
 
-RoletaClose::RoletaClose(Ustawienia & ust, SerialDevice * sd, QWidget *parent) :
+RoletaClose::RoletaClose(const Ruch& r, const RoletaRuch& rr, SerialDevice * sd, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RoletaClose),
-    sDev(sd)
+    sDev(sd),
+    mech(r),
+    mechRol(rr)
 {
     ui->setupUi(this);
-    mech.setUstawienia(ust);
-    mechRol.setUstawienia(ust);
-    mech.setPrzestrzen(ust.getRolOsXReal().toUInt(), ust.getRolOsYReal().toUInt());
-    mech.setReverseY(false);
-    mech.setReverseX(false);
-    mech.setReverseR(true);
+    
     
     sDev->setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
@@ -31,8 +28,6 @@ RoletaClose::RoletaClose(Ustawienia & ust, SerialDevice * sd, QWidget *parent) :
     connect(sDev, &SerialDevice::error, this, &RoletaClose::errorSerial, Qt::QueuedConnection);
     connect(sDev, &SerialDevice::debug, this, &RoletaClose::debug, Qt::QueuedConnection);
 
-    connect(ui->pbCloseRoleta, &QPushButton::clicked, this, &RoletaClose::setCloseRoleta);
-
 
     visibleFound(false);
     visibleIdent(false);
@@ -41,7 +36,6 @@ RoletaClose::RoletaClose(Ustawienia & ust, SerialDevice * sd, QWidget *parent) :
     ui->statusK->setText("Szukam kontrolera");
     ui->status->setText("");
     sDev->connectToDevice();
-    ui->pbCloseRoleta->setEnabled(false);
 }
 
 RoletaClose::~RoletaClose()
@@ -62,17 +56,23 @@ void RoletaClose::setCloseRoleta()
 
 void RoletaClose::setPositionDone(bool success, bool home, int work)
 {
-    //qDebig() << __LINE__ << success << home << work;
+    qDebug() << __LINE__ << success << home << work;
     if (success) {
         switch (work) {
         case SerialMessage::START_R:
             ui->status->setText("Zamykanie rolety....");
+            ui->buttonBox->setEnabled(false);
             break;
         
         case SerialMessage::END_R:
             ui->status->setText("Roleta zamknieta");
+            ui->buttonBox->setEnabled(true);
             break;
 
+        case SerialMessage::ERROR_R:
+            ui->status->setText("Wystąpił błąd");
+            ui->buttonBox->setEnabled(true);
+            break;
         default:
             break;
         };
@@ -158,7 +158,7 @@ void RoletaClose::setParamsDone(bool success)
     if (success) {
         //ui->status->setText("Zerowanie");
         ui->statusK->setText(QString("Kontroler OK"));
-        ui->pbCloseRoleta->setEnabled(true);
+        setCloseRoleta();
     } else {
         ui->statusK->setText(QString("Błąd konfiguracji"));
         sDev->closeDevice(false);

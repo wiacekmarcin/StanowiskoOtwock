@@ -403,6 +403,8 @@ void PozycjeRoleta::setOffsetX(unsigned int newOffsetX)
 
 void PozycjeRoleta::positionDone(bool home)
 {
+    if (roletaClose)
+        return;
     DEBUGPR(QString("position Done home=%1").arg(home));
     if (home) {
         if (actWork == WAIT_HPOS) {
@@ -428,7 +430,8 @@ void PozycjeRoleta::roletaDone(bool home)
         roletaClose = false;
         return;
     }
-        
+    if (roletaClose)
+        return;
 
     if (home) {
         actWork = FIRST_RUN;
@@ -557,4 +560,5 @@ void PozycjeRoleta::on_pbZamknijRoleta_clicked()
     ui->pbZamknijRoleta->setEnabled(false);
     roletaClose = true;
     closeRoleta();
+    ui->pbZamknijRoleta->setEnabled(true);
 }
