@@ -3,12 +3,13 @@
 
 #include <QDebug>
 
-RoletaClose::RoletaClose(const Ruch& r, const RoletaRuch& rr, SerialDevice * sd, QWidget *parent) :
+RoletaClose::RoletaClose(const Ruch& r, const RoletaRuch& rr, SerialDevice * sd, PartClose pc, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RoletaClose),
     sDev(sd),
     mech(r),
-    mechRol(rr)
+    mechRol(rr),
+    roletaClp(pc)
 {
     ui->setupUi(this);
     
@@ -51,21 +52,33 @@ RoletaClose::~RoletaClose()
 void RoletaClose::setCloseRoleta()
 {
     sDev->setRoletaHome();
+    if (roletaClp == RoletaClose::ROL_OPEN) {
+        sDev->setRoleta(mechRol.poniescPercent(100));
+    }
+    else if (roletaClp == RoletaClose::ROL_HALF) {
+        sDev->setRoleta(mechRol.poniescPercent(50));
+    }
     sDev->closeDevice(true);
 }
 
 void RoletaClose::setPositionDone(bool success, bool home, int work)
 {
-    qDebug() << __LINE__ << success << home << work;
+    //qDebug() << __LINE__ << success << home << work;
     if (success) {
         switch (work) {
         case SerialMessage::START_R:
-            ui->status->setText("Zamykanie rolety....");
+            if (home)
+                ui->status->setText("Zamykanie rolety....");
+            else
+                ui->status->setText("Ustawianie rolety....");
             ui->buttonBox->setEnabled(false);
             break;
         
         case SerialMessage::END_R:
-            ui->status->setText("Roleta zamknieta");
+            if (home)
+                ui->status->setText("Roleta zamknieta");
+            else
+                ui->status->setText("Roleta ustawiona na pozycji");
             ui->buttonBox->setEnabled(true);
             break;
 

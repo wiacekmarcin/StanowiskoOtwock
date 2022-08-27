@@ -21,7 +21,7 @@ PozycjonowanieOffsetuNormy::PozycjonowanieOffsetuNormy(Ustawienia & ust, SerialD
     mech.setReverseY(false);
     mech.setReverseX(!left);
     mech.setReverseR(true);
-    
+    mech.setMaxKrokiR(mechRol.getMaxKroki());
     sDev->setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),

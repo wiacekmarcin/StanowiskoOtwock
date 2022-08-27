@@ -64,6 +64,7 @@ WyborMetody::WyborMetody(QWidget *parent, ModeWork mode, MethodInsData dataIns,
     ui->rb1000l->setText(QString("Stanowisko\n%1x%2 [mm]\nlewe").arg(ust.getOknoOsXNazwa(), ust.getOknoOsYNazwa()));
     ui->rbRoletaP->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nprawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
     ui->rbRoletaL->setText(QString("Stanowisko z roletą\n%1x%2 [mm]\nlewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
+
 }
 
 WyborMetody::~WyborMetody()
@@ -929,6 +930,21 @@ void WyborMetody::on_rbRoletaOther_toggled(bool checked)
 
 void WyborMetody::on_PbOpuscRoleta_clicked()
 {
+    setRoletaRuch(RoletaClose::ROL_CLOSE);
+}
+
+void WyborMetody::on_PbPodniesRoletaHalf_clicked()
+{
+    setRoletaRuch(RoletaClose::ROL_HALF);
+}
+
+void WyborMetody::on_pbPodniescRoleta_clicked()
+{
+    setRoletaRuch(RoletaClose::ROL_OPEN);
+}
+
+void WyborMetody::setRoletaRuch(RoletaClose::PartClose cls) 
+{
     Ruch mech;
     RoletaRuch mechRol;
     mech.setUstawienia(ust);
@@ -937,8 +953,9 @@ void WyborMetody::on_PbOpuscRoleta_clicked()
     mech.setReverseY(false);
     mech.setReverseX(false);
     mech.setReverseR(true);
-    
-    RoletaClose* dlg = new RoletaClose(mech, mechRol, &sd);
+    mech.setMaxKrokiR(mechRol.getMaxKroki());
+
+    RoletaClose* dlg = new RoletaClose(mech, mechRol, &sd, cls, this);
     dlg->exec();
     //sd.setRoletaHome();
     //sd.closeDevice(true);

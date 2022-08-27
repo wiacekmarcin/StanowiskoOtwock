@@ -59,7 +59,7 @@ MiernikPrzeplywu::MiernikPrzeplywu()
     ui->lstanowisko860x1500P->setText(QString("Stanowisko z roletą %1x%2 [mm] prawe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
     ui->lstanowisko860x1500L->setText(QString("Stanowisko z roletą %1x%2 [mm] lewe").arg(ust.getRolOsXNazwa(), ust.getRolOsYNazwa()));
 
-    //ui->debugLine->setVisible(false);
+    ui->debugLine->setVisible(false);
     closeRoleta = false;
 }
 
@@ -764,8 +764,8 @@ void MiernikPrzeplywu::deviceName(const QString & portname)
 void MiernikPrzeplywu::debug(const QString & dbg)
 {
     (void)dbg;
-    ui->debugLine->append(addTime(dbg));
-    qDebug() << addTime(dbg);
+    //ui->debugLine->append(addTime(dbg));
+    //qDebug() << addTime(dbg);
 }
 
 const WyborMetodyData &MiernikPrzeplywu::getData() const
@@ -835,7 +835,7 @@ void MiernikPrzeplywu::setClose(bool waitForDone)
 void MiernikPrzeplywu::setRoletaClose()
 {
     closeRoleta = true;
-    RoletaClose* dlg = new RoletaClose(mech, mechR, &sMsg);
+    RoletaClose* dlg = new RoletaClose(mech, mechR, &sMsg, RoletaClose::ROL_CLOSE, this);
     dlg->exec();
     delete dlg;
     closeRoleta = false;

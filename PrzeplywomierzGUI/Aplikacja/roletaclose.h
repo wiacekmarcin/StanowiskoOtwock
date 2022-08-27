@@ -15,7 +15,15 @@ class RoletaClose : public QDialog
     Q_OBJECT
 
 public:
-    explicit RoletaClose(const Ruch &r, const RoletaRuch & rr, SerialDevice * sd, QWidget *parent = nullptr);
+
+    typedef enum partClose_
+    {
+        ROL_OPEN,
+        ROL_HALF,
+        ROL_CLOSE,
+    } PartClose;
+
+    explicit RoletaClose(const Ruch& r, const RoletaRuch& rr, SerialDevice* sd, RoletaClose::PartClose pc, QWidget* parent = nullptr);
     ~RoletaClose();
 
 private slots:
@@ -39,6 +47,7 @@ private:
     SerialDevice * sDev;
     Ruch mech;
     RoletaRuch mechRol;
+    PartClose roletaClp;
 };
 
 #endif // ROLETACLOSE_H

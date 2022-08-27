@@ -3,6 +3,7 @@
 
 #include "serialdevice.h"
 #include "ustawienia.h"
+#include "roletaclose.h"
 
 #include <QDialog>
 
@@ -94,7 +95,7 @@ public:
 
     void setData(const WyborMetodyData &newData);
 
-    void setUstawienia(Ustawienia *u);
+    //void setUstawienia(Ustawienia *u);
 private slots:
 
     void on_rbfile_toggled(bool checked);
@@ -167,6 +168,10 @@ private slots:
 
     void on_PbOpuscRoleta_clicked();
 
+    void on_PbPodniesRoletaHalf_clicked();
+
+    void on_pbPodniescRoleta_clicked();
+
     void on_sbRomaxEtap_valueChanged(const QString &arg1);
 
     void on_sbRoNrEtap_valueChanged(const QString &arg1);
@@ -195,6 +200,7 @@ protected:
     bool isValidPlaszczynaRB();
     void init();
     void initMethodPosition();
+    void setRoletaRuch(RoletaClose::PartClose cls);
 private:
     Ui::WyborMetody *ui;
     MethodInsData  wbInsData;

@@ -505,6 +505,7 @@ void PozycjeRoleta::on_pbNoweDane_clicked()
 {
     if (miernikPrzeplywu)
         TabWidget::miernikPrzeplywu->noweDane();
+    ui->pbStart->setEnabled(true);
 }
 
 

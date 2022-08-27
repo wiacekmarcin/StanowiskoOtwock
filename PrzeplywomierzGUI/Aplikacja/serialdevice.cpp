@@ -715,6 +715,11 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         QElapsedTimer timer;
         timer.start();
         int sendBytes = RS232_SendBuf(m_portNr, (unsigned char*)currentRequest.constData(), currentRequest.size());
+        if (sendBytes == 0) {
+            DEBUGSER(QString("Write timeout %1").arg(sendBytes).arg(timer.elapsed()));
+            msg.setTimeoutReply(true);
+            return msg;
+        }
         DEBUGSER(QString("write %1 bytes [%2 ms]").arg(sendBytes).arg(timer.elapsed()));
         QThread::currentThread()->msleep(currentWaitWriteTimeout);
     }
@@ -723,8 +728,11 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     int rc = 0;
     QElapsedTimer timer;
     timer.start();
+    unsigned short len;
+
+    //1 znak
     do {
-        rc = RS232_PollComport(m_portNr, recvBuffor, 20);
+        rc = RS232_PollComport(m_portNr, recvBuffor, 1);
         if (rc > 0) {
             DEBUGSER(QString("recv %1 bytes").arg(rc));
         }
@@ -732,15 +740,45 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
             readTimeout -= 50;
             QThread::currentThread()->msleep(50);
         }
-    } while(rc == 0 && readTimeout > 0);
+        if (recvBuffor[0] == 0xf0)
+            continue;
+    } while (rc == 0 && readTimeout > 0);
+    QByteArray responseData;
+    if (rc == 1) {
+        responseData.append((const char*)recvBuffor, rc);
+        len = recvBuffor[0] & 0x0f;
+    }
+    else {
+        emit error(QString("Timeout"));
+        DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
+        msg.setTimeoutReply(false);
+        return msg;
+    }
+
+    //reszta znakow
+    do {
+        rc = RS232_PollComport(m_portNr, recvBuffor, len+1);
+        if (rc > 0) {
+            DEBUGSER(QString("recv %1 bytes").arg(rc+1));
+        }
+        responseData.append((const char*)recvBuffor, rc);
+        if (responseData.size() == len + 2)
+            break;
+        
+        readTimeout -= 50;
+        QThread::currentThread()->msleep(50);
+        
+    } while(readTimeout > 0);
     unsigned long ms = timer.elapsed();
 
     if (readTimeout <= 0) {
         emit error(QString("Timeout"));
         DEBUGSER(QString("Timeout Read %1").arg(currentReadWaitTimeout));
+        msg.setTimeoutReply(false);
+        return msg;
     }
-        QByteArray responseData((const char*)recvBuffor, rc);
-        DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.toHex().constData()).arg(ms));
+    responseData.append((const char*)recvBuffor, rc);
+    DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.toHex().constData()).arg(ms));
     return parseMessage(responseData);
 #endif
 }
