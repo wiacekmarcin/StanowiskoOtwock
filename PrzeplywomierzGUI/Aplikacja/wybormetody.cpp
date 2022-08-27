@@ -1,6 +1,7 @@
 #include "wybormetody.h"
 #include "ui_wybormetody.h"
 #include "pozycjonowanieoffsetunormy.h"
+#include "roletaclose.h"
 
 #include <QFileDialog>
 #include <QStandardPaths>
@@ -96,7 +97,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -109,7 +110,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -122,7 +123,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(true);
             visibleRoleta(false, false);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(true);
             initMethodPosition();
         break;
@@ -130,7 +131,7 @@ void WyborMetody::init()
             visibleOther(false);
             visibleRoleta(false, false);
             ui->rbFunSet->setChecked(true);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(false);
             //ui->gbMethod->setDisabled(true);
         break;
@@ -149,7 +150,7 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(false);
             visibleOther(false);
             visibleRoleta(true, false);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(true);
         break;
         case MODE_ROLETAL:
@@ -161,13 +162,13 @@ void WyborMetody::init()
             ui->rbRoletaL->setChecked(true);
             visibleOther(false);
             visibleRoleta(true, true);
-            visibleOther(false);
+            visibleRoletaOther(false);
             //ui->gbMethod->setVisible(true);
         break;
         case MODE_ROLETAOTHER:
             visibleOther(false);
             visibleRoleta(false, false);
-            visibleOther(false);
+            visibleRoletaOther(false);
         break;
     default:
         break;
@@ -927,8 +928,10 @@ void WyborMetody::on_rbRoletaOther_toggled(bool checked)
 
 void WyborMetody::on_PbOpuscRoleta_clicked()
 {
-    sd.setRoletaHome();
-    sd.closeDevice(true);
+    RoletaClose* dlg = new RoletaClose(ust, &sd);
+    dlg->exec();
+    //sd.setRoletaHome();
+    //sd.closeDevice(true);
 }
 
 void WyborMetody::on_sbRomaxEtap_valueChanged(const QString &arg1)

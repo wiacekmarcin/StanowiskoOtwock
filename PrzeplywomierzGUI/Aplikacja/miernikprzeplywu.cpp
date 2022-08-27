@@ -10,6 +10,7 @@
 #include "pozycjeroleta.h"
 #include "wentylator.h"
 #include "podzialetapurolety.h"
+#include "roletaclose.h"
 
 #include <QMessageBox>
 #include <QCloseEvent>
@@ -826,5 +827,6 @@ void MiernikPrzeplywu::setClose(bool waitForDone)
 
 void MiernikPrzeplywu::setRoletaClose()
 {
-    sMsg.setRoletaClose();
+    RoletaClose* dlg = new RoletaClose(ust, &sMsg);
+    dlg->exec();
 }

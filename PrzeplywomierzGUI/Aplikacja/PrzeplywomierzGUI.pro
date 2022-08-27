@@ -45,7 +45,8 @@ SOURCES += \
     pozycje.cpp \
     recznedodpozycji.cpp \
     mierzonepozycje.cpp \
-    podzialetapurolety.cpp
+    podzialetapurolety.cpp \
+    roletaclose.cpp
 HEADERS += \
         crc8.h \
         mechanika.h \
@@ -65,7 +66,8 @@ HEADERS += \
     pozycje.h \
     recznedodpozycji.h \
     mierzonepozycje.h \
-    podzialetapurolety.h
+    podzialetapurolety.h \
+    roletaclose.h
 
 FORMS += \
     pozycjeroleta.ui \
@@ -79,7 +81,8 @@ FORMS += \
     miernikprzeplywu.ui \
     recznedodpozycji.ui \
     mierzonepozycje.ui \
-    podzialetapurolety.ui
+    podzialetapurolety.ui \
+    roletaclose.ui
 
 DISTFILES += \
     polozenia.txt
