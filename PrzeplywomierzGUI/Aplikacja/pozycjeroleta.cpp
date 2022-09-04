@@ -39,7 +39,6 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
     actWork = WAIT_FOR_READY;
     actPos = 0;
 
-    ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
 
     avg1 = 0.0;
@@ -172,7 +171,7 @@ void PozycjeRoleta::createRow(int row, const QString &c1, const QString &c2, con
    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
    ui->table->setItem(row, 9, item);
 
-   item = new QTableWidgetItem(QString("Oczekiwanie"));
+   item = new QTableWidgetItem(QString::fromUtf8("Oczekiwanie"));
    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
    item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
    ui->table->setItem(row, 10, item);
@@ -180,14 +179,13 @@ void PozycjeRoleta::createRow(int row, const QString &c1, const QString &c2, con
 
 void PozycjeRoleta::setPos()
 {
-    ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam pozycję"));
     uint32_t impx, impy;
     impx = mech.getImpulsyX(xmm);
     impy = mech.getImpulsyY(ymm);
+    setWorkStatus(actPos, QString::fromUtf8("Rozpoczynam ustawianie pozycji [ %1 ; %2 ] mm").arg(xmm).arg(ymm));
 
-    DEBUGPR(QString("impulsy (%1,%2) => (%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
+    DEBUGPR(QString::fromUtf8("Ustawianie pozycji (%1,%2) => imp(%3,%4)").arg(xmm).arg(ymm).arg(impx).arg(impy));
     actWork = WAIT_POS;
-    ui->status->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
     setPosition(impx, impy);
     avg1 = 0.0;
     cnt1 = 0;
@@ -200,46 +198,58 @@ void PozycjeRoleta::updateWork()
     if (!getIsReady())
         return;
 
-    switch(actWork) {
+    switch (actWork) {
     case WAIT:
+        DEBUGPR("actWork WAIT...");
+        return;
     case WAIT_POS:
+        DEBUGPR("actWork WAIT_POS...");
+        return;
     case WAIT_HPOS:
-    case ROLETA_HOMEWAIT:
-    case ROLETAWAIT:
+        DEBUGPR("actWork WAIT_HPOS...");
+        return;
+    case WAIT_ROLETA_HOME:
+        DEBUGPR("actWork WAIT_ROLETA_HOME...");
+        return;
+    case WAIT_ROLETA_POS:
+        DEBUGPR("actWork WAIT_ROLETA_POS...");
+        return;
+    case WAIT_FOR_READY:
+        DEBUGPR("actWork WAIT_FOR_READY...");
+        return;
     default:
         DEBUGPR("actWork WAIT...");
         return;
 
-    case WAIT_FOR_READY:
+    case READY_FOR_WORK:
     {
-        DEBUGPR("actWork WAIT_FOR_READY");
-        ui->pbNoweDane->setEnabled(false);
-        ui->pbZapisz->setEnabled(false);
-        ui->pbStart->setEnabled(false);
-        ui->status->setText("Rozpoczynam prace");
+        DEBUGPR("actWork READY_FOR_WORK");
+        setStatus("Rozpoczynam prace");
         actWork = FIRST_RUN;
+        firstRoleta = true;
         updateWork();
         return;
     }
 
-    case DONE:
+    case WAIT_ROLETA_STABLE:
     {
-        DEBUGPR("actWork DONE");
-        return;
-    }
+        DEBUGPR(QString("actWork WAIT_ROLETA_STABLE %1").arg(firstRoleta));
 
-    case END:
-    {
-        DEBUGPR("actWork END");
-        ui->pbNoweDane->setEnabled(true);
-        ui->pbZapisz->setEnabled(true);
-        ui->pbRestart->setEnabled(true);
-        ui->pbZamknijRoleta->setEnabled(true);
-
-        ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
-        actWork = DONE;
-        setClose(true);
-        updateWork();
+        if (firstRoleta) {
+            firstRoleta = false;
+            setStatus("Czekam na uruchomienie wentylatorów.");
+            QMessageBox::information(this, "Stanowisko z roletą", "Roleta została otwarta - po uruchomieniu wentylatorów, można kliknąć dalej aby kontynuować pomiary");
+        }
+        if (stableTime == 0 || stableTime > 3600) {
+            actWork = NEXT_POS;
+            setWorkStatus(actPos, "Stabilazacja zakończona");
+            updateWork();
+        }
+        else {
+            setWorkStatus(actPos, QString::fromUtf8("Czekam na stabilizację, zostało %1 s").arg(stableTime));
+            --stableTime;
+            timer->singleShot(1000, this, &PozycjeRoleta::updateWork);
+        }
         return;
     }
 
@@ -250,7 +260,7 @@ void PozycjeRoleta::updateWork()
         DEBUGPR(QString("Row count %1").arg(ui->table->rowCount()));
         if (ui->table->rowCount() == 0 || punkty.size() == 0) {
             actWork = DONE;
-            ui->pbNoweDane->setEnabled(true);
+            setStatus("Brak danych");
             updateWork();
             return;
         }
@@ -262,100 +272,93 @@ void PozycjeRoleta::updateWork()
             !punkty[actPos].roleta)
         {
             actWork = DONE;
-            ui->pbNoweDane->setEnabled(true);
+            setStatus("Nieprawidłowe dane");
             updateWork();
             return;
         }
+
         if (actPos >= punkty.size()) {
             actWork = DONE;
-            ui->pbNoweDane->setEnabled(true);
+            setStatus("Nieprawidłowe dane. Brak danych ?");
             updateWork();
             return;
         }
-        
 
-        stableTime = punkty[actPos].stableTime;
+
+        stableTime = punkty[actPos].stableRolTime;
         if (stableTime > 3600)
             stableTime = 3600;
-        unsigned int rmm = punkty[actPos].rmm;
-        DEBUGPR(QString("Ustawiam rolete na %1 mm").arg(rmm));
-        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam wysokość rolety na %1 mm").arg(rmm));
-        actWork = ROLETAWAIT;
 
-        ui->status->setText("Ustawiam wysokość rolety");
-        unsigned int steps = mechR.podniescMM(rmm);
-        setRoleta(steps);
-        DEBUGPR(QString("Ustawiam rolete na %1 mm").arg(rmm));
-        firstRoleta = true;
+        unsigned int rmm = punkty[actPos].rmm;
+        actWork = WAIT_ROLETA_POS;
+        setWorkStatus(actPos, QString::fromUtf8("Ustawiam wysokość rolety na %1 mm").arg(rmm));
+        DEBUGPR(QString::fromUtf8("Ustawiam wysokośc rolety na %1 mm").arg(rmm));
+        setRoleta(mechR.podniescMM(rmm));
         updateWork();
         return;
     }
     case NEXT_POS:
     {
         DEBUGPR("actWork NEXT_POS");
-        ui->status->setText("Przechodzę do kolejnej pozycji z listy");
         ++actPos;
 
         if (actPos >= ui->table->rowCount() || actPos >= punkty.size()) {
-            actWork = END;
-            ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
+            actWork = END_WORK;
+            setStatus("Zakonczono pomiar dla wszystkich pozycji z listy");
             setPositionHome();
             updateWork();
             return;
         }
         ui->table->scrollToItem(ui->table->item(actPos, 0));
-/*
-        if (actPos % 100 == 0) {
-            actWork = WAIT_HPOS;
-            DEBUGPR("Set Home pos");
-            setPositionHome();
-            ui->status->setText("Trwa kalibracja urządzenia");
-            --actPos;
-            return;
-        }
-*/
+        /*
+                if (actPos % 100 == 0) {
+                    actWork = WAIT_HPOS;
+                    DEBUGPR("Set Home pos");
+                    setPositionHome();
+                    ui->status->setText("Trwa kalibracja urządzenia");
+                    --actPos;
+                    return;
+                }
+        */
         if (ui->table->item(actPos, col_action)->text() == QString("R") || punkty[actPos].roleta) {
-            stableTime = punkty[actPos].stableTime;
-            if (stableTime > 3600) 
+            stableTime = punkty[actPos].stableRolTime;
+            if (stableTime > 3600)
                 stableTime = 3600;
             unsigned int rmm = punkty[actPos].rmm;
-            actWork = ROLETAWAIT;
-
-            ui->status->setText(QString("Ustawiam wysokość rolety na %1 mm").arg(rmm));
-            ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam wysokość rolety na %1 mm").arg(rmm));
-            DEBUGPR(QString("Ustawiam wysokośc rolety na %1 mm").arg(rmm));
+            setWorkStatus(actPos, QString::fromUtf8("Ustawiam wysokość rolety na %1 mm").arg(rmm));
+            actWork = WAIT_ROLETA_POS;
+            DEBUGPR(QString::fromUtf8("Ustawiam wysokośc rolety na %1 mm").arg(rmm));
             setRoleta(mechR.podniescMM(rmm));
             updateWork();
-            
-        } else if (ui->table->item(actPos, col_action)->text() == QString("P") || !punkty[actPos].roleta) {
+            return;
+        }
+        else if (ui->table->item(actPos, col_action)->text() == QString("P") || !punkty[actPos].roleta) {
             xmm = punkty[actPos].xmm;
             ymm = punkty[actPos].ymm;
             measTime = punkty[actPos].measurTime;
-            ui->table->item(actPos, col_status)->setText((QString("Ustawiam pozycje %1 %2").arg(xmm).arg(ymm)));
-            ui->status->setText(QString("Ustawiam pozycje czujnika %1 %2").arg(xmm).arg(ymm));
-            DEBUGPR(QString("Ustawiam pozycje %1 %2").arg(xmm).arg(ymm));
+            DEBUGPR(QString::fromUtf8("Ustawiam pozycje [ %1 , %2 ] mm. Ilość próbek %3").arg(xmm).arg(ymm).arg(measTime));
             actWork = WAIT_POS;
             setPos();
             updateWork();
         }
         return;
     }
-/*
-    case NEXT_POS_AFTER_HPOS:
-    {
-        DEBUGPR("actWork NEXT_POS_AFTER_HPOS");
-        actWork = WAIT_POS;
-        //measTime = m_lista.at(actPos).time;
-        setPos();
-        return;
-    }
-*/
+    /*
+        case NEXT_POS_AFTER_HPOS:
+        {
+            DEBUGPR("actWork NEXT_POS_AFTER_HPOS");
+            actWork = WAIT_POS;
+            //measTime = m_lista.at(actPos).time;
+            setPos();
+            return;
+        }
+    */
     case START_MEASURING:
     {
         DEBUGPR("actWork START_MEASURING");
         avg1 = 0.0;
         cnt1 = 0;
-        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Rozpoczynam pomiary").arg(xmm).arg(ymm));
+        setWorkStatus(actPos, QString::fromUtf8("Rozpoczynam pomiary. Zostało %1").arg(measTime));
         actWork = NOW_MEASURING;
         updateWork();
         return;
@@ -365,43 +368,52 @@ void PozycjeRoleta::updateWork()
         DEBUGPR("actWork NOW_MEASURING");
         if (measTime <= cnt1) {
             actWork = END_MEASURING;
-            ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono pomiary."));
+            setWorkStatus(actPos, QString::fromUtf8("Ukończono pomiary."));
             updateWork();
             return;
         }
-        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(xmm).arg(ymm).arg(avg1));
-        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 pomiarów").arg(measTime-cnt1));
-        DEBUGPR(QString("Pomiar [%1]").arg(measTime-cnt1));
-        radioTimer.start(); 
+        setStatus(QString::fromUtf8("[%1] Pozycja %2 mm %3 mm ustawiona. Średni pomiar %4 m/s. Zostało %5 pomiarów").arg(actPos+1).arg(xmm).arg(ymm).arg(avg1).arg(measTime - cnt1));
+        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 pomiarów").arg(measTime - cnt1));
+        DEBUGPR(QString::fromUtf8("Pomiar [%1]").arg(measTime - cnt1));
+        radioTimer.start();
         readRadio();
         return;
     }
+    
     case END_MEASURING:
     {
         DEBUGPR("actWork END_MEASURING");
+        setRadioVal("--");
         actWork = NEXT_POS;
         updateWork();
         return;
     }
-    case WAIT2STABLE:
-        DEBUGPR("actWork WAIT2STABLE");
-        
-        if (firstRoleta) {
-            firstRoleta = false;
-            QMessageBox::information(this, "Stanowisko z roletą", "Roleta została otwarta - po uruchomieniu wentylatorów, można kliknąć dalej aby kontynuować pomiary");
-            ui->status->setText("Czekam na uruchomienie wentylatorów.");
-        }
-        if (stableTime == 0 || stableTime > 3600) {
-            actWork = NEXT_POS;
-            ui->table->item(actPos, col_status)->setText("Oczekiwanie na stabilazacje zakończone");
-            updateWork();
-        } else {
-            ui->table->item(actPos, col_status)->setText(QString("Czekam na stabilizację, zostało %1 s").arg(stableTime));
-            --stableTime;
-            timer->singleShot(1000, &PozycjeRol::updateWork());
-        }
+
+    case END_WORK:
+    {
+        DEBUGPR("actWork END_WORK");
+        setStatus(QString::fromUtf8("Zakończono pomiar dla wszystkich pozycji z listy"));
+        actWork = DONE;
+        setClose(true);
+        updateWork();
         return;
     }
+
+    case DONE:
+    {
+        DEBUGPR("actWork DONE");
+        ui->pbRestart->setEnabled(true);
+        ui->pbNoweDane->setEnabled(true);
+        ui->pbStart->setEnabled(true);
+        ui->pbZamknijRoleta->setEnabled(true);
+        if (m_listawynikowa.size() > 0)
+            ui->pbZapisz->setEnabled(true);
+        return;
+    }
+
+
+
+    } //switch
 }
 
 void PozycjeRoleta::setValue1(const float &val1, const QString &unit1)
@@ -420,47 +432,38 @@ void PozycjeRoleta::setValue1(const float &val1, const QString &unit1)
     cnt1++;
     m_listawynikowa.append(data);
     ui->table->item(actPos, col_measValue)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit1));
+    setRadioVal(QString::fromUtf8("%1").arg(val1, 0, 'g', 3));
 }
 
 void PozycjeRoleta::positionDone(bool home)
 {
-    if (roletaClose)
-        return;
-    DEBUGPR(QString("position Done home=%1").arg(home));
+    DEBUGPR(QString("position Done home=%1 roletaClose=%2").arg(home).arg(roletaClose));
+
     if (home) {
         if (actWork == WAIT_HPOS) {
             actWork = NEXT_POS_AFTER_HPOS;
-        } else if (actWork == WAIT){
-            actWork = FIRST_RUN;
-        }
+            updateWork();
+        } 
     } else {
         if (actWork == WAIT_POS) {
             actWork = START_MEASURING;
+            updateWork();
         }
     }
-    updateWork();
+    
 }
 
 void PozycjeRoleta::roletaDone(bool home)
 {
-    DEBUGPR(QString("rolet Done home=%1").arg(home));
+    DEBUGPR(QString("rolet Done home=%1 roletaClose=%2").arg(home).arg(roletaClose));
     if (roletaClose && home) {
-        ui->pbNoweDane->setEnabled(true);
-        ui->pbZapisz->setEnabled(true);
-        ui->pbRestart->setEnabled(true);
-        ui->pbZamknijRoleta->setEnabled(true);
         roletaClose = false;
         return;
     }
-    if (roletaClose)
-        return;
-
-    if (home) {
-        actWork = FIRST_RUN;
-    } else {
-        actWork = WAIT2STABLE;
+    if (!home) {
+        actWork = WAIT_ROLETA_STABLE;
+        updateWork();
     }
-    updateWork();
 }
 
 void PozycjeRoleta::readedFromRadio(const double &val)
@@ -469,10 +472,11 @@ void PozycjeRoleta::readedFromRadio(const double &val)
     cntErr = 0;
     setValue1(val, "m/s");
     unsigned int msR = radioTimer.elapsed();
+    DEBUGPR(QString::fromUtf8("Odczyt trwał %1 ms").arg(msR));
     if (msR > 1000) {
         updateWork();
     } else {
-        timer->singleShot(1000-msR, &PozycjeRoleta::updateWork);
+        timer->singleShot(1000-msR, this, &PozycjeRoleta::updateWork);
     }
 }
 
@@ -481,7 +485,7 @@ void PozycjeRoleta::errorReadFromRadio()
     DEBUGPR(QString("Read Error %1").arg(cntErr + 1));
     if (++cntErr > 10) {
         actWork = DONE;
-        ui->status->setText(QString("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));
+        setStatus(QString::fromUtf8("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));
         updateWork();
     } else {
         updateWork();
@@ -491,18 +495,18 @@ void PozycjeRoleta::errorReadFromRadio()
 void PozycjeRoleta::setStop()
 {
     actWork = DONE;
-    ui->pbRestart->setEnabled(true);
-    ui->pbNoweDane->setEnabled(true);
-    ui->pbStart->setEnabled(true);
-    ui->pbZamknijRoleta->setEnabled(true);
-    if (m_listawynikowa.size() > 0)
-        ui->pbZapisz->setEnabled(true);
+    updateWork();
 
 }
 
 void PozycjeRoleta::setStart()
 {
-    timer->start();
+    DEBUGPR(QString("setStart"));
+    actPos = 0;
+    actWork = READY_FOR_WORK;
+    m_listawynikowa.clear();
+    firstRoleta = true;
+    updateWork();
 }
 
 void PozycjeRoleta::setError()
@@ -515,10 +519,16 @@ void PozycjeRoleta::setStatus(const QString &st)
     ui->status->setText(st);
 }
 
+void PozycjeRoleta::setWorkStatus(int actPos, const QString& st)
+{
+    ui->status->setText(QString("[%1] %2").arg(actPos + 1).arg(st));
+    ui->table->item(actPos, col_status)->setText(st);
+}
+
 void PozycjeRoleta::on_pbStart_clicked()
 {
-    m_listawynikowa.clear();
     DEBUGPR(QString("Start work. "));
+    m_listawynikowa.clear();
     actWork = WAIT_FOR_READY;
     actPos = 0;
     ui->pbStart->setEnabled(false);
@@ -531,9 +541,16 @@ void PozycjeRoleta::on_pbStart_clicked()
 
 void PozycjeRoleta::on_pbNoweDane_clicked()
 {
+    DEBUGPR(QString("Nowe dane."));
+    m_listawynikowa.clear();
+    actWork = WAIT_FOR_READY;
+    actPos = 0;
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbRestart->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
+    ui->pbStart->setEnabled(false);
     if (miernikPrzeplywu)
         TabWidget::miernikPrzeplywu->noweDane();
-    ui->pbStart->setEnabled(true);
 }
 
 
@@ -587,7 +604,15 @@ void PozycjeRoleta::on_pbRestart_clicked()
 void PozycjeRoleta::on_pbZamknijRoleta_clicked()
 {
     ui->pbZamknijRoleta->setEnabled(false);
+    ui->pbNoweDane->setEnabled(false);
+    ui->pbRestart->setEnabled(false);
+    ui->pbZapisz->setEnabled(false);
+    ui->pbStart->setEnabled(false);
     roletaClose = true;
     closeRoleta();
     ui->pbZamknijRoleta->setEnabled(true);
+    ui->pbNoweDane->setEnabled(true);
+    ui->pbRestart->setEnabled(true);
+    ui->pbZapisz->setEnabled(true);
+    ui->pbStart->setEnabled(true);
 }

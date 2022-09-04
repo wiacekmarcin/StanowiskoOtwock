@@ -42,7 +42,6 @@ public:
     ~PozycjeRoleta();
 
     void setList(const PozycjeRol & l);
-    void setUstawienia(Ustawienia& ust);
 
     typedef enum _cols {
         col_xmm = 0,
@@ -90,9 +89,13 @@ protected:
     unsigned int createPoint(unsigned int row, unsigned int mmX, unsigned int mmY,
                              float nX, float nY, unsigned int pomiar,
                              unsigned int nrR, unsigned int rSize);
+
+    void setWorkStatus(int actPos, const QString& st); 
+
 private:
     typedef enum _statusWork {
         WAIT_FOR_READY = 0,
+        READY_FOR_WORK,
         WAIT,
         FIRST_RUN,
         NEXT_POS,
@@ -105,12 +108,12 @@ private:
         NEXT_POS_AFTER_HPOS,
         DONE,
         MOVEROLETA,
-        WAIT2STABLE,
+        WAIT_ROLETA_STABLE,
         ROLETA,
-        ROLETAWAIT,
+        WAIT_ROLETA_POS,
         ROLETA_HOME,
-        ROLETA_HOMEWAIT,
-        END
+        WAIT_ROLETA_HOME,
+        END_WORK
     } statusWorkEnum;
 
 private:

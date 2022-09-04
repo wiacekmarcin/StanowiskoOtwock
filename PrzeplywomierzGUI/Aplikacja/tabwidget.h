@@ -62,6 +62,8 @@ public:
     bool getIsReady() const;
     void setIsReady(bool newIsReady);
 
+    void setRadioVal(const QString val);
+
 protected:
     Ruch mech;
     RoletaRuch mechR;

@@ -9,6 +9,8 @@
 
 #define DEBUGSER(X) debugFun(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
 
+const char* const SerialWorker::mapTask[] = { "IDLE","CONNECT","SET_PARAMS","SET_POSITION","SET_HOME","SET_ROLETA","SET_ROLETA_HOME","READ_RADIO","DISCONNECT","RESET","QUIET_ON","QUIET_OFF" };
+
 SerialWorker::SerialWorker(SerialDevice * device):
     QThread(nullptr),
     sd(device)
@@ -31,7 +33,7 @@ SerialWorker::~SerialWorker()
 
 bool SerialWorker::command(Task curr)
 {
-    DEBUGSER(QString("New command %1").arg(curr));
+    DEBUGSER(QString("New command %1").arg(mapTask[curr]));
     {
         const QMutexLocker locker(&mutexRun);
         if (!runWorker)
@@ -72,7 +74,7 @@ void SerialWorker::run()
     short zadanie = actTask;
     mutex.unlock();
     bool quit = false;
-    DEBUGSER(QString("actTask = %1").arg(actTask));
+    DEBUGSER(QString("actTask = %1").arg(mapTask[actTask]));
     do {
         mutex.lock();
         if (futureTask.size() == 0) {
@@ -84,7 +86,7 @@ void SerialWorker::run()
         }
         zadanie = actTask;
         mutex.unlock();
-
+        DEBUGSER(QString("actTask = %1").arg(mapTask[zadanie]));
         switch(zadanie) {
         case IDLE:
             break;
@@ -540,7 +542,7 @@ void SerialDevice::readRadioJob()
 {
     DEBUGSER(QString("Pobieram dane z radia"));
     auto s = write(SerialMessage::measValuesMsg(),
-              1000, 10000);
+              100, 10000);
 
     if (s.getParseReply() != SerialMessage::RADIOREAD_REPLY) {
         emit readFromRadio(false, 0, 0, 0, 0);
@@ -711,7 +713,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     if (currentRequest.size() > 0)
     {
 
-        DEBUGSER(QString("write [%1]").arg(currentRequest.toHex().constData()));
+        DEBUGSER(QString("write [%1]").arg(currentRequest.toHex(' ').constData()));
         QElapsedTimer timer;
         timer.start();
         int sendBytes = RS232_SendBuf(m_portNr, (unsigned char*)currentRequest.constData(), currentRequest.size());
@@ -731,6 +733,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     unsigned short len;
 
     //1 znak
+    memset(recvBuffor, 0, 20);
     do {
         rc = RS232_PollComport(m_portNr, recvBuffor, 1);
         if (rc > 0) {
@@ -745,7 +748,7 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
     } while (rc == 0 && readTimeout > 0);
     QByteArray responseData;
     if (rc == 1) {
-        responseData.append((const char*)recvBuffor, rc);
+        responseData.append((const char*)recvBuffor, 1);
         len = recvBuffor[0] & 0x0f;
     }
     else {
@@ -777,8 +780,8 @@ SerialMessage SerialDevice::write(const QByteArray &currentRequest, int currentW
         msg.setTimeoutReply(false);
         return msg;
     }
-    responseData.append((const char*)recvBuffor, rc);
-    DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.toHex().constData()).arg(ms));
+    //responseData.append((const char*)recvBuffor, rc);
+    DEBUGSER(QString("read [%1] [%2 ms]").arg(responseData.right(rc+1).toHex(' ').constData()).arg(ms));
     return parseMessage(responseData);
 #endif
 }

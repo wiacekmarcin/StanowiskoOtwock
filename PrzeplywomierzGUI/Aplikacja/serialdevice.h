@@ -92,6 +92,8 @@ protected:
 
     void debugFun(const QString &s);
 
+    static const char* const mapTask[];
+
 
 private:
     Task actTask;

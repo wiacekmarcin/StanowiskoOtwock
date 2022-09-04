@@ -24,7 +24,7 @@ const Ruch &TabWidget::getMechanika() const
 
 void TabWidget::setMechanikaRolety(const RoletaRuch & m)
 {
-    mechR = m
+    mechR = m;
 }
 
 const RoletaRuch & TabWidget::getMechanikaRolety() const
@@ -180,14 +180,14 @@ bool TabWidget::getIsReady() const
 
 void TabWidget::setIsReady(bool newIsReady)
 {
-    {
-        QMutexLocker locker(mutex);
-        isReady = newIsReady;
-    }
-    if (newIsReady)
-        widget->start();
-    else
-        widget->stop();
+    QMutexLocker locker(mutex);
+    isReady = newIsReady;
+}
+
+void TabWidget::setRadioVal(const QString val)
+{
+    if (miernikPrzeplywu)
+        miernikPrzeplywu->setRadioVal(val);
 }
 
 void TabWidget::setMiernikPrzeplywu(MiernikPrzeplywu *newMiernikPrzeplywu)

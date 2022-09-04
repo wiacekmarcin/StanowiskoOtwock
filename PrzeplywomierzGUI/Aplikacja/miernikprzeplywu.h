@@ -5,6 +5,7 @@
 #include <QString>
 #include <QList>
 #include <QThread>
+#include <QFile>
 
 #include "wybormetody.h"
 #include "pozycje.h"
@@ -55,6 +56,8 @@ public:
     void noweDane();
     void setClose(bool afterBase);
     void setRoletaClose();
+
+    void setRadioVal(const QString val);
 public slots:
     void debug(const QString &);
     void debugClear();
@@ -117,13 +120,15 @@ private:
     SerialDevice sMsg;
 
 
-    bool firstRun;
-    bool firstRun2;
+    bool homePosStart;
+    bool homeRolStart;
     bool checkRadio;
     bool closeRoleta;
 
     QString m_portName;
     QThread thSterownik;
+
+    QFile debugFile;
 };
 #endif // MIERNIKPRZEPLYWU_H
 

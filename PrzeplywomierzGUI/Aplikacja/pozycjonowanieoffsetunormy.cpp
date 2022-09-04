@@ -187,6 +187,7 @@ void PozycjonowanieOffsetuNormy::setPositionDone(bool success, bool home, int wo
 
 void PozycjonowanieOffsetuNormy::successOpenDevice(bool succ, int state)
 {
+    (void)succ;
     //qDebig() << __FILE__ << __LINE__ << succ << state;
     //if (!succ) {
     //    ui->statusK->setText("Nie otwarty");

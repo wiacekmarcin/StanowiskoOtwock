@@ -16,8 +16,8 @@
 #include "recznedodpozycji.h"
 #include "miernikprzeplywu.h"
 
-//#define DEBUGMPZ(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
-#define DEBUGMPZ(X)
+#define DEBUGMPZ(X) debug(QString("%1:%2 %3").arg(__FILE__).arg(__LINE__).arg(X))
+
 
 MierzonePozycje::MierzonePozycje(QWidget *parent) :
     TabWidget(parent),
@@ -35,10 +35,8 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
     ui->table->resizeColumnsToContents();
     ui->table->horizontalHeader()->setStretchLastSection(true);
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     actWork = WAIT_FOR_READY;
     actPos = 0;
-    timer->setInterval(1000);
 
     //ui->pbRestart->setEnabled(false);
     ui->pbRestart->setVisible(false);
@@ -51,7 +49,6 @@ MierzonePozycje::MierzonePozycje(QWidget *parent) :
 MierzonePozycje::~MierzonePozycje()
 {
     delete ui;
-    timer->stop();
 }
 
 void MierzonePozycje::setList(const Pozycje &pos)
@@ -92,7 +89,8 @@ void MierzonePozycje::setList(const Pozycje &pos)
     m_listawynikowa.clear();
     actWork = WAIT_FOR_READY;
     actPos = 0;
-    //ui->pbNoweDane->setEnabled(false);
+    updateWork();
+    ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);
     ui->pbStart->setEnabled(true);
     adjustSize();
@@ -103,7 +101,7 @@ void MierzonePozycje::setPos()
     unsigned int xmm = m_lista.at(actPos).x;
     unsigned int ymm = m_lista.at(actPos).y;
 
-    ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ustawiam pozycję"));
+    ui->table->item(actPos, col_status)->setText(QString("Rozpoczynam ustawianie pozycji %1 mm %2 mm").arg(xmm).arg(ymm));
     uint32_t impx, impy;
     impx = mech.getImpulsyX(xmm);
     impy = mech.getImpulsyY(ymm);
@@ -114,9 +112,10 @@ void MierzonePozycje::setPos()
     setPosition(impx, impy);
     avg1 = 0.0;
     cnt1 = 0;
+    updateWork();
 }
 
-void MierzonePozycje::update()
+void MierzonePozycje::updateWork()
 {
     //DEBUGMPZ(QString("Update %1").arg(actWork));
     if (!getIsReady())
@@ -124,40 +123,50 @@ void MierzonePozycje::update()
 
     switch(actWork) {
     case WAIT:
+        DEBUGMPZ("actWork WAIT...");
+        return;
     case WAIT_POS:
+        DEBUGMPZ("actWork WAIT_POS...");
+        return;
     case WAIT_HPOS:
+        DEBUGMPZ("actWork WAIT_HPOS...");
+        return;
+    case WAIT_FOR_READY:
+        DEBUGMPZ("actWork WAIT_FOR_READY...");
+        return;
     default:
         DEBUGMPZ("actWork WAIT...");
         return;
 
-    case WAIT_FOR_READY:
+    case READY_FOR_WORK:
     {
-        DEBUGMPZ("actWork WAIT_FOR_READY");
-        ui->pbNoweDane->setEnabled(false);
-        ui->pbZapisz->setEnabled(false);
-        ui->pbStart->setEnabled(false);
+        DEBUGMPZ("actWork READY_FOR_WORK");
         ui->status->setText("Rozpoczynam prace");
         actWork = FIRST_RUN;
+        updateWork();
         return;
     }
 
     case DONE:
     {
         DEBUGMPZ("actWork DONE");
-        timer->stop();
-        return;
-    }
-
-    case END:
-    {
-        DEBUGMPZ("actWork END");
-        timer->stop();
         ui->pbNoweDane->setEnabled(true);
         ui->pbZapisz->setEnabled(true);
         ui->pbRestart->setEnabled(true);
+        ui->pbNoweDane->setEnabled(true);
+        ui->pbStart->setEnabled(true);
+        if (m_listawynikowa.size() > 0)
+            ui->pbZapisz->setEnabled(true);
+        return;
+    }
+
+    case END_WORK:
+    {
+        DEBUGMPZ("actWork END_WORK");
         ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
         actWork = DONE;
         setClose(true);
+        updateWork();
         return;
     }
 
@@ -167,8 +176,7 @@ void MierzonePozycje::update()
         actPos = 0;
         if (m_lista.size() == 0) {
             actWork = DONE;
-            timer->stop();
-            ui->pbNoweDane->setEnabled(true);
+            updateWork();
             return;
         }
         actWork = WAIT_POS;
@@ -176,20 +184,22 @@ void MierzonePozycje::update()
         cnt1 = 0;
         actCzas = m_lista.at(actPos).time;
         setPos();
+        updateWork();
         return;
     }
     case NEXT_POS:
     {
         DEBUGMPZ("actWork NEXT_POS");
-        DEBUGMPZ(QString("Szukam kolejnej pozycji"));
         ui->status->setText("Przechodzę do kolejnej pozycji z listy");
         ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono"));
         ++actPos;
 
 
         if (actPos >= m_lista.size()) {
-            actWork = END;
+            actWork = END_WORK;
+            ui->status->setText("Zakonczono pomiar dla wszystkich pozycji z listy");
             setPositionHome();
+            updateWork();
             return;
         }
         ui->table->scrollToItem(ui->table->item(actPos, 0));
@@ -205,6 +215,7 @@ void MierzonePozycje::update()
         actWork = WAIT_POS;
         actCzas = m_lista.at(actPos).time;
         setPos();
+        updateWork();
         return;
     }
     /*
@@ -222,28 +233,33 @@ void MierzonePozycje::update()
         DEBUGMPZ("actWork START_MEASURING");
         avg1 = 0.0;
         cnt1 = 0;
-        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Rozpoczynam pomiary").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y));
+        ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Rozpoczynam pomiary (%3)").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(actCzas));
         actWork = NOW_MEASURING;
+        updateWork();
         return;
     }
     case NOW_MEASURING:
     {
         DEBUGMPZ("actWork NOW_MEASURING");
-        if (actCzas == cnt1) {
+        if (actCzas <= cnt1) {
             actWork = END_MEASURING;
             ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Ukończono pomiary."));
+            updateWork();
             return;
         }
         ui->status->setText(QString("Pozycja %1 mm %2 mm ustawiona. Średni pomiar %3").arg(m_lista.at(actPos).x).arg(m_lista.at(actPos).y).arg(avg1));
-        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 s").arg(actCzas-cnt1));
-        DEBUGMPZ(QString("Pomiar [%1 s]").arg(actCzas));
+        ui->table->item(actPos, col_status)->setText(QString::fromUtf8("Trwa pomiar. Zostało %1 pomiarów").arg(actCzas-cnt1));
+        DEBUGMPZ(QString("Pomiar [%1]").arg(actCzas-cnt1));
+        radioTimer.start();
         readRadio();
         return;
     }
     case END_MEASURING:
     {
         DEBUGMPZ("actWork END_MEASURING");
+        setRadioVal("--");
         actWork = NEXT_POS;
+        updateWork();
         return;
     }
     }
@@ -253,17 +269,16 @@ void MierzonePozycje::positionDone(bool home)
 {
     DEBUGMPZ(QString("position Done home=%1").arg(home));
     if (home) {
-        /*
         if (actWork == WAIT_HPOS) {
             actWork = NEXT_POS_AFTER_HPOS;
-        } else if (actWork == WAIT){
-            actWork = FIRST_RUN;
+            updateWork();
         }
-        */
     } else {
         if (actWork == WAIT_POS) {
             actWork = START_MEASURING;
+            updateWork();
         }
+        
     }
 }
 
@@ -272,35 +287,41 @@ void MierzonePozycje::readedFromRadio(const double &val)
     DEBUGMPZ(QString("Read from radio %1").arg(val));
     cntErr = 0;
     setValue1(val, "m/s");
-
+    unsigned int msR = radioTimer.elapsed();
+    DEBUGMPZ(QString("Kolejny odczyt za %1").arg(msR));
+    if (msR > 1000) {
+        updateWork();
+    }
+    else {
+        timer->singleShot(1000 - msR, this, &MierzonePozycje::updateWork);
+    }
 }
 
 void MierzonePozycje::errorReadFromRadio()
 {
     DEBUGMPZ(QString("Read Error %1").arg(cntErr + 1));
     if (++cntErr > 10) {
-        timer->stop();
         actWork = DONE;
         ui->status->setText(QString("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));
+        updateWork();
     } else {
-        readRadio();
+        updateWork();
     }
 }
 
 void MierzonePozycje::setStop()
 {
-    timer->stop();
     actWork = DONE;
-    ui->pbRestart->setEnabled(true);
-    ui->pbNoweDane->setEnabled(true);
-    ui->pbStart->setEnabled(true);
-    if (m_listawynikowa.size() > 0)
-        ui->pbZapisz->setEnabled(true);
+    updateWork();
 }
 
 void MierzonePozycje::setStart()
 {
-    timer->start();
+    DEBUGMPZ(QString("setStart"));
+    actPos = 0;
+    actWork = READY_FOR_WORK;
+    m_listawynikowa.clear();
+    updateWork();
 }
 
 void MierzonePozycje::setError()
@@ -311,6 +332,14 @@ void MierzonePozycje::setError()
 void MierzonePozycje::setStatus(const QString &st)
 {
     ui->status->setText(st);
+}
+
+void MierzonePozycje::noweDane()
+{
+    m_listawynikowa.clear();
+    actWork = WAIT_FOR_READY;
+    actPos = 0;
+    updateWork();
 }
 
 const WyborMetodyData &MierzonePozycje::getAllValues() const
@@ -331,6 +360,7 @@ void MierzonePozycje::setValue1(const float &val1, const QString &unit1)
     cnt1++;
     m_listawynikowa.append(data);
     ui->table->item(actPos, col_meas)->setText(QString::fromUtf8("%1 %2").arg(avg1, 0, 'g', 3).arg(unit1));
+    setRadioVal(QString::fromUtf8("%1").arg(val1, 0, 'g', 3));
 }
 
 void MierzonePozycje::restart()
@@ -344,6 +374,7 @@ void MierzonePozycje::on_pbStart_clicked()
     DEBUGMPZ(QString("Start work. "));
     actWork = WAIT_FOR_READY;
     actPos = 0;
+    updateWork();
     ui->pbStart->setEnabled(false);
     ui->pbRestart->setEnabled(false);
     ui->pbNoweDane->setEnabled(false);
@@ -353,6 +384,10 @@ void MierzonePozycje::on_pbStart_clicked()
 
 void MierzonePozycje::on_pbNoweDane_clicked()
 {
+    m_listawynikowa.clear();
+    actWork = WAIT_FOR_READY;
+    actPos = 0;
+    updateWork();
     if (miernikPrzeplywu)
         TabWidget::miernikPrzeplywu->noweDane();
 }
@@ -395,7 +430,7 @@ void MierzonePozycje::on_pbRestart_clicked()
 
     actWork = WAIT_FOR_READY;
     actPos = 0;
-
+    updateWork();
     ui->pbStart->setEnabled(false);
     ui->pbNoweDane->setEnabled(false);
     ui->pbZapisz->setEnabled(false);

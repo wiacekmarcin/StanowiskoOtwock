@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QMutex>
+#include <QElapsedTimer>
 #include "pozycje.h"
 #include "mechanika.h"
 #include "tabwidget.h"
@@ -53,7 +54,7 @@ public:
     void noweDane();
 
 private slots:
-    void update();
+    void updateWork();
     //void on_pbSaveAll_clicked();
     //void on_pbSaveAll_pressed();
 
@@ -70,6 +71,7 @@ private:
     typedef enum _statusWork {
         WAIT_FOR_READY = 0,
         WAIT,
+        READY_FOR_WORK,
         FIRST_RUN,
         NEXT_POS,
         WAIT_POS,
@@ -80,7 +82,7 @@ private:
         END_MEASURING,
         NEXT_POS_AFTER_HPOS,
         DONE,
-        END
+        END_WORK
     } statusWorkEnum;
 
     typedef enum _cols {
@@ -92,15 +94,15 @@ private:
     } Column;
 
     Ui::MierzonePozycje *ui;
-    QTimer *timer;
-
+    QTimer* timer;
     WyborMetody::ModeWork modeWork;
     WyborMetody::MethodInsData methodIns;
     WyborMetodyData allValues;
     Pozycje m_lista;
     QString fileName;
     bool started;
-
+    QElapsedTimer radioTimer;
+    //QTimer
 
 
 
