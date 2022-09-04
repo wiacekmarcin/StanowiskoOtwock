@@ -19,9 +19,10 @@ public:
     explicit TabWidget(QWidget *parent = nullptr);
 
     void setMechanika(const Ruch & m);
-
     const Ruch &getMechanika() const;
 
+    void setMechanikaRolety(const RoletaRuch & m);
+    const RoletaRuch &getMechanikaRolety() const;
 
     WyborMetody::ModeWork getModeWork() const;
     void setModeWork(const WyborMetody::ModeWork &newModework);
@@ -63,6 +64,8 @@ public:
 
 protected:
     Ruch mech;
+    RoletaRuch mechR;
+
     WyborMetody::ModeWork modeWork;
     WyborMetody::MethodInsData insData;
     QString fileName;

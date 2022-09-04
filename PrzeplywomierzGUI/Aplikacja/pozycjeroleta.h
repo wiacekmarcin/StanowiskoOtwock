@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "tabwidget.h"
+#include <QElapsedTimer>
 
 class QTimer;
 
@@ -20,6 +21,17 @@ typedef struct _daneWynikoweR {
     float val1;
 } DaneWynikoweRoleta;
 
+typedef struct _point {
+    bool roleta;
+    unsigned int stableRolTime;
+    unsigned int rmm;
+    unsigned int measurTime;
+    unsigned int xmm;
+    float x;
+    unsigned int ymm;
+    float y;
+    unsigned int nrEtap; 
+} PunktyPomiariowe;
 
 class PozycjeRoleta : public TabWidget
 {
@@ -46,14 +58,6 @@ public:
         col_status,
     } Column;
 
-    unsigned int offsetX() const;
-    void setOffsetX(unsigned int newOffsetX);
-
-    unsigned int offsetY() const;
-    void setOffsetY(unsigned int newOffsetY);
-
-    void setValue1(const float & val, const QString & unit);
-
     virtual void positionDone(bool base);
     virtual void roletaDone(bool base);
     virtual void readedFromRadio(const double &);
@@ -65,9 +69,10 @@ public:
 
 protected :
     void setPos();
+    void setValue1(const float & val, const QString & unit);
 
 private slots:
-    void update();
+    void updateWork();
 
     void on_pbStart_clicked();
     void on_pbNoweDane_clicked();
@@ -114,13 +119,7 @@ private:
 
     short actWork;
     int actPos;
-    unsigned int actCzas;
-
-    unsigned int m_width;
-    unsigned int m_height;
-
-    unsigned int m_offsetX;
-    unsigned int m_offsetY;
+    unsigned int measTime;
 
     double avg1;
     unsigned int cnt1;
@@ -131,9 +130,11 @@ private:
     unsigned int ymm;
 
     QList<DaneWynikoweRoleta> m_listawynikowa;
-    RoletaRuch rolRuch;
     bool roletaClose;
     bool firstRoleta;
+
+    QVector<PunktyPomiariowe> punkty;
+    QElapsedTimer radioTimer;
 };
 
 #endif // POZYCJEROLETA_H
