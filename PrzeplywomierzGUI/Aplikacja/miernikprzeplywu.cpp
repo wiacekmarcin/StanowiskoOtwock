@@ -185,6 +185,7 @@ void MiernikPrzeplywu::calculateMechanika()
     }
     mech.setMaxKrokiR(ust.getMaxRolKroki().toUInt());
     widget->setMechanika(mech);
+    widget->setMechanikaRolety(mechR);
     sMsg.setParams(mech.getReverseX(), mech.getReverseY(), mech.getReverseR(),
                       mech.getMaxImpusyX(), mech.getMaxImpusyY(),
                       mech.getMaxKrokiX(), mech.getMaxKrokiY(),
@@ -583,7 +584,7 @@ void MiernikPrzeplywu::positionHome()
 
     if (firstRun && modeWork != WyborMetody::MODE_FUNSET) {
         firstRun = false;
-        if (modeWork == WyborMetody::MODE_ROLETAP) {
+        if (modeWork == WyborMetody::MODE_ROLETAP || modeWork == WyborMetody::MODE_ROLETAL) {
             ui->lStatusRoleta->setText(QString("Ustawiam roletę w pozycji bazowej"));
             widget->setStatus(QString("Trwa zerowanie rolety"));
             ui->statusbar->showMessage("Trwa zerowanie rolety", 5000);
