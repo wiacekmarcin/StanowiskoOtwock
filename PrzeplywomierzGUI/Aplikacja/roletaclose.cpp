@@ -53,10 +53,10 @@ void RoletaClose::setCloseRoleta()
 {
     sDev->setRoletaHome();
     if (roletaClp == RoletaClose::ROL_OPEN) {
-        sDev->setRoleta(mechRol.poniescPercent(100));
+        sDev->setRoleta(mechRol.poniescPercent(1));
     }
     else if (roletaClp == RoletaClose::ROL_HALF) {
-        sDev->setRoleta(mechRol.poniescPercent(50));
+        sDev->setRoleta(mechRol.poniescPercent(0.5));
     }
     sDev->closeDevice(true);
 }
