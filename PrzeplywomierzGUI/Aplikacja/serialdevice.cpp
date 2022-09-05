@@ -548,6 +548,10 @@ void SerialDevice::readRadioJob()
         emit readFromRadio(false, 0, 0, 0, 0);
         return;
     }
+    if (!s.getRadioOk()) {
+        emit readFromRadio(false, 0, 0, 0, 0);
+        return;
+    }
     int val1, val2, val3, val4;
 
     s.readRadioValues(val1,val2,val3,val4);

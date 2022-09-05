@@ -307,6 +307,7 @@ public:
 
     void readRadioValues(int & val1, int & val2, int & val3, int & val4);
     const SerialMessageValues& getValues() const;
+    bool getRadioOk() const { return readRadioOK;  }
 
 protected:
 
