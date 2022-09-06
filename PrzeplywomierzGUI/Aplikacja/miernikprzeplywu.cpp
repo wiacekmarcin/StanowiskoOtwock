@@ -609,6 +609,7 @@ void MiernikPrzeplywu::positionHome()
                 Wentylator* w = static_cast<Wentylator*>(widget);
                 w->addStatus("Urządzenie wyzerowane.");
                 w->setIsReady(true);
+                w->positionDone(true);
             }
             ui->statusbar->showMessage("Urządzenie gotowe do pracy", 5000);
         }
@@ -692,7 +693,8 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
         ui->lStatus->setText("Czujnik ustawiony na pozycji.");
         ui->lStatusMinor->setText("--");
         ui->statusbar->showMessage("Czujnik ustawiony na pozycji.",5000);
-        widget->positionDone(false);
+        if (widget)
+            widget->positionDone(false);
         break;
     case SerialMessage::START_R:
         ui->lStatusRoleta->setText("Podnoszenie rolety...");
@@ -701,18 +703,24 @@ void MiernikPrzeplywu::positionStatus(SerialMessage::StatusWork work)
     case SerialMessage::END_R:
         ui->lStatusRoleta->setText("Roleta ustawiona.");
         ui->statusbar->showMessage("Zakończono ustawianie rolety na pozycji.",5000);
-        widget->roletaDone(false);
+        if (widget)
+            widget->roletaDone(false);
         break;
     case SerialMessage::ERROR_XY:
         ui->lStatusMinor->setText("Błąd pozycjonowania czujnika");
         QMessageBox::critical(this, "Pozycjonowanie czujnika", "Nie udało się ustawić czujnika w pozycji zadanej.");
+        if (widget)
+            widget->setError();
         return;
     case SerialMessage::ERROR_R:
         ui->lStatusRoleta->setText("Błąd podnoszenia rolety");
         QMessageBox::critical(this, "Pozycjonowanie rolety", "Nie udało się ustawić rolety w pozycji zadanej.");
+        if (widget)
+            widget->setError();
         return;
     }
-    widget->positionStatus(false, work);
+    if (widget)
+        widget->positionStatus(false, work);
 }
 
 void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
@@ -758,12 +766,17 @@ void MiernikPrzeplywu::homeStatus(SerialMessage::StatusWork work)
     case SerialMessage::ERROR_XY:
         QMessageBox::critical(this, QString("Kalibracja urządzenia"),
                               QString("Nie powiodła się kalibracja urządzenia. Wyłącz silniki i podjedź tacką do rogu gdzie są umieszczone silniki i spróbuje raz jeszcze"));
+        if (widget)
+            widget->setError();
         return;
     case SerialMessage::ERROR_R:
         QMessageBox::critical(this, "Pozycjonowanie rolety", "Nie udało się ustawić rolety w pozycji bazowej");
+        if (widget)
+            widget->setError();
         return;
     }
-    widget->positionStatus(true, work);
+    if (widget)
+        widget->positionStatus(true, work);
 }
 
 void MiernikPrzeplywu::errorHome()
