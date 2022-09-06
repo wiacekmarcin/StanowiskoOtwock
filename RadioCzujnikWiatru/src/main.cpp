@@ -1,168 +1,89 @@
-/*
-* Arduino Wireless Communication Tutorial
-*       Example 1 - Receiver Code
-*                
-* by Dejan Nedelkovski, www.HowToMechatronics.com
-* 
-* Library: TMRh20/RF24, https://github.com/tmrh20/RF24/
-*/
+#include <Arduino.h>
 
-#include "RF24.h"
-#include "printf.h"
+#include <Wire.h>
+#include <DFRobot_ADS1115.h>
+#include <Adafruit_SSD1306.h>
 
-//
-// Hardware configuration
-//
+#include "lcd.h"
+#include "radio.h"
 
-// Set up nRF24L01 radio on SPI bus plus pins 7 & 8
+DFRobot_ADS1115 ads(&Wire);
+extern Adafruit_SSD1306 display;
+volatile bool show_mV = false;
+#define BTN_PIN 10
 
-RF24 radio(7, 8);
-
-//
-// Channel info
-//
-
-const uint8_t num_channels = 126;
-uint8_t values[num_channels];
-
-//
-// Setup
-//
-
-void setup(void)
+void changeUnit()
 {
-  //
-  // Print preamble
-  //
-
-  Serial.begin(9600);
-  printf_begin();
-  Serial.println(F("\n\rRF24/examples/scanner/"));
-
-  //
-  // Setup and configure rf radio
-  //
-
-  radio.begin();
-  radio.setAutoAck(false);
-
-  // Get into standby mode
-  radio.startListening();
-  radio.stopListening();
-  radio.printDetails();
-
-  //delay(1000);
-  // Print out header, high then low digit
-  int i = 0;
-  while ( i < num_channels )
-  {
-    Serial.print(i >> 4, HEX);
-    ++i;
-  }
-  Serial.println();
-  i = 0;
-  while ( i < num_channels )
-  {
-    Serial.print(i & 0xf, HEX);
-    ++i;
-  }
-  Serial.println();
-  //delay(1000);
+    show_mV = ! show_mV;
 }
 
-//
-// Loop
-//
-
-const int num_reps = 100;
-bool constCarrierMode = 0;
-
-void loop(void)
-{
-  /****************************************/
-  // Send g over Serial to begin CCW output
-  // Configure the channel and power level below
-  if (Serial.available()) {
-    char c = Serial.read();
-    if (c == 'g') {
-      constCarrierMode = 1;
-      radio.stopListening();
-      delay(2);
-      Serial.println("Starting Carrier Out");
-      radio.startConstCarrier(RF24_PA_LOW, 40);
-    } else if (c == 'e') {
-      constCarrierMode = 0;
-      radio.stopConstCarrier();
-      Serial.println("Stopping Carrier Out");
-    }
-  }
-  /****************************************/
-
-  if (constCarrierMode == 0) {
-    // Clear measurement values
-    memset(values, 0, sizeof(values));
-
-    // Scan all channels num_reps times
-    int rep_counter = num_reps;
-    while (rep_counter--)
-    {
-      int i = num_channels;
-      while (i--)
-      {
-        // Select this channel
-        radio.setChannel(i);
-
-        // Listen for a little
-        radio.startListening();
-        delayMicroseconds(128);
-        radio.stopListening();
-
-        // Did we get a carrier?
-        if ( radio.testCarrier() ) {
-          ++values[i];
-        }
-      }
-    }
-
-
-    // Print out channel measurements, clamped to a single hex digit
-    int i = 0;
-    while ( i < num_channels )
-    {
-      Serial.print(min(0xf, values[i]), HEX);
-      ++i;
-    }
-    Serial.println();
-
-  }//If constCarrierMode == 0
-}
-#if 0
-
-#include <Arduino.h>?
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
-RF24 radio(7, 8); // CE, CSN
-const byte address[6] = "00001";
 void setup() {
-  Serial.begin(9600);
-  radio.begin();
-  radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MAX);
-  radio.startListening();
-}
+    Wire.begin();
+    Serial.begin(9600);
+    ads.setAddr_ADS1115(ADS1115_IIC_ADDRESS1);   // 0x48
+    ads.setGain(eGAIN_TWOTHIRDS);   // 2/3x gain
+    ads.setMode(eMODE_SINGLE);       // single-shot mode
+    ads.setRate(eRATE_128);          // 128SPS (default)
+    ads.setOSMode(eOSMODE_SINGLE);   // Set to start a single-conversion
+    ads.init();
 
-unsigned long premls = 0L;
+    lcdsetup();
+
+    if (!radioInit()) {
+        drawStatus(RADIO_ERROR);
+    }
+
+    if (!isRadioConnected()) {
+        drawStatus(RADIO_NOPRESENT);
+    }
+
+    pinMode(BTN_PIN, INPUT);
+
+    attachInterrupt(BTN_PIN, changeUnit, FALLING);
+
+}
+bool wasADC = true;
+int16_t adc0, adc1, adc2, adc3;
+bool prev_mV = false;
 void loop() {
-  if (radio.available()) {
-    char text[32] = "";
-    radio.read(&text, sizeof(text));
-    unsigned long mls = millis();
-    Serial.print(mls - premls, DEC);
-    Serial.print(" ");
-    premls = mls;
-    Serial.println(text);
-  }
-}
+    if (prev_mV != show_mV) {
+        prev_mV = show_mV;
+        changeUnit(show_mV);
+    }
+    if (ads.checkADS1115())
+    {
+        if (!wasADC) {
+            clearDisplay();
+            wasADC = true;
+        }
+        adc0 = ads.readVoltage(0);
+        if (!show_mV)
+            drawSpeed(adc0/100.0);
+        else
+            drawmVolts(show_mV);
 
-#endif
+        drawPercent(100*adc0/5250);
+    }
+    else
+    {
+        drawNOD1115();
+        wasADC = false;
+    }
+
+    if (isRadioConnected()) {
+        //drawStatus(RADIO_SENDING);
+        if (recvData()) {
+            if (send(adc0, adc1)) {
+                drawStatus(RADIO_SENDOK);
+            } else {
+                drawStatus(RADIO_ERROR);
+            }
+        } else {
+            drawStatus(WAITING_DATA);
+        }
+    } else {
+        drawStatus(RADIO_NOPRESENT);
+    }
+
+    delay(500);
+}

@@ -106,7 +106,6 @@ QByteArray SerialMessage::measUnitMsg(short index, const float &ratio, QString &
     } t;
     t.f = ratio;
     uint8_t tab[15];
-    tab[0] = 0;
     tab[0] = (index & 0x0f) | (unit.size() & 0x0f) << 4;
     for (int i = 0; i < 4; i++) {
         tab[i+1] = t.a[i];
@@ -201,7 +200,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                 
             };
             for (int i = 0; i < 15; ++i) {
-                if (wzorzec[i] != data[i]) {
+                if (wzorzec[i] != uchar(data.at(i))) {
                     m_errorText = QString("Nie poprawna wzorzec odpdowiedzi");
                     m_errorBool = true;
                     return false;
@@ -214,11 +213,11 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
 
         case SET_PARAM_REP:
         {
-            if (data[0] == (char)1) {
+            if (uchar(data.at(0)) == (uchar)1) {
                 m_parseReply = SETPARAMS1_REPLY;
                 return true;
             }
-            if (data[0] == (char)2) {
+            if (uchar(data.at(0)) == (uchar)2) {
                 m_parseReply = SETPARAMS2_REPLY;
                 return true;
             }
@@ -231,9 +230,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         case MOVEHOME_REP:
         {    
             if (len == 1) {
-                return reply1Byte(MOVEHOME_REPLY, data[0]);
+                return reply1Byte(MOVEHOME_REPLY, uchar(data.at(0)));
             } else if (len == 5) {
-                switch(data[0]) {
+                switch(uchar(data.at(0))) {
                 case 'P':
                     v.moveStepX = getNumber(data.mid(1, 4));
                     m_parseReply = MOVEHOME_REPLY;
@@ -250,12 +249,12 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                     posWork = END_R;
                     return true;
                 default:
-                    m_errorText = QString("Nie poprawna odpowiedz na pozycjonowanie bazowe %1").arg((short)data[0], 1, 16);
+                    m_errorText = QString("Nie poprawna odpowiedz na pozycjonowanie bazowe %1").arg((short)uchar(data.at(0)), 1, 16);
                     m_errorBool = true;    
                     return false;
                 }
             } else if (len == 2) {
-                return reply2Byte(MOVEHOME_REPLY, data[0], data[1]);
+                return reply2Byte(MOVEHOME_REPLY, uchar(data.at(0)), uchar(data.at(1)));
             }
             m_errorText = QString("Nie poprawna dligosc odpowiedzi na pozycjonowanie bazowe len = %1").arg(len);
             m_errorBool = true;    
@@ -279,9 +278,9 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
         //69 G STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
         //69 R STEP4 STEP3 STEP2 STEP1 POS4 POS3 POS2 POS1 CRC8 - reply ustawienie pozycji
             if (len == 1) {
-                return reply1Byte(POSITION_REPLY, data[0]);
+                return reply1Byte(POSITION_REPLY, uchar(data.at(0)));
             } else if (len == 9) {
-                switch(data[0]) {
+                switch(uchar(data.at(0))) {
                     case 'P':
                         v.moveStepX = getNumber(data.mid(1, 4));
                         v.posImpX = getNumber(data.mid(5, 4));
@@ -301,7 +300,7 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
                         posWork = END_R;
                         return true;
                     default:
-                        m_errorText = QString("Nie poprawna odpowiedzi na pozycjonowanie  = %1").arg((short)data[0], 0, 16);
+                        m_errorText = QString("Nie poprawna odpowiedzi na pozycjonowanie  = %1").arg((short)uchar(data.at(0)), 0, 16);
                         m_errorBool = true; 
                         return false;
                 }
@@ -317,19 +316,19 @@ bool SerialMessage::parseCommand(const QByteArray &arr)
             //0xa0 CRC8 - req
             //0xbA 'O' X2 X1 Y2 Y1 W2 W1 Z2 Z1 CRC8 - ok, wartosci odczytane z radia
             //0xb1 'E' CRC8 - error polaczenia z radiem
-            if (len == 2 && data[0] == 'E') {
+            if (len == 2 && uchar(data.at(0)) == 'E') {
                 readRadioOK = false;
                 m_parseReply = RADIOREAD_REPLY;
                 return true;
-            } else if (len == 9 && data[0] == 'O') {
+            } else if (len == 9 && uchar(data.at(0)) == 'O') {
                 radioVal1 = 0;
                 radioVal2 = 0;
                 radioVal3 = 0;
                 radioVal4 = 0;
-                radioVal1 = data[1] << 8 | data[2];
-                radioVal2 = data[3] << 8 | data[4];
-                radioVal3 = data[5] << 8 | data[6];
-                radioVal4 = data[7] << 8 | data[8];
+                radioVal1 = ((uchar(data.at(1)) & 0xff) << 8) | (uchar(data.at(2)) & 0xff);
+                radioVal2 = ((uchar(data.at(3)) & 0xff) << 8) | (uchar(data.at(4)) & 0xff);
+                radioVal3 = ((uchar(data.at(5)) & 0xff) << 8) | (uchar(data.at(6)) & 0xff);
+                radioVal4 = ((uchar(data.at(7)) & 0xff) << 8) | (uchar(data.at(8)) & 0xff);
                 readRadioOK = true;
                 m_parseReply = RADIOREAD_REPLY;
                 return true;
@@ -471,6 +470,6 @@ void SerialMessage::readRadioValues(int & val1, int & val2, int & val3, int & va
 
 uint32_t SerialMessage::getNumber(const QByteArray &data)
 {
-    return ((data[0] & 0xff) << 24) +  ((data[1] & 0xff) << 16) + ((data[2] & 0xff) << 8) + (data[3] & 0xff);
+    return ((uchar(data.at(0)) & 0xff) << 24) +  ((uchar(data.at(1)) & 0xff) << 16) + ((uchar(data.at(2)) & 0xff) << 8) + (uchar(data.at(3)) & 0xff);
 }
 
