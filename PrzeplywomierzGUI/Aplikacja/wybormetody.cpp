@@ -1016,7 +1016,7 @@ void WyborMetody::on_pbWyliczPozycje_clicked()
 
     unsigned int width = 800;
 
-    unsigned int maxMM = (unsigned int) (1.0 * nrEtap / maxEtap * 1500);
+    unsigned int maxMM = round(1.0 * nrEtap / maxEtap * 1500);
 
     if (mmX > width)
         return;

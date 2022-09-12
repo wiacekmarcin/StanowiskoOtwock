@@ -288,7 +288,7 @@ void RoletaRuch::setImpPerObrot(unsigned short obr, const QString & impls)
 
 void RoletaRuch::setObrot(unsigned int obr, float value)
 {
-    obrotStala10xmm[obr] = (unsigned int) 10*value;
+    obrotStala10xmm[obr] = round(10*value);
 }
 
 unsigned int RoletaRuch::getKrokiPerObrot() const
@@ -323,7 +323,7 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
             int mmDoKonca = maxMM-heightMM/10;
             if (mmDoKonca <= 0)
                 return maxKroki;
-            int krokiWyznaczone = krokidoKonca*MM/mmDoKonca/10;
+            int krokiWyznaczone = round(1.0*krokidoKonca*MM/mmDoKonca/10);
             if (krokiWyznaczone < 0)
                 krokiWyznaczone = 0;
             kroki += krokiWyznaczone;
@@ -333,7 +333,7 @@ unsigned long RoletaRuch::podniescMM(unsigned int mm)
         }
 
         if (MM < obwod) {
-            kroki += (unsigned long)(krokiPerObrot*MM/obwod);
+            kroki += round(1.0*krokiPerObrot*MM/obwod);
             if (kroki > maxKroki)
                 return maxKroki;
             return kroki;

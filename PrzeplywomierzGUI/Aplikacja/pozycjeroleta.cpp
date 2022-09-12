@@ -29,7 +29,7 @@ PozycjeRoleta::PozycjeRoleta(QWidget *parent) :
 
     ui->table->setColumnCount(headers.size());
     ui->table->setHorizontalHeaderLabels(headers);
-    ui->table->setAutoScroll(true);
+    //ui->table->setAutoScroll(true);
     ui->table->resizeRowsToContents();
     ui->table->resizeColumnsToContents();
     ui->table->horizontalHeader()->setStretchLastSection(true);
@@ -309,7 +309,7 @@ void PozycjeRoleta::updateWork()
             updateWork();
             return;
         }
-        ui->table->scrollToItem(ui->table->item(actPos, 0));
+        ui->table->scrollToItem(ui->table->item(actPos, 0), QAbstractItemView::PositionAtCenter);
         /*
                 if (actPos % 100 == 0) {
                     actWork = WAIT_HPOS;
@@ -483,12 +483,17 @@ void PozycjeRoleta::readedFromRadio(const double &val)
 void PozycjeRoleta::errorReadFromRadio()
 {
     DEBUGPR(QString("Read Error %1").arg(cntErr + 1));
-    if (++cntErr > 10) {
+    if (++cntErr > 1000) {
         actWork = DONE;
         setStatus(QString::fromUtf8("Przerywam pomiary ze względu na błąd odczytu z czujnika radiowego"));
         updateWork();
     } else {
-        updateWork();
+        if (cntErr % 10 == 0)
+            timer->singleShot(5000, this, &PozycjeRoleta::updateWork);
+        else
+        {
+            timer->singleShot(500, this, &PozycjeRoleta::updateWork);
+        }
     }
 }
 

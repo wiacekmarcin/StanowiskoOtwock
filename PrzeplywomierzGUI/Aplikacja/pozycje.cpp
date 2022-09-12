@@ -100,15 +100,15 @@ void PozycjeRol::appendPoints(unsigned int roletaEtap, unsigned int xNorma, unsi
             p.nx = norma[xNorma-5][i];
             p.ny = norma[yNorma-5][j];
 
-            p.mmx = (reverseX) ? (offsetX - width * (0.5 - p.nx) ) : ( offsetX + width * (0.5 - p.nx) );
-            p.mmy = offsetY - wysokosc * (0.5 + p.ny);
+            p.mmx = round((reverseX) ? (offsetX - width * (0.5 - p.nx) ) : ( offsetX + width * (0.5 - p.nx) ));
+            p.mmy = round(offsetY - wysokosc * (0.5 + p.ny));
             if (p.mmy < 0) {
                 p.mmy = 0;
             }
             if (p.mmx < 0) {
                 p.mmx = 0;
             }
-            p.mmr = (unsigned int)wysokosc;
+            p.mmr = round(wysokosc);
             p.etap = roletaEtap+1;
             p.stableTime = 0;
             p.measTime = measTime;
@@ -147,9 +147,9 @@ void PozycjeRol::appendPoint(unsigned int roletaEtap, float xNorma, float yNorma
     PosRoleta p;
     p.nx = xNorma;
     p.ny = yNorma;
-    p.mmx = width * (0.5 - p.nx) + offsetX;
-    p.mmy = wysokosc * (0.5 - p.ny) + (offsetY-wysokosc);
-    p.mmr = (unsigned int)wysokosc;
+    p.mmx = round(width * (0.5 - p.nx) + offsetX);
+    p.mmy = round(wysokosc * (0.5 - p.ny) + (offsetY-wysokosc));
+    p.mmr = round(wysokosc);
     p.etap = roletaEtap+1;
     p.stableTime = 0;
     p.measTime = mt;

@@ -75,7 +75,7 @@ void MessageSerial::sendMessage(uint8_t cmd, uint8_t* buf, uint8_t len)
 
 bool MessageSerial::parseRozkaz()
 {
-    
+    static uint16_t id = 0;    
     switch(rozkaz) {
         case WELCOME_REQ:   //get info 
         {  
@@ -117,7 +117,10 @@ bool MessageSerial::parseRozkaz()
         }
         case MEASVALUE_REQ:
         {
-            sendRadioVal(0,0,0,0);
+            if (++id % 10 == 0) 
+                sendRadioError(1);
+            else
+                sendRadioVal(10*id,0,0,0);
             actWork = NOP;
 
             return true;
@@ -157,8 +160,6 @@ void MessageSerial::sendRadioVal(uint16_t val1, uint16_t val2, uint16_t val3, ui
 
 void MessageSerial::sendRadioError(uint8_t val)
 {
-     
-
     uint8_t sendData[2] = {'E', '0'+val};
     sendMessage(MEASVALUE_REP, sendData, 2);
  
@@ -236,7 +237,8 @@ void MessageSerial::sendRolPositionMessages(bool home)
 {
     uint8_t sendData1[1] = {'r'};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData1, 1);
-    delay(1000);
+    if (!home)
+        delay(1000);
 
     uint8_t sendData2[9] = {'R', 0, 0, 0, 0, 0, 0, 0, 0};
     sendMessage(home ? MOVEHOME_REP : POSITION_REP, sendData2, home ? 5 : 9);

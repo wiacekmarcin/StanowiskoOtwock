@@ -533,6 +533,7 @@ void MiernikPrzeplywu::readedFromRadio(bool sucess, int val1, int, int, int)
         return;
     }
 
+    ui->lradio->setText(sucess ? QString("Komunikacja OK") : QString("Brak komunikacji"));
     if (!sucess) {
         errorReadFromRadio();
         return;
@@ -552,7 +553,7 @@ void MiernikPrzeplywu::errorReadFromRadio()
     if (modeWork == WyborMetody::MODE_NONE || modeWork == WyborMetody::MODE_FUNSET)
         return;
 
-    ui->lradio->setText("Brak komunikacji");
+    //ui->lradio->setText("Brak komunikacji");
     ui->lcz1mv->setText("---");
     ui->lcz1unit->setText("---");
 
